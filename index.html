@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ইসতিয়াক আহমেদ খাঁন | প্রোফাইল</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #050505;
+            --bg-card: #111111;
+            --accent: #D4AF37;
+            --text-main: #FFFFFF;
+            --text-muted: #B0B3B8;
+            --border: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(10, 10, 10, 0.98);
+            --live-red: #ff4b2b;
+            --done-green: #2ecc71;
+            --upcoming-blue: #3498db;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        
+        html, body { 
+            width: 100%;
+            overflow-x: hidden;
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.5;
+        }
+
+        /* --- BIRTHDAY GLITTER & MSG --- */
+        #bday-overlay {
+            position: fixed; inset: 0; z-index: 100000;
+            display: none; pointer-events: none;
+        }
+        .glitter {
+            position: absolute; width: 4px; height: 4px; background: var(--accent);
+            border-radius: 50%; opacity: 0; animation: fall linear infinite;
+            box-shadow: 0 0 8px var(--accent);
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) scale(0); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh) scale(1); opacity: 0; }
+        }
+
+        #bday-msg {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(10, 10, 10, 0.95); border: 1px solid var(--accent);
+            padding: 30px; border-radius: 20px; color: var(--accent);
+            text-align: center; z-index: 100001; display: none;
+            backdrop-filter: blur(15px); box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+            width: 85%; max-width: 400px;
+        }
+
+        /* --- LOADER --- */
+        #loader {
+            position: fixed; inset: 0; background: var(--bg-body); z-index: 99999;
+            display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease;
+        }
+        .loader-img { width: 70px; border-radius: 50%; animation: pulse-img 2s infinite ease-in-out; }
+        @keyframes pulse-img { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 60px;
+            background: var(--nav-bg); border-bottom: 1px solid var(--border); z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-inner { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+        .logo { color: var(--accent); font-weight: 700; text-decoration: none; font-size: 1.1rem; }
+        .mobile-menu-btn { cursor: pointer; padding: 5px; }
+        .dot-bar { width: 20px; height: 2px; background: var(--accent); margin: 4px 0; border-radius: 2px; }
+
+        /* --- MOBILE MENU --- */
+        #mobileNav {
+            position: fixed; top: 0; right: -100%; width: 260px; height: 100vh;
+            background: #0a0a0a; border-left: 1px solid var(--border);
+            z-index: 10001; padding: 80px 20px; display: flex; flex-direction: column;
+            transition: 0.3s ease;
+        }
+        #mobileNav.open { right: 0; }
+        #mobileNav a { color: var(--text-main); text-decoration: none; font-size: 1rem; padding: 14px 0; border-bottom: 1px solid var(--border); }
+        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: none; backdrop-filter: blur(3px); }
+
+        /* --- PROFILE HEADER (NO FRAME VERSION) --- */
+        .profile-container { width: 100%; max-width: 1000px; margin: 60px auto 0; position: relative; }
+        .cover-photo { width: 100%; height: 160px; background: #1a1a1a; border-bottom: 1px solid var(--border); overflow: hidden; }
+        .cover-photo img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .profile-header-info { padding: 0 15px; display: flex; align-items: flex-end; gap: 15px; margin-top: -50px; position: relative; z-index: 20; }
+        
+        /* NO FRAME AVATAR */
+        .avatar-box { width: 100px; flex-shrink: 0; background: transparent; }
+        .avatar-box img { width: 100%; height: auto; display: block; border-radius: 12px; border: none; outline: none; box-shadow: none; }
+        
+        .name-meta { margin-bottom: 5px; flex: 1; min-width: 0; }
+        .name-meta h1 { font-size: 1.3rem; color: var(--accent); font-weight: 700; line-height: 1.2; }
+        
+        /* --- TABS --- */
+        .tabs { display: flex; gap: 8px; margin: 20px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab-btn { background: none; border: none; color: var(--text-muted); padding: 7px 14px; cursor: pointer; font-weight: 600; font-size: 0.85rem; border-radius: 6px; transition: 0.2s; white-space: nowrap; }
+        .tab-btn.active { color: var(--accent); background: rgba(212, 175, 55, 0.1); }
+
+        /* --- CONTENT --- */
+        .content-layout { width: 100%; max-width: 1000px; margin: 0 auto 100px; padding: 0 15px; display: flex; flex-direction: column; gap: 15px; }
+        .card { width: 100%; background: var(--bg-card); border-radius: 12px; padding: 18px; border: 1px solid var(--border); }
+        .card h3 { color: var(--accent); margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-size: 0.95rem; }
+
+        .info-row { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; margin-bottom: 10px; color: var(--text-muted); }
+        .info-row span { color: var(--text-main); font-weight: 600; }
+
+        .project-item { display: flex; gap: 12px; padding: 15px 0; border-bottom: 1px solid var(--border); animation: fadeIn 0.4s ease; align-items: flex-start; width: 100%; }
+        .project-item:last-child { border-bottom: none; }
+        .project-img-box { width: 85px; height: 75px; flex-shrink: 0; border-radius: 8px; overflow: hidden; background: #222; border: 1px solid var(--border); }
+        .project-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .project-content { flex: 1; min-width: 0; }
+        .project-name { font-weight: 700; color: #fff; font-size: 0.92rem; }
+        .project-date { font-size: 0.72rem; color: var(--text-muted); }
+        .project-desc { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .expanded { -webkit-line-clamp: unset !important; display: block !important; }
+        .see-more { color: var(--accent); font-size: 0.78rem; font-weight: 700; cursor: pointer; margin-top: 5px; display: inline-block; }
+
+        .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; font-weight: 800; margin-top: 10px; padding: 3px 10px; border-radius: 20px; background: rgba(255,255,255,0.04); }
+        .dot { width: 6px; height: 6px; border-radius: 50%; }
+        .tag-live { color: var(--live-red); } .dot-live { background: var(--live-red); animation: pulse-red 1.5s infinite; }
+        .tag-done { color: var(--done-green); } .dot-done { background: var(--done-green); }
+        .tag-upcoming { color: var(--upcoming-blue); } .dot-upcoming { background: var(--upcoming-blue); }
+
+        @keyframes pulse-red { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (min-width: 768px) {
+            .content-layout { flex-direction: row; }
+            aside { width: 320px; position: sticky; top: 80px; }
+            main { flex: 1; }
+            .cover-photo { height: 280px; border-radius: 0 0 15px 15px; }
+            .avatar-box { width: 150px; margin-top: -90px; }
+            .name-meta h1 { font-size: 1.8rem; }
+            .project-img-box { width: 115px; height: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bday-overlay"></div>
+    <div id="bday-msg" onclick="this.style.display='none'">
+        <h2>আজ ৩১ই ডিসেম্বর</h2>
+        <p>ইসতিয়াক আহমেদ এর জন্মদিন</p>
+    </div>
+
+    <div id="loader"><img src="profile.png" class="loader-img"></div>
+    <div class="overlay-bg" id="menuOverlay" onclick="toggleMobileNav()"></div>
+    
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">ISTIACK</a>
+            <div class="mobile-menu-btn" onclick="toggleMobileNav()">
+                <div class="dot-bar"></div><div class="dot-bar"></div><div class="dot-bar"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileNav">
+        <a href="index.html">🏠 হোম</a>
+        <a href="debate.html">🎙️ বিতর্ক</a>
+        <a href="politics.html">⚖️ রাজনীতি</a>
+        <a href="thoughts.html">💡 চিন্তাধারা</a>
+        <a href="donate.html">☕ সহযোগিতা</a>
+        <a href="contact.html">📞 যোগাযোগ</a>
+        <a href="admin.html">🔐 এডমিন লগইন</a>
+    </div>
+
+    <div class="profile-container">
+        <div class="cover-photo"><img src="cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1200'"></div>
+        <div class="profile-header-info">
+            <div class="avatar-box"><img src="profile.png"></div>
+            <div class="name-meta">
+                <h1>ইসতিয়াক আহমেদ খাঁন</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-layout">
+        <aside>
+            <div class="card">
+                <h3>ব্যক্তিগত তথ্য</h3>
+                <div class="info-row">🎂 জন্ম: <span>৩১ ডিসেম্বর ২০০৭</span></div>
+                <div class="info-row">⏳ বয়স: <span id="display-age">গণনা করা হচ্ছে...</span></div>
+                <div class="info-row">🎓 শিক্ষা: <span>মেহেরপুর সরকারি কলেজ</span></div>
+                <div class="info-row">📍 স্থান: <span>মেহেরপুর, বাংলাদেশ</span></div>
+            </div>
+        </aside>
+        
+        <main>
+            <div class="card">
+                <h3>📁 কার্যক্রম ও প্রজেক্ট</h3>
+                <div class="tabs">
+                    <button id="tab-live" class="tab-btn active" onclick="switchTab('live')">চলমান</button>
+                    <button id="tab-done" class="tab-btn" onclick="switchTab('done')">সম্পন্ন</button>
+                    <button id="tab-upcoming" class="tab-btn" onclick="switchTab('upcoming')">আসন্ন</button>
+                </div>
+                <div id="project-list"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="Data.js"></script>
+    <script>
+        let currentStatusFilter = 'live';
+
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('menuOverlay');
+            nav.classList.toggle('open');
+            overlay.style.display = nav.classList.contains('open') ? 'block' : 'none';
+        }
+
+        function runBirthdayCelebration() {
+            const overlay = document.getElementById('bday-overlay');
+            const msg = document.getElementById('bday-msg');
+            overlay.style.display = 'block';
+            msg.style.display = 'block';
+
+            for (let i = 0; i < 60; i++) {
+                const glitter = document.createElement('div');
+                glitter.className = 'glitter';
+                glitter.style.left = Math.random() * 100 + 'vw';
+                glitter.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                glitter.style.animationDelay = Math.random() * 3 + 's';
+                overlay.appendChild(glitter);
+            }
+
+            setTimeout(() => {
+                overlay.style.opacity = '0';
+                msg.style.opacity = '0';
+                overlay.style.transition = 'opacity 2s ease';
+                msg.style.transition = 'opacity 2s ease';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    msg.style.display = 'none';
+                }, 2000);
+            }, 5000);
+        }
+
+        function calculateRealtimeAge() {
+            const dob = new Date(2007, 11, 31); 
+            const now = new Date();
+            
+            const isBday = now.getDate() === 31 && now.getMonth() === 11;
+            if (isBday && !sessionStorage.getItem('bday_shown')) {
+                runBirthdayCelebration();
+                sessionStorage.setItem('bday_shown', 'true');
+            }
+
+            let years = now.getFullYear() - dob.getFullYear();
+            let months = now.getMonth() - dob.getMonth();
+            let days = now.getDate() - dob.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            const bn = (n) => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+            document.getElementById('display-age').innerText = `${bn(years)} বছর, ${bn(months)} মাস, ${bn(days)} দিন`;
+        }
+
+        function formatDateBangla(dateStr) {
+            if(!dateStr) return "";
+            const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+            const date = new Date(dateStr);
+            if (isNaN(date)) return dateStr;
+            return `${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        function switchTab(status) {
+            currentStatusFilter = status;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${status}`).classList.add('active');
+            renderProjects();
+        }
+
+        function renderProjects() {
+            const container = document.getElementById('project-list');
+            if (typeof portfolioData === 'undefined' || !portfolioData.projects) return;
+
+            const now = new Date();
+            const filtered = portfolioData.projects.filter(p => {
+                const start = new Date(p.st);
+                const end = new Date(p.en);
+                let actualStatus = now < start ? 'upcoming' : (now <= end ? 'live' : 'done');
+                return actualStatus === currentStatusFilter;
+            });
+
+            container.innerHTML = '';
+            if(filtered.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); padding:30px; text-align:center; font-size:0.85rem;">কোনো ডাটা পাওয়া যায়নি।</p>`;
+                return;
+            }
+
+            filtered.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = 'project-item';
+                
+                let dateTxt = currentStatusFilter === 'live' ? `${formatDateBangla(p.st)} — বর্তমান` : 
+                              (currentStatusFilter === 'done' ? `${formatDateBangla(p.st)} — ${formatDateBangla(p.en)}` : 
+                              `সম্ভাব্য: ${formatDateBangla(p.st)}`);
+
+                const hasImg = p.pc && p.pc.length > 0;
+                const imgHtml = hasImg ? `<div class="project-img-box"><img src="${p.pc[0]}" loading="lazy"></div>` : '';
+
+                item.innerHTML = `
+                    ${imgHtml}
+                    <div class="project-content">
+                        <div class="project-name">${p.work}</div>
+                        <div class="project-date">${dateTxt}</div>
+                        <p id="desc-${idx}" class="project-desc">${p.desc || ''}</p>
+                        ${(p.desc && p.desc.length > 65) ? `<span class="see-more" onclick="toggleDesc(${idx}, this)">আরও দেখুন</span>` : ''}
+                        <div class="status-badge tag-${currentStatusFilter}">
+                            <div class="dot dot-${currentStatusFilter}"></div>
+                            ${currentStatusFilter === 'live' ? 'চলমান' : (currentStatusFilter === 'done' ? 'সম্পন্ন' : 'আসন্ন')}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleDesc(id, btn) {
+            const el = document.getElementById(`desc-${id}`);
+            if(!el.classList.contains('expanded')) {
+                el.classList.add('expanded');
+                btn.innerText = 'সংক্ষেপ করুন';
+            } else {
+                el.classList.remove('expanded');
+                btn.innerText = 'আরও দেখুন';
+            }
+        }
+
+        window.onload = () => {
+            calculateRealtimeAge();
+            renderProjects();
+            setTimeout(() => { 
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+            }, 500);
+        };
+    </script>
+</body>
+</html>
+
