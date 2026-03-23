@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বিতর্ক সম্পর্কিত | ইসতিয়াক আহমেদ খাঁন</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #050505;
+            --bg-card: #111111;
+            --accent: #D4AF37;
+            --text-main: #FFFFFF;
+            --text-muted: #B0B3B8;
+            --border: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(10, 10, 10, 0.98);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; }
+
+        /* --- LOADING SCREEN --- */
+        #loader {
+            position: fixed; inset: 0; background: var(--bg-body); z-index: 99999;
+            display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease;
+        }
+        .loader-img { width: 80px; border-radius: 50%; animation: pulse-img 2s infinite ease-in-out; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 60px; background: var(--nav-bg);
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-inner { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-decoration: none; }
+        .mobile-menu-btn { cursor: pointer; z-index: 10002; }
+        .dot-bar { width: 22px; height: 2px; background: var(--accent); margin: 4px 0; border-radius: 2px; transition: 0.3s; }
+
+        /* --- MOBILE MENU OVERLAY --- */
+        #mobileNav {
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+            background: #0a0a0a; border-left: 1px solid var(--border);
+            z-index: 10001; padding: 80px 30px; display: flex; flex-direction: column; gap: 10px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobileNav.open { right: 0; }
+        #mobileNav a { 
+            color: var(--text-main); text-decoration: none; font-size: 1.1rem; 
+            padding: 15px 0; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; backdrop-filter: blur(4px); }
+
+        /* --- HEADER (No Frame) --- */
+        .profile-container { max-width: 1000px; margin: 60px auto 0; position: relative; }
+        .cover-photo { width: 100%; height: 250px; background: #1a1a1a; border-radius: 0 0 15px 15px; border: 1px solid var(--border); overflow: hidden; }
+        .cover-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-header-info { padding: 0 20px; display: flex; align-items: flex-end; gap: 15px; margin-top: -60px; position: relative; z-index: 20; }
+        .avatar-box { width: 140px; flex-shrink: 0; }
+        .avatar-box img { width: 100%; height: auto; display: block; }
+        .name-meta { margin-bottom: 10px; }
+        .name-meta h1 { font-size: 1.6rem; color: var(--accent); }
+
+        /* --- CONTENT --- */
+        .content-layout { max-width: 1000px; margin: 30px auto 100px; padding: 0 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .card { background: var(--bg-card); border-radius: 12px; padding: 25px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .card h3 { color: var(--accent); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-size: 1.3rem; }
+        .data-item { margin-bottom: 20px; padding-left: 15px; border-left: 2px solid var(--accent); }
+        .data-item h4 { color: #fff; font-size: 1.1rem; }
+        .data-item p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+
+        @media (min-width: 768px) {
+            .content-layout { grid-template-columns: 320px 1fr; }
+            .name-meta h1 { font-size: 2.2rem; }
+            .avatar-box { width: 180px; }
+            .profile-header-info { margin-top: -80px; padding: 0 40px; }
+            .cover-photo { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content"><img src="profile.png" class="loader-img"></div></div>
+    <div class="overlay-bg" id="menuOverlay" onclick="toggleMobileNav()"></div>
+    
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">ISTIACK</a>
+            <div class="mobile-menu-btn" onclick="toggleMobileNav()">
+                <div class="dot-bar"></div><div class="dot-bar"></div><div class="dot-bar"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobileNav">
+        <a href="index.html">🏠 হোম</a>
+        <a href="debate.html">🎙️ বিতর্ক</a>
+        <a href="politics.html">⚖️ রাজনীতি</a>
+        <a href="thoughts.html">💡 চিন্তাধারা</a>
+        <a href="donate.html">☕ সহযোগিতা</a>
+        <a href="contact.html">📞 যোগাযোগ</a>
+    </div>
+
+    <div class="profile-container">
+        <div class="cover-photo"><img src="cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1200'"></div>
+        <div class="profile-header-info">
+            <div class="avatar-box"><img src="profile.png" onerror="this.src='https://via.placeholder.com/500x500?text=Profile'"></div>
+            <div class="name-meta"><h1>বিতর্ক সম্পর্কিত</h1></div>
+        </div>
+    </div>
+
+    <div class="content-layout">
+        <aside><div class="card"><h3>তথ্য</h3><p>যুক্তিতেই মুক্তি</p></div></aside>
+        <main>
+            <div class="card"><h3>অভিজ্ঞতা</h3><div id="experience-list"></div></div>
+            <div class="card"><h3>অর্জন</h3><div id="achievement-list"></div></div>
+        </main>
+    </div>
+
+    <script src="Data.js"></script>
+    <script>
+        function toggleMobileNav() {
+            const n = document.getElementById('mobileNav'), o = document.getElementById('menuOverlay');
+            n.classList.toggle('open');
+            o.style.display = n.classList.contains('open') ? 'block' : 'none';
+        }
+        window.onload = () => {
+            document.getElementById('loader').style.display = 'none';
+            if (typeof portfolioData !== 'undefined' && portfolioData.debate) {
+                const expList = document.getElementById('experience-list');
+                const achList = document.getElementById('achievement-list');
+                portfolioData.debate.experience.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'data-item';
+                    div.innerHTML = `<h4>${item.post}</h4><p>${item.cl} | ${item.time}</p>`;
+                    expList.appendChild(div);
+                });
+                portfolioData.debate.achievements.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'data-item';
+                    div.innerHTML = `<h4>${item.ach}</h4><p>${item.tn} | ${item.time}</p>`;
+                    achList.appendChild(div);
+                });
+            }
+        };
+    </script>
+</body>
+</html>
+
