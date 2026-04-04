@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#050505">
+    <title>Hire Me | Istiack | Premium</title>
+    
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@600;700;800&family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           1. ROOT VARIABLES & THEME TOKENS
+           ========================================================================== */
+        :root {
+            /* Color Palette */
+            --bg-base: #030305;
+            --bg-surface: rgba(15, 15, 20, 0.4);
+            --bg-surface-hover: rgba(25, 25, 30, 0.6);
+            --bg-glass: rgba(10, 10, 12, 0.65);
+            
+            --gold-primary: #D4AF37;
+            --gold-light: #F9E596;
+            --gold-dark: #997A15;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --gold-faint: rgba(212, 175, 55, 0.05);
+            
+            --text-main: #FFFFFF;
+            --text-muted: #8E8E93;
+            --text-dark: #121212;
+            
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-gold: rgba(212, 175, 55, 0.25);
+            --border-gold-strong: rgba(212, 175, 55, 0.6);
+            
+            --success: #32D74B;
+            --error: #FF453A;
+            
+            /* Typography */
+            --font-en: 'Inter', sans-serif;
+            --font-bn: 'Hind Siliguri', sans-serif;
+            --font-title: 'Cinzel', serif;
+            --font-title-bn: 'Noto Serif Bengali', serif;
+            
+            /* Metrics & Effects */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            
+            --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.15);
+            --shadow-gold-hover: 0 0 30px rgba(212, 175, 55, 0.3);
+            
+            --blur-md: blur(12px) saturate(180%);
+            --blur-lg: blur(20px) saturate(200%);
+            
+            --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ==========================================================================
+           2. RESET & BASE STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-bn);
+            font-size: 16px;
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.5); }
+
+        /* Selection */
+        ::selection { background: var(--gold-glow); color: var(--text-main); }
+
+        /* ==========================================================================
+           3. BACKGROUND & AMBIANCE
+           ========================================================================== */
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Ambient Glow Orbs */
+        .ambient-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+            top: -20%;
+            left: -10%;
+            animation: breathe 10s infinite alternate ease-in-out;
+        }
+        .ambient-glow.bottom {
+            top: auto;
+            bottom: -20%;
+            left: auto;
+            right: -10%;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(0,0,0,0) 70%);
+            animation-delay: -5s;
+        }
+
+        /* Noise Overlay for texture */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.02;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           4. LOADER (ULTRA PREMIUM)
+           ========================================================================== */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-base);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+            backdrop-filter: var(--blur-lg);
+        }
+        
+        .loader-wrapper {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .loader-ring {
+            position: absolute;
+            inset: 0;
+            border: 2px solid transparent;
+            border-top-color: var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        
+        .loader-ring:nth-child(2) {
+            inset: 10px;
+            border-top-color: var(--gold-light);
+            animation-direction: reverse;
+            animation-duration: 2s;
+        }
+        
+        .loader-ring:nth-child(3) {
+            inset: 20px;
+            border-top-color: rgba(212, 175, 55, 0.5);
+            animation-duration: 1s;
+        }
+
+        .loader-text {
+            margin-top: 24px;
+            font-family: var(--font-title);
+            color: var(--gold-primary);
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            animation: pulseText 2s infinite;
+        }
+
+        /* ==========================================================================
+           5. NAVIGATION
+           ========================================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0) 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 100;
+            backdrop-filter: var(--blur-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: var(--transition-smooth);
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            font-weight: 900;
+            position: relative;
+            text-shadow: 0 0 15px var(--gold-glow);
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gold-primary);
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 10px var(--gold-primary);
+        }
+        nav:hover .logo::after { width: 100%; }
+
+        /* ==========================================================================
+           6. MAIN LAYOUT & CONTAINER
+           ========================================================================== */
+        .container {
+            width: 100%;
+            max-width: 580px;
+            margin: 0 auto;
+            padding: 100px 20px 60px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .page-title h1 {
+            font-family: var(--font-title-bn);
+            font-size: 2.2rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.2));
+        }
+
+        .page-subtitle {
+            font-family: var(--font-en);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+           7. PROGRESS STEPPER (ADVANCED)
+           ========================================================================== */
+        .step-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 0 20px;
+            animation: fadeIn 1s 0.3s forwards;
+            opacity: 0;
+        }
+
+        .step-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            right: 30px;
+            height: 2px;
+            background: var(--border-subtle);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .step-bar::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            height: 2px;
+            background: var(--gold-primary);
+            transform: translateY(-50%);
+            z-index: 1;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 10px var(--gold-primary);
+        }
+        
+        /* Dynamic Progress Line Widths based on active state handled via CSS logic mapping where possible */
+        body:has(#step-2.active) .step-bar::after { width: 50%; }
+        body:has(#step-3.active) .step-bar::after { width: calc(100% - 60px); }
+
+        .step-dot {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-base);
+            border: 2px solid var(--border-subtle);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-en);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .step-dot.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold-primary);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+        
+        .step-dot.active::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px solid var(--gold-primary);
+            animation: pulseRing 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+        }
+
+        .step-dot.completed {
+            background: var(--gold-primary);
+            color: var(--bg-base);
+            border-color: var(--gold-primary);
+        }
+
+        /* ==========================================================================
+           8. CARDS & PANELS (GLASSMORPHISM)
+           ========================================================================== */
+        .step-content {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .step-content.active {
+            display: block;
+            animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 24px;
+            backdrop-filter: var(--blur-md);
+            box-shadow: var(--shadow-glass);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        .card:hover {
+            border-color: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.05);
+        }
+
+        .label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-bn);
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .label::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 16px;
+            background: var(--gold-primary);
+            border-radius: 4px;
+            box-shadow: 0 0 8px var(--gold-primary);
+        }
+
+        /* ==========================================================================
+           9. SERVICE SELECTION GRID (STEP 1)
+           ========================================================================== */
+        .service-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .s-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 24px 20px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+            transition: var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .s-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, var(--gold-glow) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .s-item:hover {
+            transform: translateY(-4px);
+            background: var(--bg-surface-hover);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .s-item:hover::after { opacity: 1; }
+
+        .s-item.active {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold-primary);
+            box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.05), 0 8px 24px rgba(0,0,0,0.4);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .s-item i {
+            color: var(--text-muted);
+            font-size: 2rem;
+            transition: var(--transition-smooth);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+
+        .s-item.active i, .s-item:hover i {
+            color: var(--gold-primary);
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+        }
+
+        .s-item span {
+            font-family: var(--font-en);
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+        }
+
+        .s-item.active span, .s-item:hover span {
+            color: var(--text-main);
+        }
+        
+        .s-item .check-icon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: var(--gold-primary);
+            font-size: 1rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: var(--transition-bounce);
+        }
+        
+        .s-item.active .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ==========================================================================
+           10. INPUTS & FORMS (STEP 2 & 3)
+           ========================================================================== */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-subtle);
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .input::placeholder { color: rgba(255,255,255,0.2); }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.03);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1), inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Webkit Autofill fix for dark theme */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px #121215 inset !important;
+            -webkit-text-fill-color: white !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        /* Date Input Styling */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background-color: rgba(212, 175, 55, 0.8);
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: var(--transition-fast);
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            background-color: var(--gold-primary);
+        }
+
+        /* Phone Input UI (Ultra Premium) */
+        .phone-input-wrapper {
+            display: flex;
+            align-items: stretch;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .phone-input-wrapper:focus-within {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1), inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .country-prefix {
+            padding: 0 16px;
+            color: var(--text-main);
+            font-weight: 600;
+            font-family: var(--font-en);
+            border-right: 1px solid var(--border-subtle);
+            background: rgba(255,255,255,0.02);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .country-prefix::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0; bottom: 0; width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--gold-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .phone-input-wrapper:focus-within .country-prefix::after { opacity: 1; }
+
+        .country-prefix img {
+            width: 24px;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        #phone-num {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 16px;
+            color: var(--text-main);
+            font-family: var(--font-en);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            outline: none;
+            font-weight: 500;
+        }
+        
+        .helper-text {
+            color: var(--text-muted);
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .helper-text i { color: var(--gold-primary); font-size: 0.7rem; }
+
+        /* ==========================================================================
+           11. PRICE TAG & SUMMARY
+           ========================================================================== */
+        .price-tag {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.01) 100%);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            text-align: center;
+            border: 1px dashed var(--border-gold-strong);
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        .price-tag::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
+            transform: skewX(-20deg);
+            animation: shimmer 3s infinite;
+        }
+
+        .price-label {
+            font-family: var(--font-en);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .price-tag h2 {
+            color: var(--gold-primary);
+            font-family: var(--font-title);
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            margin: 0;
+            line-height: 1;
+        }
+
+        /* Summary Step */
+        .summary-wrapper {
+            background: rgba(0,0,0,0.2);
+            border-radius: var(--radius-md);
+            padding: 10px 20px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            font-family: var(--font-en);
+        }
+        .summary-item:last-child { border-bottom: none; }
+        
+        .s-label { color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+        .s-label i { color: var(--border-gold-strong); }
+        
+        .s-value {
+            color: var(--text-main);
+            font-weight: 600;
+            background: rgba(255,255,255,0.05);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .s-value.highlight {
+            color: var(--gold-primary);
+            background: rgba(212,175,55,0.1);
+            border-color: rgba(212,175,55,0.3);
+        }
+
+        /* ==========================================================================
+           12. BUTTONS (MAGNETIC & GLOWING)
+           ========================================================================== */
+        .btn-box {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 18px 24px;
+            border-radius: var(--radius-md);
+            border: none;
+            font-family: var(--font-bn);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: -1;
+        }
+        .btn:hover::after { transform: translateX(100%); }
+        .btn:active { transform: scale(0.97); }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+            color: #000;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+        .btn-next:hover { box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5); transform: translateY(-3px); }
+
+        .btn-back {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            backdrop-filter: blur(5px);
+        }
+        .btn-back:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            font-family: var(--font-en);
+            letter-spacing: 0.5px;
+        }
+        .btn-whatsapp:hover { box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5); transform: translateY(-3px); }
+        .btn-whatsapp i { font-size: 1.3rem; }
+
+        /* ==========================================================================
+           13. ANIMATIONS (KEYFRAMES)
+           ========================================================================== */
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+        
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; text-shadow: 0 0 10px var(--gold-primary); }
+        }
+
+        @keyframes pulseRing {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        
+        @keyframes breathe {
+            0% { transform: scale(1) translate(0,0); opacity: 0.5; }
+            100% { transform: scale(1.2) translate(5%, 5%); opacity: 0.8; }
+        }
+
+        /* ==========================================================================
+           14. RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 480px) {
+            .container { padding: 90px 16px 40px; }
+            .card { padding: 24px 20px; }
+            .page-title h1 { font-size: 1.8rem; }
+            .service-list { grid-template-columns: 1fr; }
+            .step-dot { width: 36px; height: 36px; font-size: 0.9rem; }
+            .step-bar::before, .step-bar::after { left: 20px; right: 20px; }
+            body:has(#step-3.active) .step-bar::after { width: calc(100% - 40px); }
+            .price-tag h2 { font-size: 2.2rem; }
+            .btn { font-size: 1rem; padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient UI Elements -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow bottom"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Premium Loader -->
+    <div id="loader">
+        <div class="loader-wrapper">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+        </div>
+        <div class="loader-text">Initializing</div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">ISTIACK</a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="page-title">
+            <div class="page-subtitle">Collaboration Portal</div>
+            <h1>সহযোগিতার প্রস্তাব</h1>
+        </div>
+
+        <!-- Stepper -->
+        <div class="step-bar">
+            <div class="step-dot active" id="dot-1">1</div>
+            <div class="step-dot" id="dot-2">2</div>
+            <div class="step-dot" id="dot-3">3</div>
+        </div>
+
+        <!-- Step 1: Services -->
+        <div class="step-content active" id="step-1">
+            <div class="card">
+                <label class="label">সার্ভিসটি বেছে নিন</label>
+                <div class="service-list">
+                    <div class="s-item" onclick="selectService('tab', 'Tabulation')">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <i class="fa-solid fa-table-cells"></i>
+                        <span>Tabulation System</span>
+                    </div>
+                    <div class="s-item" onclick="selectService('event', 'Event Management')">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <i class="fa-solid fa-crown"></i>
+                        <span>Event Management</span>
+                    </div>
+                    <div class="s-item" onclick="selectService('web', 'Web Development')">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <i class="fa-solid fa-code"></i>
+                        <span>Web Development</span>
+                    </div>
+                    <div class="s-item" onclick="selectService('other', 'Other Request')">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Other Configuration</span>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-box">
+                <button class="btn btn-next" onclick="moveStep(2)">পরবর্তী ধাপ <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 2: Details -->
+        <div class="step-content" id="step-2">
+            <div class="card">
+                <div id="date-fields" style="display:none;">
+                    <label class="label">প্রজেক্টের সময়সীমা</label>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                        <div class="input-group">
+                            <input type="date" id="start-date" class="input" onchange="calcPrice()">
+                        </div>
+                        <div class="input-group">
+                            <input type="date" id="end-date" class="input" onchange="calcPrice()">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="web-fields" style="display:none;">
+                    <label class="label">প্রজেক্ট সম্পর্কে নোট</label>
+                    <div class="input-group">
+                        <textarea id="web-note" class="input" style="height:120px; resize:none;" placeholder="বিস্তারিত লিখুন..."></textarea>
+                    </div>
+                </div>
+
+                <div class="price-tag" id="price-box" style="display:none;">
+                    <div class="price-label">Estimated Budget</div>
+                    <h2 id="display-price">$0</h2>
+                </div>
+            </div>
+            <div class="btn-box">
+                <button class="btn btn-back" onclick="moveStep(1)"><i class="fa-solid fa-arrow-left"></i> পিছনে</button>
+                <button class="btn btn-next" onclick="validateStep2()">পরবর্তী ধাপ <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 3: Identity & Checkout -->
+        <div class="step-content" id="step-3">
+            <div class="card">
+                <label class="label">আপনার পরিচয়</label>
+                <div class="input-group">
+                    <input type="text" id="full-name" class="input" placeholder="আপনার নাম লিখুন">
+                </div>
+                
+                <div class="phone-input-wrapper">
+                    <div class="country-prefix">
+                        <img src="https://flagcdn.com/w40/bd.png" alt="BD">
+                        <span>+880</span>
+                    </div>
+                    <input type="tel" id="phone-num" maxlength="12" placeholder="1XXX XXXXXX" autocomplete="off">
+                </div>
+                <small class="helper-text"><i class="fa-solid fa-circle-info"></i> বাকি ১০টি ডিজিট প্রদান করুন (যেমন: ১৭XXXXXXXX)</small>
+            </div>
+
+            <div class="card">
+                <label class="label">প্রস্তাবনার সারসংক্ষেপ</label>
+                <div class="summary-wrapper" id="summary-render">
+                    <!-- Rendered via JS -->
+                </div>
+            </div>
+
+            <div class="btn-box">
+                <button class="btn btn-back" onclick="moveStep(2)"><i class="fa-solid fa-pen"></i> এডিট</button>
+                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()"><i class="fa-brands fa-whatsapp"></i> প্রপোজাল পাঠান</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic Script (Unchanged Core Logic, Upgraded Visual Canvas) -->
+    <script>
+        let currentService = '';
+        let serviceLabel = '';
+        let totalPrice = 0;
+        let days = 0;
+
+        // Phone Input Logic: Auto Formatting
+        const phoneInput = document.getElementById('phone-num');
+        phoneInput.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, ''); // Only digits
+            if (val.length > 10) val = val.substring(0, 10);
+            
+            // Format: XXXX XXXXXX
+            let formatted = '';
+            if (val.length > 4) {
+                formatted = val.substring(0, 4) + ' ' + val.substring(4);
+            } else {
+                formatted = val;
+            }
+            e.target.value = formatted;
+        });
+
+        function selectService(code, name) {
+            currentService = code;
+            serviceLabel = name;
+            document.querySelectorAll('.s-item').forEach(i => i.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        function moveStep(n) {
+            if (n === 2 && !currentService) return alert("সার্ভিস বেছে নিন");
+            
+            document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
+            
+            // Advanced stepper logic mapping
+            document.querySelectorAll('.step-dot').forEach((d, i) => {
+                if (i < n - 1) {
+                    d.classList.add('completed');
+                    d.classList.remove('active');
+                    d.innerHTML = '<i class="fa-solid fa-check"></i>';
+                } else if (i === n - 1) {
+                    d.classList.add('active');
+                    d.classList.remove('completed');
+                    d.innerHTML = i + 1;
+                } else {
+                    d.classList.remove('active', 'completed');
+                    d.innerHTML = i + 1;
+                }
+            });
+            
+            document.getElementById('step-' + n).classList.add('active');
+
+            if (n === 2) {
+                document.getElementById('date-fields').style.display = (currentService === 'tab' || currentService === 'event') ? 'block' : 'none';
+                document.getElementById('web-fields').style.display = (currentService === 'web' || currentService === 'other') ? 'block' : 'none';
+                calcPrice();
+            }
+            if (n === 3) renderSummary();
+        }
+
+        function calcPrice() {
+            const pb = document.getElementById('price-box');
+            const dp = document.getElementById('display-price');
+            pb.style.display = 'block';
+
+            if (currentService === 'tab' || currentService === 'event') {
+                const s = document.getElementById('start-date').value;
+                const e = document.getElementById('end-date').value;
+                if (s && e) {
+                    const diff = new Date(e) - new Date(s);
+                    days = Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1);
+                    totalPrice = (currentService === 'tab') ? (days * 15) : (days * 25);
+                    dp.innerText = `$${totalPrice}`;
+                } else { dp.innerText = '$---'; }
+            } else {
+                totalPrice = currentService === 'web' ? 120 : 50;
+                dp.innerText = `$${totalPrice}+`;
+            }
+        }
+
+        function validateStep2() {
+            if ((currentService === 'tab' || currentService === 'event') && !days) return alert("তারিখ দিন");
+            moveStep(3);
+        }
+
+        function renderSummary() {
+            const container = document.getElementById('summary-render');
+            container.innerHTML = `
+                <div class="summary-item">
+                    <span class="s-label"><i class="fa-solid fa-layer-group"></i> সার্ভিস</span>
+                    <span class="s-value">${serviceLabel}</span>
+                </div>
+                ${days ? `
+                <div class="summary-item">
+                    <span class="s-label"><i class="fa-regular fa-calendar-days"></i> সময়কাল</span>
+                    <span class="s-value">${days} দিন</span>
+                </div>` : ''}
+                <div class="summary-item">
+                    <span class="s-label"><i class="fa-solid fa-coins"></i> বাজেট</span>
+                    <span class="s-value highlight">$${totalPrice}</span>
+                </div>
+            `;
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById('full-name').value;
+            const phoneDigits = phoneInput.value.replace(/\D/g, '');
+            
+            if (!name) return alert("আপনার নাম দিন");
+            if (phoneDigits.length !== 10) return alert("সঠিক ১০টি ডিজিট দিন");
+
+            const finalPhone = "+880" + phoneDigits;
+            const note = document.getElementById('web-note').value;
+
+            let msg = `*🚀 নতুন প্রজেক্ট প্রপোজাল*\n`;
+            msg += `━━━━━━━━━━━━━━━━━━\n`;
+            msg += `👤 *নাম:* ${name}\n`;
+            msg += `📞 *ফোন:* ${finalPhone}\n`;
+            msg += `💼 *সার্ভিস:* ${serviceLabel}\n`;
+            if (days) msg += `📅 *সময়কাল:* ${days} দিন\n`;
+            if (note) msg += `📝 *নোট:* ${note}\n`;
+            msg += `💰 *বাজেট:* $${totalPrice}\n`;
+            msg += `━━━━━━━━━━━━━━━━━━\n`;
+
+            window.open(`https://wa.me/8801570268466?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Advanced Premium Canvas Animation (Logic intact, drawing upgraded for network effect)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function init() {
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight;
+            let particleCount = window.innerWidth < 600 ? 30 : 60; // Responsive particle count
+            particles = Array.from({length: particleCount}, () => ({
+                x: Math.random() * canvas.width, 
+                y: Math.random() * canvas.height,
+                v: Math.random() * 0.3 + 0.1, 
+                r: Math.random() * 1.5 + 0.5,
+                vx: (Math.random() - 0.5) * 0.2 // Add slight horizontal drift
+            }));
+        }
+        
+        function anim() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            
+            // Draw lines between close particles (Network effect)
+            ctx.lineWidth = 0.5;
+            for(let i=0; i<particles.length; i++) {
+                for(let j=i+1; j<particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if(dist < 100) {
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.15 * (1 - dist/100)})`;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw and move particles
+            ctx.fillStyle = 'rgba(212,175,55,0.4)';
+            particles.forEach(p => {
+                p.y -= p.v; 
+                p.x += p.vx;
+                
+                // Wrap around screen
+                if(p.y < 0) p.y = canvas.height;
+                if(p.x < 0) p.x = canvas.width;
+                if(p.x > canvas.width) p.x = 0;
+                
+                ctx.beginPath(); 
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); 
+                ctx.fill();
+            });
+            requestAnimationFrame(anim);
+        }
+        
+        // Handle window resize for canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Init Sequence
+        window.onload = () => {
+            init(); 
+            anim();
+            // Premium loader sequence
+            setTimeout(() => {
+                const l = document.getElementById('loader');
+                l.style.opacity = '0';
+                l.style.visibility = 'hidden';
+                setTimeout(() => l.style.display = 'none', 800);
+            }, 1200); // Slightly longer for the premium effect to register
+        };
+    </script>
+</body>
+</html>
+
