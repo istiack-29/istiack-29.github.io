@@ -2,302 +2,446 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THOUGHTS | ISTIACK</title>
-        <meta property="og:type" content="website">
-    <meta property="og:url" content="https://istiack-29.github.io/">
-    <meta property="og:title" content="PORTFOLIO | ISTIACK">
-    <meta property="og:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="og:image" content="https://istiack-29.github.io/1774372559124~2.png">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://istiack-29.github.io/">
-    <meta property="twitter:title" content="ইসতিয়াক আহমেদ খাঁন | প্রোফাইল">
-    <meta property="twitter:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="twitter:image" content="https://istiack-29.github.io/1774372559124~2.png">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>IstiGram</title>
+    
+    <!-- Premium Font Assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&family=Cinzel:wght@800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         :root {
-            --bg-body: #050505;
-            --bg-card: #121212;
+            --bg: #000000;
+            --surface: #0a0a0a;
             --accent: #D4AF37;
-            --text-main: #E4E6EB;
-            --text-muted: #B0B3B8;
-            --border: rgba(255, 255, 255, 0.1);
-            --nav-bg: rgba(10, 10, 10, 0.98);
+            --text: #ffffff;
+            --muted: #8e8e93;
+            --border: #1c1c1e;
+            --heart: #ff3040;
+            --nav-blur: 25px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; line-height: 1.6; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hind Siliguri", sans-serif;
+            overflow-x: hidden;
+            padding-bottom: 80px; /* Adjusted for 1-row nav */
+        }
 
-        /* --- LOADING SCREEN --- */
+        /* --- Custom Loader --- */
         #loader {
-            position: fixed; inset: 0; background: var(--bg-body); z-index: 99999;
-            display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease;
+            position: fixed; inset: 0; background: #000; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
         }
-        .loader-img { width: 80px; border-radius: 50%; animation: pulse-img 2s infinite ease-in-out; }
-        @keyframes pulse-img { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
+        .loading-text { font-family: 'Cinzel', serif; color: var(--accent); letter-spacing: 5px; font-size: 0.7rem; margin-top: 20px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* --- NAVIGATION --- */
-        nav {
+        /* --- Header & Top Nav --- */
+        .header {
             position: fixed; top: 0; width: 100%; height: 60px;
-            background: var(--nav-bg); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); z-index: 10000;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(var(--nav-blur)); -webkit-backdrop-filter: blur(var(--nav-blur));
+            border-bottom: 0.5px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
+        }
+        .brand { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--text); text-decoration: none; font-style: italic; letter-spacing: -1px; }
+        .top-btns { display: flex; gap: 20px; font-size: 1.3rem; }
+
+        /* --- Profile Banner --- */
+        .profile-hero {
+            margin-top: 60px; padding: 15px 16px; border-bottom: 0.5px solid var(--border);
+            display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit;
+        }
+        .p-ring {
+            width: 56px; height: 56px; border-radius: 50%; padding: 2px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            flex-shrink: 0;
+        }
+        .p-avatar { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #000; object-fit: cover; background: #222; }
+        .p-info b { display: block; font-size: 0.95rem; letter-spacing: -0.3px; }
+        .p-info span { font-size: 0.75rem; color: var(--muted); }
+
+        /* --- Feed Container --- */
+        .feed { max-width: 500px; margin: 0 auto; }
+        
+        .post { margin-bottom: 15px; opacity: 0; transform: translateY(20px); transition: 0.6s all cubic-bezier(0.2, 1, 0.3, 1); }
+        .post.visible { opacity: 1; transform: translateY(0); }
+
+        .post-head { display: flex; align-items: center; padding: 10px 12px; gap: 10px; }
+        .head-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+        .head-name { font-weight: 700; font-size: 0.85rem; }
+
+        /* --- Multi-Image Carousel (1:1 Ratio) --- */
+        .carousel-container {
+            position: relative; 
+            width: 100%; 
+            aspect-ratio: 1 / 1; /* Forces 1:1 Square */
+            background: #000; 
+            overflow: hidden;
+        }
+        .carousel-track {
+            display: flex; width: 100%; height: 100%;
+            overflow-x: auto; scroll-snap-type: x mandatory; 
+            scrollbar-width: none; -ms-overflow-style: none; /* Hide scrollbar */
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-slide {
+            flex: 0 0 100%; width: 100%; height: 100%; 
+            scroll-snap-align: start; 
             display: flex; align-items: center; justify-content: center;
         }
-        .nav-inner { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-decoration: none; font-size: 1.2rem; }
-        .mobile-menu-btn { cursor: pointer; z-index: 10002; padding: 5px; }
-        .dot-bar { width: 22px; height: 2px; background: var(--accent); margin: 4px 0; border-radius: 2px; }
-
-        /* --- SIDEBAR MENU --- */
-        #mobileNav {
-            position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
-            background: #0a0a0a; border-left: 1px solid var(--border);
-            z-index: 10001; padding: 80px 30px; display: flex; flex-direction: column; gap: 5px;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        #mobileNav.open { right: 0; }
-        #mobileNav a { color: var(--text-main); text-decoration: none; font-size: 1.1rem; padding: 15px 0; border-bottom: 1px solid var(--border); }
-        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; backdrop-filter: blur(4px); }
-
-        /* --- HEADER SECTION --- */
-        .profile-container { max-width: 1000px; margin: 60px auto 0; position: relative; }
-        .cover-photo { width: 100%; height: 200px; background: #000; border-radius: 0 0 25px 25px; overflow: hidden; }
-        .cover-photo img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .profile-header-info { padding: 0 25px; display: flex; align-items: flex-end; gap: 20px; margin-top: -60px; position: relative; z-index: 20; }
-        .avatar-box { width: 120px; height: 120px; flex-shrink: 0; display: flex; align-items: flex-end; }
-        .avatar-box img { width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
-        
-        .name-meta { transform: translateY(10px); }
-        .name-meta h1 { font-size: 1.6rem; color: var(--accent); line-height: 1.2; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-
-        /* --- THOUGHTS FEED --- */
-        .thoughts-container { max-width: 600px; margin: 40px auto 100px; padding: 0 15px; }
-        
-        .thought-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-        .thought-card:hover { border-color: rgba(212, 175, 55, 0.4); background: #181818; }
-
-        .thought-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-        .mini-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #222; }
-        .author-info { flex: 1; }
-        .author-name { font-weight: 600; font-size: 0.9rem; color: var(--text-main); display: block; }
-        .post-time { font-size: 0.75rem; color: var(--text-muted); display: block; }
-
-        /* --- Content & Side Image Layout --- */
-        .thought-body { 
-            display: flex; 
-            gap: 12px; 
-            align-items: flex-start; /* স্লাইড ইমেজের সাথে লেখা টপ এলাইন থাকবে */
+        .media-img {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain; /* Ensures image fits inside the box without cropping */
         }
         
-        .thought-content { 
-            flex: 1;
-            font-size: 0.95rem; 
-            color: var(--text-main); 
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* ৩ লাইন লিমিট */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            line-height: 1.5;
-            min-height: 4.5em; /* ৩ লাইনের স্পেস ধরে রাখবে */
+        .carousel-dots {
+            position: absolute; bottom: 12px; left: 0; width: 100%;
+            display: flex; justify-content: center; gap: 5px; z-index: 10; pointer-events: none;
         }
-        
-        .thought-side-img { 
-            width: 80px; 
-            height: 70px; /* ৩ লাইনের কাছাকাছি হাইট */
-            object-fit: cover; 
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            flex-shrink: 0;
-            background: #222;
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: 0.3s ease; }
+        .dot.active { background: #fff; transform: scale(1.1); }
+        .slide-counter {
+            position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6);
+            color: #fff; font-size: 0.7rem; padding: 4px 8px; border-radius: 12px; z-index: 10; pointer-events: none;
         }
 
-        .thought-footer {
-            margin-top: 12px;
-            border-top: 1px solid var(--border);
-            padding-top: 10px;
-            display: flex;
-            justify-content: space-between;
+        /* Text Quote Card if no Image */
+        .quote-card {
+            padding: 20px 30px; text-align: center; color: var(--accent);
+            font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic;
+            line-height: 1.6; background: linear-gradient(135deg, #0f0f0f, #000);
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
         }
 
-        .action-btn {
-            background: none; border: none; color: var(--text-muted);
-            font-size: 0.8rem; font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; gap: 5px;
+        .heart-pop {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+            color: #fff; font-size: 100px; pointer-events: none; z-index: 20; text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .heart-pop.active { animation: pop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            30% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            70% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
         }
 
-        /* --- MODAL --- */
-        #thought-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            z-index: 30000; display: none; overflow-y: auto; padding: 20px;
-            backdrop-filter: blur(8px);
-        }
-        .modal-content {
-            background: var(--bg-card);
-            max-width: 550px;
-            margin: 30px auto;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-        }
-        .modal-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-        .modal-body { padding: 20px; }
-        .modal-img { width: 100%; border-radius: 10px; margin-bottom: 15px; border: 1px solid var(--border); display: none; }
-        .modal-text { font-size: 1rem; line-height: 1.7; color: var(--text-main); white-space: pre-wrap; }
-        .close-modal { background: #333; border: none; color: #fff; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        /* --- Post Meta --- */
+        .post-meta { padding: 12px 16px; }
+        .actions { display: flex; gap: 18px; font-size: 1.5rem; margin-bottom: 10px; }
+        .likes-count { font-weight: 700; font-size: 0.9rem; display: block; margin-bottom: 6px; }
+        .caption-box { font-size: 0.92rem; line-height: 1.5; }
+        .caption-box b { margin-right: 6px; }
+        .time-stamp { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; margin-top: 10px; display: block; letter-spacing: 0.5px; }
 
-        @media (max-width: 600px) {
-            .cover-photo { height: 160px; }
-            .profile-header-info { margin-top: -50px; gap: 15px; }
-            .avatar-box { width: 100px; height: 100px; }
-            .name-meta h1 { font-size: 1.3rem; }
-            .thought-side-img { width: 70px; height: 60px; }
+        /* --- FIXED 1-ROW GRID NAVIGATION (Mobile Friendly) --- */
+        .nav-grid {
+            position: fixed; bottom: 0; width: 100%; 
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(var(--nav-blur)); -webkit-backdrop-filter: blur(var(--nav-blur));
+            border-top: 0.5px solid var(--border); z-index: 2000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 5px calc(8px + env(safe-area-inset-bottom));
         }
+        .nav-btn { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            color: var(--muted); text-decoration: none; flex: 1; transition: 0.3s; 
+        }
+        .nav-btn i { font-size: 1.15rem; margin-bottom: 4px; }
+        .nav-btn span { font-size: 0.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0px; white-space: nowrap; }
+        .nav-btn.active { color: var(--accent); }
+
+        /* --- Fullscreen Detail View --- */
+        #detail-view {
+            position: fixed; inset: 0; background: #000; z-index: 3000;
+            display: none; flex-direction: column;
+        }
+        .detail-header { height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; border-bottom: 0.5px solid var(--border); }
+        .detail-body { flex: 1; overflow-y: auto; padding-bottom: 40px; }
+        .detail-text { padding: 30px; font-size: 1.2rem; line-height: 1.8; font-family: 'Hind Siliguri'; color: #efefef; white-space: pre-wrap; }
+
     </style>
 </head>
 <body>
 
-    <div id="loader"><img src="profile.png" class="loader-img"></div>
-    <div class="overlay-bg" id="menuOverlay" onclick="toggleNav()"></div>
+    <!-- Professional Curtain Loader -->
+    <div id="loader">
+        <div class="p-ring"><img src="profile.png" class="p-avatar" onerror="this.src='https://via.placeholder.com/60'"></div>
+        <div class="loading-text">ISTIGRAM</div>
+    </div>
 
-    <nav>
-        <div class="nav-inner">
-            <a href="index.html" class="logo">ISTIACK</a>
-            <div class="mobile-menu-btn" onclick="toggleNav()">
-                <div class="dot-bar"></div><div class="dot-bar"></div><div class="dot-bar"></div>
-            </div>
+    <!-- Sticky Header -->
+    <header class="header">
+        <a href="index.html" class="brand">IstiGram</a>
+        <div class="top-btns">
+            <i class="fa-regular fa-square-plus"></i>
+            <i class="fa-brands fa-facebook-messenger" onclick="location.href='https://www.instagram.com/direct/t/anonymous.istiack'"></i>
         </div>
+    </header>
+
+    <!-- Professional Profile Redirect -->
+    <a href="https://www.instagram.com/direct/t/anonymous.istiack" class="profile-hero">
+        <div class="p-ring">
+            <img src="profile.png" class="p-avatar" onerror="this.src='https://via.placeholder.com/60'">
+        </div>
+        <div class="p-info">
+            <b>@anonymous.istiack</b>
+            <span>Tap to send a direct message...</span>
+        </div>
+        <i class="fa-solid fa-paper-plane" style="margin-left:auto; color:var(--accent); font-size:1rem;"></i>
+    </a>
+
+    <!-- Feed -->
+    <main class="feed" id="main-feed">
+        <!-- Loader/Error State -->
+        <div id="data-status" style="padding:100px 20px; text-align:center; color:var(--muted); font-size:0.9rem;">
+            Initializing secure data connection...
+        </div>
+    </main>
+
+    <!-- FIXED 1-ROW NAVIGATION -->
+    <nav class="nav-grid">
+        <a href="index.html" class="nav-btn active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="debate.html" class="nav-btn"><i class="fa-solid fa-microphone-lines"></i><span>Debate</span></a>
+        <a href="politics.html" class="nav-btn"><i class="fa-solid fa-landmark"></i><span>Politics</span></a>
+        <a href="thoughts.html" class="nav-btn"><i class="fa-solid fa-lightbulb"></i><span>Thoughts</span></a>
+        <a href="donate.html" class="nav-btn"><i class="fa-solid fa-mug-hot"></i><span>Donate</span></a>
+        <a href="contact.html" class="nav-btn"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+        <a href="nn.html" class="nav-btn"><i class="fa-solid fa-book-open"></i><span>Nasiha</span></a>
+        <a href="hm.html" class="nav-btn"><i class="fa-solid fa-briefcase"></i><span>Hire</span></a>
     </nav>
 
-    <div id="mobileNav">
-        <a href="index.html">🏠 হোম</a>
-        <a href="debate.html">🎙️ বিতর্ক</a>
-        <a href="politics.html">⚖️ রাজনীতি</a>
-        <a href="thoughts.html">💡 চিন্তাধারা</a>
-        <a href="donate.html">☕ সহযোগিতা</a>
-        <a href="contact.html">📞 যোগাযোগ</a>
-    </div>
-
-    <div class="profile-container">
-        <div class="cover-photo"><img src="cover.jpg" alt="Cover"></div>
-        <div class="profile-header-info">
-            <div class="avatar-box"><img src="profile.png" alt="Istiack"></div>
-            <div class="name-meta"><h1>চিন্তাধারা</h1></div>
+    <!-- Detail Screen -->
+    <div id="detail-view">
+        <div class="detail-header">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="profile.png" style="width:30px; height:30px; border-radius:50%;" onerror="this.src='https://via.placeholder.com/30'">
+                <span style="font-weight:700; font-size:0.85rem;">anonymous.istiack</span>
+            </div>
+            <i class="fa-solid fa-xmark" style="font-size:1.6rem; cursor:pointer;" onclick="closeDetail()"></i>
+        </div>
+        <div class="detail-body">
+            <div id="detail-text" class="detail-text"></div>
         </div>
     </div>
 
-    <div class="thoughts-container" id="thoughts-feed"></div>
-
-    <!-- MODAL -->
-    <div id="thought-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="thought-header" style="margin-bottom:0">
-                    <img src="profile.png" class="mini-avatar">
-                    <div class="author-info">
-                        <span class="author-name">ইসতিয়াক আহমেদ খাঁন</span>
-                        <span id="modal-date" class="post-time"></span>
-                    </div>
-                </div>
-                <button class="close-modal" onclick="closeModal()">বন্ধ করুন</button>
-            </div>
-            <div class="modal-body">
-                <img id="modal-img" class="modal-img">
-                <div id="modal-text" class="modal-text"></div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Data Injection & Core Logic -->
     <script src="Data.js"></script>
     <script>
-        function toggleNav() {
-            const nav = document.getElementById('mobileNav');
-            const overlay = document.getElementById('menuOverlay');
-            nav.classList.toggle('open');
-            overlay.style.display = nav.classList.contains('open') ? 'block' : 'none';
+        /**
+         * IstiGram Engine v2.5
+         * Features: Multi-Image Carousel, 1:1 Aspect Ratio, 1-Row Nav, Double Tap Like
+         */
+
+        const FeedDOM = document.getElementById('main-feed');
+        const StatusDOM = document.getElementById('data-status');
+
+        // Professional Fake Likes
+        const getLikes = () => (Math.random() * 5000 + 1000).toLocaleString(undefined, {maximumFractionDigits:0});
+
+        // Demo Data for previewing if Data.js is missing
+        if (!window.portfolioData && typeof portfolioData === 'undefined') {
+            window.portfolioData = {
+                thoughts: [
+                    {
+                        ph: [
+                            "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=800", 
+                            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800", // Vertical
+                            "https://images.unsplash.com/photo-1506744626753-dba873fd1a0a?q=80&w=800"  // Horizontal
+                        ],
+                        text: "Swipe right to see multiple images! Notice how horizontal and vertical images perfectly fit inside the 1:1 square box without cropping. Double tap anywhere on the image to like! ❤️",
+                        date: "2 HOURS AGO"
+                    },
+                    {
+                        ph: "https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=800",
+                        text: "A single beautiful portrait photo perfectly contained.",
+                        date: "5 HOURS AGO"
+                    },
+                    {
+                        text: "Sometimes, words are enough. This is a text-only post. No image was provided in the data.",
+                        date: "1 DAY AGO"
+                    }
+                ]
+            };
         }
 
-        function renderThoughts() {
-            const feed = document.getElementById('thoughts-feed');
-            if (typeof portfolioData === 'undefined' || !portfolioData.thoughts) return;
+        // The Data Watcher
+        function findData() {
+            let data = null;
+            if (typeof portfolioData !== 'undefined') data = portfolioData;
+            else if (window.portfolioData) data = window.portfolioData;
+            
+            if (data && data.thoughts && data.thoughts.length > 0) {
+                buildFeed(data.thoughts);
+            } else {
+                let retries = 0;
+                const timer = setInterval(() => {
+                    retries++;
+                    const retryData = typeof portfolioData !== 'undefined' ? portfolioData : window.portfolioData;
+                    if (retryData) {
+                        clearInterval(timer);
+                        buildFeed(retryData.thoughts);
+                    } else if (retries > 30) {
+                        clearInterval(timer);
+                        StatusDOM.innerHTML = "Error: Data.js not reading. Check variable naming.";
+                        document.getElementById('loader').style.display = 'none';
+                    }
+                }, 100);
+            }
+        }
 
-            portfolioData.thoughts.forEach(post => {
-                const card = document.createElement('div');
-                card.className = 'thought-card';
-                card.onclick = () => openModal(post);
+        function buildFeed(items) {
+            FeedDOM.innerHTML = '';
+            items.forEach((item, index) => {
+                const post = document.createElement('div');
+                post.className = 'post';
                 
-                // ইমেজ এলিমেন্ট (যদি ডাটাতে থাকে)
-                const imgHtml = post.ph ? `<img src="${post.ph}" class="thought-side-img" onerror="this.style.display='none'">` : '';
+                // Process Photos
+                let photos = [];
+                if (item.ph) {
+                    photos = Array.isArray(item.ph) ? item.ph : [item.ph];
+                }
 
-                card.innerHTML = `
-                    <div class="thought-header">
-                        <img src="profile.png" class="mini-avatar">
-                        <div class="author-info">
-                            <span class="author-name">ইসতিয়াক আহমেদ খাঁন</span>
-                            <span class="post-time">${post.date || 'কিছুক্ষণ আগে'}</span>
+                let mediaContent = '';
+                
+                if (photos.length > 0) {
+                    let trackHtml = photos.map(src => `
+                        <div class="carousel-slide">
+                            <img src="${src}" class="media-img" loading="lazy" onerror="this.style.display='none'">
                         </div>
+                    `).join('');
+                    
+                    let dotsHtml = photos.length > 1 ? photos.map((_, i) => `<div class="dot ${i===0?'active':''}"></div>`).join('') : '';
+                    let counterHtml = photos.length > 1 ? `<div class="slide-counter" id="counter-${index}">1/${photos.length}</div>` : '';
+
+                    mediaContent = `
+                        <div class="carousel-container" onclick="handleInteraction(this, ${index})">
+                            <div class="carousel-track" onscroll="updateDots(this, ${index}, ${photos.length})">
+                                ${trackHtml}
+                            </div>
+                            ${counterHtml}
+                            <div class="carousel-dots" id="dots-${index}">
+                                ${dotsHtml}
+                            </div>
+                            <div class="heart-pop"><i class="fa-solid fa-heart"></i></div>
+                        </div>
+                    `;
+                } else {
+                    // Text Only Fallback
+                    mediaContent = `
+                        <div class="carousel-container" onclick="handleInteraction(this, ${index})">
+                            <div class="quote-card">"${item.text.substring(0,85)}..."</div>
+                            <div class="heart-pop"><i class="fa-solid fa-heart"></i></div>
+                        </div>
+                    `;
+                }
+
+                post.innerHTML = `
+                    <div class="post-head">
+                        <img src="profile.png" class="head-avatar" onerror="this.src='https://via.placeholder.com/32'">
+                        <span class="head-name">@anonymous.istiack</span>
+                        <i class="fa-solid fa-ellipsis" style="margin-left:auto; color:var(--muted); font-size:0.8rem;"></i>
                     </div>
-                    <div class="thought-body">
-                        <div class="thought-content">${post.text}</div>
-                        ${imgHtml}
-                    </div>
-                    <div class="thought-footer">
-                        <button class="action-btn">👍 Like</button>
-                        <button class="action-btn">💬 Comment</button>
-                        <button class="action-btn">↗️ Share</button>
+                    
+                    ${mediaContent}
+
+                    <div class="post-meta">
+                        <div class="actions">
+                            <i class="fa-regular fa-heart btn-like" onclick="toggleLike(this)"></i>
+                            <i class="fa-regular fa-comment" onclick="openDetail(${index})"></i>
+                            <i class="fa-regular fa-paper-plane"></i>
+                            <i class="fa-regular fa-bookmark" style="margin-left:auto"></i>
+                        </div>
+                        <span class="likes-count">${getLikes()} likes</span>
+                        <div class="caption-box">
+                            <b>anonymous.istiack</b> 
+                            <span>${item.text.substring(0, 95)}${item.text.length > 95 ? '...' : ''}</span>
+                            ${item.text.length > 95 ? `<span style="color:var(--muted); cursor:pointer;" onclick="openDetail(${index})">more</span>` : ''}
+                        </div>
+                        <span class="time-stamp">${item.date || 'Today'}</span>
                     </div>
                 `;
-                feed.appendChild(card);
+                FeedDOM.appendChild(post);
+                
+                // Entrance animation
+                setTimeout(() => post.classList.add('visible'), index * 150);
             });
+            
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
         }
 
-        function openModal(post) {
-            const modal = document.getElementById('thought-modal');
-            const mText = document.getElementById('modal-text');
-            const mImg = document.getElementById('modal-img');
-            const mDate = document.getElementById('modal-date');
-
-            mText.innerText = post.text;
-            mDate.innerText = post.date || 'কিছুক্ষণ আগে';
+        // Update Dots and Counter on Swipe
+        function updateDots(track, index, totalSlides) {
+            const scrollLeft = track.scrollLeft;
+            const width = track.clientWidth;
+            const activeIndex = Math.round(scrollLeft / width);
             
-            if(post.ph) {
-                mImg.src = post.ph;
-                mImg.style.display = 'block';
-            } else {
-                mImg.style.display = 'none';
+            const dotsContainer = document.getElementById(`dots-${index}`);
+            if(dotsContainer) {
+                const dots = dotsContainer.querySelectorAll('.dot');
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
             }
+            
+            const counter = document.getElementById(`counter-${index}`);
+            if(counter) {
+                counter.innerText = `${activeIndex + 1}/${totalSlides}`;
+            }
+        }
 
-            modal.style.display = 'block';
+        let lastTap = 0;
+        function handleInteraction(container, idx) {
+            const now = Date.now();
+            if (now - lastTap < 300) {
+                // Double Tap Action
+                const heart = container.querySelector('.heart-pop');
+                heart.classList.remove('active');
+                void heart.offsetWidth; // Trigger reflow to restart animation
+                heart.classList.add('active');
+                
+                // Toggle the actual like button below
+                const btn = container.parentElement.querySelector('.btn-like');
+                btn.className = 'fa-solid fa-heart btn-like';
+                btn.style.color = 'var(--heart)';
+                btn.style.transform = 'scale(1.2)';
+                setTimeout(() => btn.style.transform = 'scale(1)', 200);
+
+            } else {
+                // Single Tap - Do nothing or open details
+                // Optional: openDetail(idx); 
+            }
+            lastTap = now;
+        }
+
+        function toggleLike(btn) {
+            if (btn.classList.contains('fa-regular')) {
+                btn.className = 'fa-solid fa-heart btn-like';
+                btn.style.color = 'var(--heart)';
+            } else {
+                btn.className = 'fa-regular fa-heart btn-like';
+                btn.style.color = 'white';
+            }
+        }
+
+        function openDetail(idx) {
+            const data = (typeof portfolioData !== 'undefined' ? portfolioData : window.portfolioData).thoughts[idx];
+            document.getElementById('detail-text').innerText = data.text;
+            
+            document.getElementById('detail-view').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('thought-modal').style.display = 'none';
+        function closeDetail() {
+            document.getElementById('detail-view').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        window.onclick = (e) => { if (e.target == document.getElementById('thought-modal')) closeModal(); }
-
-        window.onload = () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-                renderThoughts();
-            }, 800);
-        };
+        // Start checking for data on load
+        window.addEventListener('load', findData);
     </script>
 </body>
 </html>
+
