@@ -3,225 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PORTFOLIO | ISTIACK</title>
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://istiack-29.github.io/">
-    <meta property="og:title" content="ইসতিয়াক আহমেদ খাঁন | প্রোফাইল">
-    <meta property="og:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="og:image" content="https://istiack-29.github.io/1774372559124~2.png">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://istiack-29.github.io/">
-    <meta property="twitter:title" content="ইসতিয়াক আহমেদ খাঁন | প্রোফাইল">
-    <meta property="twitter:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="twitter:image" content="https://istiack-29.github.io/1774372559124~2.png">
+    <!-- External Assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-body: #050505;
-            --bg-card: #111111;
+            --bg-body: #020202;
+            --bg-card: rgba(15, 15, 15, 0.7);
             --accent: #D4AF37;
+            --accent-glow: rgba(212, 175, 55, 0.3);
             --text-main: #FFFFFF;
-            --text-muted: #B0B3B8;
-            --border: rgba(255, 255, 255, 0.08);
-            --nav-bg: rgba(10, 10, 10, 0.98);
+            --text-muted: #A0A0A0;
+            --border: rgba(212, 175, 55, 0.15);
+            --nav-bg: rgba(5, 5, 5, 0.9);
             --live-red: #ff4b2b;
             --done-green: #2ecc71;
             --upcoming-blue: #3498db;
+            --blood-urgent: #f1c40f;
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
         
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
         html, body { 
             width: 100%;
             overflow-x: hidden;
             background-color: var(--bg-body); 
             color: var(--text-main); 
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* --- BIRTHDAY GLITTER & MSG --- */
-        #bday-overlay {
-            position: fixed; inset: 0; z-index: 100000;
-            display: none; pointer-events: none;
-        }
-        .glitter {
-            position: absolute; width: 4px; height: 4px; background: var(--accent);
-            border-radius: 50%; opacity: 0; animation: fall linear infinite;
-            box-shadow: 0 0 8px var(--accent);
-        }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) scale(0); opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: translateY(100vh) scale(1); opacity: 0; }
-        }
-
-        #bday-msg {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(10, 10, 10, 0.95); border: 1px solid var(--accent);
-            padding: 30px; border-radius: 20px; color: var(--accent);
-            text-align: center; z-index: 100001; display: none;
-            backdrop-filter: blur(15px); box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
-            width: 85%; max-width: 400px;
+        /* Animated Particles Background */
+        #bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
         }
 
         /* --- LOADER --- */
         #loader {
-            position: fixed; inset: 0; background: var(--bg-body); z-index: 99999;
-            display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease;
+            position: fixed; inset: 0; background: #000; z-index: 99999;
+            display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease;
         }
-        .loader-img { width: 70px; border-radius: 50%; animation: pulse-img 2s infinite ease-in-out; }
+        .loader-img { width: 70px; border-radius: 50%; animation: pulse-img 2s infinite ease-in-out; border: 1px solid var(--accent); padding: 2px; }
         @keyframes pulse-img { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
 
         /* --- NAVIGATION --- */
         nav {
-            position: fixed; top: 0; width: 100%; height: 60px;
+            position: fixed; top: 0; width: 100%; height: 75px;
             background: var(--nav-bg); border-bottom: 1px solid var(--border); z-index: 10000;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: center; backdrop-filter: blur(25px);
         }
-        .nav-inner { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
-        .logo { color: var(--accent); font-weight: 700; text-decoration: none; font-size: 1.1rem; }
-        .mobile-menu-btn { cursor: pointer; padding: 5px; }
-        .dot-bar { width: 20px; height: 2px; background: var(--accent); margin: 4px 0; border-radius: 2px; }
+        .nav-inner { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
+        .logo { color: var(--accent); font-family: 'Cinzel', serif; font-weight: 700; text-decoration: none; font-size: 1.3rem; letter-spacing: 2px; text-shadow: 0 0 10px var(--accent-glow); }
+        
+        .desktop-nav { display: none; gap: 25px; align-items: center; }
+        .desktop-nav a { 
+            color: var(--text-main); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+            transition: 0.3s; opacity: 0.8; letter-spacing: 1px;
+        }
+        .desktop-nav a:hover { color: var(--accent); opacity: 1; }
+        .desktop-nav a.active { color: var(--accent); opacity: 1; border-bottom: 2px solid var(--accent); padding-bottom: 5px; }
+
+        .hire-btn-desktop {
+            background: transparent; border: 1px solid var(--accent); color: var(--accent) !important;
+            padding: 8px 20px !important; border-radius: 50px; font-size: 0.8rem !important;
+            transition: 0.4s;
+        }
+        .hire-btn-desktop:hover { background: var(--accent); color: #000 !important; box-shadow: 0 0 20px var(--accent-glow); }
+
+        .mobile-menu-btn { cursor: pointer; padding: 10px; z-index: 10002; }
+        .dot-bar { width: 24px; height: 1.5px; background: var(--accent); margin: 6px 0; border-radius: 2px; transition: 0.3s; }
 
         /* --- MOBILE MENU --- */
         #mobileNav {
-            position: fixed; top: 0; right: -100%; width: 260px; height: 100vh;
-            background: #0a0a0a; border-left: 1px solid var(--border);
-            z-index: 10001; padding: 80px 20px; display: flex; flex-direction: column;
-            transition: 0.3s ease;
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+            background: rgba(5, 5, 5, 0.98); border-left: 1px solid var(--border);
+            z-index: 10001; padding: 100px 20px 40px; display: flex; flex-direction: column; 
+            gap: 5px; transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); backdrop-filter: blur(30px);
+            overflow-y: auto;
         }
         #mobileNav.open { right: 0; }
-        #mobileNav a { color: var(--text-main); text-decoration: none; font-size: 1rem; padding: 14px 0; border-bottom: 1px solid var(--border); }
-        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: none; backdrop-filter: blur(3px); }
+        #mobileNav a { 
+            color: var(--text-main); text-decoration: none; font-size: 0.95rem; 
+            padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.03); 
+            display: flex; align-items: center; gap: 12px; transition: 0.3s;
+        }
+        #mobileNav a:hover { color: var(--accent); background: rgba(212, 175, 55, 0.05); padding-left: 20px; }
+        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; display: none; backdrop-filter: blur(12px); }
 
-        /* --- PROFILE HEADER (NO FRAME VERSION) --- */
-        .profile-container { width: 100%; max-width: 1000px; margin: 60px auto 0; position: relative; }
-        .cover-photo { width: 100%; height: 160px; background: #1a1a1a; border-bottom: 1px solid var(--border); overflow: hidden; }
-        .cover-photo img { width: 100%; height: 100%; object-fit: cover; }
+        /* --- PROFILE HEADER --- */
+        .profile-container { width: 100%; max-width: 1000px; margin: 75px auto 0; position: relative; }
+        .cover-photo { 
+            width: 100%; height: 220px; background: #0a0a0a; 
+            border-bottom: 1px solid var(--border); overflow: hidden; position: relative;
+            border-radius: 0 0 25px 25px;
+        }
+        .cover-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
         
-        .profile-header-info { padding: 0 15px; display: flex; align-items: flex-end; gap: 15px; margin-top: -50px; position: relative; z-index: 20; }
+        .profile-header-info { padding: 0 30px; display: flex; align-items: flex-end; gap: 25px; margin-top: -60px; position: relative; z-index: 20; }
+        .avatar-box { width: 120px; flex-shrink: 0; }
+        .avatar-box img { 
+            width: 100%; height: auto; 
+            background: transparent; 
+            border: none; 
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
         
-        /* NO FRAME AVATAR */
-        .avatar-box { width: 100px; flex-shrink: 0; background: transparent; }
-        .avatar-box img { width: 100%; height: auto; display: block; border-radius: 12px; border: none; outline: none; box-shadow: none; }
-        
-        .name-meta { margin-bottom: 5px; flex: 1; min-width: 0; }
-        .name-meta h1 { font-size: 1.3rem; color: var(--accent); font-weight: 700; line-height: 1.2; }
-        
+        .name-meta { margin-bottom: 10px; flex: 1; }
+        .name-meta h1 { 
+            font-family: 'Noto Serif Bengali', serif; font-size: 2rem; color: var(--accent); 
+            font-weight: 700; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
         /* --- TABS --- */
-        .tabs { display: flex; gap: 8px; margin: 20px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; }
+        .tabs { display: flex; gap: 12px; margin: 25px 0 15px; border-bottom: 1px solid var(--border); padding-bottom: 12px; overflow-x: auto; scrollbar-width: none; }
         .tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { background: none; border: none; color: var(--text-muted); padding: 7px 14px; cursor: pointer; font-weight: 600; font-size: 0.85rem; border-radius: 6px; transition: 0.2s; white-space: nowrap; }
-        .tab-btn.active { color: var(--accent); background: rgba(212, 175, 55, 0.1); }
+        .tab-btn { 
+            background: none; border: none; color: var(--text-muted); padding: 10px 20px; 
+            cursor: pointer; font-weight: 600; font-size: 0.9rem; border-radius: 50px; 
+            transition: 0.3s; white-space: nowrap; border: 1px solid transparent;
+        }
+        .tab-btn.active { color: var(--accent); background: rgba(212, 175, 55, 0.12); border-color: var(--border); box-shadow: 0 0 15px rgba(212, 175, 55, 0.05); }
 
-        /* --- CONTENT --- */
-        .content-layout { width: 100%; max-width: 1000px; margin: 0 auto 100px; padding: 0 15px; display: flex; flex-direction: column; gap: 15px; }
-        .card { width: 100%; background: var(--bg-card); border-radius: 12px; padding: 18px; border: 1px solid var(--border); }
-        .card h3 { color: var(--accent); margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-size: 0.95rem; }
+        /* --- LAYOUT --- */
+        .content-layout { 
+            width: 100%; max-width: 1000px; margin: 30px auto 100px; 
+            padding: 0 15px; display: grid; grid-template-columns: 1fr; gap: 25px; 
+        }
 
-        .info-row { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; margin-bottom: 10px; color: var(--text-muted); }
+        .card { 
+            background: var(--bg-card); border-radius: 25px; padding: 28px; 
+            border: 1px solid var(--border); backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .section-header {
+            font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 4px;
+            color: var(--accent); text-transform: uppercase; margin-bottom: 25px;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .section-header::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+
+        .info-row { display: flex; align-items: center; gap: 15px; font-size: 0.92rem; margin-bottom: 15px; color: var(--text-muted); }
         .info-row span { color: var(--text-main); font-weight: 600; }
+        .info-row i { color: var(--accent); width: 20px; text-align: center; font-size: 1.1rem; }
 
-        .project-item { display: flex; gap: 12px; padding: 15px 0; border-bottom: 1px solid var(--border); animation: fadeIn 0.4s ease; align-items: flex-start; width: 100%; }
+        /* --- BLOOD SECTION (PROFESSIONAL UI) --- */
+        .blood-card { 
+            border: 1px solid var(--border); padding: 25px; border-radius: 20px; 
+            background: linear-gradient(145deg, rgba(20,20,20,0.8) 0%, rgba(10,10,10,0.9) 100%);
+            margin-top: 10px; transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .blood-status-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 15px; }
+        .blood-icon-wrapper { 
+            width: 50px; height: 50px; border-radius: 15px; display: flex; 
+            justify-content: center; align-items: center; font-size: 1.6rem;
+            background: rgba(255,255,255,0.03); flex-shrink: 0;
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.02);
+        }
+        .blood-text-area { flex: 1; }
+        .blood-status-title { font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; font-family: 'Noto Serif Bengali', serif; letter-spacing: 0.5px; }
+        .blood-status-desc { font-size: 0.88rem; color: #b3b3b3; line-height: 1.6; text-align: justify; }
+        
+        .progress-container { margin-top: 20px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.03); }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
+        .progress-track { width: 100%; height: 12px; background: #1a1a1a; border-radius: 50px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); position: relative; }
+        .progress-fill { height: 100%; border-radius: 50px; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; }
+        .progress-fill::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        
+        .progress-markers { display: flex; justify-content: space-between; font-size: 0.7rem; color: #666; margin-top: 8px; position: relative; padding: 0 5px; }
+        .progress-markers span { position: absolute; transform: translateX(-50%); }
+        
+        .blood-emergency-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+            background: var(--live-red); color: #fff; padding: 12px; border-radius: 12px; 
+            text-decoration: none; font-weight: 700; font-size: 0.95rem; margin-top: 20px; 
+            transition: 0.3s; border: none; box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+        }
+        .blood-emergency-btn:hover { background: #e03e22; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 75, 43, 0.5); }
+
+        .call-btn { 
+            display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #000; 
+            padding: 10px 22px; border-radius: 50px; text-decoration: none; font-weight: 700; 
+            font-size: 0.9rem; margin-top: 15px; transition: 0.3s;
+        }
+        .call-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px var(--accent-glow); }
+
+        /* --- PROJECT ITEMS --- */
+        .project-item { display: flex; gap: 20px; padding: 25px 0; border-bottom: 1px solid var(--border); animation: fadeIn 0.8s ease forwards; align-items: flex-start; }
         .project-item:last-child { border-bottom: none; }
-        .project-img-box { width: 85px; height: 75px; flex-shrink: 0; border-radius: 8px; overflow: hidden; background: #222; border: 1px solid var(--border); }
-        .project-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .project-img-box { width: 100px; height: 90px; flex-shrink: 0; border-radius: 15px; overflow: hidden; background: #111; border: 1px solid var(--border); }
+        .project-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .project-item:hover .project-img-box img { transform: scale(1.1); }
 
         .project-content { flex: 1; min-width: 0; }
-        .project-name { font-weight: 700; color: #fff; font-size: 0.92rem; }
-        .project-date { font-size: 0.72rem; color: var(--text-muted); }
-        .project-desc { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .project-name { font-weight: 700; color: #fff; font-size: 1.1rem; font-family: 'Noto Serif Bengali', serif; }
+        .project-date { font-size: 0.8rem; color: var(--accent); opacity: 0.8; margin-top: 4px; font-weight: 500; }
+        .project-desc { font-size: 0.9rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .expanded { -webkit-line-clamp: unset !important; display: block !important; }
-        .see-more { color: var(--accent); font-size: 0.78rem; font-weight: 700; cursor: pointer; margin-top: 5px; display: inline-block; }
+        .see-more { color: var(--accent); font-size: 0.82rem; font-weight: 700; cursor: pointer; margin-top: 10px; display: inline-block; padding-bottom: 2px; border-bottom: 1px dashed var(--accent); }
 
-        .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.65rem; font-weight: 800; margin-top: 10px; padding: 3px 10px; border-radius: 20px; background: rgba(255,255,255,0.04); }
-        .dot { width: 6px; height: 6px; border-radius: 50%; }
+        .status-badge { 
+            display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; 
+            margin-top: 15px; padding: 5px 15px; border-radius: 50px; 
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); 
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
         .tag-live { color: var(--live-red); } .dot-live { background: var(--live-red); animation: pulse-red 1.5s infinite; }
         .tag-done { color: var(--done-green); } .dot-done { background: var(--done-green); }
         .tag-upcoming { color: var(--upcoming-blue); } .dot-upcoming { background: var(--upcoming-blue); }
 
-        @keyframes pulse-red { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse-red { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.4); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (min-width: 768px) {
-            .content-layout { flex-direction: row; }
-            aside { width: 320px; position: sticky; top: 80px; }
-            main { flex: 1; }
-            .cover-photo { height: 280px; border-radius: 0 0 15px 15px; }
-            .avatar-box { width: 150px; margin-top: -90px; }
-            .name-meta h1 { font-size: 1.8rem; }
-            .project-img-box { width: 115px; height: 90px; }
+        /* --- BIRTHDAY GLITTER & MSG --- */
+        #bday-overlay { position: fixed; inset: 0; z-index: 100000; display: none; pointer-events: none; }
+        .glitter { position: absolute; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; opacity: 0; animation: fall linear infinite; box-shadow: 0 0 8px var(--accent); }
+        @keyframes fall { 0% { transform: translateY(-10vh) scale(0); opacity: 1; } 50% { opacity: 1; } 100% { transform: translateY(100vh) scale(1); opacity: 0; } }
+
+        #bday-msg {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(10, 10, 10, 0.95); border: 1px solid var(--accent);
+            padding: 40px; border-radius: 30px; color: var(--accent);
+            text-align: center; z-index: 100001; display: none;
+            backdrop-filter: blur(20px); box-shadow: 0 0 60px rgba(212, 175, 55, 0.3);
+            width: 85%; max-width: 450px;
+        }
+
+        @media (min-width: 900px) {
+            .content-layout { grid-template-columns: 350px 1fr; }
+            aside { position: sticky; top: 100px; height: fit-content; }
+            .name-meta h1 { font-size: 2.8rem; }
+            .desktop-nav { display: flex; }
+            .mobile-menu-btn { display: none; }
+            .project-img-box { width: 130px; height: 110px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Particle Background -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Birthday Effects -->
     <div id="bday-overlay"></div>
     <div id="bday-msg" onclick="this.style.display='none'">
-        <h2>আজ ৩১ই ডিসেম্বর</h2>
-        <p>ইসতিয়াক আহমেদ এর জন্মদিন</p>
+        <h2 style="font-family:'Cinzel', serif; letter-spacing: 5px;">HAPPY BIRTHDAY</h2>
+        <div style="height: 1px; background: var(--border); margin: 20px auto; width: 100px;"></div>
+        <p style="font-family:'Noto Serif Bengali', serif; font-size: 1.2rem;">ইসতিয়াক আহমেদ খাঁন-এর জন্মদিন আজ!</p>
     </div>
 
-    <div id="loader"><img src="profile.png" class="loader-img"></div>
-    <div class="overlay-bg" id="menuOverlay" onclick="toggleMobileNav()"></div>
+    <!-- Loader -->
+    <div id="loader"><img src="profile.png" class="loader-img" onerror="this.src='https://via.placeholder.com/70'"></div>
     
+    <!-- Navigation -->
+    <div class="overlay-bg" id="menuOverlay" onclick="toggleMobileNav()"></div>
     <nav>
         <div class="nav-inner">
             <a href="index.html" class="logo">ISTIACK</a>
+            
+            <div class="desktop-nav">
+                <a href="index.html" class="active">হোম</a>
+                <a href="debate.html">বিতর্ক জগৎ</a>
+                <a href="politics.html">রাজনৈতিক জগৎ</a>
+                <a href="thoughts.html">ভাবনা</a>
+                <a href="donate.html">অনুদান</a>
+                <a href="nn.html">নসিহত নামা</a>
+                <a href="contact.html">যোগাযোগ</a>
+                <a href="hm.html" class="hire-btn-desktop">Hire Me</a>
+            </div>
+
             <div class="mobile-menu-btn" onclick="toggleMobileNav()">
-                <div class="dot-bar"></div><div class="dot-bar"></div><div class="dot-bar"></div>
+                <div class="dot-bar"></div>
+                <div class="dot-bar"></div>
+                <div class="dot-bar"></div>
             </div>
         </div>
     </nav>
 
+    <!-- Mobile Navigation Drawer -->
     <div id="mobileNav">
-        <a href="index.html">🏠 হোম</a>
-        <a href="debate.html">🎙️ বিতর্ক</a>
-        <a href="politics.html">⚖️ রাজনীতি</a>
-        <a href="thoughts.html">💡 চিন্তাধারা</a>
-        <a href="donate.html">☕ সহযোগিতা</a>
-        <a href="contact.html">📞 যোগাযোগ</a>
-        <a href="admin.html">🔐 এডমিন লগইন</a>
+        <a href="index.html" style="color:var(--accent); font-weight: 700;"><i class="fa-solid fa-house"></i> হোম</a>
+        <a href="debate.html"><i class="fa-solid fa-microphone"></i> বিতর্ক জগৎ</a>
+        <a href="politics.html"><i class="fa-solid fa-scale-balanced"></i> রাজনৈতিক জগৎ</a>
+        <a href="thoughts.html"><i class="fa-solid fa-brain"></i> ভাবনা</a>
+        <a href="donate.html"><i class="fa-solid fa-hand-holding-dollar"></i> অনুদান</a>
+        <a href="nn.html"><i class="fa-solid fa-scroll"></i> নসিহত নামা</a>
+        <a href="contact.html"><i class="fa-solid fa-envelope"></i> যোগাযোগ</a>
+        <a href="hm.html" style="background: rgba(212, 175, 55, 0.1); border-radius: 12px; margin-top: 10px;"><i class="fa-solid fa-briefcase"></i> Hire Me</a>
+        <a href="admin.html" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; opacity: 0.5;"><i class="fa-solid fa-user-shield"></i> এডমিন লগইন</a>
     </div>
 
+    <!-- Header Section -->
     <div class="profile-container">
-        <div class="cover-photo"><img src="cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1200'"></div>
+        <div class="cover-photo">
+            <img src="cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1200'">
+        </div>
         <div class="profile-header-info">
-            <div class="avatar-box"><img src="profile.png"></div>
+            <div class="avatar-box">
+                <img src="profile.png" onerror="this.src='https://via.placeholder.com/150'">
+            </div>
             <div class="name-meta">
                 <h1>ইসতিয়াক আহমেদ খাঁন</h1>
             </div>
         </div>
     </div>
 
+    <!-- Main Content Layout -->
     <div class="content-layout">
+        <!-- Sidebar -->
         <aside>
+            <!-- Personal Info -->
+            <div class="card" style="margin-bottom: 25px;">
+                <div class="section-header">ব্যক্তিগত তথ্য</div>
+                <div class="info-row"><i class="fa-solid fa-cake-candles"></i> জন্ম: <span>৩১ ডিসেম্বর ২০০৭</span></div>
+                <div class="info-row"><i class="fa-solid fa-hourglass-half"></i> বয়স: <span id="display-age">গণনা করা হচ্ছে...</span></div>
+                <div class="info-row"><i class="fa-solid fa-graduation-cap"></i> শিক্ষা: <span>মেহেরপুর সরকারি কলেজ</span></div>
+                <div class="info-row"><i class="fa-solid fa-location-dot"></i> স্থান: <span>মেহেরপুর, বাংলাদেশ</span></div>
+            </div>
+
+            <!-- Blood Donation Logic Card -->
             <div class="card">
-                <h3>ব্যক্তিগত তথ্য</h3>
-                <div class="info-row">🎂 জন্ম: <span>৩১ ডিসেম্বর ২০০৭</span></div>
-                <div class="info-row">⏳ বয়স: <span id="display-age">গণনা করা হচ্ছে...</span></div>
-                <div class="info-row">🎓 শিক্ষা: <span>মেহেরপুর সরকারি কলেজ</span></div>
-                <div class="info-row">📍 স্থান: <span>মেহেরপুর, বাংলাদেশ</span></div>
+                <div class="section-header">রক্তদান স্ট্যাটাস</div>
+                <div id="blood-status-ui">
+                    <!-- Automatically populated by JS -->
+                </div>
             </div>
         </aside>
         
+        <!-- Main Content Area -->
         <main>
             <div class="card">
-                <h3>📁 কার্যক্রম ও প্রজেক্ট</h3>
+                <div class="section-header">কার্যক্রম ও প্রজেক্ট</div>
+                
                 <div class="tabs">
                     <button id="tab-live" class="tab-btn active" onclick="switchTab('live')">চলমান</button>
                     <button id="tab-done" class="tab-btn" onclick="switchTab('done')">সম্পন্ন</button>
                     <button id="tab-upcoming" class="tab-btn" onclick="switchTab('upcoming')">আসন্ন</button>
                 </div>
-                <div id="project-list"></div>
+
+                <div id="project-list">
+                    <!-- Populated from Data.js -->
+                </div>
             </div>
         </main>
     </div>
 
+    <!-- Scripts -->
     <script src="Data.js"></script>
     <script>
         let currentStatusFilter = 'live';
@@ -233,13 +373,164 @@
             overlay.style.display = nav.classList.contains('open') ? 'block' : 'none';
         }
 
+        // Particle System
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i = 0; i < 45; i++) {
+                particles.push({ 
+                    x: Math.random() * canvas.width, 
+                    y: Math.random() * canvas.height, 
+                    size: Math.random() * 2, 
+                    speed: Math.random() * 0.4 + 0.1, 
+                    opacity: Math.random() * 0.5 
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.y -= p.speed;
+                if(p.y < 0) p.y = canvas.height;
+                ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
+                ctx.beginPath(); 
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); 
+                ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        // --- NEW PROFESSIONAL BLOOD DONATION ENGINE ---
+        function updateBloodStatus() {
+            const container = document.getElementById('blood-status-ui');
+            if (typeof portfolioData === 'undefined') {
+                container.innerHTML = `<p style="color:var(--text-muted); font-size:0.8rem;">Data error.</p>`;
+                return;
+            }
+
+            const hl = portfolioData.hl || 0; // Hemoglobin
+            const ldStr = portfolioData.ld || "01-01-2000"; // Last Donation Date (DD-MM-YYYY)
+            
+            // Parse Date
+            const parts = ldStr.split('-');
+            const lastDate = new Date(parts[2], parts[1] - 1, parts[0]);
+            const now = new Date();
+            
+            // Calculations
+            const diffTime = Math.abs(now - lastDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const diffMonths = diffDays / 30.44; // Approximate months
+            
+            // UI Variables
+            let color = "", title = "", desc = "", icon = "";
+            let progressHtml = "", emergencyBtnHtml = "";
+            
+            // Bangla Numeral Converter
+            const bn = (n) => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+
+            // Logic 1: Hemoglobin is 10 or less
+            if (hl <= 10) {
+                color = "var(--live-red)";
+                title = "অযোগ্য (Donate Me Blood)";
+                desc = `আমার বর্তমান হিমোগ্লোবিন লেভেল অত্যন্ত কম (${hl})। আমার শরীরে এই মুহূর্তে রক্তের অভাব রয়েছে। রক্তদান করা একেবারেই সম্ভব নয়, বরং আমার নিজেরই এখন রক্ত ও চিকিৎসার প্রয়োজন!`;
+                icon = "fa-truck-medical";
+                
+                emergencyBtnHtml = `
+                    <button class="blood-emergency-btn" onclick="alert('রক্ত দিয়ে সহযোগীতা করুণ)">
+                        <i class="fa-solid fa-droplet"></i> আমার রক্তের প্রয়োজন!
+                    </button>
+                `;
+            } 
+            // Logic 2: Hemoglobin is Okay (> 10) -> Progress Bar Logic
+            else {
+                // Target is 5 months (150 days) for full Green
+                const targetDays = 150; 
+                let progressPercent = Math.min((diffDays / targetDays) * 100, 100);
+                let remainingDays = Math.max(targetDays - diffDays, 0);
+                let statusText = "";
+
+                if (diffMonths < 3) {
+                    color = "var(--live-red)"; // Red (< 3 months)
+                    title = "রক্তদানে সাময়িক বিরতি";
+                    statusText = "বিশ্রাম প্রয়োজন";
+                    desc = "আমার শেষ রক্তদানের পর এখনো ৩ মাস পূর্ণ হয়নি। আমার শরীরে লোহিত রক্তকণিকা ও আয়রন সম্পূর্ণ পুনর্গঠিত হতে সময় লাগছে। এই অবস্থায় রক্ত দিলে আমি শারীরিকভাবে দুর্বল হয়ে পড়বো";
+                    icon = "fa-bed-pulse";
+                } 
+                else if (diffMonths >= 3 && diffMonths < 4) {
+                    color = "var(--blood-urgent)"; // Yellow (3 to 4 months)
+                    title = "জরুরি প্রয়োজনে রক্তদান";
+                    statusText = "হলুদ সংকেত";
+                    desc = "আমার রক্তদানের ৩ মাস পার হয়েছে। রক্তকণিকা প্রায় স্বাভাবিক অবস্থায় ফিরেছে। শুধুমাত্র অতি জরুরি পরিস্থিতিতে (Life or Death) আমি রক্তদান করতে পারবো";
+                    icon = "fa-triangle-exclamation";
+                } 
+                else if (diffMonths >= 4 && diffMonths < 5) {
+                    color = "var(--upcoming-blue)"; // Blue (4 to 5 months)
+                    title = "রক্তদানের জন্য প্রস্তুত প্রায়";
+                    statusText = "নীল সংকেত";
+                    desc = "আমার রক্তদানের ৪ মাস অতিক্রান্ত হয়েছে। শরীর এখন অনেকটাই সুস্থ এবং প্রস্তুত। সাধারণ প্রয়োজনে আমি এখন রক্তদান করতে পারব";
+                    icon = "fa-shield-heart";
+                } 
+                else {
+                    color = "var(--done-green)"; // Green (>= 5 months)
+                    title = "সম্পূর্ণ প্রস্তুত (সবুজ সংকেত)";
+                    statusText = "রক্তদানে উপযুক্ত";
+                    desc = "৫ মাস বা তার বেশি সময় পার হয়েছে। আমার শরীর সম্পূর্ণ সুস্থ এবং পুনরায় রক্তদানের জন্য পুরোপুরি প্রস্তুত। আমার এক ফোঁটা রক্ত বাঁচাতে পারে একটি জীবন!";
+                    icon = "fa-circle-check";
+                    progressPercent = 100;
+                }
+
+                // Progress Bar UI
+                progressHtml = `
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span style="color: ${color}">${statusText}</span>
+                            <span>${remainingDays > 0 ? `আর ${bn(remainingDays)} দিন বাকি` : 'সম্পন্ন'}</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: ${progressPercent}%; background: ${color}; box-shadow: 0 0 10px ${color};"></div>
+                        </div>
+                        <div class="progress-markers">
+                            <span style="left: 0%;">০</span>
+                            <span style="left: 60%;">৩ মাস</span>
+                            <span style="left: 80%;">৪ মাস</span>
+                            <span style="left: 100%;">৫ মাস</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Render UI
+            container.innerHTML = `
+                <div class="blood-card" style="border-left: 4px solid ${color}">
+                    <div class="blood-status-header">
+                        <div class="blood-icon-wrapper" style="color: ${color}">
+                            <i class="fa-solid ${icon}"></i>
+                        </div>
+                        <div class="blood-text-area">
+                            <div class="blood-status-title" style="color: ${color}">${title}</div>
+                            <div class="blood-status-desc">${desc}</div>
+                        </div>
+                    </div>
+                    ${progressHtml}
+                    ${emergencyBtnHtml}
+                </div>
+            `;
+        }
+
+        // Age & Birthday Engine
         function runBirthdayCelebration() {
             const overlay = document.getElementById('bday-overlay');
             const msg = document.getElementById('bday-msg');
             overlay.style.display = 'block';
             msg.style.display = 'block';
 
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 70; i++) {
                 const glitter = document.createElement('div');
                 glitter.className = 'glitter';
                 glitter.style.left = Math.random() * 100 + 'vw';
@@ -253,11 +544,8 @@
                 msg.style.opacity = '0';
                 overlay.style.transition = 'opacity 2s ease';
                 msg.style.transition = 'opacity 2s ease';
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                    msg.style.display = 'none';
-                }, 2000);
-            }, 5000);
+                setTimeout(() => { overlay.style.display = 'none'; msg.style.display = 'none'; }, 2000);
+            }, 10000);
         }
 
         function calculateRealtimeAge() {
@@ -287,14 +575,17 @@
             document.getElementById('display-age').innerText = `${bn(years)} বছর, ${bn(months)} মাস, ${bn(days)} দিন`;
         }
 
+        // Date Formatting
         function formatDateBangla(dateStr) {
             if(!dateStr) return "";
             const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
             const date = new Date(dateStr);
             if (isNaN(date)) return dateStr;
-            return `${months[date.getMonth()]} ${date.getFullYear()}`;
+            const bnYear = (n) => String(n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+            return `${months[date.getMonth()]} ${bnYear(date.getFullYear())}`;
         }
 
+        // Project Tab Logic
         function switchTab(status) {
             currentStatusFilter = status;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -316,7 +607,7 @@
 
             container.innerHTML = '';
             if(filtered.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); padding:30px; text-align:center; font-size:0.85rem;">কোনো ডাটা পাওয়া যায়নি।</p>`;
+                container.innerHTML = `<p style="color:var(--text-muted); padding:40px; text-align:center; font-size:0.9rem;">কোনো তথ্য পাওয়া যায়নি।</p>`;
                 return;
             }
 
@@ -337,7 +628,7 @@
                         <div class="project-name">${p.work}</div>
                         <div class="project-date">${dateTxt}</div>
                         <p id="desc-${idx}" class="project-desc">${p.desc || ''}</p>
-                        ${(p.desc && p.desc.length > 65) ? `<span class="see-more" onclick="toggleDesc(${idx}, this)">আরও দেখুন</span>` : ''}
+                        ${(p.desc && p.desc.length > 70) ? `<span class="see-more" onclick="toggleDesc(${idx}, this)">আরও দেখুন</span>` : ''}
                         <div class="status-badge tag-${currentStatusFilter}">
                             <div class="dot dot-${currentStatusFilter}"></div>
                             ${currentStatusFilter === 'live' ? 'চলমান' : (currentStatusFilter === 'done' ? 'সম্পন্ন' : 'আসন্ন')}
@@ -359,14 +650,23 @@
             }
         }
 
+        // Initialize App
         window.onload = () => {
+            initParticles();
+            animateParticles();
             calculateRealtimeAge();
             renderProjects();
+            updateBloodStatus();
+            
+            // Smooth Loader Exit
             setTimeout(() => { 
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
-            }, 500);
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 800);
+            }, 800);
         };
+        
+        window.onresize = initParticles;
     </script>
 </body>
 </html>
