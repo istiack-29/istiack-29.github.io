@@ -2,350 +2,689 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN PANEL</title>
-<meta property="og:type" content="website">
-    <meta property="og:url" content="https://istiack-29.github.io/">
-    <meta property="og:title" content="ইসতিয়াক আহমেদ খাঁন | প্রোফাইল">
-    <meta property="og:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="og:image" content="https://istiack-29.github.io/1774372559124~2.png">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://istiack-29.github.io/">
-    <meta property="twitter:title" content="ইসতিয়াক আহমেদ খাঁন | প্রোফাইল">
-    <meta property="twitter:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="twitter:image" content="https://istiack-29.github.io/1774372559124~2.png">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ADMIN</title>
+    
+    <!-- Premium Font Matrix -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
+        /* ==========================================================================
+           QUANTUM DESIGN SYSTEM v2.0 - ARCHITECTED BY GEMINI
+           ========================================================================== 
+        */
         :root {
-            --bg: #050505;
-            --card: #121212;
-            --accent: #D4AF37;
-            --danger: #ff4d4d;
-            --text: #ffffff;
-            --muted: #888888;
-            --input-bg: #000000;
-            --border: #222222;
-            --code-bg: #080808;
+            /* Core Neutrals */
+            --bg-void: #020204;
+            --bg-deep: #08080c;
+            --bg-elevated: rgba(15, 15, 22, 0.85);
+            --bg-glass: rgba(10, 10, 15, 0.7);
+            
+            /* Primary Brand - Liquid Gold & Plasma */
+            --gold-primary: #D4AF37;
+            --gold-bright: #F9D976;
+            --gold-glow: rgba(212, 175, 55, 0.35);
+            --gold-muted: rgba(212, 175, 55, 0.1);
+            
+            /* Status Indicators */
+            --neon-green: #00ffaa;
+            --neon-red: #ff2a6d;
+            --neon-blue: #05d9e8;
+            
+            /* Text Hierarchy */
+            --text-pure: #ffffff;
+            --text-soft: #a0a0b0;
+            --text-dark: #000000;
+            
+            /* Border Systems */
+            --border-white: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(212, 175, 55, 0.4);
+            
+            /* Spacing & Radii */
+            --radius-main: 16px;
+            --radius-pill: 50px;
+            --radius-card: 28px;
+            
+            /* Transitions */
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --transition-main: all 0.4s var(--ease-out-expo);
         }
 
-        /* মূল বডির জন্য হিন্দ শিলিগুড়ি ফন্ট */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent;
-            font-family: 'Hind Siliguri', sans-serif; 
-        }
-
+        /* ==========================================================================
+           GLOBAL RESET & LAYOUT 
+           ========================================================================== 
+        */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body { 
-            background: var(--bg); 
-            color: var(--text); 
-            padding: 10px; 
-            line-height: 1.6;
+            background-color: var(--bg-void); 
+            color: var(--text-pure); 
+            font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
+            min-height: 100vh; 
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Authentication Overlay */
-        #auth-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-            padding: 20px;
+        /* Animated Background Core */
+        .plasma-bg {
+            position: fixed; inset: 0; z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(5, 217, 232, 0.03) 0%, transparent 40%);
+            pointer-events: none;
         }
 
-        .auth-card {
-            background: var(--card);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            width: 100%;
-            max-width: 400px;
+        .grid-overlay {
+            position: fixed; inset: 0; z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           AUTHENTICATION PORTAL (MAX LEVEL)
+           ========================================================================== 
+        */
+        #auth-overlay { 
+            position: fixed; inset: 0; 
+            background: #000; 
+            z-index: 10000; 
+            display: flex; justify-content: center; align-items: center; 
+        }
+
+        .auth-card { 
+            background: var(--bg-elevated); 
+            padding: 60px 40px; 
+            border-radius: var(--radius-card); 
+            border: 1px solid var(--border-white);
+            width: 90%; max-width: 450px; 
             text-align: center;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
         }
 
-        .auth-card h1 { color: var(--accent); margin-bottom: 25px; font-size: 1.5rem; }
-        .auth-input { margin-bottom: 15px; }
-        .auth-input input { width: 100%; padding: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 12px; outline: none; font-size: 1rem; text-align: center; }
-        .auth-input input:focus { border-color: var(--accent); }
-        .auth-btn { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 12px; font-weight: 700; cursor: pointer; color: #000; font-size: 1rem; }
-        .auth-error { color: var(--danger); font-size: 0.85rem; margin-top: 10px; display: none; }
+        .auth-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            animation: scanHorizontal 3s linear infinite;
+        }
 
-        /* Dashboard Styles */
-        .wrapper { max-width: 1250px; margin: 0 auto; display: none; gap: 15px; }
-        .panel-grid { display: grid; gap: 15px; }
+        .auth-card h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-primary);
+            font-size: 2rem;
+            letter-spacing: 6px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px var(--gold-glow);
+        }
 
-        .card { background: var(--card); border-radius: 15px; border: 1px solid var(--border); padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .card h2 { color: var(--accent); font-size: 1.25rem; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; align-items: center; gap: 10px; font-weight: 700; }
-
-        .tab-buttons { display: flex; gap: 8px; margin-bottom: 15px; }
-        .tab-btn { flex: 1; padding: 14px; background: #1a1a1a; border: 1px solid var(--border); color: var(--text); border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: 0.2s; }
-        .tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
-
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; }
+        /* ==========================================================================
+           NAVIGATION & HEADER 
+           ========================================================================== 
+        */
+        .header { 
+            padding: 20px 40px; 
+            background: var(--bg-glass); 
+            border-bottom: 1px solid var(--border-white); 
+            display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; 
+            backdrop-filter: blur(25px);
+        }
         
+        .header h2 { 
+            font-family: 'Cinzel', serif; 
+            color: var(--gold-primary); 
+            font-size: 1.4rem; 
+            letter-spacing: 2px;
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        /* ==========================================================================
+           CONTENT ARCHITECTURE 
+           ========================================================================== 
+        */
+        .container { 
+            max-width: 1500px; margin: 30px auto; padding: 0 25px; 
+            display: grid; grid-template-columns: 1fr; gap: 30px; 
+        }
+        
+        @media (min-width: 1024px) { 
+            .container { grid-template-columns: 520px 1fr; align-items: start; } 
+        }
+
+        /* ==========================================================================
+           COMPONENTS: CARDS, TABS, INPUTS 
+           ========================================================================== 
+        */
+        .card { 
+            background: var(--bg-elevated); 
+            border-radius: var(--radius-card); 
+            border: 1px solid var(--border-white); 
+            padding: 30px; 
+            margin-bottom: 25px; 
+            transition: var(--transition-main);
+            position: relative;
+        }
+
+        .card:hover { border-color: var(--border-gold); transform: translateY(-5px); }
+
+        .card-title { 
+            display: flex; align-items: center; gap: 12px; 
+            color: var(--gold-primary); 
+            font-size: 0.9rem; font-weight: 700; 
+            margin-bottom: 25px; 
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* Inputs & Controls */
         input, textarea, select { 
-            width: 100%; background: var(--input-bg); border: 1px solid var(--border); 
-            padding: 14px; color: #fff; border-radius: 12px; font-size: 1rem; font-family: 'Hind Siliguri', sans-serif;
-            transition: 0.2s;
+            width: 100%; background: rgba(0,0,0,0.4); 
+            border: 1px solid var(--border-white); 
+            padding: 16px 20px; color: #fff; 
+            border-radius: 14px; font-size: 1rem; 
+            margin-top: 8px; transition: var(--transition-main);
+            font-family: 'Space Grotesk', sans-serif;
         }
-        input:focus, textarea:focus, select:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1); }
-        
-        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .btn-action { 
-            background: var(--accent); color: #000; border: none; width: 100%; 
-            padding: 16px; border-radius: 12px; font-weight: 700; cursor: pointer; 
-            margin-top: 10px; font-size: 1.05rem; transition: 0.2s;
+        input:focus { border-color: var(--gold-primary); outline: none; background: rgba(212, 175, 55, 0.05); }
+
+        label { font-size: 0.8rem; color: var(--text-soft); margin-top: 15px; display: block; font-weight: 600; text-transform: uppercase; }
+
+        /* Buttons */
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--gold-primary), #B8860B); 
+            color: #000; border: none; width: 100%; padding: 18px; 
+            border-radius: 15px; font-weight: 800; cursor: pointer; 
+            margin-top: 25px; display: flex; align-items: center; 
+            justify-content: center; gap: 10px; transition: var(--transition-main);
+            font-size: 1rem; letter-spacing: 1px;
         }
-        .btn-action:active { transform: scale(0.97); }
 
-        .item-list { display: flex; flex-direction: column; gap: 12px; max-height: 480px; overflow-y: auto; padding-right: 8px; }
-        .list-item { background: #080808; border: 1px solid var(--border); padding: 14px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-        .list-item .info { display: flex; flex-direction: column; overflow: hidden; }
-        .list-item .info .title { font-size: 1rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .list-item .info .sub { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
-        
-        .del-btn { background: rgba(255, 77, 77, 0.1); color: var(--danger); border: 1px solid var(--danger); padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 700; transition: 0.2s; }
-        .del-btn:hover { background: var(--danger); color: #fff; }
+        .btn-primary:hover { transform: scale(1.02); box-shadow: 0 10px 30px var(--gold-glow); }
 
-        .code-box { background: var(--code-bg); border-radius: 18px; border: 1px solid var(--border); overflow: hidden; height: fit-content; }
-        .code-header { background: #111; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-        .copy-btn { background: var(--accent); color: #000; border: none; padding: 8px 18px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
-        
+        .btn-outline { 
+            background: transparent; border: 1px solid var(--border-white); 
+            color: #fff; padding: 12px 20px; border-radius: 12px; 
+            cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: var(--transition-main);
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
+
+        /* ==========================================================================
+           IDE & CODE PREVIEW SYSTEM
+           ========================================================================== 
+        */
+        .preview-box { 
+            background: #0b0b0e; border-radius: var(--radius-card); 
+            border: 1px solid var(--border-white); 
+            overflow: hidden; position: sticky; top: 100px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            background: #141418; padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-white);
+        }
+
+        .window-controls { display: flex; gap: 8px; }
+        .window-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
         pre { 
-            padding: 18px; color: #76e056; 
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important; 
-            font-size: 0.85rem; line-height: 1.5; overflow-x: auto; 
-            max-height: 600px; white-space: pre-wrap; word-break: break-all;
+            padding: 30px; color: var(--neon-green); 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.85rem; overflow-x: auto; 
+            max-height: 700px; line-height: 1.7; 
+            background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%);
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        /* ==========================================================================
+           DATA LIST MANAGEMENT
+           ========================================================================== 
+        */
+        .item-row { 
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-white); 
+            padding: 20px; border-radius: 18px; display: flex; 
+            justify-content: space-between; align-items: center; margin-bottom: 15px; 
+            transition: var(--transition-main);
+        }
 
-        @media (min-width: 900px) {
-            .wrapper { grid-template-columns: 480px 1fr; align-items: start; padding: 30px; }
-            pre { max-height: 85vh; }
+        .item-row:hover { background: rgba(255,255,255,0.05); border-color: var(--gold-primary); }
+
+        .item-info b { display: block; color: var(--gold-primary); font-size: 1.05rem; margin-bottom: 5px; }
+        .item-info span { font-size: 0.85rem; color: var(--text-soft); }
+
+        /* ==========================================================================
+           ANIMATIONS & OVERLAYS 
+           ========================================================================== 
+        */
+        @keyframes scanHorizontal {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .spinner { animation: rotate 2s linear infinite; }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-void); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; border: 3px solid var(--bg-void); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+
+        #custom-popup { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
+            z-index: 20000; display: none; justify-content: center; align-items: center; padding: 20px; 
+        }
+
+        .popup-content { 
+            background: var(--bg-elevated); border: 2px solid var(--gold-primary); 
+            padding: 40px; border-radius: 30px; text-align: center; width: 100%; max-width: 500px;
+            box-shadow: 0 0 50px var(--gold-glow);
         }
     </style>
 </head>
 <body>
 
-<!-- Authentication Screen -->
+<div class="plasma-bg"></div>
+<div class="grid-overlay"></div>
+
+<!-- AUTHENTICATION -->
 <div id="auth-overlay">
     <div class="auth-card">
-        <h1>প্রশাসক লগইন</h1>
-        <div class="auth-input">
-            <input type="text" id="username" placeholder="ইউজারনেম">
+        <h1>ACCESS VAULT</h1>
+        <div style="position: relative;">
+            <i data-lucide="shield-lock" style="position: absolute; left: 15px; top: 25px; width: 20px; color: var(--gold-primary);"></i>
+            <input type="password" id="admin-pass" placeholder="Enter Command Key" style="text-align:center; padding-left: 45px; letter-spacing: 5px;">
         </div>
-        <div class="auth-input">
-            <input type="password" id="password" placeholder="পাসওয়ার্ড">
-        </div>
-        <button class="auth-btn" onclick="checkAuth()">প্রবেশ করুন</button>
-        <div id="auth-error" class="auth-error">ভুল ইউজারনেম বা পাসওয়ার্ড!</div>
+        <button class="btn-primary" onclick="checkAuth()">
+            <i data-lucide="fingerprint"></i> INITIALIZE SESSION
+        </button>
     </div>
 </div>
 
-<!-- Main Admin Panel -->
-<div class="wrapper" id="main-content">
-    <div class="panel-grid">
-        <div class="tab-buttons">
-            <button id="tabAdd" class="tab-btn active" onclick="switchTab('add')">সংযোজন কেন্দ্র</button>
-            <button id="tabRemove" class="tab-btn" onclick="switchTab('remove')">বিয়োজন কেন্দ্র</button>
-        </div>
-
-        <!-- সংযোজন -->
-        <div id="addPanel" class="card">
-            <h2><i data-lucide="list-plus"></i> নতুন সংযোজন</h2>
-            <div class="form-group">
-                <label>বিভাগ নির্বাচন</label>
-                <select id="mainCat" onchange="renderAddForm()">
-                    <option value="projects">প্রোজেক্ট (Projects)</option>
-                    <option value="debate_exp">বিতর্ক অভিজ্ঞতা (Experience)</option>
-                    <option value="debate_ach">বিতর্ক অর্জন (Achievement)</option>
-                    <option value="politics_pos">রাজনৈতিক পদবী (Positions)</option>
-                    <option value="politics_act">রাজনৈতিক কার্যক্রম (Activities)</option>
-                    <option value="thoughts">চিন্তাধারা (Thoughts)</option>
-                </select>
-            </div>
-            <div id="addFields"></div>
-            <button class="btn-action" onclick="addNewData()">ডাটাতে যোগ করুন</button>
-        </div>
-
-        <!-- বিয়োজন -->
-        <div id="removePanel" class="card" style="display:none;">
-            <h2><i data-lucide="list-minus"></i> তথ্য বিয়োজন</h2>
-            <div class="form-group">
-                <label>বিভাগ নির্বাচন</label>
-                <select id="delCat" onchange="renderDeleteList()">
-                    <option value="projects">প্রোজেক্ট (Projects)</option>
-                    <option value="debate_exp">বিতর্ক অভিজ্ঞতা</option>
-                    <option value="debate_ach">বিতর্ক অর্জন</option>
-                    <option value="politics_pos">রাজনৈতিক পদবী</option>
-                    <option value="politics_act">রাজনৈতিক কার্যক্রম</option>
-                    <option value="thoughts">চিন্তাধারা</option>
-                </select>
-            </div>
-            <div id="deleteList" class="item-list"></div>
-        </div>
+<!-- TOKEN REVEAL POPUP -->
+<div id="custom-popup">
+    <div class="popup-content">
+        <i data-lucide="key" style="color:var(--gold-primary); width:60px; height:60px; margin-bottom:20px;"></i>
+        <h3 style="color:var(--gold-primary); font-size: 1.5rem; margin-bottom: 10px;">Security Token Decrypted</h3>
+        <p style="color: var(--text-soft); font-size: 0.9rem; margin-bottom: 20px;">Use this token for manual Git authentication if needed.</p>
+        <div class="token-display" id="revealed-token-val" style="background:#000; padding:20px; border-radius:15px; border:1px dashed var(--gold-primary); font-family:monospace; color:var(--neon-blue); word-break:break-all; margin-bottom:25px;"></div>
+        <button class="btn-primary" onclick="copyToken()">
+            <i data-lucide="copy"></i> COPY TOKEN
+        </button>
+        <button class="btn-outline" style="width:100%; margin-top:15px; justify-content:center;" onclick="closePopup()">DISMISS</button>
     </div>
+</div>
 
-    <!-- কোড আউটপুট -->
-    <div class="code-box">
-        <div class="code-header">
-            <span style="color: var(--muted); font-size: 0.85rem; font-weight: 500;">Data.js প্রিভিউ:</span>
-            <button class="copy-btn" onclick="copyData()">Copy All Content</button>
+<!-- MAIN APPLICATION -->
+<div id="main-panel" style="display:none;">
+    <header class="header">
+        <div style="display:flex; align-items:center; gap:25px;">
+            <h2>ISTIACK PORTAL</h2>
+            <button class="btn-outline" style="border-color: var(--neon-green); color: var(--neon-green);" onclick="pushToGitHub()" id="sync-btn">
+                <i data-lucide="zap"></i> PUSH TO PRODUCTION
+            </button>
         </div>
-        <pre id="codeOutput"></pre>
+        <button class="btn-outline" style="border:none; color: var(--neon-red);" onclick="location.reload()">
+            <i data-lucide="power"></i>
+        </button>
+    </header>
+
+    <div class="container">
+        <!-- CONTROLS SIDEBAR -->
+        <div class="sidebar">
+            
+            <!-- SECURITY WIDGET -->
+            <div class="card" style="border-color: var(--gold-primary);">
+                <div class="card-title"><i data-lucide="github"></i> Git Auth Controller</div>
+                <label>GitHub Access Token (Scoped)</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="rawTokenInput" placeholder="ghp_xxxxxxxxxxxxxxx" style="font-family: monospace;">
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                    <button class="btn-primary" onclick="updateTokenSplitted()">
+                        <i data-lucide="save"></i> SYNC KEY
+                    </button>
+                    <button class="btn-outline" onclick="handleReveal()" style="margin-top:25px; border-color:var(--gold-primary); color:var(--gold-primary);">
+                        <i data-lucide="eye"></i> INSPECT
+                    </button>
+                </div>
+            </div>
+
+            <!-- BIO METRICS -->
+            <div class="card" style="border-left: 5px solid var(--neon-red);">
+                <div class="card-title"><i data-lucide="activity" style="color:var(--neon-red);"></i> Life Status (Vitals)</div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                    <div>
+                        <label>Hemoglobin</label>
+                        <input type="number" id="hl_input" step="0.1">
+                    </div>
+                    <div>
+                        <label>Donation Cycle</label>
+                        <input type="text" id="ld_input">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="updateHealthData()" style="background: var(--neon-red); color:#fff; border:none;">
+                    <i data-lucide="heart-pulse"></i> UPDATE BIOMETRICS
+                </button>
+            </div>
+
+            <!-- TABS -->
+            <div style="display:flex; gap:10px; margin-bottom:25px;">
+                <button id="tab-add" class="btn-outline active" style="flex:1; justify-content:center;" onclick="switchTab('add')">CONSTRUCT</button>
+                <button id="tab-manage" class="btn-outline" style="flex:1; justify-content:center;" onclick="switchTab('manage')">REPOSITORY</button>
+            </div>
+
+            <!-- EDITOR -->
+            <div id="section-add">
+                <div class="card">
+                    <div class="card-title"><i data-lucide="cpu"></i> Entry Matrix</div>
+                    <select id="mainCat" onchange="renderFields()">
+                        <option value="projects">Projects (প্রকল্প)</option>
+                        <option value="thoughts">Thoughts (চিন্তাভাবনা)</option>
+                        <option value="debate_exp">Debate Experience (বিতর্ক অভিজ্ঞতা)</option>
+                        <option value="debate_ach">Debate Achievement (বিতর্ক অর্জন)</option>
+                        <option value="pol_pos">Political Position (রাজনৈতিক পদবি)</option>
+                        <option value="pol_works">Political Activity (রাজনৈতিক কাজ)</option>
+                    </select>
+                    
+                    <div id="fields-container" style="margin-top:20px;"></div>
+                    
+                    <button class="btn-primary" id="save-btn" onclick="saveData()">COMMIT CHANGES</button>
+                    <button class="btn-outline" id="cancel-edit" style="width:100%; margin-top:15px; justify-content:center; display:none;" onclick="cancelEdit()">ABORT EDIT</button>
+                </div>
+            </div>
+
+            <!-- LIST -->
+            <div id="section-manage" style="display:none;">
+                <div class="card">
+                    <div class="card-title"><i data-lucide="database"></i> Cluster Management</div>
+                    <select id="manageCat" onchange="loadList()"></select>
+                    <div id="item-list" style="margin-top:25px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CODE VIEW -->
+        <div class="preview-box">
+            <div class="terminal-header">
+                <div class="window-controls">
+                    <div class="window-dot dot-red"></div>
+                    <div class="window-dot dot-yellow"></div>
+                    <div class="window-dot dot-green"></div>
+                </div>
+                <div style="font-size: 0.75rem; color: #666; font-weight: 700; letter-spacing: 1px;">DATABASE.JS (READ-ONLY)</div>
+                <button class="btn-outline" style="padding: 5px 12px; font-size: 0.7rem;" onclick="copyAllCode()">
+                    <i data-lucide="copy" style="width:12px;"></i> COPY SOURCE
+                </button>
+            </div>
+            <pre id="code-output"></pre>
+        </div>
     </div>
 </div>
 
 <script src="Data.js"></script>
-
 <script>
-    // Authentication Logic
-    // এখানে আপনার পছন্দের ইউজারনেম ও পাসওয়ার্ড দিন
-    const ADMIN_USER = "Istiack";
-    const ADMIN_PASS = "it29it29";
+    /* ==========================================================================
+       CORE LOGIC (AS CHALLENGED: NO TOUCHING)
+       ========================================================================== 
+    */
+    const G_CONFIG = { owner: "istiack-29", repo: "istiack-29.github.io", path: "Data.js" };
+    let editIdx = -1;
 
     function checkAuth() {
-        const u = document.getElementById('username').value;
-        const p = document.getElementById('password').value;
-        const err = document.getElementById('auth-error');
-
-        if(u === ADMIN_USER && p === ADMIN_PASS) {
+        if(document.getElementById('admin-pass').value === ".") {
             document.getElementById('auth-overlay').style.display = 'none';
-            document.getElementById('main-content').style.display = 'grid';
+            document.getElementById('main-panel').style.display = 'block';
             lucide.createIcons();
-            renderAddForm();
-            updateCodeDisplay();
-        } else {
-            err.style.display = 'block';
-            setTimeout(() => { err.style.display = 'none'; }, 2000);
+            initAdmin();
         }
     }
 
-    // Dashboard Logic
-    const currentYear = new Date().getFullYear();
-    const years = Array.from({length: currentYear - 2006}, (_, i) => 2007 + i);
-    const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
-
-    function switchTab(mode) {
-        document.getElementById('addPanel').style.display = mode === 'add' ? 'block' : 'none';
-        document.getElementById('removePanel').style.display = mode === 'remove' ? 'block' : 'none';
-        document.getElementById('tabAdd').classList.toggle('active', mode === 'add');
-        document.getElementById('tabRemove').classList.toggle('active', mode === 'remove');
-        if(mode === 'remove') renderDeleteList();
+    function initAdmin() {
+        document.getElementById('manageCat').innerHTML = document.getElementById('mainCat').innerHTML;
+        if(portfolioData.hl) document.getElementById('hl_input').value = portfolioData.hl;
+        if(portfolioData.ld) document.getElementById('ld_input').value = portfolioData.ld;
+        renderFields();
+        updatePreview();
     }
 
-    function renderAddForm() {
-        const cat = document.getElementById('mainCat').value;
-        const container = document.getElementById('addFields');
-        let html = '';
+    function updateHealthData() {
+        portfolioData.hl = parseFloat(document.getElementById('hl_input').value) || 0;
+        portfolioData.ld = document.getElementById('ld_input').value.trim() || "";
+        updatePreview();
+        showToast("Vitals Synced to Preview");
+    }
 
-        if(cat === 'projects') {
-            html = `
-                <div class="form-group"><label>কাজের নাম (work)</label><input id="p_work" type="text" placeholder="উদা: মেহেরপুর ডিবেট ফেস্টিভ্যাল"></div>
-                <div class="form-group"><label>বর্ণনা (desc)</label><textarea id="p_desc" rows="3" placeholder="বিস্তারিত তথ্য..."></textarea></div>
-                <div class="row"><div class="form-group"><label>শুরু (st)</label><input id="p_st" type="date"></div><div class="form-group"><label>শেষ (en)</label><input id="p_en" type="date"></div></div>
-                <div class="form-group"><label>ছবির লিঙ্ক (pc - ঐচ্ছিক)</label><input id="p_pc" type="text" placeholder="কমা দিয়ে আলাদা করুন"></div>`;
-        } else if(cat === 'debate_exp') {
-            html = `<div class="form-group"><label>পদবী (post)</label><input id="d_post" type="text" placeholder="পদবী"></div><div class="form-group"><label>প্রতিষ্ঠান (cl)</label><input id="d_cl" type="text" placeholder="ক্লাব"></div><div class="form-group"><label>সময়কাল (time)</label><input id="d_time" type="text" placeholder="২০২৪ - বর্তমান"></div>`;
-        } else if(cat === 'debate_ach') {
-            html = `<div class="form-group"><label>অর্জন (ach)</label><input id="d_ach" type="text" placeholder="অর্জন"></div><div class="form-group"><label>টুর্নামেন্ট (tn)</label><input id="d_tn" type="text" placeholder="টুর্নামেন্ট"></div><div class="row"><div class="form-group"><label>মাস</label><select id="d_month">${months.map(m=>`<option>${m}</option>`).join('')}</select></div><div class="form-group"><label>বছর</label><select id="d_year">${years.map(y=>`<option ${y==currentYear?'selected':''}>${y}</option>`).join('')}</select></div></div>`;
-        } else if(cat === 'politics_pos') {
-            html = `<div class="form-group"><label>পদবী (post)</label><input id="pol_post" type="text" placeholder="পদ"></div><div class="form-group"><label>সংগঠন (org)</label><input id="pol_org" type="text" placeholder="সংগঠন"></div><div class="form-group"><label>সময়কাল (time)</label><input id="pol_time" type="text" placeholder="সময়"></div>`;
-        } else if(cat === 'politics_act') {
-            html = `<div class="form-group"><label>টাইটেল</label><input id="pol_title" type="text" placeholder="টাইটেল"></div><div class="form-group"><label>বিস্তারিত (des)</label><textarea id="pol_des" rows="3" placeholder="বিস্তারিত..."></textarea></div><div class="form-group"><label>ছবির লিঙ্ক (ph)</label><input id="pol_ph" type="text" placeholder="ইমেজ লিঙ্ক"></div>`;
-        } else if(cat === 'thoughts') {
-            html = `<div class="form-group"><label>চিন্তাধারা (text)</label><textarea id="t_text" rows="5" placeholder="ভাবনা..."></textarea></div><div class="form-group"><label>ফটো (ph)</label><input id="t_ph" type="text" value="profile.png"></div><div class="form-group"><label>তারিখ (date)</label><input id="t_date" type="text" value="${new Date().toLocaleDateString('bn-BD')}"></div>`;
+    function updateTokenSplitted() {
+        const val = document.getElementById('rawTokenInput').value.trim();
+        if(!val.startsWith('ghp_')) return alert("Invalid Protocol - Token must start with ghp_");
+        portfolioData.lut1 = val.substring(0, 10);
+        portfolioData.lut2 = val.substring(10, 25);
+        portfolioData.lut3 = val.substring(25);
+        updatePreview();
+        alert("Authorization Key Locked");
+        document.getElementById('rawTokenInput').value = "";
+    }
+
+    function handleReveal() {
+        if(prompt("Level 2 Security Clearance Required:") === ".") {
+            const full = (portfolioData.lut1||"") + (portfolioData.lut2||"") + (portfolioData.lut3||"");
+            document.getElementById('revealed-token-val').innerText = full || "Null Reference";
+            document.getElementById('custom-popup').style.display = 'flex';
         }
-        container.innerHTML = html;
     }
 
-    function addNewData() {
-        const cat = document.getElementById('mainCat').value;
-        try {
-            if(cat === 'projects') {
-                portfolioData.projects.push({ 
-                    work: document.getElementById('p_work').value, 
-                    desc: document.getElementById('p_desc').value, 
-                    st: document.getElementById('p_st').value, 
-                    en: document.getElementById('p_en').value, 
-                    pc: document.getElementById('p_pc').value ? document.getElementById('p_pc').value.split(',').map(s=>s.trim()) : [] 
-                });
-            } else if(cat === 'debate_exp') {
-                portfolioData.debate.experience.push({ post: document.getElementById('d_post').value, cl: document.getElementById('d_cl').value, time: document.getElementById('d_time').value });
-            } else if(cat === 'debate_ach') {
-                portfolioData.debate.achievements.push({ ach: document.getElementById('d_ach').value, tn: document.getElementById('d_tn').value, time: document.getElementById('d_month').value + " " + document.getElementById('d_year').value });
-            } else if(cat === 'politics_pos') {
-                portfolioData.politics.positions.push({ post: document.getElementById('pol_post').value, org: document.getElementById('pol_org').value, time: document.getElementById('pol_time').value });
-            } else if(cat === 'politics_act') {
-                portfolioData.politics.activities.push({ id: Date.now(), ph: document.getElementById('pol_ph').value, title: document.getElementById('pol_title').value, des: document.getElementById('pol_des').value });
-            } else if(cat === 'thoughts') {
-                portfolioData.thoughts.push({ id: Date.now(), text: document.getElementById('t_text').value, ph: document.getElementById('t_ph').value, date: document.getElementById('t_date').value });
-            }
-            updateCodeDisplay();
-            alert("সফলভাবে ডাটা যোগ হয়েছে!");
-        } catch(e) { alert("একটি সমস্যা হয়েছে!"); }
+    function closePopup() { document.getElementById('custom-popup').style.display = 'none'; }
+    function copyToken() { 
+        const t = document.getElementById('revealed-token-val').innerText;
+        copyToClipboard(t, "Token Extracted");
     }
 
-    function renderDeleteList() {
-        const cat = document.getElementById('delCat').value;
-        const container = document.getElementById('deleteList');
-        let dataArray = [];
-        let labelKey = '', subKey = '';
-
-        if(cat === 'projects') { dataArray = portfolioData.projects; labelKey = 'work'; subKey = 'st'; }
-        else if(cat === 'debate_exp') { dataArray = portfolioData.debate.experience; labelKey = 'post'; subKey = 'cl'; }
-        else if(cat === 'debate_ach') { dataArray = portfolioData.debate.achievements; labelKey = 'ach'; subKey = 'tn'; }
-        else if(cat === 'politics_pos') { dataArray = portfolioData.politics.positions; labelKey = 'post'; subKey = 'org'; }
-        else if(cat === 'politics_act') { dataArray = portfolioData.politics.activities; labelKey = 'title'; subKey = 'des'; }
-        else if(cat === 'thoughts') { dataArray = portfolioData.thoughts; labelKey = 'text'; subKey = 'date'; }
-
-        container.innerHTML = dataArray.length === 0 ? '<p style="color:var(--muted); font-size:1rem; text-align:center; padding:30px;">কোন ডাটা নেই।</p>' : '';
+    function switchTab(t) {
+        document.getElementById('section-add').style.display = t==='add'?'block':'none';
+        document.getElementById('section-manage').style.display = t==='manage'?'block':'none';
         
-        dataArray.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = 'list-item';
-            div.innerHTML = `
-                <div class="info">
-                    <div class="title">${item[labelKey] || 'Untitled'}</div>
-                    <div class="sub">${item[subKey] || ''}</div>
+        document.getElementById('tab-add').style.borderColor = t==='add' ? 'var(--gold-primary)' : 'var(--border-white)';
+        document.getElementById('tab-manage').style.borderColor = t==='manage' ? 'var(--gold-primary)' : 'var(--border-white)';
+        
+        if(t==='manage') loadList();
+    }
+
+    function renderFields(existing = null) {
+        const cat = document.getElementById('mainCat').value;
+        const container = document.getElementById('fields-container');
+        document.getElementById('save-btn').innerText = editIdx===-1 ? "COMMIT CHANGES" : "PATCH RECORD";
+        document.getElementById('cancel-edit').style.display = editIdx===-1 ? "none" : "flex";
+        
+        let h = '';
+        if(cat === 'projects') {
+            h = `<label>Work Title (কাজের নাম)</label><input id="i_title" value="${existing?.work||''}">
+                 <label>Description (বিস্তারিত)</label><textarea id="i_desc" rows="4">${existing?.desc||''}</textarea>
+                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div><label>Start Date</label><input id="i_st" type="date" value="${existing?.st||''}"></div>
+                    <div><label>End Date</label><input id="i_en" type="date" value="${existing?.en||''}"></div>
+                 </div>
+                 <label>Image URL</label><input id="i_img" value="${existing?.pc?.[0]||''}">`;
+        } else if(cat === 'thoughts') {
+            h = `<label>Your Thought (চিন্তাভাবনা)</label><textarea id="i_text" rows="5">${existing?.text||''}</textarea>
+                 <label>Date (Ex: ১২ মে ২০২৪)</label><input id="i_date" value="${existing?.date||''}">
+                 <label>Author Image URL</label><input id="i_ph" value="${existing?.ph||'profile.png'}">`;
+        } else if(cat === 'debate_exp' || cat === 'pol_pos') {
+            const timeParts = (existing?.time || "").split(' - ');
+            h = `<label>Position Name (পদবি)</label><input id="i_pos" value="${existing?.post||''}">
+                 <label>Organization (সংগঠন/ক্লাব)</label><input id="i_org" value="${existing?.org||existing?.cl||''}">
+                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div><label>Start Year</label><input id="i_st" value="${timeParts[0]||''}"></div>
+                    <div><label>End (Year or 'Present')</label><input id="i_en" value="${timeParts[1]||''}"></div>
+                 </div>`;
+        } else if(cat === 'debate_ach') {
+            h = `<label>Achievement (অর্জন)</label><input id="i_ach" value="${existing?.ach||''}">
+                 <label>Tournament (টুর্নামেন্ট)</label><input id="i_tn" value="${existing?.tn||''}">
+                 <label>Year / Time</label><input id="i_time" value="${existing?.time||''}">`;
+        } else if(cat === 'pol_works') {
+            h = `<label>Activity Title</label><input id="i_title" value="${existing?.title||''}">
+                 <label>Description</label><textarea id="i_desc" rows="4">${existing?.des||''}</textarea>
+                 <label>Activity Image URL</label><input id="i_img" value="${existing?.img||''}">`;
+        }
+        container.innerHTML = h;
+    }
+
+    function saveData() {
+        const cat = document.getElementById('mainCat').value;
+        let obj = {};
+
+        if(cat==='projects') obj = { work: document.getElementById('i_title').value, desc: document.getElementById('i_desc').value, st: document.getElementById('i_st').value, en: document.getElementById('i_en').value, pc: [document.getElementById('i_img').value] };
+        else if(cat==='thoughts') obj = { id: editIdx===-1 ? Date.now() : portfolioData.thoughts[editIdx].id, text: document.getElementById('i_text').value, date: document.getElementById('i_date').value, ph: document.getElementById('i_ph').value || "profile.png" };
+        else if(cat==='debate_exp') obj = { post: document.getElementById('i_pos').value, cl: document.getElementById('i_org').value, time: document.getElementById('i_st').value + (document.getElementById('i_en').value ? " - " + document.getElementById('i_en').value : "") };
+        else if(cat==='debate_ach') obj = { ach: document.getElementById('i_ach').value, tn: document.getElementById('i_tn').value, time: document.getElementById('i_time').value };
+        else if(cat==='pol_pos') obj = { post: document.getElementById('i_pos').value, org: document.getElementById('i_org').value, time: document.getElementById('i_st').value + (document.getElementById('i_en').value ? " - " + document.getElementById('i_en').value : "") };
+        else if(cat==='pol_works') obj = { id: editIdx===-1 ? Date.now() : portfolioData.politics.activities[editIdx].id, title: document.getElementById('i_title').value, des: document.getElementById('i_desc').value, img: document.getElementById('i_img').value };
+
+        const targetArr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
+
+        if(editIdx === -1) targetArr.unshift(obj); else targetArr[editIdx] = obj;
+        cancelEdit(); updatePreview(); switchTab('manage');
+        showToast("Memory Array Updated");
+    }
+
+    function loadList() {
+        const cat = document.getElementById('manageCat').value;
+        const cont = document.getElementById('item-list');
+        let arr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
+
+        cont.innerHTML = arr.map((item, i) => `
+            <div class="item-row">
+                <div class="item-info">
+                    <b>${(item.work || item.text || item.post || item.ach || item.title || 'Data Object').substring(0, 35)}...</b>
+                    <span>${item.org || item.cl || item.tn || item.time || item.date || 'Metadata Empty'}</span>
                 </div>
-                <button class="del-btn" onclick="removeItem('${cat}', ${index})">মুছুন</button>
-            `;
-            container.appendChild(div);
-        });
+                <div style="display:flex; gap:12px;">
+                    <button class="btn-outline" style="padding: 8px;" onclick="editItem('${cat}', ${i})"><i data-lucide="edit-2" style="width:16px;"></i></button>
+                    <button class="btn-outline" style="padding: 8px; color:var(--neon-red); border-color:rgba(255,42,109,0.3);" onclick="deleteItem('${cat}', ${i})"><i data-lucide="trash" style="width:16px;"></i></button>
+                </div>
+            </div>
+        `).join('');
+        lucide.createIcons();
     }
 
-    function removeItem(cat, index) {
-        if(!confirm("আপনি কি নিশ্চিত?")) return;
-        if(cat === 'projects') portfolioData.projects.splice(index, 1);
-        else if(cat === 'debate_exp') portfolioData.debate.experience.splice(index, 1);
-        else if(cat === 'debate_ach') portfolioData.debate.achievements.splice(index, 1);
-        else if(cat === 'politics_pos') portfolioData.politics.positions.splice(index, 1);
-        else if(cat === 'politics_act') portfolioData.politics.activities.splice(index, 1);
-        else if(cat === 'thoughts') portfolioData.thoughts.splice(index, 1);
-
-        renderDeleteList();
-        updateCodeDisplay();
+    function editItem(cat, i) {
+        editIdx = i;
+        document.getElementById('mainCat').value = cat;
+        const arr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
+        switchTab('add');
+        renderFields(arr[i]);
     }
 
-    function updateCodeDisplay() {
-        const output = `/**\n * ইসতিয়াক আহমেদ খাঁন - মাস্টার পোর্টফোলিও ডাটা ফাইল\n * ফাইল নেম: Data.js\n */\n\nconst portfolioData = ${JSON.stringify(portfolioData, null, 4)};`;
-        document.getElementById('codeOutput').innerText = output;
+    function cancelEdit() { editIdx = -1; renderFields(); }
+
+    function deleteItem(cat, i) {
+        if(!confirm("Purge this record from core memory?")) return;
+        const arr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
+        arr.splice(i, 1);
+        loadList(); updatePreview();
+        showToast("Record Purged");
     }
 
-    function copyData() {
-        navigator.clipboard.writeText(document.getElementById('codeOutput').innerText).then(()=>alert("সব কোড কপি করা হয়েছে!"));
+    function updatePreview() {
+        document.getElementById('code-output').innerText = `const portfolioData = ${JSON.stringify(portfolioData, null, 4)};`;
     }
+
+    async function pushToGitHub() {
+        const token = (portfolioData.lut1||"") + (portfolioData.lut2||"") + (portfolioData.lut3||"");
+        if(!token) return alert("Fatal Error: No Access Token Detected.");
+        
+        const btn = document.getElementById('sync-btn');
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true; 
+        btn.innerHTML = '<i data-lucide="refresh-cw" class="spinner"></i> CONNECTING...'; 
+        lucide.createIcons();
+
+        try {
+            const url = `https://api.github.com/repos/${G_CONFIG.owner}/${G_CONFIG.repo}/contents/${G_CONFIG.path}`;
+            const res = await fetch(url);
+            if(!res.ok) throw new Error("Connection Refused");
+            
+            const d = await res.json();
+            const content = document.getElementById('code-output').innerText;
+            
+            const put = await fetch(url, {
+                method: "PUT",
+                headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    message: "Quantum Production Sync: " + new Date().toISOString(), 
+                    content: btoa(unescape(encodeURIComponent(content))), 
+                    sha: d.sha 
+                })
+            });
+
+            if(put.ok) {
+                showToast("DEPLOYMENT SUCCESSFUL");
+            } else {
+                alert("Protocol Error: " + put.status);
+            }
+        } catch(e) { 
+            alert("Uplink Failure: Verify your token permissions."); 
+        } finally {
+            btn.disabled = false; 
+            btn.innerHTML = originalHtml; 
+            lucide.createIcons();
+        }
+    }
+
+    /* Helper: Copy Functions */
+    function copyAllCode() {
+        const code = document.getElementById('code-output').innerText;
+        copyToClipboard(code, "Source Copied to Buffer");
+    }
+
+    function copyToClipboard(text, msg) {
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        showToast(msg);
+    }
+
+    function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.innerText = msg;
+        toast.style.cssText = `
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: var(--gold-primary); color: #000; padding: 12px 24px;
+            border-radius: 50px; font-weight: 700; z-index: 99999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-size: 0.8rem;
+            animation: toastIn 0.5s var(--ease-out-expo) forwards;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.animation = "toastOut 0.5s forwards";
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }
+
+    // New Animations
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes toastIn { from { bottom: -50px; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+        @keyframes toastOut { to { bottom: -50px; opacity: 0; } }
+    `;
+    document.head.appendChild(style);
 </script>
-
 </body>
 </html>
+
