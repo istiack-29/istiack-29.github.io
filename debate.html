@@ -2,161 +2,318 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEBATING CAREER OF ISTIACK</title>
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://istiack-29.github.io/">
-    <meta property="og:title" content="ইসতিয়াক আহমেদ খাঁন | প্রোফাইল">
-    <meta property="og:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="og:image" content="https://istiack-29.github.io/1774372559124~2.png">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://istiack-29.github.io/">
-    <meta property="twitter:title" content="ইসতিয়াক আহমেদ খাঁন | প্রোফাইল">
-    <meta property="twitter:description" content="ওয়েব ডেভেলপার এবং ডিবেটর। আমার প্রজেক্ট এবং কার্যক্রম সম্পর্কে জানুন।">
-    <meta property="twitter:image" content="https://istiack-29.github.io/1774372559124~2.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>বিতর্ক</title>
+    
+    <!-- External Assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --bg-body: #050505;
-            --bg-card: #111111;
+            --bg-card: rgba(18, 18, 18, 0.7);
             --accent: #D4AF37;
-            --text-main: #FFFFFF;
-            --text-muted: #B0B3B8;
-            --border: rgba(255, 255, 255, 0.08);
-            --nav-bg: rgba(10, 10, 10, 0.98);
+            --text-main: #F2F2F2;
+            --text-muted: #B0B0B0;
+            --border: rgba(212, 175, 55, 0.15);
+            --nav-bg: rgba(5, 5, 5, 0.95);
+            --container-width: 800px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text-main); overflow-x: hidden; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        /* --- LOADING SCREEN --- */
+        #bg-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+        /* Loader */
         #loader {
-            position: fixed; inset: 0; background: var(--bg-body); z-index: 99999;
-            display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease;
+            position: fixed; inset: 0; background: #000; z-index: 99999;
+            display: flex; justify-content: center; align-items: center; transition: opacity 0.6s ease;
         }
-        .loader-img { width: 80px; border-radius: 50%; animation: pulse-img 2s infinite ease-in-out; }
+        .loader-img { width: 60px; border-radius: 50%; border: 1px solid var(--accent); padding: 2px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } }
 
-        /* --- NAVIGATION --- */
+        /* Navigation */
         nav {
-            position: fixed; top: 0; width: 100%; height: 60px; background: var(--nav-bg);
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 10000;
-            display: flex; align-items: center; justify-content: center;
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: var(--nav-bg); border-bottom: 1px solid var(--border); z-index: 10000;
+            display: flex; align-items: center; justify-content: center; backdrop-filter: blur(20px);
         }
-        .nav-inner { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { color: var(--accent); font-weight: 700; letter-spacing: 2px; text-decoration: none; }
-        .mobile-menu-btn { cursor: pointer; z-index: 10002; }
-        .dot-bar { width: 22px; height: 2px; background: var(--accent); margin: 4px 0; border-radius: 2px; transition: 0.3s; }
+        .nav-inner { width: 100%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { color: var(--accent); font-family: 'Cinzel', serif; font-weight: 700; text-decoration: none; font-size: 1.1rem; letter-spacing: 2px; }
+        
+        .desktop-nav { display: none; gap: 18px; align-items: center; }
+        .desktop-nav a { color: var(--text-main); text-decoration: none; font-size: 0.85rem; transition: 0.3s; opacity: 0.7; }
+        .desktop-nav a:hover, .desktop-nav a.active { color: var(--accent); opacity: 1; }
+        .hire-btn-desktop { border: 1px solid var(--accent); color: var(--accent) !important; padding: 5px 15px; border-radius: 20px; opacity: 1 !important; }
 
-        /* --- MOBILE MENU OVERLAY --- */
+        .mobile-menu-btn { cursor: pointer; padding: 5px; z-index: 10002; display: block; }
+        .dot-bar { width: 20px; height: 1.5px; background: var(--accent); margin: 5px 0; border-radius: 2px; }
+
         #mobileNav {
             position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
-            background: #0a0a0a; border-left: 1px solid var(--border);
-            z-index: 10001; padding: 80px 30px; display: flex; flex-direction: column; gap: 10px;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(8, 8, 8, 0.98); z-index: 10001; padding: 80px 25px;
+            display: flex; flex-direction: column; gap: 5px; transition: 0.4s ease;
+            backdrop-filter: blur(30px); border-left: 1px solid var(--border);
         }
         #mobileNav.open { right: 0; }
-        #mobileNav a { 
-            color: var(--text-main); text-decoration: none; font-size: 1.1rem; 
-            padding: 15px 0; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: 10px;
+        #mobileNav a { color: #fff; text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; align-items: center; gap: 12px; }
+        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: none; backdrop-filter: blur(5px); }
+
+        /* Main UI Layout */
+        .main-container { width: 100%; max-width: var(--container-width); margin: 70px auto 0; padding-bottom: 80px; }
+
+        .header-section { text-align: center; padding: 40px 20px; }
+        .avatar-box { width: 100px; margin: 0 auto 15px; }
+        .avatar-box img { width: 100%; height: auto; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+        .header-section h1 { font-family: 'Noto Serif Bengali', serif; font-size: 2rem; color: var(--accent); }
+        .header-section p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Bracketed Experience UI (Custom from Image) */
+        .journey-wrapper {
+            margin: 20px 0;
+            padding-left: 30px;
+            position: relative;
         }
-        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; backdrop-filter: blur(4px); }
 
-        /* --- HEADER (No Frame) --- */
-        .profile-container { max-width: 1000px; margin: 60px auto 0; position: relative; }
-        .cover-photo { width: 100%; height: 250px; background: #1a1a1a; border-radius: 0 0 15px 15px; border: 1px solid var(--border); overflow: hidden; }
-        .cover-photo img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-header-info { padding: 0 20px; display: flex; align-items: flex-end; gap: 15px; margin-top: -60px; position: relative; z-index: 20; }
-        .avatar-box { width: 140px; flex-shrink: 0; }
-        .avatar-box img { width: 100%; height: auto; display: block; }
-        .name-meta { margin-bottom: 10px; }
-        .name-meta h1 { font-size: 1.6rem; color: var(--accent); }
+        .journey-title {
+            font-family: 'Noto Serif Bengali', serif;
+            font-size: 1.6rem;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            position: relative;
+        }
 
-        /* --- CONTENT --- */
-        .content-layout { max-width: 1000px; margin: 30px auto 100px; padding: 0 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .card { background: var(--bg-card); border-radius: 12px; padding: 25px; border: 1px solid var(--border); margin-bottom: 20px; }
-        .card h3 { color: var(--accent); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-size: 1.3rem; }
-        .data-item { margin-bottom: 20px; padding-left: 15px; border-left: 2px solid var(--accent); }
-        .data-item h4 { color: #fff; font-size: 1.1rem; }
-        .data-item p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+        /* The vertical curved bracket line */
+        .journey-container {
+            position: relative;
+            padding-left: 40px;
+            border-left: 2px solid var(--accent); /* Straight line fallback */
+            border-image: linear-gradient(to bottom, var(--accent), transparent) 1;
+            margin-left: 10px;
+        }
 
-        @media (min-width: 768px) {
-            .content-layout { grid-template-columns: 320px 1fr; }
-            .name-meta h1 { font-size: 2.2rem; }
-            .avatar-box { width: 180px; }
-            .profile-header-info { margin-top: -80px; padding: 0 40px; }
-            .cover-photo { height: 350px; }
+        /* The "Hand Drawn" Curved Bracket Effect */
+        .journey-container::before {
+            content: "";
+            position: absolute;
+            left: -15px;
+            top: -20px;
+            width: 30px;
+            height: calc(100% + 20px);
+            border-left: 2px solid var(--accent);
+            border-top: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+            border-radius: 40px 0 0 40px;
+            opacity: 0.6;
+        }
+
+        .journey-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+        }
+
+        /* Connector from bracket to item */
+        .journey-item::before {
+            content: "";
+            position: absolute;
+            left: -40px;
+            top: 15px;
+            width: 30px;
+            height: 2px;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+
+        /* End dot of the connector */
+        .journey-item::after {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 13px;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .item-post { font-size: 1.3rem; font-weight: 700; color: var(--text-main); line-height: 1.2; }
+        .item-org { font-size: 1rem; color: var(--accent); display: block; margin-top: 2px; }
+        .item-year { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
+
+        /* Achievement Section (Standard Clean Cards) */
+        .card { background: var(--bg-card); border-radius: 20px; padding: 25px; border: 1px solid var(--border); backdrop-filter: blur(10px); margin: 0 20px 20px; }
+        .section-header { 
+            font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 3px; color: var(--accent);
+            text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;
+        }
+        .section-header::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+
+        .ach-item { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .ach-item:last-child { border-bottom: none; }
+        .ach-title { font-weight: 700; font-size: 1rem; color: #fff; }
+        .ach-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+        @media (min-width: 900px) {
+            .desktop-nav { display: flex; }
+            .mobile-menu-btn { display: none; }
+            .journey-wrapper { padding-left: 60px; }
         }
     </style>
 </head>
 <body>
-    <div id="loader"><div class="loader-content"><img src="profile.png" class="loader-img"></div></div>
+
+    <canvas id="bg-canvas"></canvas>
+    <div id="loader"><img src="profile.png" class="loader-img" onerror="this.src='https://via.placeholder.com/70'"></div>
+    
     <div class="overlay-bg" id="menuOverlay" onclick="toggleMobileNav()"></div>
     
     <nav>
         <div class="nav-inner">
             <a href="index.html" class="logo">ISTIACK</a>
+            <div class="desktop-nav">
+                <a href="index.html">হোম</a>
+                <a href="debate.html" class="active">বিতর্ক জগৎ</a>
+                <a href="politics.html">রাজনৈতিক জগৎ</a>
+                <a href="thoughts.html">ভাবনা</a>
+                <a href="donate.html">অনুদান</a>
+                <a href="nn.html">নসিহত নামা</a>
+                <a href="contact.html">যোগাযোগ</a>
+                <a href="hm.html" class="hire-btn-desktop">Hire Me</a>
+            </div>
             <div class="mobile-menu-btn" onclick="toggleMobileNav()">
-                <div class="dot-bar"></div><div class="dot-bar"></div><div class="dot-bar"></div>
+                <div class="dot-bar"></div>
+                <div class="dot-bar"></div>
+                <div class="dot-bar"></div>
             </div>
         </div>
     </nav>
 
     <div id="mobileNav">
-        <a href="index.html">🏠 হোম</a>
-        <a href="debate.html">🎙️ বিতর্ক</a>
-        <a href="politics.html">⚖️ রাজনীতি</a>
-        <a href="thoughts.html">💡 চিন্তাধারা</a>
-        <a href="donate.html">☕ সহযোগিতা</a>
-        <a href="contact.html">📞 যোগাযোগ</a>
+        <a href="index.html"><i class="fa-solid fa-house"></i> হোম</a>
+        <a href="debate.html" style="color:var(--accent)"><i class="fa-solid fa-microphone"></i> বিতর্ক জগৎ</a>
+        <a href="politics.html"><i class="fa-solid fa-scale-balanced"></i> রাজনৈতিক জগৎ</a>
+        <a href="thoughts.html"><i class="fa-solid fa-brain"></i> ভাবনা</a>
+        <a href="donate.html"><i class="fa-solid fa-hand-holding-dollar"></i> অনুদান</a>
+        <a href="nn.html"><i class="fa-solid fa-scroll"></i> নসিহত নামা</a>
+        <a href="contact.html"><i class="fa-solid fa-envelope"></i> যোগাযোগ</a>
+        <a href="hm.html"><i class="fa-solid fa-briefcase"></i> Hire Me</a>
     </div>
 
-    <div class="profile-container">
-        <div class="cover-photo"><img src="cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1200'"></div>
-        <div class="profile-header-info">
-            <div class="avatar-box"><img src="profile.png" onerror="this.src='https://via.placeholder.com/500x500?text=Profile'"></div>
-            <div class="name-meta"><h1>বিতর্ক সম্পর্কিত</h1></div>
+    <div class="main-container">
+        <header class="header-section">
+            <div class="avatar-box">
+                <img src="profile.png" onerror="this.src='https://via.placeholder.com/150'">
+            </div>
+            <h1>বিতর্ক সম্পর্কিত</h1>
+            <p>যুক্তিতেই মুক্তি, যুক্তিতেই পরিচয়</p>
+        </header>
+
+        <!-- The Requested "Image Style" UI -->
+        <div class="journey-wrapper">
+            <h2 class="journey-title">অভিজ্ঞতা ও যাত্রা</h2>
+            
+            <div class="journey-container" id="journey-list">
+                <!-- Dynamically loaded from Data.js -->
+            </div>
         </div>
-    </div>
 
-    <div class="content-layout">
-        <aside><div class="card"><h3>তথ্য</h3><p>যুক্তিতেই মুক্তি</p></div></aside>
-        <main>
-            <div class="card"><h3>অভিজ্ঞতা</h3><div id="experience-list"></div></div>
-            <div class="card"><h3>অর্জন</h3><div id="achievement-list"></div></div>
-        </main>
+        <div class="card">
+            <div class="section-header">অর্জন ও সাফল্য</div>
+            <div id="achievement-list">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
     </div>
 
     <script src="Data.js"></script>
     <script>
         function toggleMobileNav() {
-            const n = document.getElementById('mobileNav'), o = document.getElementById('menuOverlay');
-            n.classList.toggle('open');
-            o.style.display = n.classList.contains('open') ? 'block' : 'none';
+            const nav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('menuOverlay');
+            nav.classList.toggle('open');
+            overlay.style.display = nav.classList.contains('open') ? 'block' : 'none';
         }
+
+        // Background Particles
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i = 0; i < 30; i++) {
+                particles.push({ 
+                    x: Math.random() * canvas.width, 
+                    y: Math.random() * canvas.height, 
+                    size: Math.random() * 1.5, 
+                    speed: Math.random() * 0.2 + 0.1, 
+                    opacity: Math.random() * 0.3 
+                });
+            }
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.y -= p.speed;
+                if(p.y < 0) p.y = canvas.height;
+                ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
         window.onload = () => {
-            document.getElementById('loader').style.display = 'none';
+            initParticles();
+            animateParticles();
+
             if (typeof portfolioData !== 'undefined' && portfolioData.debate) {
-                const expList = document.getElementById('experience-list');
+                const journeyList = document.getElementById('journey-list');
                 const achList = document.getElementById('achievement-list');
+
+                // Render Experiences in the Bracket style
                 portfolioData.debate.experience.forEach(item => {
                     const div = document.createElement('div');
-                    div.className = 'data-item';
-                    div.innerHTML = `<h4>${item.post}</h4><p>${item.cl} | ${item.time}</p>`;
-                    expList.appendChild(div);
+                    div.className = 'journey-item';
+                    div.innerHTML = `
+                        <div class="item-post">${item.post}</div>
+                        <span class="item-org">${item.cl || item.org}</span>
+                        <div class="item-year">${item.time}</div>
+                    `;
+                    journeyList.appendChild(div);
                 });
+
+                // Render Achievements
                 portfolioData.debate.achievements.forEach(item => {
                     const div = document.createElement('div');
-                    div.className = 'data-item';
-                    div.innerHTML = `<h4>${item.ach}</h4><p>${item.tn} | ${item.time}</p>`;
+                    div.className = 'ach-item';
+                    div.innerHTML = `
+                        <div class="ach-title">${item.ach}</div>
+                        <div class="ach-meta">${item.tn} • ${item.time}</div>
+                    `;
                     achList.appendChild(div);
                 });
             }
+
+            setTimeout(() => { 
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 600);
+            }, 600);
         };
+        window.onresize = initParticles;
     </script>
 </body>
 </html>
