@@ -1,6 +1,6 @@
 const portfolioData = {
-    "lut1": "ghp_r",
-    "lut2": "DnE8G",
+    "lut1": "ghp_1",
+    "lut2": "oE3CB",
     "lut3": "hOzZuwg5p9LmZgYm1AIwn51S1K1JN8",
     "lutd": "04-04-2026",
     "hl": 10,
