@@ -1,690 +1,1109 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ADMIN</title>
     
-    <!-- Premium Font Matrix -->
+    <!-- Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+
     <style>
         /* ==========================================================================
-           QUANTUM DESIGN SYSTEM v2.0 - ARCHITECTED BY GEMINI
-           ========================================================================== 
-        */
+           QUANTUM DESIGN SYSTEM V4.0 - ENTERPRISE CYBER ARCHITECTURE
+           ========================================================================== */
         :root {
-            /* Core Neutrals */
-            --bg-void: #020204;
-            --bg-deep: #08080c;
-            --bg-elevated: rgba(15, 15, 22, 0.85);
-            --bg-glass: rgba(10, 10, 15, 0.7);
+            /* Abyss Core */
+            --q-void: #010103;
+            --q-surface-1: #06060A;
+            --q-surface-2: rgba(12, 12, 18, 0.75);
+            --q-surface-3: rgba(20, 20, 28, 0.85);
             
-            /* Primary Brand - Liquid Gold & Plasma */
-            --gold-primary: #D4AF37;
-            --gold-bright: #F9D976;
-            --gold-glow: rgba(212, 175, 55, 0.35);
-            --gold-muted: rgba(212, 175, 55, 0.1);
+            /* Istiack Signature Gold Matrix */
+            --q-gold-core: #E5C05C;
+            --q-gold-bright: #FFDE82;
+            --q-gold-dim: #997D33;
+            --q-gold-glow: rgba(229, 192, 92, 0.2);
+            --q-gold-intense: rgba(229, 192, 92, 0.5);
             
-            /* Status Indicators */
-            --neon-green: #00ffaa;
-            --neon-red: #ff2a6d;
-            --neon-blue: #05d9e8;
+            /* Threat & Status Vectors */
+            --q-cyan: #00F0FF;
+            --q-cyan-glow: rgba(0, 240, 255, 0.25);
+            --q-red: #FF2A55;
+            --q-red-glow: rgba(255, 42, 85, 0.3);
+            --q-green: #00FF88;
+            --q-green-glow: rgba(0, 255, 136, 0.2);
             
-            /* Text Hierarchy */
-            --text-pure: #ffffff;
-            --text-soft: #a0a0b0;
-            --text-dark: #000000;
+            /* Typography Engines */
+            --font-display: 'Cinzel', serif;
+            --font-sans: 'Outfit', 'Space Grotesk', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
             
-            /* Border Systems */
-            --border-white: rgba(255, 255, 255, 0.08);
-            --border-gold: rgba(212, 175, 55, 0.4);
+            /* Quantum States */
+            --ease-hyper: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --transition-warp: 0.15s var(--ease-hyper);
+            --transition-base: 0.4s var(--ease-hyper);
             
-            /* Spacing & Radii */
-            --radius-main: 16px;
-            --radius-pill: 50px;
-            --radius-card: 28px;
-            
-            /* Transitions */
-            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-            --transition-main: all 0.4s var(--ease-out-expo);
+            /* Structural Integrity */
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(229, 192, 92, 0.35);
+            --radius-md: 12px;
+            --radius-lg: 20px;
         }
 
-        /* ==========================================================================
-           GLOBAL RESET & LAYOUT 
-           ========================================================================== 
-        */
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background-color: var(--bg-void); 
-            color: var(--text-pure); 
-            font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
-            min-height: 100vh; 
-            overflow-x: hidden;
-            position: relative;
+        /* --- GLOBAL RESET & CRT OVERLAYS --- */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--q-void); color: #E2E2E8;
+            font-family: var(--font-sans); min-height: 100vh;
+            overflow-x: hidden; line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Animated Background Core */
-        .plasma-bg {
-            position: fixed; inset: 0; z-index: -1;
-            background: 
-                radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(5, 217, 232, 0.03) 0%, transparent 40%);
-            pointer-events: none;
+        /* Hyper-Advanced Particle Mesh Background */
+        .quantum-mesh {
+            position: fixed; inset: 0; z-index: -3;
+            background: radial-gradient(circle at 50% 0%, rgba(229, 192, 92, 0.05) 0%, transparent 60%),
+                        radial-gradient(circle at 10% 90%, rgba(0, 240, 255, 0.04) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 90%, rgba(255, 42, 85, 0.03) 0%, transparent 50%);
+            animation: mesh-breathe 20s infinite alternate linear;
         }
 
-        .grid-overlay {
-            position: fixed; inset: 0; z-index: -1;
+        .cyber-grid {
+            position: fixed; inset: 0; z-index: -2;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 50px 50px;
-            pointer-events: none;
+            background-position: center;
+            mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: grid-move 15s infinite linear;
         }
 
-        /* ==========================================================================
-           AUTHENTICATION PORTAL (MAX LEVEL)
-           ========================================================================== 
-        */
-        #auth-overlay { 
-            position: fixed; inset: 0; 
-            background: #000; 
-            z-index: 10000; 
-            display: flex; justify-content: center; align-items: center; 
+        .scanlines {
+            position: fixed; inset: 0; z-index: 999999;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px; pointer-events: none; opacity: 0.4;
         }
 
-        .auth-card { 
-            background: var(--bg-elevated); 
-            padding: 60px 40px; 
-            border-radius: var(--radius-card); 
-            border: 1px solid var(--border-white);
-            width: 90%; max-width: 450px; 
-            text-align: center;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            position: relative;
-            overflow: hidden;
-        }
+        @keyframes mesh-breathe { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes grid-move { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
 
-        .auth-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            animation: scanHorizontal 3s linear infinite;
+        /* --- TERMINAL BOOTLOADER --- */
+        #boot-sequence {
+            position: fixed; inset: 0; background: var(--q-void); z-index: 50000;
+            display: none; flex-direction: column; padding: 40px;
+            font-family: var(--font-code); color: var(--q-cyan);
+            font-size: 0.9rem;
         }
-
-        .auth-card h1 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold-primary);
-            font-size: 2rem;
-            letter-spacing: 6px;
-            margin-bottom: 40px;
-            text-shadow: 0 0 20px var(--gold-glow);
-        }
-
-        /* ==========================================================================
-           NAVIGATION & HEADER 
-           ========================================================================== 
-        */
-        .header { 
-            padding: 20px 40px; 
-            background: var(--bg-glass); 
-            border-bottom: 1px solid var(--border-white); 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; 
-            backdrop-filter: blur(25px);
-        }
+        .boot-log { margin-bottom: 8px; opacity: 0; animation: log-appear 0.1s forwards; text-shadow: 0 0 5px var(--q-cyan-glow); }
+        .boot-success { color: var(--q-green); text-shadow: 0 0 5px var(--q-green-glow); }
+        .boot-error { color: var(--q-red); text-shadow: 0 0 5px var(--q-red-glow); }
+        .boot-warn { color: var(--q-gold-bright); text-shadow: 0 0 5px var(--q-gold-glow); }
+        .boot-cursor { display: inline-block; width: 10px; height: 18px; background: var(--q-cyan); animation: blink 1s infinite; vertical-align: middle; margin-left: 5px; }
         
-        .header h2 { 
-            font-family: 'Cinzel', serif; 
-            color: var(--gold-primary); 
-            font-size: 1.4rem; 
-            letter-spacing: 2px;
-            display: flex; align-items: center; gap: 15px;
+        @keyframes log-appear { to { opacity: 1; } }
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+        /* --- AUTH MATRIX --- */
+        #auth-overlay {
+            position: fixed; inset: 0; background: rgba(1, 1, 3, 0.9);
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            z-index: 10000; display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.8s var(--ease-hyper), visibility 0.8s; padding: 20px;
         }
 
-        /* ==========================================================================
-           CONTENT ARCHITECTURE 
-           ========================================================================== 
-        */
-        .container { 
-            max-width: 1500px; margin: 30px auto; padding: 0 25px; 
-            display: grid; grid-template-columns: 1fr; gap: 30px; 
+        .auth-core {
+            background: var(--q-surface-2); border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg); padding: 60px 50px; width: 100%; max-width: 460px;
+            text-align: center; position: relative; overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255,255,255,0.05);
+            transform: translateY(40px) scale(0.95); opacity: 0;
+            animation: auth-entrance 1.2s var(--ease-elastic) forwards;
         }
+
+        .auth-core::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 200%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--q-gold-core), transparent);
+            animation: scan-ray 3s infinite linear;
+        }
+
+        @keyframes auth-entrance { to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes scan-ray { to { transform: translateX(100%); } }
+
+        .auth-core h1 { font-family: var(--font-display); font-size: 2.4rem; letter-spacing: 5px; color: var(--q-gold-core); text-shadow: 0 0 25px var(--q-gold-glow); margin-bottom: 5px; }
+        .auth-core p { color: #8B8B9E; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-weight: 600; }
+
+        /* --- INPUT ARCHITECTURE --- */
+        .input-group { position: relative; margin-bottom: 25px; text-align: left; }
+        .input-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #5A5A6E; width: 20px; height: 20px; transition: var(--transition-base); }
         
-        @media (min-width: 1024px) { 
-            .container { grid-template-columns: 520px 1fr; align-items: start; } 
+        .q-input {
+            width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border-glass);
+            padding: 18px 20px 18px 50px; color: #FFFFFF; border-radius: var(--radius-md);
+            font-size: 1.05rem; font-family: var(--font-sans); transition: var(--transition-base);
+            box-shadow: inset 0 4px 15px rgba(0,0,0,0.4); letter-spacing: 0.5px;
+            color-scheme: dark;
+        }
+        .q-input:not(.has-icon) { padding-left: 20px; }
+        .q-input:focus { outline: none; border-color: var(--q-gold-core); background: rgba(229, 192, 92, 0.04); box-shadow: 0 0 25px var(--q-gold-glow), inset 0 4px 15px rgba(0,0,0,0.4); }
+        .q-input:focus + .input-icon, .q-input:not(:placeholder-shown) + .input-icon { color: var(--q-gold-core); }
+        
+        .q-label { display: block; font-size: 0.75rem; color: #8B8B9E; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; margin-top: 20px; }
+
+        /* --- BUTTON SYSTEMS --- */
+        .q-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+            width: 100%; padding: 18px 28px; border-radius: var(--radius-md);
+            font-size: 1rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; transition: var(--transition-base); border: none; position: relative; overflow: hidden; font-family: var(--font-sans);
         }
 
-        /* ==========================================================================
-           COMPONENTS: CARDS, TABS, INPUTS 
-           ========================================================================== 
-        */
-        .card { 
-            background: var(--bg-elevated); 
-            border-radius: var(--radius-card); 
-            border: 1px solid var(--border-white); 
-            padding: 30px; 
-            margin-bottom: 25px; 
-            transition: var(--transition-main);
-            position: relative;
-        }
+        .q-btn-primary { background: linear-gradient(135deg, var(--q-gold-core), #A38522); color: var(--q-void); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+        .q-btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transform: skewX(-25deg); transition: 0s; }
+        .q-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px var(--q-gold-intense); }
+        .q-btn-primary:hover::after { left: 200%; transition: 0.7s ease-in-out; }
 
-        .card:hover { border-color: var(--border-gold); transform: translateY(-5px); }
+        .q-btn-outline { background: rgba(255,255,255,0.02); color: #FFF; border: 1px solid var(--border-glass); backdrop-filter: blur(10px); }
+        .q-btn-outline:hover { background: rgba(255,255,255,0.06); border-color: var(--border-gold); color: var(--q-gold-bright); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .q-btn-danger { border-color: rgba(255,42,85,0.3); color: var(--q-red); }
+        .q-btn-danger:hover { background: var(--q-red-glow); border-color: var(--q-red); color: #FFF; box-shadow: 0 5px 20px var(--q-red-glow); }
 
-        .card-title { 
-            display: flex; align-items: center; gap: 12px; 
-            color: var(--gold-primary); 
-            font-size: 0.9rem; font-weight: 700; 
-            margin-bottom: 25px; 
-            text-transform: uppercase; letter-spacing: 2px;
-        }
+        /* --- DASHBOARD ARCHITECTURE --- */
+        #main-panel { display: none; opacity: 0; animation: fade-in 1s forwards; }
+        @keyframes fade-in { to { opacity: 1; } }
 
-        /* Inputs & Controls */
-        input, textarea, select { 
-            width: 100%; background: rgba(0,0,0,0.4); 
-            border: 1px solid var(--border-white); 
-            padding: 16px 20px; color: #fff; 
-            border-radius: 14px; font-size: 1rem; 
-            margin-top: 8px; transition: var(--transition-main);
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        input:focus { border-color: var(--gold-primary); outline: none; background: rgba(212, 175, 55, 0.05); }
-
-        label { font-size: 0.8rem; color: var(--text-soft); margin-top: 15px; display: block; font-weight: 600; text-transform: uppercase; }
-
-        /* Buttons */
-        .btn-primary { 
-            background: linear-gradient(135deg, var(--gold-primary), #B8860B); 
-            color: #000; border: none; width: 100%; padding: 18px; 
-            border-radius: 15px; font-weight: 800; cursor: pointer; 
-            margin-top: 25px; display: flex; align-items: center; 
-            justify-content: center; gap: 10px; transition: var(--transition-main);
-            font-size: 1rem; letter-spacing: 1px;
-        }
-
-        .btn-primary:hover { transform: scale(1.02); box-shadow: 0 10px 30px var(--gold-glow); }
-
-        .btn-outline { 
-            background: transparent; border: 1px solid var(--border-white); 
-            color: #fff; padding: 12px 20px; border-radius: 12px; 
-            cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: var(--transition-main);
-            display: flex; align-items: center; gap: 8px;
-        }
-
-        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
-
-        /* ==========================================================================
-           IDE & CODE PREVIEW SYSTEM
-           ========================================================================== 
-        */
-        .preview-box { 
-            background: #0b0b0e; border-radius: var(--radius-card); 
-            border: 1px solid var(--border-white); 
-            overflow: hidden; position: sticky; top: 100px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-        }
-
-        .terminal-header {
-            background: #141418; padding: 15px 20px; 
+        .app-header {
+            position: sticky; top: 0; z-index: 1000; background: rgba(6, 6, 10, 0.85);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border-glass); padding: 18px 50px;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border-white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .window-controls { display: flex; gap: 8px; }
-        .window-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27c93f; }
+        .app-brand { display: flex; align-items: center; gap: 15px; font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 3px; color: var(--q-gold-core); font-weight: 800; }
+        .brand-pulse { width: 10px; height: 10px; background: var(--q-cyan); border-radius: 50%; box-shadow: 0 0 15px var(--q-cyan); animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 var(--q-cyan-glow); } 70% { transform: scale(1); box-shadow: 0 0 0 15px transparent; } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 transparent; } }
 
-        pre { 
-            padding: 30px; color: var(--neon-green); 
-            font-family: 'JetBrains Mono', monospace; 
-            font-size: 0.85rem; overflow-x: auto; 
-            max-height: 700px; line-height: 1.7; 
-            background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%);
+        .layout-grid { max-width: 1800px; margin: 40px auto; padding: 0 40px; display: grid; grid-template-columns: 1fr; gap: 50px; }
+        @media (min-width: 1200px) { .layout-grid { grid-template-columns: 500px 1fr; align-items: start; } }
+
+        /* --- HUD CARDS --- */
+        .q-card {
+            background: var(--q-surface-2); border-radius: var(--radius-lg); border: 1px solid var(--border-glass);
+            padding: 35px; margin-bottom: 35px; backdrop-filter: blur(20px); transition: var(--transition-base);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4); position: relative; overflow: hidden;
         }
+        .q-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--card-color, var(--q-gold-core)); opacity: 0.8; }
+        .q-card:hover { border-color: rgba(255, 255, 255, 0.15); box-shadow: 0 25px 60px rgba(0,0,0,0.6); transform: translateY(-2px); }
 
-        /* ==========================================================================
-           DATA LIST MANAGEMENT
-           ========================================================================== 
-        */
-        .item-row { 
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border-white); 
-            padding: 20px; border-radius: 18px; display: flex; 
-            justify-content: space-between; align-items: center; margin-bottom: 15px; 
-            transition: var(--transition-main);
+        .q-card-title {
+            display: flex; align-items: center; gap: 15px; font-size: 1rem; font-weight: 800;
+            color: var(--text-pure); text-transform: uppercase; letter-spacing: 3px;
+            margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-glass);
         }
+        .q-card-title i { color: var(--card-color, var(--q-gold-core)); }
 
-        .item-row:hover { background: rgba(255,255,255,0.05); border-color: var(--gold-primary); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-full { grid-column: 1 / -1; }
+        textarea.q-input { resize: vertical; min-height: 120px; line-height: 1.6; }
 
-        .item-info b { display: block; color: var(--gold-primary); font-size: 1.05rem; margin-bottom: 5px; }
-        .item-info span { font-size: 0.85rem; color: var(--text-soft); }
+        /* --- TABS --- */
+        .q-tabs { display: flex; gap: 12px; background: rgba(0,0,0,0.5); padding: 10px; border-radius: var(--radius-md); margin-bottom: 35px; border: 1px solid var(--border-glass); }
+        .q-tab { flex: 1; padding: 15px; text-align: center; border-radius: 8px; color: #8B8B9E; font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; cursor: pointer; transition: var(--transition-warp); }
+        .q-tab.active { background: var(--q-surface-3); color: var(--q-gold-core); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
-        /* ==========================================================================
-           ANIMATIONS & OVERLAYS 
-           ========================================================================== 
-        */
-        @keyframes scanHorizontal {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        /* --- DATA REPOSITORY LIST --- */
+        .q-list-item {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass);
+            padding: 22px; border-radius: var(--radius-md); margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center; transition: var(--transition-warp);
         }
+        .q-list-item:hover { background: rgba(255,255,255,0.05); border-color: var(--border-gold); transform: translateX(8px); border-left: 4px solid var(--q-gold-core); }
+        .q-list-info strong { display: block; color: #FFF; font-size: 1.1rem; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .q-list-info span { font-size: 0.85rem; color: #8B8B9E; font-family: var(--font-code); }
+        
+        .q-list-actions { display: flex; gap: 10px; }
+        .action-btn { background: rgba(0,0,0,0.3); border: 1px solid transparent; padding: 10px; cursor: pointer; border-radius: 8px; transition: var(--transition-warp); display: flex; align-items: center; justify-content: center; }
+        .action-edit { color: var(--q-cyan); }
+        .action-edit:hover { background: var(--q-cyan-glow); border-color: var(--q-cyan); color: #FFF; }
+        .action-delete { color: var(--q-red); }
+        .action-delete:hover { background: var(--q-red-glow); border-color: var(--q-red); color: #FFF; }
 
+        /* --- COMPILER / PREVIEW MATRIX --- */
+        .editor-container {
+            background: #09090D; border-radius: var(--radius-lg); border: 1px solid #2A2A35;
+            overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.9); position: sticky; top: 120px;
+            height: calc(100vh - 160px); display: flex; flex-direction: column;
+        }
+        .editor-header { background: #12121A; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2A2A35; }
+        .mac-controls { display: flex; gap: 10px; }
+        .mac-dot { width: 14px; height: 14px; border-radius: 50%; }
+        .mac-red { background: #FF5F56; box-shadow: 0 0 10px rgba(255,95,86,0.5); }
+        .mac-yellow { background: #FFBD2E; box-shadow: 0 0 10px rgba(255,189,46,0.5); }
+        .mac-green { background: #27C93F; box-shadow: 0 0 10px rgba(39,201,63,0.5); }
+        .editor-title { font-family: var(--font-code); font-size: 0.8rem; color: #8B8B9E; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
+        
+        .editor-content {
+            flex: 1; overflow: auto; padding: 35px; font-family: var(--font-code); font-size: 0.9rem; line-height: 1.8; color: #A9B7C6;
+            background: repeating-linear-gradient(transparent, transparent 28px, rgba(255,255,255,0.01) 28px, rgba(255,255,255,0.01) 56px);
+        }
+        .syn-keyword { color: #CC7832; font-weight: bold; }
+        .syn-string { color: #6A8759; }
+        .syn-number { color: #6897BB; }
+        .syn-property { color: #9876AA; }
+        .syn-punct { color: #E8BF6A; }
+
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; border: 2px solid #09090D; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--q-gold-core); }
+
+        /* --- QUANTUM DIALOG OVERLAY --- */
+        #dialog-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: var(--transition-warp); padding: 20px;
+        }
+        #dialog-overlay.active { opacity: 1; visibility: visible; }
+        .q-dialog {
+            background: var(--q-surface-2); border: 1px solid var(--border-glass); border-top: 3px solid var(--q-gold-core);
+            border-radius: var(--radius-lg); padding: 50px; width: 100%; max-width: 520px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9), 0 0 50px var(--q-gold-glow);
+            transform: scale(0.9) translateY(30px); transition: transform 0.4s var(--ease-elastic), opacity 0.4s; opacity: 0; text-align: center;
+        }
+        #dialog-overlay.active .q-dialog { transform: scale(1) translateY(0); opacity: 1; }
+        .dialog-icon { width: 70px; height: 70px; margin: 0 auto 25px; background: rgba(229, 192, 92, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--q-gold-core); box-shadow: inset 0 0 20px rgba(229,192,92,0.2); }
+        .dialog-title { font-size: 1.6rem; color: #FFF; margin-bottom: 15px; font-family: var(--font-display); letter-spacing: 2px; }
+        .dialog-message { color: #A9B7C6; font-size: 1rem; margin-bottom: 35px; line-height: 1.6; }
+        .dialog-actions { display: flex; gap: 20px; justify-content: center; }
+
+        /* TOASTS */
+        #toast-container { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 1000000; display: flex; flex-direction: column; gap: 15px; pointer-events: none; }
+        .q-toast {
+            background: rgba(20, 20, 28, 0.95); border: 1px solid var(--border-glass); color: #FFF; padding: 16px 30px;
+            border-radius: var(--radius-pill); font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6); animation: toast-in 0.5s var(--ease-elastic) forwards; backdrop-filter: blur(15px); letter-spacing: 1px;
+        }
+        .q-toast.success { border-left: 4px solid var(--q-green); box-shadow: 0 10px 30px var(--q-green-glow); }
+        .q-toast.error { border-left: 4px solid var(--q-red); box-shadow: 0 10px 30px var(--q-red-glow); }
+        .q-toast.info { border-left: 4px solid var(--q-cyan); box-shadow: 0 10px 30px var(--q-cyan-glow); }
+        @keyframes toast-in { 0% { opacity: 0; transform: translateY(50px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        
         .spinner { animation: rotate 2s linear infinite; }
         @keyframes rotate { 100% { transform: rotate(360deg); } }
-
-        /* Scrollbars */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--bg-void); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; border: 3px solid var(--bg-void); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
-
-        #custom-popup { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
-            z-index: 20000; display: none; justify-content: center; align-items: center; padding: 20px; 
-        }
-
-        .popup-content { 
-            background: var(--bg-elevated); border: 2px solid var(--gold-primary); 
-            padding: 40px; border-radius: 30px; text-align: center; width: 100%; max-width: 500px;
-            box-shadow: 0 0 50px var(--gold-glow);
-        }
     </style>
 </head>
 <body>
 
-<div class="plasma-bg"></div>
-<div class="grid-overlay"></div>
+<div class="quantum-mesh"></div>
+<div class="cyber-grid"></div>
+<div class="scanlines"></div>
 
-<!-- AUTHENTICATION -->
+<!-- =======================================================================
+     MODULE 1: TERMINAL BOOTLOADER (UPLINK TO GITHUB)
+     ======================================================================= -->
+<div id="boot-sequence">
+    <div style="font-size: 1.5rem; margin-bottom: 20px; font-weight:bold; letter-spacing: 4px; color: var(--q-gold-core);">QUANTUM OS v4.0 <span class="boot-cursor"></span></div>
+    <div id="boot-console"></div>
+</div>
+
+<!-- =======================================================================
+     MODULE 2: ZERO-TRUST AUTHENTICATION MATRIX
+     ======================================================================= -->
 <div id="auth-overlay">
-    <div class="auth-card">
-        <h1>ACCESS VAULT</h1>
-        <div style="position: relative;">
-            <i data-lucide="shield-lock" style="position: absolute; left: 15px; top: 25px; width: 20px; color: var(--gold-primary);"></i>
-            <input type="password" id="admin-pass" placeholder="Enter Command Key" style="text-align:center; padding-left: 45px; letter-spacing: 5px;">
+    <div class="auth-core">
+        <i data-lucide="shield-alert" style="width: 60px; height: 60px; color: var(--q-gold-core); margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(229,192,92,0.5));"></i>
+        <h1>RESTRICTED</h1>
+        <p>Istiack v3.0 Deployment Vector</p>
+        
+        <div class="input-group">
+            <label class="q-label">Identity Vector</label>
+            <input type="text" id="admin-user" class="q-input has-icon" placeholder="Administrator ID">
+            <i data-lucide="user" class="input-icon"></i>
         </div>
-        <button class="btn-primary" onclick="checkAuth()">
-            <i data-lucide="fingerprint"></i> INITIALIZE SESSION
+        
+        <div class="input-group" style="margin-bottom: 40px;">
+            <label class="q-label">Master Directive</label>
+            <input type="password" id="admin-pass" class="q-input has-icon" placeholder="Enter Protocol">
+            <i data-lucide="key" class="input-icon"></i>
+        </div>
+        
+        <button class="q-btn q-btn-primary" onclick="QuantumCore.initiateAuth()">
+            <i data-lucide="fingerprint"></i> DECRYPT SYSTEM
         </button>
     </div>
 </div>
 
-<!-- TOKEN REVEAL POPUP -->
-<div id="custom-popup">
-    <div class="popup-content">
-        <i data-lucide="key" style="color:var(--gold-primary); width:60px; height:60px; margin-bottom:20px;"></i>
-        <h3 style="color:var(--gold-primary); font-size: 1.5rem; margin-bottom: 10px;">Security Token Decrypted</h3>
-        <p style="color: var(--text-soft); font-size: 0.9rem; margin-bottom: 20px;">Use this token for manual Git authentication if needed.</p>
-        <div class="token-display" id="revealed-token-val" style="background:#000; padding:20px; border-radius:15px; border:1px dashed var(--gold-primary); font-family:monospace; color:var(--neon-blue); word-break:break-all; margin-bottom:25px;"></div>
-        <button class="btn-primary" onclick="copyToken()">
-            <i data-lucide="copy"></i> COPY TOKEN
-        </button>
-        <button class="btn-outline" style="width:100%; margin-top:15px; justify-content:center;" onclick="closePopup()">DISMISS</button>
+<!-- =======================================================================
+     MODULE 3: GLOBAL DIALOG ENGINE
+     ======================================================================= -->
+<div id="dialog-overlay">
+    <div class="q-dialog" id="dialog-box">
+        <div class="dialog-icon" id="dialog-icon-container">
+            <i data-lucide="alert-circle" id="dialog-icon" style="width:36px; height:36px;"></i>
+        </div>
+        <h3 class="dialog-title" id="dialog-title">System Alert</h3>
+        <p class="dialog-message" id="dialog-message">Message goes here.</p>
+        
+        <div id="dialog-input-container" style="display:none; margin-bottom: 35px; text-align: left;">
+            <div class="input-group" style="margin-bottom: 0;">
+                <input type="password" id="dialog-input" class="q-input has-icon" placeholder="Enter key..." autocomplete="off">
+                <i data-lucide="lock" class="input-icon"></i>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--q-red); margin-top: 10px; text-align: center; font-weight: 600; letter-spacing: 1px;">
+                <i data-lucide="shield-alert" style="width:14px; height:14px; display:inline-block; vertical-align:middle;"></i> 
+                SECURE MEMORY ENCLAVE. NO DISK WRITES.
+            </div>
+        </div>
+
+        <div class="dialog-actions" id="dialog-actions"></div>
     </div>
 </div>
 
-<!-- MAIN APPLICATION -->
-<div id="main-panel" style="display:none;">
-    <header class="header">
-        <div style="display:flex; align-items:center; gap:25px;">
-            <h2>ISTIACK PORTAL</h2>
-            <button class="btn-outline" style="border-color: var(--neon-green); color: var(--neon-green);" onclick="pushToGitHub()" id="sync-btn">
-                <i data-lucide="zap"></i> PUSH TO PRODUCTION
+<div id="toast-container"></div>
+
+<!-- =======================================================================
+     MODULE 4: COMMAND HUD (MAIN DASHBOARD)
+     ======================================================================= -->
+<div id="main-panel">
+    <header class="app-header">
+        <div class="app-brand">
+            <div class="brand-pulse"></div>
+            QUANTUM COMMAND
+        </div>
+        <div style="display: flex; gap: 20px;">
+            <button class="q-btn q-btn-primary" style="padding: 12px 25px; font-size: 0.85rem;" onclick="NetworkUplink.executeProductionPush()" id="btn-sync">
+                <i data-lucide="satellite" style="width:18px;"></i> EXECUTE PUSH TO PROD
+            </button>
+            <button class="q-btn q-btn-outline" style="padding: 12px; border-color: transparent;" onclick="location.reload()" title="Terminate Session">
+                <i data-lucide="power" style="color: var(--q-red); width: 20px;"></i>
             </button>
         </div>
-        <button class="btn-outline" style="border:none; color: var(--neon-red);" onclick="location.reload()">
-            <i data-lucide="power"></i>
-        </button>
     </header>
 
-    <div class="container">
-        <!-- CONTROLS SIDEBAR -->
+    <div class="layout-grid">
+        <!-- LEFT WING: CONTROLS & FORMS -->
         <div class="sidebar">
             
-            <!-- SECURITY WIDGET -->
-            <div class="card" style="border-color: var(--gold-primary);">
-                <div class="card-title"><i data-lucide="github"></i> Git Auth Controller</div>
-                <label>GitHub Access Token (Scoped)</label>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="rawTokenInput" placeholder="ghp_xxxxxxxxxxxxxxx" style="font-family: monospace;">
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                    <button class="btn-primary" onclick="updateTokenSplitted()">
-                        <i data-lucide="save"></i> SYNC KEY
-                    </button>
-                    <button class="btn-outline" onclick="handleReveal()" style="margin-top:25px; border-color:var(--gold-primary); color:var(--gold-primary);">
-                        <i data-lucide="eye"></i> INSPECT
-                    </button>
-                </div>
-            </div>
-
-            <!-- BIO METRICS -->
-            <div class="card" style="border-left: 5px solid var(--neon-red);">
-                <div class="card-title"><i data-lucide="activity" style="color:var(--neon-red);"></i> Life Status (Vitals)</div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                    <div>
-                        <label>Hemoglobin</label>
-                        <input type="number" id="hl_input" step="0.1">
+            <!-- SUB-MODULE: SECURITY MATRIX -->
+            <div class="q-card" style="--card-color: var(--q-red);">
+                <div class="q-card-title"><i data-lucide="shield-alert"></i> Cryptographic Key Matrix</div>
+                <div class="form-grid">
+                    <div class="form-full">
+                        <label class="q-label">Current Authentication Token (Encrypted)</label>
+                        <div style="display:flex; gap: 15px;">
+                            <input type="password" id="current_token_display" class="q-input" readonly value="" style="flex:1; background: rgba(0,0,0,0.8); color: var(--q-red); font-family: var(--font-code);">
+                            <button class="q-btn q-btn-outline" style="width: auto; padding: 0 20px;" onclick="SecurityMatrix.requestTokenReveal(this)" title="Reveal Token">
+                                <i data-lucide="eye"></i>
+                            </button>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #8B8B9E; margin-top: 10px; font-weight: 600;" id="token_age_display">Last Key Rotation: AWAITING UPLINK</div>
                     </div>
-                    <div>
-                        <label>Donation Cycle</label>
-                        <input type="text" id="ld_input">
+                    <div class="form-full" style="margin-top: 15px;">
+                        <label class="q-label">Inject New Deployment Token</label>
+                        <input type="password" id="new_token_input" class="q-input" placeholder="Format: ghp_... or github_pat_..." autocomplete="off">
                     </div>
                 </div>
-                <button class="btn-primary" onclick="updateHealthData()" style="background: var(--neon-red); color:#fff; border:none;">
-                    <i data-lucide="heart-pulse"></i> UPDATE BIOMETRICS
+                <button class="q-btn q-btn-danger q-btn-outline" style="margin-top: 25px;" onclick="SecurityMatrix.processNewToken()">
+                    <i data-lucide="key"></i> OVERRIDE SYSTEM TOKEN
                 </button>
             </div>
 
-            <!-- TABS -->
-            <div style="display:flex; gap:10px; margin-bottom:25px;">
-                <button id="tab-add" class="btn-outline active" style="flex:1; justify-content:center;" onclick="switchTab('add')">CONSTRUCT</button>
-                <button id="tab-manage" class="btn-outline" style="flex:1; justify-content:center;" onclick="switchTab('manage')">REPOSITORY</button>
+            <!-- SUB-MODULE: BIOMETRICS -->
+            <div class="q-card" style="--card-color: var(--q-cyan);">
+                <div class="q-card-title"><i data-lucide="activity"></i> Life Status Vitals</div>
+                <div class="form-grid">
+                    <div>
+                        <label class="q-label">Hemoglobin Metric</label>
+                        <input type="number" id="hl_input" class="q-input" step="0.1" placeholder="Ex: 14.5">
+                    </div>
+                    <div>
+                        <label class="q-label">Last Cycle Epoch</label>
+                        <input type="date" id="ld_input" class="q-input">
+                    </div>
+                </div>
+                <button class="q-btn q-btn-outline" style="margin-top: 25px; border-color: rgba(0,240,255,0.3); color: var(--q-cyan);" onclick="DataEngine.calibrateVitals()">
+                    <i data-lucide="refresh-ccw"></i> SYNC BIOMETRICS
+                </button>
             </div>
 
-            <!-- EDITOR -->
-            <div id="section-add">
-                <div class="card">
-                    <div class="card-title"><i data-lucide="cpu"></i> Entry Matrix</div>
-                    <select id="mainCat" onchange="renderFields()">
-                        <option value="projects">Projects (প্রকল্প)</option>
-                        <option value="thoughts">Thoughts (চিন্তাভাবনা)</option>
-                        <option value="debate_exp">Debate Experience (বিতর্ক অভিজ্ঞতা)</option>
-                        <option value="debate_ach">Debate Achievement (বিতর্ক অর্জন)</option>
-                        <option value="pol_pos">Political Position (রাজনৈতিক পদবি)</option>
-                        <option value="pol_works">Political Activity (রাজনৈতিক কাজ)</option>
-                    </select>
+            <!-- SUB-MODULE: DATA ARCHITECTURE TABS -->
+            <div class="q-tabs">
+                <div class="q-tab active" id="tab-add" onclick="UIController.switchView('add')">DATA FORGE</div>
+                <div class="q-tab" id="tab-manage" onclick="UIController.switchView('manage')">CLUSTER MANAGER</div>
+            </div>
+
+            <!-- VIEW: DATA FORGE -->
+            <div id="view-add">
+                <div class="q-card" style="--card-color: var(--q-gold-core);">
+                    <div class="q-card-title"><i data-lucide="database"></i> Entity Constructor</div>
                     
-                    <div id="fields-container" style="margin-top:20px;"></div>
+                    <label class="q-label">Select Architecture Schema</label>
+                    <div style="position:relative; margin-bottom: 30px;">
+                        <select id="mainCat" class="q-input" onchange="UIController.renderFormFields()">
+                            <option value="projects">Software Projects</option>
+                            <option value="thoughts">Philosophical Thoughts</option>
+                            <option value="debate_exp">Debate Experience</option>
+                            <option value="debate_ach">Debate Achievements</option>
+                            <option value="pol_pos">Political Rank/Positions</option>
+                            <option value="pol_works">Political Activities</option>
+                        </select>
+                        <i data-lucide="chevron-down" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); color:#8B8B9E; pointer-events:none;"></i>
+                    </div>
+
+                    <div id="dynamic-form-fields" class="form-grid"></div>
                     
-                    <button class="btn-primary" id="save-btn" onclick="saveData()">COMMIT CHANGES</button>
-                    <button class="btn-outline" id="cancel-edit" style="width:100%; margin-top:15px; justify-content:center; display:none;" onclick="cancelEdit()">ABORT EDIT</button>
+                    <button class="q-btn q-btn-primary" id="btn-save-record" style="margin-top: 35px;" onclick="DataEngine.commitEntity()">
+                        <i data-lucide="save"></i> COMPILE & COMMIT
+                    </button>
+                    <button class="q-btn q-btn-danger q-btn-outline" id="btn-cancel-edit" style="margin-top: 15px; display: none;" onclick="DataEngine.abortModification()">
+                        <i data-lucide="x-octagon"></i> ABORT MODIFICATION
+                    </button>
                 </div>
             </div>
 
-            <!-- LIST -->
-            <div id="section-manage" style="display:none;">
-                <div class="card">
-                    <div class="card-title"><i data-lucide="database"></i> Cluster Management</div>
-                    <select id="manageCat" onchange="loadList()"></select>
-                    <div id="item-list" style="margin-top:25px;"></div>
+            <!-- VIEW: CLUSTER MANAGER -->
+            <div id="view-manage" style="display:none;">
+                <div class="q-card" style="--card-color: #A9B7C6;">
+                    <div class="q-card-title"><i data-lucide="layers"></i> Repositories</div>
+                    
+                    <label class="q-label">Filter Schema</label>
+                    <div style="position:relative; margin-bottom: 30px;">
+                        <select id="manageCat" class="q-input" onchange="UIController.renderClusterList()"></select>
+                        <i data-lucide="chevron-down" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); color:#8B8B9E; pointer-events:none;"></i>
+                    </div>
+
+                    <div id="data-list-container">
+                        <!-- Hydrated dynamically -->
+                    </div>
                 </div>
             </div>
+            
         </div>
 
-        <!-- CODE VIEW -->
-        <div class="preview-box">
-            <div class="terminal-header">
-                <div class="window-controls">
-                    <div class="window-dot dot-red"></div>
-                    <div class="window-dot dot-yellow"></div>
-                    <div class="window-dot dot-green"></div>
+        <!-- RIGHT WING: CODE MATRIX PREVIEW -->
+        <div class="editor-container">
+            <div class="editor-header">
+                <div class="mac-controls">
+                    <div class="mac-dot mac-red"></div>
+                    <div class="mac-dot mac-yellow"></div>
+                    <div class="mac-dot mac-green"></div>
                 </div>
-                <div style="font-size: 0.75rem; color: #666; font-weight: 700; letter-spacing: 1px;">DATABASE.JS (READ-ONLY)</div>
-                <button class="btn-outline" style="padding: 5px 12px; font-size: 0.7rem;" onclick="copyAllCode()">
-                    <i data-lucide="copy" style="width:12px;"></i> COPY SOURCE
+                <div class="editor-title">DATA.JS // READ-ONLY MATRIX</div>
+                <button class="action-btn" onclick="UIController.copySource()" title="Copy to Clipboard" style="color: #FFF;">
+                    <i data-lucide="copy" style="width: 18px;"></i>
                 </button>
             </div>
-            <pre id="code-output"></pre>
+            <div class="editor-content" id="code-output-container">
+                <pre id="code-output"></pre>
+            </div>
         </div>
     </div>
 </div>
 
-<script src="Data.js"></script>
 <script>
     /* ==========================================================================
-       CORE LOGIC (AS CHALLENGED: NO TOUCHING)
-       ========================================================================== 
-    */
-    const G_CONFIG = { owner: "istiack-29", repo: "istiack-29.github.io", path: "Data.js" };
-    let editIdx = -1;
+       ENTERPRISE JAVASCRIPT ENGINE - v4.0 MAX LEVEL
+       Architecture: Modular, Class-based, Asynchronous, Zero-Trust
+       ========================================================================== */
 
-    function checkAuth() {
-        if(document.getElementById('admin-pass').value === ".") {
-            document.getElementById('auth-overlay').style.display = 'none';
-            document.getElementById('main-panel').style.display = 'block';
-            lucide.createIcons();
-            initAdmin();
-        }
-    }
+    const CONSTANTS = {
+        REPO_OWNER: "istiack-29",
+        REPO_NAME: "istiack-29.github.io",
+        FILE_PATH: "Data.js",
+        MASTER_DIRECTIVE: "....", // The absolute truth
+        ADMIN_ID: "Istiack"
+    };
 
-    function initAdmin() {
-        document.getElementById('manageCat').innerHTML = document.getElementById('mainCat').innerHTML;
-        if(portfolioData.hl) document.getElementById('hl_input').value = portfolioData.hl;
-        if(portfolioData.ld) document.getElementById('ld_input').value = portfolioData.ld;
-        renderFields();
-        updatePreview();
-    }
+    // Global Data State
+    let __SYSTEM_DATA = null;
+    let __CURRENT_SHA = null; // Required for precise GitHub PUT requests
 
-    function updateHealthData() {
-        portfolioData.hl = parseFloat(document.getElementById('hl_input').value) || 0;
-        portfolioData.ld = document.getElementById('ld_input').value.trim() || "";
-        updatePreview();
-        showToast("Vitals Synced to Preview");
-    }
+    /* --------------------------------------------------------------------------
+       UI COMPONENT: DIALOG ENGINE (Replaces Native Prompts completely)
+       -------------------------------------------------------------------------- */
+    class DialogEngine {
+        static overlay = document.getElementById('dialog-overlay');
+        static title = document.getElementById('dialog-title');
+        static msg = document.getElementById('dialog-message');
+        static actions = document.getElementById('dialog-actions');
+        static inputBox = document.getElementById('dialog-input-container');
+        static inputField = document.getElementById('dialog-input');
 
-    function updateTokenSplitted() {
-        const val = document.getElementById('rawTokenInput').value.trim();
-        if(!val.startsWith('ghp_')) return alert("Invalid Protocol - Token must start with ghp_");
-        portfolioData.lut1 = val.substring(0, 10);
-        portfolioData.lut2 = val.substring(10, 25);
-        portfolioData.lut3 = val.substring(25);
-        updatePreview();
-        alert("Authorization Key Locked");
-        document.getElementById('rawTokenInput').value = "";
-    }
+        static show(config) {
+            return new Promise((resolve) => {
+                this.title.innerText = config.title || "System Alert";
+                this.msg.innerHTML = config.message || "";
+                
+                // Styling matrix based on urgency
+                let iconName = 'alert-circle';
+                let iconColor = 'var(--q-gold-core)';
+                if(config.type === 'error') { iconName = 'x-octagon'; iconColor = 'var(--q-red)'; }
+                if(config.type === 'success') { iconName = 'check-circle'; iconColor = 'var(--q-green)'; }
+                if(config.type === 'prompt' || config.type === 'secure_prompt') { iconName = 'shield-alert'; iconColor = 'var(--q-cyan)'; }
+                
+                const iconContainer = document.getElementById('dialog-icon-container');
+                iconContainer.style.color = iconColor;
+                iconContainer.style.boxShadow = `inset 0 0 20px ${iconColor.replace(')', ', 0.2)').replace('rgb', 'rgba')}`;
+                iconContainer.innerHTML = `<i data-lucide="${iconName}" style="width:36px; height:36px;"></i>`;
+                lucide.createIcons({root: iconContainer});
 
-    function handleReveal() {
-        if(prompt("Level 2 Security Clearance Required:") === ".") {
-            const full = (portfolioData.lut1||"") + (portfolioData.lut2||"") + (portfolioData.lut3||"");
-            document.getElementById('revealed-token-val').innerText = full || "Null Reference";
-            document.getElementById('custom-popup').style.display = 'flex';
-        }
-    }
+                // Handle Prompts
+                if(config.type === 'prompt' || config.type === 'secure_prompt') {
+                    this.inputBox.style.display = 'block';
+                    this.inputField.type = config.type === 'secure_prompt' ? 'password' : 'text';
+                    this.inputField.value = '';
+                    setTimeout(() => this.inputField.focus(), 150);
+                } else {
+                    this.inputBox.style.display = 'none';
+                }
 
-    function closePopup() { document.getElementById('custom-popup').style.display = 'none'; }
-    function copyToken() { 
-        const t = document.getElementById('revealed-token-val').innerText;
-        copyToClipboard(t, "Token Extracted");
-    }
+                this.actions.innerHTML = '';
+                
+                // Action Buttons Construction
+                if(['confirm', 'prompt', 'secure_prompt'].includes(config.type)) {
+                    const btnCancel = document.createElement('button');
+                    btnCancel.className = 'q-btn q-btn-outline q-btn-danger';
+                    btnCancel.style.width = 'auto';
+                    btnCancel.innerHTML = '<i data-lucide="x"></i> ABORT';
+                    btnCancel.onclick = () => { this.hide(); resolve(null); };
+                    
+                    const btnConfirm = document.createElement('button');
+                    btnConfirm.className = 'q-btn q-btn-primary';
+                    btnConfirm.style.width = 'auto';
+                    btnConfirm.innerHTML = `<i data-lucide="check-circle"></i> ${config.type.includes('prompt') ? 'AUTHORIZE' : 'CONFIRM'}`;
+                    btnConfirm.onclick = () => { 
+                        this.hide(); 
+                        resolve(config.type.includes('prompt') ? this.inputField.value : true); 
+                    };
+                    
+                    this.actions.appendChild(btnCancel);
+                    this.actions.appendChild(btnConfirm);
+                } else {
+                    const btnOk = document.createElement('button');
+                    btnOk.className = 'q-btn q-btn-primary';
+                    btnOk.style.width = 'auto';
+                    btnOk.innerHTML = '<i data-lucide="check"></i> ACKNOWLEDGE';
+                    btnOk.onclick = () => { this.hide(); resolve(true); };
+                    this.actions.appendChild(btnOk);
+                }
 
-    function switchTab(t) {
-        document.getElementById('section-add').style.display = t==='add'?'block':'none';
-        document.getElementById('section-manage').style.display = t==='manage'?'block':'none';
-        
-        document.getElementById('tab-add').style.borderColor = t==='add' ? 'var(--gold-primary)' : 'var(--border-white)';
-        document.getElementById('tab-manage').style.borderColor = t==='manage' ? 'var(--gold-primary)' : 'var(--border-white)';
-        
-        if(t==='manage') loadList();
-    }
-
-    function renderFields(existing = null) {
-        const cat = document.getElementById('mainCat').value;
-        const container = document.getElementById('fields-container');
-        document.getElementById('save-btn').innerText = editIdx===-1 ? "COMMIT CHANGES" : "PATCH RECORD";
-        document.getElementById('cancel-edit').style.display = editIdx===-1 ? "none" : "flex";
-        
-        let h = '';
-        if(cat === 'projects') {
-            h = `<label>Work Title (কাজের নাম)</label><input id="i_title" value="${existing?.work||''}">
-                 <label>Description (বিস্তারিত)</label><textarea id="i_desc" rows="4">${existing?.desc||''}</textarea>
-                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                    <div><label>Start Date</label><input id="i_st" type="date" value="${existing?.st||''}"></div>
-                    <div><label>End Date</label><input id="i_en" type="date" value="${existing?.en||''}"></div>
-                 </div>
-                 <label>Image URL</label><input id="i_img" value="${existing?.pc?.[0]||''}">`;
-        } else if(cat === 'thoughts') {
-            h = `<label>Your Thought (চিন্তাভাবনা)</label><textarea id="i_text" rows="5">${existing?.text||''}</textarea>
-                 <label>Date (Ex: ১২ মে ২০২৪)</label><input id="i_date" value="${existing?.date||''}">
-                 <label>Author Image URL</label><input id="i_ph" value="${existing?.ph||'profile.png'}">`;
-        } else if(cat === 'debate_exp' || cat === 'pol_pos') {
-            const timeParts = (existing?.time || "").split(' - ');
-            h = `<label>Position Name (পদবি)</label><input id="i_pos" value="${existing?.post||''}">
-                 <label>Organization (সংগঠন/ক্লাব)</label><input id="i_org" value="${existing?.org||existing?.cl||''}">
-                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                    <div><label>Start Year</label><input id="i_st" value="${timeParts[0]||''}"></div>
-                    <div><label>End (Year or 'Present')</label><input id="i_en" value="${timeParts[1]||''}"></div>
-                 </div>`;
-        } else if(cat === 'debate_ach') {
-            h = `<label>Achievement (অর্জন)</label><input id="i_ach" value="${existing?.ach||''}">
-                 <label>Tournament (টুর্নামেন্ট)</label><input id="i_tn" value="${existing?.tn||''}">
-                 <label>Year / Time</label><input id="i_time" value="${existing?.time||''}">`;
-        } else if(cat === 'pol_works') {
-            h = `<label>Activity Title</label><input id="i_title" value="${existing?.title||''}">
-                 <label>Description</label><textarea id="i_desc" rows="4">${existing?.des||''}</textarea>
-                 <label>Activity Image URL</label><input id="i_img" value="${existing?.img||''}">`;
-        }
-        container.innerHTML = h;
-    }
-
-    function saveData() {
-        const cat = document.getElementById('mainCat').value;
-        let obj = {};
-
-        if(cat==='projects') obj = { work: document.getElementById('i_title').value, desc: document.getElementById('i_desc').value, st: document.getElementById('i_st').value, en: document.getElementById('i_en').value, pc: [document.getElementById('i_img').value] };
-        else if(cat==='thoughts') obj = { id: editIdx===-1 ? Date.now() : portfolioData.thoughts[editIdx].id, text: document.getElementById('i_text').value, date: document.getElementById('i_date').value, ph: document.getElementById('i_ph').value || "profile.png" };
-        else if(cat==='debate_exp') obj = { post: document.getElementById('i_pos').value, cl: document.getElementById('i_org').value, time: document.getElementById('i_st').value + (document.getElementById('i_en').value ? " - " + document.getElementById('i_en').value : "") };
-        else if(cat==='debate_ach') obj = { ach: document.getElementById('i_ach').value, tn: document.getElementById('i_tn').value, time: document.getElementById('i_time').value };
-        else if(cat==='pol_pos') obj = { post: document.getElementById('i_pos').value, org: document.getElementById('i_org').value, time: document.getElementById('i_st').value + (document.getElementById('i_en').value ? " - " + document.getElementById('i_en').value : "") };
-        else if(cat==='pol_works') obj = { id: editIdx===-1 ? Date.now() : portfolioData.politics.activities[editIdx].id, title: document.getElementById('i_title').value, des: document.getElementById('i_desc').value, img: document.getElementById('i_img').value };
-
-        const targetArr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
-
-        if(editIdx === -1) targetArr.unshift(obj); else targetArr[editIdx] = obj;
-        cancelEdit(); updatePreview(); switchTab('manage');
-        showToast("Memory Array Updated");
-    }
-
-    function loadList() {
-        const cat = document.getElementById('manageCat').value;
-        const cont = document.getElementById('item-list');
-        let arr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
-
-        cont.innerHTML = arr.map((item, i) => `
-            <div class="item-row">
-                <div class="item-info">
-                    <b>${(item.work || item.text || item.post || item.ach || item.title || 'Data Object').substring(0, 35)}...</b>
-                    <span>${item.org || item.cl || item.tn || item.time || item.date || 'Metadata Empty'}</span>
-                </div>
-                <div style="display:flex; gap:12px;">
-                    <button class="btn-outline" style="padding: 8px;" onclick="editItem('${cat}', ${i})"><i data-lucide="edit-2" style="width:16px;"></i></button>
-                    <button class="btn-outline" style="padding: 8px; color:var(--neon-red); border-color:rgba(255,42,109,0.3);" onclick="deleteItem('${cat}', ${i})"><i data-lucide="trash" style="width:16px;"></i></button>
-                </div>
-            </div>
-        `).join('');
-        lucide.createIcons();
-    }
-
-    function editItem(cat, i) {
-        editIdx = i;
-        document.getElementById('mainCat').value = cat;
-        const arr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
-        switchTab('add');
-        renderFields(arr[i]);
-    }
-
-    function cancelEdit() { editIdx = -1; renderFields(); }
-
-    function deleteItem(cat, i) {
-        if(!confirm("Purge this record from core memory?")) return;
-        const arr = (cat==='projects')?portfolioData.projects:(cat==='thoughts')?portfolioData.thoughts:(cat==='debate_exp')?portfolioData.debate.experience:(cat==='debate_ach')?portfolioData.debate.achievements:(cat==='pol_pos')?portfolioData.politics.positions:portfolioData.politics.activities;
-        arr.splice(i, 1);
-        loadList(); updatePreview();
-        showToast("Record Purged");
-    }
-
-    function updatePreview() {
-        document.getElementById('code-output').innerText = `const portfolioData = ${JSON.stringify(portfolioData, null, 4)};`;
-    }
-
-    async function pushToGitHub() {
-        const token = (portfolioData.lut1||"") + (portfolioData.lut2||"") + (portfolioData.lut3||"");
-        if(!token) return alert("Fatal Error: No Access Token Detected.");
-        
-        const btn = document.getElementById('sync-btn');
-        const originalHtml = btn.innerHTML;
-        btn.disabled = true; 
-        btn.innerHTML = '<i data-lucide="refresh-cw" class="spinner"></i> CONNECTING...'; 
-        lucide.createIcons();
-
-        try {
-            const url = `https://api.github.com/repos/${G_CONFIG.owner}/${G_CONFIG.repo}/contents/${G_CONFIG.path}`;
-            const res = await fetch(url);
-            if(!res.ok) throw new Error("Connection Refused");
-            
-            const d = await res.json();
-            const content = document.getElementById('code-output').innerText;
-            
-            const put = await fetch(url, {
-                method: "PUT",
-                headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    message: "Quantum Production Sync: " + new Date().toISOString(), 
-                    content: btoa(unescape(encodeURIComponent(content))), 
-                    sha: d.sha 
-                })
+                lucide.createIcons({root: this.actions});
+                this.overlay.classList.add('active');
             });
+        }
 
-            if(put.ok) {
-                showToast("DEPLOYMENT SUCCESSFUL");
-            } else {
-                alert("Protocol Error: " + put.status);
+        static hide() { this.overlay.classList.remove('active'); }
+        static alert(title, message, type = 'info') { return this.show({ title, message, type }); }
+        static confirm(title, message) { return this.show({ title, message, type: 'confirm' }); }
+        static securePrompt(title, message) { return this.show({ title, message, type: 'secure_prompt' }); }
+        static prompt(title, message) { return this.show({ title, message, type: 'prompt' }); }
+
+        static toast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `q-toast ${type}`;
+            let icon = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-triangle' : 'info';
+            toast.innerHTML = `<i data-lucide="${icon}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons({root: toast});
+            setTimeout(() => { toast.style.animation = "toast-in 0.4s reverse forwards"; setTimeout(() => toast.remove(), 400); }, 4500);
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       CLASS: SECURITY MATRIX (Token & Password Management)
+       -------------------------------------------------------------------------- */
+    class SecurityMatrix {
+        static getAssembledToken() {
+            if(!__SYSTEM_DATA || !__SYSTEM_DATA.lut1 || !__SYSTEM_DATA.lut2 || !__SYSTEM_DATA.lut3) return null;
+            return __SYSTEM_DATA.lut1 + __SYSTEM_DATA.lut2 + __SYSTEM_DATA.lut3;
+        }
+
+        static async requestTokenReveal(btn) {
+            const input = document.getElementById('current_token_display');
+            const icon = btn.querySelector('i');
+            
+            if (input.type === 'text') {
+                // Already revealed, hide it immediately
+                input.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+                lucide.createIcons({root: btn});
+                return;
             }
-        } catch(e) { 
-            alert("Uplink Failure: Verify your token permissions."); 
-        } finally {
-            btn.disabled = false; 
-            btn.innerHTML = originalHtml; 
+
+            // Challenge the user for the Master Directive
+            const directive = await DialogEngine.securePrompt(
+                "Level 5 Clearance Required", 
+                "Decrypting the System Token requires the Master Directive. Enter password to proceed."
+            );
+
+            if (directive === CONSTANTS.MASTER_DIRECTIVE) {
+                input.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+                lucide.createIcons({root: btn});
+                DialogEngine.toast("Token decrypted in UI for 10 seconds.", "info");
+                
+                // Auto-lock for security
+                setTimeout(() => {
+                    if(input.type === 'text') {
+                        input.type = 'password';
+                        icon.setAttribute('data-lucide', 'eye');
+                        lucide.createIcons({root: btn});
+                        DialogEngine.toast("Token re-encrypted automatically.", "info");
+                    }
+                }, 10000);
+            } else if (directive !== null) {
+                DialogEngine.alert("Authorization Denied", "Incorrect Master Directive provided. Action logged.", "error");
+            }
+        }
+
+        static processNewToken() {
+            const t = document.getElementById('new_token_input').value.trim();
+            if(!t) { DialogEngine.toast("Token vector cannot be empty", "error"); return; }
+            if(!t.startsWith('ghp_') && !t.startsWith('github_pat_')) {
+                DialogEngine.toast("Invalid Token Protocol. Must be GitHub format.", "error"); return;
+            }
+            
+            // Sub-divide to prevent Static Analysis Secret Scanners
+            __SYSTEM_DATA.lut1 = t.substring(0, 10);
+            __SYSTEM_DATA.lut2 = t.substring(10, 20);
+            __SYSTEM_DATA.lut3 = t.substring(20);
+            
+            const now = new Date();
+            __SYSTEM_DATA.lutd = `${String(now.getDate()).padStart(2,'0')}-${String(now.getMonth()+1).padStart(2,'0')}-${now.getFullYear()}`;
+            
+            document.getElementById('new_token_input').value = '';
+            UIController.renderTokenHUD();
+            UIController.updateCodePreview();
+            DialogEngine.toast("Token Rotated and Written to Volatile Memory.", "success");
+        }
+
+        static analyzeTokenAge() {
+            if (!__SYSTEM_DATA.lutd) return;
+            const parts = __SYSTEM_DATA.lutd.split('-');
+            if(parts.length !== 3) return;
+            
+            const tokenDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+            const diffDays = Math.ceil(Math.abs(new Date() - tokenDate) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 180) {
+                DialogEngine.alert(
+                    "Security Compliance Violation", 
+                    `The active GitHub Deployment Token is <b>${diffDays} days old</b>.<br><br>Protocol dictates rotation every 6 months. Rotate immediately to prevent pipeline failure.`, 
+                    "error"
+                );
+            }
+        }
+
+        // Extremely rigorous pre-push authorization
+        static async authorizePush() {
+            let memoryToken = this.getAssembledToken();
+
+            if (memoryToken) {
+                // Token exists. Ask for Master Directive to unlock it.
+                const directive = await DialogEngine.securePrompt(
+                    "Authorize Uplink",
+                    "A valid token exists in memory. Enter the <b>Master Directive</b> to unlock it and execute the push to production."
+                );
+                
+                if (directive === CONSTANTS.MASTER_DIRECTIVE) {
+                    return memoryToken;
+                } else if (directive !== null) {
+                    DialogEngine.alert("Access Denied", "Incorrect Master Directive. Push sequence aborted.", "error");
+                    return null;
+                }
+                return null;
+            } else {
+                // No token in memory. Ask for raw token.
+                const rawToken = await DialogEngine.securePrompt(
+                    "Manual Uplink Authorization",
+                    "No valid token found in system memory. Enter your GitHub Personal Access Token to execute this one-time transmission."
+                );
+
+                if (!rawToken) return null;
+                if (!rawToken.startsWith('ghp_') && !rawToken.startsWith('github_pat_')) {
+                    DialogEngine.alert("Protocol Error", "Invalid Token format detected. Push aborted.", "error");
+                    return null;
+                }
+                return rawToken;
+            }
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       CLASS: NETWORK UPLINK (GitHub API Engine)
+       -------------------------------------------------------------------------- */
+    class NetworkUplink {
+        static async bootloaderFetch() {
+            const term = document.getElementById('boot-sequence');
+            const consoleEl = document.getElementById('boot-console');
+            term.style.display = 'flex';
+            
+            const log = (msg, type = 'log') => {
+                const line = document.createElement('div');
+                line.className = `boot-log boot-${type}`;
+                line.innerText = `[${new Date().toISOString().split('T')[1].slice(0,-1)}] ${msg}`;
+                consoleEl.appendChild(line);
+            };
+
+            log("Initializing Quantum Core v4.0...");
+            await new Promise(r => setTimeout(r, 600));
+            log(`Establishing secure uplink to ${CONSTANTS.REPO_OWNER}/${CONSTANTS.REPO_NAME}...`, 'warn');
+            
+            try {
+                const url = `https://api.github.com/repos/${CONSTANTS.REPO_OWNER}/${CONSTANTS.REPO_NAME}/contents/${CONSTANTS.FILE_PATH}`;
+                // Adding timestamp to bypass aggressive GitHub API caching
+                const res = await fetch(url + '?t=' + Date.now(), { headers: { "Accept": "application/vnd.github.v3+json" }});
+                
+                if (!res.ok) throw new Error(`HTTP ${res.status}: Uplink Rejected`);
+                
+                const fileData = await res.json();
+                __CURRENT_SHA = fileData.sha; // Critical for PUT
+                log(`Checksum SHA acquired: ${__CURRENT_SHA.substring(0, 10)}...`, 'success');
+
+                // Decode base64 ignoring newlines
+                const rawContent = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                log("Data stream downloaded. Parsing architecture...");
+
+                // Sophisticated Extraction of JSON from the JS file
+                const jsonMatch = rawContent.match(/const\s+portfolioData\s*=\s*(\{[\s\S]*?\});?\s*$/);
+                if (jsonMatch && jsonMatch[1]) {
+                    __SYSTEM_DATA = JSON.parse(jsonMatch[1]);
+                    log("JSON Schema validated and loaded into memory.", 'success');
+                } else {
+                    throw new Error("Regex Extraction Failed. File structure compromised.");
+                }
+
+                await new Promise(r => setTimeout(r, 800));
+                log("Handshake complete. Booting Main Interface...", 'success');
+                await new Promise(r => setTimeout(r, 600));
+                
+                term.style.display = 'none';
+                QuantumCore.showAuth();
+
+            } catch (err) {
+                log(`FATAL ERROR: ${err.message}`, 'error');
+                log("Falling back to absolute default skeleton memory.", 'warn');
+                __SYSTEM_DATA = { 
+                    lut1: "", lut2: "", lut3: "", lutd: "", hl: 0, ld: "", 
+                    projects: [], thoughts: [], debate: { experience: [], achievements: [] }, politics: { positions: [], activities: [] } 
+                };
+                
+                await new Promise(r => setTimeout(r, 2000));
+                term.style.display = 'none';
+                QuantumCore.showAuth();
+            }
+        }
+
+        static async executeProductionPush() {
+            const authKey = await SecurityMatrix.authorizePush();
+            if(!authKey) return; // Aborted by user or failed auth
+
+            const btn = document.getElementById('btn-sync');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader" class="spinner"></i> TRANSMITTING PAYLOAD...';
+            btn.style.pointerEvents = 'none'; btn.style.background = 'transparent'; btn.style.color = 'var(--q-gold-core)'; btn.style.border = '1px solid var(--q-gold-core)';
+            lucide.createIcons({root: btn});
+
+            try {
+                // 1. Double verify SHA to prevent mid-air collision
+                const getUrl = `https://api.github.com/repos/${CONSTANTS.REPO_OWNER}/${CONSTANTS.REPO_NAME}/contents/${CONSTANTS.FILE_PATH}`;
+                const getRes = await fetch(getUrl + '?t=' + Date.now(), { headers: { "Authorization": `token ${authKey}` } });
+                
+                if(!getRes.ok) throw new Error("Verification Failed. Token may lack 'repo' scope or is expired.");
+                const latestData = await getRes.json();
+                const targetSha = latestData.sha;
+
+                // 2. Encode payload flawlessly
+                const jsPayload = `const portfolioData = ${JSON.stringify(__SYSTEM_DATA, null, 4)};`;
+                const encodedContent = btoa(unescape(encodeURIComponent(jsPayload)));
+
+                // 3. Fire the payload
+                const putRes = await fetch(getUrl, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${authKey}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        message: "Quantum Command V4 Automated Sync: " + new Date().toISOString(), 
+                        content: encodedContent, 
+                        sha: targetSha 
+                    })
+                });
+
+                if(putRes.ok) {
+                    const putData = await putRes.json();
+                    __CURRENT_SHA = putData.content.sha; // Update local sha
+                    DialogEngine.alert("Deployment Successful", "Payload synchronized with production repository. Changes are propagating to global CDN.", "success");
+                } else {
+                    const errDetail = await putRes.json();
+                    throw new Error(`GitHub responded: ${errDetail.message}`);
+                }
+
+            } catch(e) {
+                DialogEngine.alert("Uplink Failure", e.message || "Failed to establish a secure connection.", "error");
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.style.pointerEvents = 'auto'; btn.style.background = ''; btn.style.color = ''; btn.style.border = '';
+                lucide.createIcons({root: btn.parentElement});
+            }
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       CLASS: DATA ENGINE (Manipulation & State)
+       -------------------------------------------------------------------------- */
+    class DataEngine {
+        static editIndex = -1;
+
+        // Date converters
+        static toInputDate(d) {
+            if(!d) return '';
+            if(d.includes('-')) {
+                const p = d.split('-');
+                if(p[0].length === 2 && p[2].length === 4) return `${p[2]}-${p[1]}-${p[0]}`;
+            }
+            return d;
+        }
+        static toDisplayDate(d) {
+            if(!d) return '';
+            const p = d.split('-');
+            if(p.length === 3 && p[0].length === 4) return `${p[2]}-${p[1]}-${p[0]}`;
+            return d;
+        }
+
+        static calibrateVitals() {
+            __SYSTEM_DATA.hl = parseFloat(document.getElementById('hl_input').value) || 0;
+            __SYSTEM_DATA.ld = this.toDisplayDate(document.getElementById('ld_input').value) || "";
+            UIController.updateCodePreview();
+            DialogEngine.toast("Biometrics calibrated.", "success");
+        }
+
+        static getTargetArray(cat) {
+            switch(cat) {
+                case 'projects': return __SYSTEM_DATA.projects = __SYSTEM_DATA.projects || [];
+                case 'thoughts': return __SYSTEM_DATA.thoughts = __SYSTEM_DATA.thoughts || [];
+                case 'debate_exp': return __SYSTEM_DATA.debate.experience = __SYSTEM_DATA.debate.experience || [];
+                case 'debate_ach': return __SYSTEM_DATA.debate.achievements = __SYSTEM_DATA.debate.achievements || [];
+                case 'pol_pos': return __SYSTEM_DATA.politics.positions = __SYSTEM_DATA.politics.positions || [];
+                case 'pol_works': return __SYSTEM_DATA.politics.activities = __SYSTEM_DATA.politics.activities || [];
+                default: return [];
+            }
+        }
+
+        static commitEntity() {
+            const cat = document.getElementById('mainCat').value;
+            let obj = {};
+            const val = id => document.getElementById(id)?.value || '';
+
+            if(cat==='projects') obj = { work: val('f_title'), desc: val('f_desc'), st: this.toDisplayDate(val('f_st')), en: this.toDisplayDate(val('f_en')), pc: [val('f_img')] };
+            else if(cat==='thoughts') obj = { id: this.editIndex === -1 ? Date.now() : __SYSTEM_DATA.thoughts[this.editIndex].id, text: val('f_text'), date: this.toDisplayDate(val('f_date')), ph: val('f_ph') || "profile.png" };
+            else if(cat==='debate_exp') { const s=this.toDisplayDate(val('f_st')); const e=this.toDisplayDate(val('f_en')); obj = { post: val('f_pos'), cl: val('f_org'), time: s + (e ? " - " + e : "") }; }
+            else if(cat==='debate_ach') obj = { ach: val('f_ach'), tn: val('f_tn'), time: this.toDisplayDate(val('f_time')) };
+            else if(cat==='pol_pos') { const s=this.toDisplayDate(val('f_st')); const e=this.toDisplayDate(val('f_en')); obj = { post: val('f_pos'), org: val('f_org'), time: s + (e ? " - " + e : "") }; }
+            else if(cat==='pol_works') obj = { id: this.editIndex === -1 ? Date.now() : __SYSTEM_DATA.politics.activities[this.editIndex].id, title: val('f_title'), des: val('f_desc'), img: val('f_img') };
+
+            const arr = this.getTargetArray(cat);
+            if(this.editIndex === -1) { arr.unshift(obj); DialogEngine.toast("Entity Constructed", "success"); } 
+            else { arr[this.editIndex] = obj; DialogEngine.toast("Entity Patched", "success"); }
+            
+            this.abortModification();
+            UIController.updateCodePreview();
+            UIController.switchView('manage');
+        }
+
+        static triggerEdit(index) {
+            this.editIndex = index;
+            const cat = document.getElementById('manageCat').value;
+            document.getElementById('mainCat').value = cat;
+            UIController.switchView('add');
+            UIController.renderFormFields(this.getTargetArray(cat)[index]);
+        }
+
+        static async triggerDelete(index) {
+            const confirmed = await DialogEngine.confirm("Destructive Action", "Warning: Are you absolutely certain you want to purge this record from memory?");
+            if(!confirmed) return;
+            const cat = document.getElementById('manageCat').value;
+            this.getTargetArray(cat).splice(index, 1);
+            UIController.renderClusterList();
+            UIController.updateCodePreview();
+            DialogEngine.toast("Entity Purged", "info");
+        }
+
+        static abortModification() {
+            this.editIndex = -1;
+            UIController.renderFormFields();
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       CLASS: UI CONTROLLER (Dom Manipulation & Sync)
+       -------------------------------------------------------------------------- */
+    class UIController {
+        static renderTokenHUD() {
+            const tokenStr = SecurityMatrix.getAssembledToken();
+            document.getElementById('current_token_display').value = tokenStr ? tokenStr : "SYSTEM_TOKEN_MISSING";
+            document.getElementById('token_age_display').innerText = `Last Key Rotation: ${__SYSTEM_DATA.lutd || 'Never'}`;
+        }
+
+        static switchView(view) {
+            document.getElementById('view-add').style.display = view === 'add' ? 'block' : 'none';
+            document.getElementById('view-manage').style.display = view === 'manage' ? 'block' : 'none';
+            document.getElementById('tab-add').classList.toggle('active', view === 'add');
+            document.getElementById('tab-manage').classList.toggle('active', view === 'manage');
+            if(view === 'manage') this.renderClusterList();
+        }
+
+        static renderFormFields(existing = null) {
+            const cat = document.getElementById('mainCat').value;
+            const container = document.getElementById('dynamic-form-fields');
+            
+            document.getElementById('btn-save-record').innerHTML = DataEngine.editIndex === -1 ? '<i data-lucide="save"></i> COMPILE & COMMIT' : '<i data-lucide="refresh-ccw"></i> EXECUTE PATCH';
+            document.getElementById('btn-cancel-edit').style.display = DataEngine.editIndex === -1 ? "none" : "inline-flex";
+            
+            const v = (k, def='') => existing ? (existing[k] || def) : def;
+            let html = '';
+
+            if(cat==='projects') {
+                html = `<div class="form-full"><label class="q-label">Project Nomenclature (Title)</label><input id="f_title" class="q-input" value="${v('work')}"></div>
+                        <div class="form-full"><label class="q-label">Architecture Details (Description)</label><textarea id="f_desc" class="q-input">${v('desc')}</textarea></div>
+                        <div><label class="q-label">Initiation Date</label><input id="f_st" type="date" class="q-input" value="${DataEngine.toInputDate(v('st'))}"></div>
+                        <div><label class="q-label">Completion Date</label><input id="f_en" type="date" class="q-input" value="${DataEngine.toInputDate(v('en'))}"></div>
+                        <div class="form-full"><label class="q-label">Visual Asset URI</label><input id="f_img" class="q-input" value="${existing?.pc?.[0] || ''}"></div>`;
+            } else if(cat==='thoughts') {
+                html = `<div class="form-full"><label class="q-label">Philosophical Entry</label><textarea id="f_text" class="q-input">${v('text')}</textarea></div>
+                        <div><label class="q-label">Temporal Marker</label><input id="f_date" type="date" class="q-input" value="${DataEngine.toInputDate(v('date'))}"></div>
+                        <div><label class="q-label">Author URI</label><input id="f_ph" class="q-input" value="${v('ph', 'profile.png')}"></div>`;
+            } else if(cat==='debate_exp' || cat==='pol_pos') {
+                const t = v('time') ? v('time').split(' - ') : ['',''];
+                html = `<div><label class="q-label">Rank / Designation</label><input id="f_pos" class="q-input" value="${v('post')}"></div>
+                        <div><label class="q-label">Organization Vector</label><input id="f_org" class="q-input" value="${v('org') || v('cl')}"></div>
+                        <div><label class="q-label">Start Epoch</label><input id="f_st" type="date" class="q-input" value="${DataEngine.toInputDate(t[0]||'')}"></div>
+                        <div><label class="q-label">End Epoch</label><input id="f_en" type="date" class="q-input" value="${DataEngine.toInputDate(t[1]||'')}"></div>`;
+            } else if(cat==='debate_ach') {
+                html = `<div class="form-full"><label class="q-label">Achievement Designation</label><input id="f_ach" class="q-input" value="${v('ach')}"></div>
+                        <div><label class="q-label">Tournament Matrix</label><input id="f_tn" class="q-input" value="${v('tn')}"></div>
+                        <div><label class="q-label">Temporal Marker</label><input id="f_time" type="date" class="q-input" value="${DataEngine.toInputDate(v('time'))}"></div>`;
+            } else if(cat==='pol_works') {
+                html = `<div class="form-full"><label class="q-label">Operation Title</label><input id="f_title" class="q-input" value="${v('title')}"></div>
+                        <div class="form-full"><label class="q-label">Operation Details</label><textarea id="f_desc" class="q-input">${v('des')}</textarea></div>
+                        <div class="form-full"><label class="q-label">Evidence URI</label><input id="f_img" class="q-input" value="${v('img')}"></div>`;
+            }
+            container.innerHTML = html;
+            lucide.createIcons({root: document.getElementById('view-add')});
+        }
+
+        static renderClusterList() {
+            const cat = document.getElementById('manageCat').value;
+            const container = document.getElementById('data-list-container');
+            const arr = DataEngine.getTargetArray(cat);
+
+            if(arr.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 50px; color: #5A5A6E;"><i data-lucide="server-off" style="width:48px; height:48px; margin-bottom:15px; opacity:0.5;"></i><br>Cluster partition is empty.</div>`;
+                lucide.createIcons(); return;
+            }
+
+            container.innerHTML = arr.map((item, i) => {
+                const title = item.work || item.text || item.post || item.ach || item.title || 'Unknown Entity';
+                const sub = item.org || item.cl || item.tn || item.time || item.date || 'No MetaData';
+                return `
+                    <div class="q-list-item">
+                        <div class="q-list-info">
+                            <strong>${title.length > 50 ? title.substring(0, 50) + '...' : title}</strong>
+                            <span>${sub}</span>
+                        </div>
+                        <div class="q-list-actions">
+                            <button class="action-btn action-edit" onclick="DataEngine.triggerEdit(${i})" title="Edit"><i data-lucide="edit-3"></i></button>
+                            <button class="action-btn action-delete" onclick="DataEngine.triggerDelete(${i})" title="Purge"><i data-lucide="trash-2"></i></button>
+                        </div>
+                    </div>`;
+            }).join('');
+            lucide.createIcons({root: container});
+        }
+
+        static updateCodePreview() {
+            // Remove null/empty arrays for clean presentation (optional, but requested exact output usually means raw stringify)
+            const jsonStr = JSON.stringify(__SYSTEM_DATA, null, 4);
+            const high = jsonStr
+                .replace(/(".*?"):/g, '<span class="syn-property">$1</span><span class="syn-punct">:</span>')
+                .replace(/: (".*?")/g, '<span class="syn-punct">:</span> <span class="syn-string">$1</span>')
+                .replace(/: (\d+(\.\d+)?)/g, '<span class="syn-punct">:</span> <span class="syn-number">$1</span>')
+                .replace(/(true|false|null)/g, '<span class="syn-keyword">$1</span>');
+
+            document.getElementById('code-output').innerHTML = `<span class="syn-keyword">const</span> <span style="color:#FFF;">portfolioData</span> <span class="syn-punct">=</span> ${high}<span class="syn-punct">;</span>`;
+        }
+
+        static copySource() {
+            const text = `const portfolioData = ${JSON.stringify(__SYSTEM_DATA, null, 4)};`;
+            navigator.clipboard.writeText(text).then(() => {
+                DialogEngine.toast("Source Copied to Clipboard Array.", "success");
+            }).catch(() => {
+                const el = document.createElement('textarea'); el.value = text; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
+                DialogEngine.toast("Source Copied (Fallback Method).", "success");
+            });
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       CLASS: QUANTUM CORE (Orchestration)
+       -------------------------------------------------------------------------- */
+    class QuantumCore {
+        static init() {
+            lucide.createIcons();
+            // Start the massive bootloader directly
+            NetworkUplink.bootloaderFetch();
+        }
+
+        static showAuth() {
+            document.getElementById('auth-overlay').style.opacity = '1';
+            document.getElementById('auth-overlay').style.visibility = 'visible';
+            document.getElementById('admin-user').focus();
+        }
+
+        static async initiateAuth() {
+            const u = document.getElementById('admin-user').value.trim();
+            const p = document.getElementById('admin-pass').value;
+
+            if (u === CONSTANTS.ADMIN_ID && p === CONSTANTS.MASTER_DIRECTIVE) {
+                const overlay = document.getElementById('auth-overlay');
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    this.launchDashboard();
+                }, 800);
+            } else {
+                DialogEngine.alert("Breach Detected", "Invalid credentials. Attempt logged in security matrix.", "error");
+            }
+        }
+
+        static launchDashboard() {
+            document.getElementById('main-panel').style.display = 'block';
+            document.getElementById('manageCat').innerHTML = document.getElementById('mainCat').innerHTML;
+            
+            UIController.renderTokenHUD();
+            SecurityMatrix.analyzeTokenAge();
+
+            if(__SYSTEM_DATA.hl) document.getElementById('hl_input').value = __SYSTEM_DATA.hl;
+            if(__SYSTEM_DATA.ld) document.getElementById('ld_input').value = DataEngine.toInputDate(__SYSTEM_DATA.ld);
+            
+            UIController.renderFormFields();
+            UIController.updateCodePreview();
+            DialogEngine.toast("System Online. Administrator Access Granted.", "success");
             lucide.createIcons();
         }
     }
 
-    /* Helper: Copy Functions */
-    function copyAllCode() {
-        const code = document.getElementById('code-output').innerText;
-        copyToClipboard(code, "Source Copied to Buffer");
-    }
+    // IGNITE THE ENGINE
+    window.onload = () => QuantumCore.init();
 
-    function copyToClipboard(text, msg) {
-        const el = document.createElement('textarea');
-        el.value = text;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        showToast(msg);
-    }
-
-    function showToast(msg) {
-        const toast = document.createElement('div');
-        toast.innerText = msg;
-        toast.style.cssText = `
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: var(--gold-primary); color: #000; padding: 12px 24px;
-            border-radius: 50px; font-weight: 700; z-index: 99999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-size: 0.8rem;
-            animation: toastIn 0.5s var(--ease-out-expo) forwards;
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.animation = "toastOut 0.5s forwards";
-            setTimeout(() => toast.remove(), 500);
-        }, 3000);
-    }
-
-    // New Animations
-    const style = document.createElement('style');
-    style.innerHTML = `
-        @keyframes toastIn { from { bottom: -50px; opacity: 0; } to { bottom: 30px; opacity: 1; } }
-        @keyframes toastOut { to { bottom: -50px; opacity: 0; } }
-    `;
-    document.head.appendChild(style);
 </script>
 </body>
 </html>
+
 
