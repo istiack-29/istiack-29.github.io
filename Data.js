@@ -37,7 +37,7 @@ const portfolioData = {
             {
                 "post": "ছাত্রনেতা",
                 "org": "বাংলাদেশ ছাত্রলীগ",
-                "time": "২০২১ - বর্তমান"
+                "time": "২০২০ - বর্তমান"
             }
         ],
         "activities": [
