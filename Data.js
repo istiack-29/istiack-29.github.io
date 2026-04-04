@@ -4,7 +4,7 @@ const portfolioData = {
     "lut3": "hOzZuwg5p9LmZgYm1AIwn51S1K1JN8",
     "lutd": "04-04-2026",
     "hl": 11,
-    "ld": "12-11-2025",
+    "ld": "11-10-2025",
     "projects": [],
     "debate": {
         "experience": [],
