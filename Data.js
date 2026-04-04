@@ -1,9 +1,6 @@
-/**
- * ISTIACK AHMED KHAN - MASTER DATA
- * AUTOMATICALLY GENERATED
- */
-
 const portfolioData = {
+    "lut": "Z2hwX3JlcGxhY2VfdGhpcy13aXRoLXJlYWwtdG9rZW4=", // এখানে এনকোডেড টোকেন থাকবে
+    "lutd": "04-04-2026", // শেষ আপডেটের তারিখ (DD-MM-YYYY)
     "hl": 10,
     "ld": "12-05-2024",
     "projects": [
@@ -58,7 +55,7 @@ const portfolioData = {
             {
                 "post": "ছাত্রনেতা",
                 "org": "বাংলাদেশ ছাত্রলীগ",
-                "time": "২০২১ - বর্তমান"
+                "time": "২০ ২০২১ - বর্তমান"
             }
         ],
         "activities": [
