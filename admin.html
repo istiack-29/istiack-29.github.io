@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>এলিট অ্যাডমিন প্যানেল | আমার পোর্টফোলিও</title>
 
-    <!-- Google Fonts: Exact Hind Siliguri & JetBrains Mono -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (CDN for modern styling) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Config for Custom Colors & Fonts -->
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -51,7 +51,6 @@
                     },
                     animation: {
                         'blob': 'blob 10s infinite',
-                        'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
@@ -60,10 +59,6 @@
                             '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
                             '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
                             '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
                         }
                     }
                 }
@@ -72,39 +67,31 @@
     </script>
 
     <style>
-        /* ==========================================================================
-           SUPER MAXIMUM LEVEL CSS ARCHITECTURE
-           ========================================================================== */
-
         :root {
             --glass-blur: blur(16px);
             --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
             --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Fluid Typographic Scaling */
         html { font-size: 16px; scroll-behavior: smooth; }
         @media (max-width: 640px) { html { font-size: 15px; } }
 
         body {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow: hidden; /* App is a fixed viewport */
+            overflow: hidden; 
         }
 
-        /* Ultimate Custom Scrollbar */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { 
             background: rgba(148, 163, 184, 0.3); 
             border-radius: 10px; 
-            transition: background 0.3s;
         }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
         .dark ::-webkit-scrollbar-thumb { background: rgba(71, 85, 105, 0.4); }
-        .dark ::-webkit-scrollbar-thumb:hover { background: rgba(71, 85, 105, 0.8); }
 
-        /* --- Glassmorphism Utilities --- */
+        /* Glassmorphism */
         .glass-panel {
             background: var(--tw-colors-light-surface);
             backdrop-filter: var(--glass-blur);
@@ -135,43 +122,42 @@
             border-color: rgba(20, 184, 166, 0.3);
         }
 
-        /* --- Advanced Input Styling --- */
-        .input-group { position: relative; width: 100%; margin-bottom: 1.5rem; }
-        .input-field {
+        /* Login Input Styling */
+        .login-input-group { position: relative; width: 100%; margin-bottom: 1.5rem; }
+        .login-input-field {
             width: 100%; padding: 1rem 1.25rem; border-radius: 0.75rem;
             background: rgba(255, 255, 255, 0.6); border: 2px solid transparent;
             font-family: inherit; font-size: 1rem; color: #0f172a;
             outline: none; transition: all 0.3s var(--transition-smooth);
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
-        .dark .input-field {
+        .dark .login-input-field {
             background: rgba(0, 0, 0, 0.4); color: #f1f5f9;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
-        .input-field:focus {
+        .login-input-field:focus {
             background: #ffffff; border-color: #14b8a6;
-            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1), inset 0 2px 4px rgba(0,0,0,0.01);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
         }
-        .dark .input-field:focus { background: rgba(20,20,20,0.8); box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2); }
+        .dark .login-input-field:focus { background: rgba(20,20,20,0.8); box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2); }
         
-        .input-label {
+        .login-input-label {
             position: absolute; left: 1.25rem; top: 1rem;
             color: #64748b; font-size: 1rem; pointer-events: none;
             transition: all 0.3s var(--transition-bounce);
             background: transparent; padding: 0 0.25rem;
         }
-        /* Floating Label Logic */
-        .input-field:focus ~ .input-label,
-        .input-field:not(:placeholder-shown) ~ .input-label {
+        .login-input-field:focus ~ .login-input-label,
+        .login-input-field:not(:placeholder-shown) ~ .login-input-label {
             transform: translateY(-1.6rem) scale(0.85);
             color: #14b8a6; font-weight: 600;
         }
-        .dark .input-field:focus ~ .input-label,
-        .dark .input-field:not(:placeholder-shown) ~ .input-label {
+        .dark .login-input-field:focus ~ .login-input-label,
+        .dark .login-input-field:not(:placeholder-shown) ~ .login-input-label {
             color: #2dd4bf; 
         }
 
-        /* --- Ambient Background Orbs --- */
+        /* Ambient Orbs */
         .ambient-orb {
             position: absolute; border-radius: 50%; filter: blur(80px);
             z-index: -1; opacity: 0.5; animation: blob 15s infinite alternate;
@@ -180,28 +166,23 @@
         .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: rgba(56, 189, 248, 0.2); animation-delay: 2s; }
         .orb-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: rgba(139, 92, 246, 0.2); animation-delay: 4s; }
 
-        /* --- Modals & Animations --- */
+        /* Animations */
         .modal-enter { animation: modalEnter 0.5s var(--transition-bounce) forwards; }
-        .modal-leave { animation: modalLeave 0.3s ease-in forwards; }
+        
+        /* THIS WAS FIX: Explicitly defining fadeInUp here */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .list-item-enter { opacity: 0; animation: fadeInUp 0.6s var(--transition-bounce) forwards; }
+        .toast-enter { animation: slideInRight 0.5s var(--transition-bounce) forwards; }
+        .toast-leave { animation: slideOutRight 0.4s var(--transition-smooth) forwards; }
         
         @keyframes modalEnter {
             0% { opacity: 0; transform: translateY(40px) scale(0.9); filter: blur(10px); }
             100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
-        @keyframes modalLeave {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; }
-        }
-
-        /* Staggered List Items */
-        .list-item-enter {
-            opacity: 0;
-            animation: fadeInUp 0.6s var(--transition-bounce) forwards;
-        }
-
-        /* --- Toast Notifications --- */
-        .toast-enter { animation: slideInRight 0.5s var(--transition-bounce) forwards; }
-        .toast-leave { animation: slideOutRight 0.4s var(--transition-smooth) forwards; }
         @keyframes slideInRight { 
             0% { transform: translateX(120%) scale(0.9); opacity: 0; } 
             100% { transform: translateX(0) scale(1); opacity: 1; } 
@@ -211,28 +192,33 @@
             100% { transform: translateX(120%) scale(0.9); opacity: 0; } 
         }
 
-        /* Utility */
         .hidden-safely { display: none !important; }
         
-        /* Loading Spinner */
         .spinner {
             width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3);
             border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Glitch text effect for Admin title */
         .glitch-text {
             background: linear-gradient(to right, #2dd4bf, #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
         }
+        
+        /* Modern Date Input Styling */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background-color: #14b8a6;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body class="bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-100 h-screen w-screen flex relative selection:bg-brand-500 selection:text-white transition-colors duration-500">
 
-    <!-- Ambient Background Layer -->
+    <!-- Ambient Layer -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div class="ambient-orb orb-1"></div>
         <div class="ambient-orb orb-2"></div>
@@ -244,7 +230,6 @@
          ========================================== -->
     <div id="login-gateway" class="fixed inset-0 z-[100] flex items-center justify-center bg-light-bg/80 dark:bg-dark-bg/90 backdrop-blur-xl transition-all duration-700">
         <div class="glass-panel p-8 sm:p-12 rounded-3xl shadow-2xl w-[90%] max-w-md relative overflow-hidden modal-enter border border-white/20 dark:border-white/10">
-            <!-- Decorative accent -->
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 to-blue-500"></div>
             
             <div class="text-center mb-8">
@@ -256,15 +241,14 @@
             </div>
 
             <form id="login-form" onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <!-- Note: input doesn't trim by default, allowing the required spaces -->
-                    <input type="text" id="auth-user" class="input-field" placeholder=" " autocomplete="off">
-                    <label class="input-label">ইউজারনেম (Username)</label>
+                <div class="login-input-group">
+                    <input type="text" id="auth-user" class="login-input-field" placeholder=" " autocomplete="off">
+                    <label class="login-input-label">ইউজারনেম (Username)</label>
                 </div>
                 
-                <div class="input-group mb-6">
-                    <input type="password" id="auth-pass" class="input-field" placeholder=" ">
-                    <label class="input-label">পাসওয়ার্ড (Password)</label>
+                <div class="login-input-group mb-6">
+                    <input type="password" id="auth-pass" class="login-input-field" placeholder=" ">
+                    <label class="login-input-label">পাসওয়ার্ড (Password)</label>
                 </div>
 
                 <div id="login-error" class="hidden-safely mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm flex items-center gap-2">
@@ -283,12 +267,12 @@
     </div>
 
     <!-- ==========================================
-         MAIN APPLICATION (HIDDEN INITIALLY)
+         MAIN APPLICATION
          ========================================== -->
     <div id="app-wrapper" class="flex w-full h-full opacity-0 pointer-events-none transition-opacity duration-700 z-10 relative">
         
-        <!-- SIDEBAR NAVIGATION -->
-        <aside id="sidebar" class="w-72 glass-panel border-r border-slate-200/50 dark:border-slate-700/50 flex-shrink-0 flex flex-col h-full absolute z-40 md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) shadow-2xl md:shadow-none">
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="w-72 glass-panel border-r border-slate-200/50 dark:border-slate-700/50 flex-shrink-0 flex flex-col h-full absolute z-40 md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-500 shadow-2xl md:shadow-none">
             
             <div class="h-20 flex items-center justify-between px-6 border-b border-slate-200/50 dark:border-slate-700/50">
                 <div class="flex items-center gap-3">
@@ -303,7 +287,7 @@
             </div>
 
             <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2 relative scroll-smooth" id="nav-links">
-                <!-- Dynamically populated -->
+                <!-- Populated via JS -->
             </nav>
 
             <div class="p-5 border-t border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md">
@@ -313,27 +297,23 @@
                     <span class="dark:hidden">ডার্ক মোড</span>
                     <span class="hidden dark:block">লাইট মোড</span>
                 </button>
-                <div class="text-[10px] uppercase tracking-widest text-center text-slate-400 dark:text-slate-500 mt-4 font-bold opacity-70">
-                    Version 5.0 • Elite Edition
-                </div>
             </div>
         </aside>
 
-        <!-- Mobile Sidebar Overlay -->
+        <!-- Overlay for Mobile -->
         <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/60 z-30 hidden-safely md:hidden backdrop-blur-sm transition-opacity"></div>
 
-        <!-- MAIN CONTENT AREA -->
+        <!-- MAIN CONTENT -->
         <main class="flex-1 flex flex-col h-full min-w-0 relative">
             
-            <!-- Header -->
             <header class="h-20 glass-panel border-b border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between px-6 z-20 flex-shrink-0">
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleSidebar()" class="md:hidden p-2.5 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 active:scale-95 transition-transform">
+                    <button onclick="toggleSidebar()" class="md:hidden p-2.5 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 active:scale-95">
                         <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
                     <div>
-                        <h2 id="current-category-title" class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white">প্রজেক্টসমূহ</h2>
-                        <p id="current-category-desc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">সফটওয়্যার প্রজেক্টের তালিকা পরিচালনা করুন</p>
+                        <h2 id="current-category-title" class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white">ড্যাশবোর্ড হোম</h2>
+                        <p id="current-category-desc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">আপনার সম্পূর্ণ পোর্টফোলিও ওভারভিউ</p>
                     </div>
                 </div>
                 
@@ -351,13 +331,20 @@
                 </div>
             </header>
 
-            <!-- Workspace Split -->
+            <!-- Workspace -->
             <div class="flex-1 overflow-hidden flex flex-col lg:flex-row relative z-10">
                 
-                <!-- Left: Content List -->
+                <!-- Content Area -->
                 <div class="flex-1 overflow-y-auto p-4 sm:p-8 scroll-smooth" id="scroll-container">
                     
-                    <!-- Vitals Section (Special Layout) -->
+                    <!-- Dashboard Home Section -->
+                    <div id="overview-section" class="hidden-safely">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10" id="overview-stats">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Vitals Section -->
                     <div id="vitals-section" class="hidden-safely mb-8 glass-card p-6 sm:p-8 rounded-3xl">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="p-3 bg-red-100 dark:bg-red-500/20 text-red-500 rounded-xl">
@@ -369,45 +356,45 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-                            <div class="input-group !mb-0">
-                                <input type="number" step="0.1" id="vital_hl" class="input-field" placeholder=" " onchange="updateVitals()">
-                                <label class="input-label">হিমোগ্লোবিন লেভেল (hl)</label>
+                            <div class="login-input-group !mb-0">
+                                <input type="number" step="0.1" id="vital_hl" class="login-input-field" placeholder=" " onchange="updateVitals()">
+                                <label class="login-input-label">হিমোগ্লোবিন লেভেল (hl)</label>
                             </div>
-                            <div class="input-group !mb-0">
-                                <input type="date" id="vital_ld" class="input-field" placeholder=" " onchange="updateVitals()">
-                                <label class="input-label">শেষ রক্তদানের তারিখ</label>
+                            <div class="login-input-group !mb-0">
+                                <input type="date" id="vital_ld" class="login-input-field" placeholder=" " onchange="updateVitals()">
+                                <label class="login-input-label">শেষ রক্তদানের তারিখ</label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Header & Add Button -->
-                    <div id="list-header" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-                        <div class="inline-flex items-center px-4 py-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-md">
-                            <div class="w-2 h-2 rounded-full bg-brand-500 mr-2 animate-pulse"></div>
-                            <span class="text-sm font-bold text-slate-600 dark:text-slate-300 tracking-wide" id="item-count">মোট ০ টি রেকর্ড</span>
-                        </div>
-                        
-                        <button onclick="openFormModal()" class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 group">
-                            <i data-lucide="plus" class="w-5 h-5 group-hover:rotate-90 transition-transform duration-300"></i>
-                            নতুন যোগ করুন
-                        </button>
-                    </div>
-
-                    <!-- Empty State -->
-                    <div id="empty-state" class="hidden-safely flex flex-col items-center justify-center py-24 text-center">
-                        <div class="relative w-32 h-32 mb-6 group">
-                            <div class="absolute inset-0 bg-brand-500/20 dark:bg-brand-500/10 rounded-full filter blur-xl group-hover:blur-2xl transition-all duration-500 animate-pulse-slow"></div>
-                            <div class="relative w-full h-full glass-card rounded-full flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700">
-                                <i data-lucide="inbox" class="w-12 h-12 text-slate-400 dark:text-slate-500 group-hover:scale-110 transition-transform duration-500"></i>
+                    <!-- Dynamic List Section -->
+                    <div id="list-section">
+                        <div id="list-header" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                            <div class="inline-flex items-center px-4 py-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-md">
+                                <div class="w-2 h-2 rounded-full bg-brand-500 mr-2 animate-pulse"></div>
+                                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 tracking-wide" id="item-count">মোট ০ টি রেকর্ড</span>
                             </div>
+                            
+                            <button onclick="openFormModal()" class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 group">
+                                <i data-lucide="plus" class="w-5 h-5 group-hover:rotate-90 transition-transform duration-300"></i>
+                                নতুন যোগ করুন
+                            </button>
                         </div>
-                        <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">কোনো তথ্য নেই</h3>
-                        <p class="text-slate-500 dark:text-slate-400 max-w-md text-lg">এই ক্যাটাগরি বর্তমানে সম্পূর্ণ ফাঁকা। উপরে "নতুন যোগ করুন" বাটনে ক্লিক করে ডেটা এন্ট্রি শুরু করুন।</p>
-                    </div>
 
-                    <!-- Data Grid -->
-                    <div id="data-list" class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 pb-24">
-                        <!-- Injected via JS -->
+                        <div id="empty-state" class="hidden-safely flex flex-col items-center justify-center py-24 text-center">
+                            <div class="relative w-32 h-32 mb-6 group">
+                                <div class="absolute inset-0 bg-brand-500/20 dark:bg-brand-500/10 rounded-full filter blur-xl group-hover:blur-2xl transition-all duration-500 animate-pulse-slow"></div>
+                                <div class="relative w-full h-full glass-card rounded-full flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700">
+                                    <i data-lucide="inbox" class="w-12 h-12 text-slate-400 dark:text-slate-500 group-hover:scale-110 transition-transform duration-500"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">কোনো তথ্য নেই</h3>
+                            <p class="text-slate-500 dark:text-slate-400 max-w-md text-lg">এই ক্যাটাগরি বর্তমানে সম্পূর্ণ ফাঁকা। উপরে "নতুন যোগ করুন" বাটনে ক্লিক করে ডেটা এন্ট্রি শুরু করুন।</p>
+                        </div>
+
+                        <div id="data-list" class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 pb-24">
+                            <!-- Injected via JS -->
+                        </div>
                     </div>
                 </div>
 
@@ -435,8 +422,8 @@
         </main>
     </div>
 
-    <!-- Mobile Code FAB & Modal -->
-    <button onclick="toggleMobileCode()" class="lg:hidden fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-tr from-slate-800 to-slate-900 text-brand-400 rounded-full shadow-[0_10px_40px_rgba(20,184,166,0.3)] flex items-center justify-center z-40 active:scale-95 transition-transform border border-slate-700/50 pointer-events-auto">
+    <!-- Mobile Code FAB -->
+    <button onclick="toggleMobileCode()" class="lg:hidden fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-tr from-slate-800 to-slate-900 text-brand-400 rounded-full shadow-[0_10px_40px_rgba(20,184,166,0.3)] flex items-center justify-center z-40 active:scale-95 border border-slate-700/50 pointer-events-auto">
         <i data-lucide="terminal" class="w-7 h-7"></i>
     </button>
 
@@ -461,7 +448,7 @@
     </div>
 
     <!-- ==========================================
-         DYNAMIC FORM MODAL (GLASSMORPHISM)
+         DYNAMIC FORM MODAL
          ========================================== -->
     <div id="form-modal-overlay" class="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-md z-[60] hidden-safely flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
         <div id="form-modal" class="glass-panel w-full max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-500 var(--transition-bounce)">
@@ -497,11 +484,14 @@
     <div id="toast-container" class="fixed bottom-6 sm:bottom-auto sm:top-6 right-6 z-[200] flex flex-col gap-3 pointer-events-none"></div>
 
     <!-- ==========================================
-         JAVASCRIPT LOGIC ENGINE
+         JAVASCRIPT ENGINE
          ========================================== -->
+    <!-- Removed mock data initializations, loading from file directly -->
+    <script src="Data.js" onerror="window.isDataMissing = true; console.error('Data.js file not found. System will start with empty data.');"></script>
+
     <script>
         /* -------------------------------------------------------------------------- */
-        /* 1. AUTHENTICATION (STRICT MATCHING)                                        */
+        /* AUTHENTICATION                                                             */
         /* -------------------------------------------------------------------------- */
         function handleLogin(e) {
             e.preventDefault();
@@ -510,20 +500,16 @@
             const loader = document.getElementById('login-btn-loader');
             const errorBox = document.getElementById('login-error');
             
-            // EXACT matching as requested, including spaces. DO NOT TRIM.
             const user = document.getElementById('auth-user').value;
             const pass = document.getElementById('auth-pass').value;
 
-            // Loading state
             btnText.classList.add('hidden-safely');
             btnIcon.classList.add('hidden-safely');
             loader.classList.remove('hidden-safely');
             errorBox.classList.add('hidden-safely');
 
-            // Simulate slight network delay for premium feel
             setTimeout(() => {
                 if ((user === " Istiack" || user === " istiack") && pass === " istiack29") {
-                    // Success Transition
                     const loginScreen = document.getElementById('login-gateway');
                     const appWrapper = document.getElementById('app-wrapper');
                     
@@ -534,25 +520,19 @@
                     setTimeout(() => {
                         loginScreen.classList.add('hidden-safely');
                         appWrapper.classList.remove('opacity-0', 'pointer-events-none');
-                        
-                        // Initialize App after login
                         initializeApp();
                     }, 500);
                     showToast('সফলভাবে লগইন করেছেন! স্বাগতম।', 'success');
                 } else {
-                    // Failure
                     btnText.classList.remove('hidden-safely');
                     btnIcon.classList.remove('hidden-safely');
                     loader.classList.add('hidden-safely');
                     errorBox.classList.remove('hidden-safely');
                     
-                    // Shake animation for error
                     const form = document.getElementById('login-form');
                     form.animate([
-                        { transform: 'translateX(0)' },
-                        { transform: 'translateX(-10px)' },
-                        { transform: 'translateX(10px)' },
-                        { transform: 'translateX(-10px)' },
+                        { transform: 'translateX(0)' }, { transform: 'translateX(-10px)' },
+                        { transform: 'translateX(10px)' }, { transform: 'translateX(-10px)' },
                         { transform: 'translateX(0)' }
                     ], { duration: 400, easing: 'ease-in-out' });
                 }
@@ -560,15 +540,12 @@
         }
 
         /* -------------------------------------------------------------------------- */
-        /* 2. SYSTEM DATA & SCHEMAS                                                   */
+        /* SYSTEM DATA & ADVANCED SCHEMAS                                             */
         /* -------------------------------------------------------------------------- */
-        let SYSTEM_DATA = {
-            hl: 0, ld: "", projects: [], thoughts: [],
-            debate: { experience: [], achievements: [] },
-            politics: { positions: [], activities: [] }
-        };
+        let SYSTEM_DATA = {};
 
         const CATEGORIES = [
+            { id: 'home', icon: 'layout-dashboard', title: 'ড্যাশবোর্ড হোম', desc: 'আপনার সম্পূর্ণ পোর্টফোলিও ওভারভিউ' },
             { id: 'projects', icon: 'code-2', title: 'প্রজেক্টসমূহ', desc: 'আপনার বানানো সফটওয়্যার ও ওয়েবসাইট' },
             { id: 'thoughts', icon: 'lightbulb', title: 'চিন্তা-ভাবনা', desc: 'মতামত, দর্শন ও উক্তি' },
             { id: 'debate_exp', icon: 'mic', title: 'বিতর্কের অভিজ্ঞতা', desc: 'বিতর্ক সংগঠনে দায়িত্ব' },
@@ -578,52 +555,91 @@
             { id: 'vitals', icon: 'activity', title: 'হেলথ ও অন্যান্য', desc: 'হিমোগ্লোবিন এবং ব্যক্তিগত তথ্য' }
         ];
 
-        let currentCategory = 'projects';
+        let currentCategory = 'home';
         let editingIndex = -1;
 
+        // The schemas map to standard types and specially handled date types
         const SCHEMAS = {
             projects: [
                 { key: 'work', label: 'প্রজেক্টের নাম', type: 'text', icon: 'heading' },
                 { key: 'desc', label: 'বিস্তারিত বিবরণ', type: 'textarea', icon: 'align-left' },
-                { key: 'st', label: 'শুরুর তারিখ', type: 'text', icon: 'calendar' },
-                { key: 'en', label: 'শেষের তারিখ', type: 'text', icon: 'calendar-check' },
+                { key: 'st', label: 'শুরুর তারিখ', type: 'date', icon: 'calendar' },
+                { key: 'en', label: 'শেষের তারিখ', type: 'date-present', icon: 'calendar-check' },
                 { key: 'pc', label: 'ছবির লিংক (URL)', type: 'text', icon: 'image', isArray: true }
             ],
             thoughts: [
                 { key: 'text', label: 'আপনার ভাবনা', type: 'textarea', icon: 'message-square' },
-                { key: 'date', label: 'তারিখ', type: 'text', icon: 'calendar' },
+                { key: 'date', label: 'তারিখ', type: 'date', icon: 'calendar' },
                 { key: 'ph', label: 'প্রোফাইল ছবি', type: 'text', icon: 'user' }
             ],
             debate_exp: [
                 { key: 'post', label: 'পদবি', type: 'text', icon: 'star' },
                 { key: 'cl', label: 'সংগঠনের নাম', type: 'text', icon: 'building' },
-                { key: 'time', label: 'সময়কাল', type: 'text', icon: 'clock' }
+                { key: 'st', label: 'শুরুর তারিখ', type: 'date', icon: 'calendar' },
+                { key: 'en', label: 'শেষের তারিখ', type: 'date-present', icon: 'calendar-check' }
             ],
             debate_ach: [
                 { key: 'ach', label: 'অর্জন / পুরস্কার', type: 'text', icon: 'trophy' },
                 { key: 'tn', label: 'টুর্নামেন্টের নাম', type: 'text', icon: 'swords' },
-                { key: 'time', label: 'তারিখ/সাল', type: 'text', icon: 'calendar' }
+                { key: 'date', label: 'তারিখ/সাল', type: 'date', icon: 'calendar' }
             ],
             pol_pos: [
                 { key: 'post', label: 'পদবি', type: 'text', icon: 'shield' },
                 { key: 'org', label: 'দলের নাম', type: 'text', icon: 'flag' },
-                { key: 'time', label: 'সময়কাল', type: 'text', icon: 'clock' }
+                { key: 'st', label: 'শুরুর তারিখ', type: 'date', icon: 'calendar' },
+                { key: 'en', label: 'শেষের তারিখ', type: 'date-present', icon: 'calendar-check' }
             ],
             pol_works: [
                 { key: 'title', label: 'কার্যক্রমের নাম', type: 'text', icon: 'briefcase' },
                 { key: 'des', label: 'বিস্তারিত বিবরণ', type: 'textarea', icon: 'align-left' },
+                { key: 'date', label: 'তারিখ', type: 'date', icon: 'calendar' },
                 { key: 'img', label: 'প্রমাণের ছবি (URL)', type: 'text', icon: 'image' }
             ]
         };
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            if (typeof str !== 'string') return String(str);
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
         /* -------------------------------------------------------------------------- */
-        /* 3. CORE LOGIC & UI RENDERING                                               */
+        /* CORE INITIALIZATION & UI                                                   */
         /* -------------------------------------------------------------------------- */
         function initializeApp() {
+            if (typeof portfolioData !== 'undefined' && portfolioData !== null) {
+                SYSTEM_DATA = portfolioData;
+            } else {
+                SYSTEM_DATA = {};
+                // Dangerous warning if Data.js is missing
+                if (window.isDataMissing) {
+                    setTimeout(() => showToast('বিপজ্জনক ত্রুটি: Data.js ফাইলটি পাওয়া যায়নি! কোনো ডেটা নেই।', 'error'), 600);
+                }
+            }
+            
+            // Guarantee base structures exist safely without mock data
+            if (typeof SYSTEM_DATA !== 'object') SYSTEM_DATA = {};
+            if (!SYSTEM_DATA.projects) SYSTEM_DATA.projects = [];
+            if (!SYSTEM_DATA.thoughts) SYSTEM_DATA.thoughts = [];
+            
+            if (!SYSTEM_DATA.debate) {
+                SYSTEM_DATA.debate = { experience: [], achievements: [] };
+            } else {
+                if (!SYSTEM_DATA.debate.experience) SYSTEM_DATA.debate.experience = [];
+                if (!SYSTEM_DATA.debate.achievements) SYSTEM_DATA.debate.achievements = [];
+            }
+            
+            if (!SYSTEM_DATA.politics) {
+                SYSTEM_DATA.politics = { positions: [], activities: [] };
+            } else {
+                if (!SYSTEM_DATA.politics.positions) SYSTEM_DATA.politics.positions = [];
+                if (!SYSTEM_DATA.politics.activities) SYSTEM_DATA.politics.activities = [];
+            }
+
             lucide.createIcons();
             renderSidebar();
             checkDarkMode();
-            switchCategory('projects');
+            switchCategory('home');
             updateCodePreview();
         }
 
@@ -654,43 +670,71 @@
             document.getElementById('current-category-desc').innerText = catInfo.desc;
 
             const vitalsSec = document.getElementById('vitals-section');
-            const listHeader = document.getElementById('list-header');
-            const dataList = document.getElementById('data-list');
+            const overviewSec = document.getElementById('overview-section');
+            const listSec = document.getElementById('list-section');
             const emptyState = document.getElementById('empty-state');
 
-            if (catId === 'vitals') {
-                vitalsSec.classList.remove('hidden-safely');
-                listHeader.classList.add('hidden-safely');
-                dataList.classList.add('hidden-safely');
-                emptyState.classList.add('hidden-safely');
-                
-                document.getElementById('vital_hl').value = SYSTEM_DATA.hl || '';
-                
-                let ldValue = '';
-                if(SYSTEM_DATA.ld) {
-                    const parts = SYSTEM_DATA.ld.split('-');
-                    if(parts.length === 3 && parts[0].length === 2) {
-                        ldValue = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                    } else { ldValue = SYSTEM_DATA.ld; }
-                }
-                document.getElementById('vital_ld').value = ldValue;
+            // Hide everything first
+            vitalsSec.classList.add('hidden-safely');
+            overviewSec.classList.add('hidden-safely');
+            listSec.classList.add('hidden-safely');
 
+            if (catId === 'home') {
+                overviewSec.classList.remove('hidden-safely');
+                renderDashboardHome();
+            } else if (catId === 'vitals') {
+                vitalsSec.classList.remove('hidden-safely');
+                document.getElementById('vital_hl').value = SYSTEM_DATA.hl || '';
+                document.getElementById('vital_ld').value = SYSTEM_DATA.ld || '';
             } else {
-                vitalsSec.classList.add('hidden-safely');
-                listHeader.classList.remove('hidden-safely');
-                dataList.classList.remove('hidden-safely');
+                listSec.classList.remove('hidden-safely');
                 renderDataList();
             }
 
             if(window.innerWidth < 1024 && !document.getElementById('sidebar').classList.contains('-translate-x-full')) {
                 toggleSidebar();
             }
-            
-            // Scroll to top
             document.getElementById('scroll-container').scrollTo({top: 0, behavior: 'smooth'});
         }
 
+        function renderDashboardHome() {
+            // Guarantee properties
+            const p = SYSTEM_DATA.projects || [];
+            const t = SYSTEM_DATA.thoughts || [];
+            const de = SYSTEM_DATA.debate?.experience || [];
+            const da = SYSTEM_DATA.debate?.achievements || [];
+            const pp = SYSTEM_DATA.politics?.positions || [];
+            const pw = SYSTEM_DATA.politics?.activities || [];
+
+            const stats = [
+                { title: 'মোট প্রজেক্ট', count: p.length, icon: 'code-2', color: 'from-blue-500 to-blue-600' },
+                { title: 'চিন্তা-ভাবনা', count: t.length, icon: 'lightbulb', color: 'from-brand-500 to-brand-600' },
+                { title: 'বিতর্ক ডেটা', count: de.length + da.length, icon: 'mic', color: 'from-purple-500 to-purple-600' },
+                { title: 'রাজনৈতিক ডেটা', count: pp.length + pw.length, icon: 'flag', color: 'from-orange-500 to-orange-600' }
+            ];
+
+            document.getElementById('overview-stats').innerHTML = stats.map((s, i) => `
+                <div class="glass-card p-6 rounded-3xl flex items-center justify-between" style="animation: fadeInUp 0.4s ease-out ${i * 0.1}s both;">
+                    <div>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 font-bold mb-1">${s.title}</p>
+                        <h4 class="text-3xl font-bold text-slate-800 dark:text-white">${toBengaliNumber(s.count)}</h4>
+                    </div>
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${s.color} text-white flex items-center justify-center shadow-lg transform rotate-3">
+                        <i data-lucide="${s.icon}" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
         function getCategoryDataArray() {
+            // Ensure safe return values
+            if (!SYSTEM_DATA.projects) SYSTEM_DATA.projects = [];
+            if (!SYSTEM_DATA.thoughts) SYSTEM_DATA.thoughts = [];
+            if (!SYSTEM_DATA.debate) SYSTEM_DATA.debate = { experience: [], achievements: [] };
+            if (!SYSTEM_DATA.politics) SYSTEM_DATA.politics = { positions: [], activities: [] };
+
             switch(currentCategory) {
                 case 'projects': return SYSTEM_DATA.projects;
                 case 'thoughts': return SYSTEM_DATA.thoughts;
@@ -706,42 +750,64 @@
             const dataArr = getCategoryDataArray();
             const container = document.getElementById('data-list');
             const emptyState = document.getElementById('empty-state');
-            document.getElementById('item-count').innerText = `মোট ${toBengaliNumber(dataArr.length)} টি রেকর্ড`;
+            
+            // Safe fallback if dataArr becomes undefined
+            const safeDataArr = Array.isArray(dataArr) ? dataArr : [];
+            document.getElementById('item-count').innerText = `মোট ${toBengaliNumber(safeDataArr.length)} টি রেকর্ড`;
 
-            if (dataArr.length === 0) {
+            if (safeDataArr.length === 0) {
                 container.innerHTML = '';
                 emptyState.classList.remove('hidden-safely');
                 return;
             }
 
             emptyState.classList.add('hidden-safely');
-            container.innerHTML = dataArr.map((item, index) => {
+            container.innerHTML = safeDataArr.map((item, index) => {
+                if (!item) return ''; // Safeguard against null items
+                
                 let title = item.work || item.text || item.post || item.ach || item.title || 'শিরোনাম বিহীন';
-                let sub = item.st || item.time || item.date || item.org || item.cl || item.tn || 'সময়কাল নির্দিষ্ট নয়';
                 if(title.length > 50) title = title.substring(0, 50) + '...';
+                
+                let st = item.st || item.date || item.time || '';
+                let en = item.en || '';
+                let dateHtml = '';
+
+                const presentBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-bold border border-brand-500/20"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span> Present</span>`;
+
+                if(st && en) {
+                    dateHtml = `${escapeHtml(st)} &nbsp;<i data-lucide="arrow-right" class="w-3 h-3 inline"></i>&nbsp; ${en === 'Present' || en === 'বর্তমান' ? presentBadge : escapeHtml(en)}`;
+                } else if (st) {
+                    dateHtml = escapeHtml(st);
+                } else if (en) {
+                    dateHtml = en === 'Present' || en === 'বর্তমান' ? presentBadge : escapeHtml(en);
+                } else {
+                    dateHtml = 'তারিখ উল্লেখিত নেই';
+                }
+
+                // If legacy item.time exists and we didn't parse it into st/en
+                if(!st && !en && item.time) dateHtml = escapeHtml(item.time);
 
                 return `
                     <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group list-item-enter relative overflow-hidden" style="animation-delay: ${index * 0.05}s">
-                        <!-- Card accent line -->
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         
                         <div>
                             <div class="flex items-start justify-between gap-4 mb-3">
-                                <h4 class="font-bold text-slate-800 dark:text-white text-lg leading-snug">${title}</h4>
+                                <h4 class="font-bold text-slate-800 dark:text-white text-lg leading-snug">${escapeHtml(title)}</h4>
                                 <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 text-brand-500">
                                     <i data-lucide="${SCHEMAS[currentCategory][0].icon}" class="w-4 h-4"></i>
                                 </div>
                             </div>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 font-code flex items-center gap-2">
-                                <i data-lucide="calendar" class="w-3.5 h-3.5"></i> ${sub}
-                            </p>
+                            <div class="text-sm text-slate-500 dark:text-slate-400 font-code flex items-center flex-wrap gap-1.5">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5"></i> ${dateHtml}
+                            </div>
                         </div>
                         
-                        <div class="mt-6 pt-5 border-t border-slate-200/50 dark:border-white/5 flex gap-3">
-                            <button onclick="editItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-500/20 dark:hover:text-brand-400 text-slate-600 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all">
+                        <div class="mt-6 pt-5 border-t border-slate-200/50 dark:border-white/5 flex gap-3 relative z-10">
+                            <button onclick="editItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-500/20 dark:hover:text-brand-400 text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all border border-transparent hover:border-brand-500/30 active:scale-95">
                                 <i data-lucide="edit-3" class="w-4 h-4"></i> এডিট
                             </button>
-                            <button onclick="deleteItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/20 dark:hover:text-red-400 text-slate-600 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all">
+                            <button onclick="deleteItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/20 dark:hover:text-red-400 text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all border border-transparent hover:border-red-500/30 active:scale-95">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i> মুছুন
                             </button>
                         </div>
@@ -752,36 +818,76 @@
         }
 
         /* -------------------------------------------------------------------------- */
-        /* 4. FORM MODAL & DATA MANAGEMENT                                            */
+        /* DATE RANGE & MODAL LOGIC                                                   */
         /* -------------------------------------------------------------------------- */
+        function togglePresent(key) {
+            const cb = document.getElementById(`checkbox_${key}_present`);
+            const input = document.getElementById(`input_${key}`);
+            if(cb && input) {
+                if(cb.checked) {
+                    input.value = "";
+                    input.disabled = true;
+                } else {
+                    input.disabled = false;
+                }
+            }
+        }
+
         function openFormModal(index = -1) {
             editingIndex = index;
             const schema = SCHEMAS[currentCategory];
             const dataArr = getCategoryDataArray();
-            const existingData = index >= 0 ? dataArr[index] : {};
+            
+            // For legacy data that might have "time" instead of "st" and "en"
+            let existingData = index >= 0 ? { ...dataArr[index] } : {};
+            
+            // Legacy data migration for view (if they had time: "2020 - Present")
+            if(existingData.time && !existingData.st && !existingData.en) {
+                if(existingData.time.includes(' - ')) {
+                    const parts = existingData.time.split(' - ');
+                    existingData.st = parts[0];
+                    existingData.en = parts[1];
+                } else {
+                    existingData.st = existingData.time;
+                }
+            }
 
             document.getElementById('modal-title-text').innerText = index >= 0 ? 'তথ্য সম্পাদনা করুন' : 'নতুন তথ্য যোগ করুন';
 
             const formHtml = schema.map(field => {
                 let val = existingData[field.key] || '';
-                if (field.isArray && existingData[field.key] && Array.isArray(existingData[field.key])) {
+                if (field.isArray && Array.isArray(existingData[field.key])) {
                     val = existingData[field.key][0] || '';
                 }
 
+                let escapedVal = escapeHtml(val);
                 let inputHtml = '';
+
                 if (field.type === 'textarea') {
-                    inputHtml = `<textarea id="input_${field.key}" class="input-field min-h-[140px] resize-y" placeholder=" ">${val}</textarea>`;
+                    inputHtml = `<textarea id="input_${field.key}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all min-h-[120px] text-slate-800 dark:text-slate-100 font-medium" placeholder="বিস্তারিত লিখুন...">${escapedVal}</textarea>`;
+                } else if (field.type === 'date') {
+                    inputHtml = `<input type="date" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold">`;
+                } else if (field.type === 'date-present') {
+                    const isPresent = val === 'Present' || val === 'বর্তমান';
+                    inputHtml = `
+                        <div class="flex flex-col sm:flex-row gap-3 items-center w-full">
+                            <input type="date" id="input_${field.key}" value="${!isPresent ? escapedVal : ''}" class="w-full sm:flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold disabled:opacity-50 disabled:cursor-not-allowed" ${isPresent ? 'disabled' : ''}>
+                            <label class="w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-6 py-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors select-none">
+                                <input type="checkbox" id="checkbox_${field.key}_present" class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600" ${isPresent ? 'checked' : ''} onchange="togglePresent('${field.key}')">
+                                <span class="font-bold text-slate-700 dark:text-slate-200">বর্তমান (Present)</span>
+                            </label>
+                        </div>
+                    `;
                 } else {
-                    inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${val}" class="input-field" placeholder=" ">`;
+                    inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400" placeholder="এখানে লিখুন...">`;
                 }
 
                 return `
-                    <div class="input-group group">
-                        <div class="absolute right-4 top-4 text-slate-400 group-focus-within:text-brand-500 transition-colors pointer-events-none">
-                            <i data-lucide="${field.icon}" class="w-5 h-5"></i>
-                        </div>
+                    <div class="mb-2">
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                            <i data-lucide="${field.icon}" class="w-4 h-4 text-brand-500"></i> ${field.label}
+                        </label>
                         ${inputHtml}
-                        <label class="input-label">${field.label}</label>
                     </div>
                 `;
             }).join('');
@@ -793,7 +899,6 @@
             const modal = document.getElementById('form-modal');
             
             overlay.classList.remove('hidden-safely');
-            // Small delay to allow display:flex to apply before animation
             requestAnimationFrame(() => {
                 overlay.classList.remove('opacity-0');
                 modal.classList.remove('scale-95');
@@ -807,23 +912,30 @@
             overlay.classList.add('opacity-0');
             modal.classList.add('scale-95');
             
-            setTimeout(() => {
-                overlay.classList.add('hidden-safely');
-            }, 300); // Matches CSS transition duration
+            setTimeout(() => { overlay.classList.add('hidden-safely'); }, 300);
         }
 
         function saveFormData() {
             const schema = SCHEMAS[currentCategory];
-            const newData = {};
+            const dataArr = getCategoryDataArray();
+            const newData = editingIndex >= 0 ? { ...dataArr[editingIndex] } : {};
             
-            if(editingIndex === -1 && (currentCategory === 'thoughts' || currentCategory === 'pol_works')) {
-                newData.id = Date.now().toString();
-            } else if (editingIndex !== -1 && (currentCategory === 'thoughts' || currentCategory === 'pol_works')) {
-                newData.id = getCategoryDataArray()[editingIndex].id;
-            }
+            // Clean legacy time field if converting
+            if(newData.time) delete newData.time;
 
             schema.forEach(field => {
-                const val = document.getElementById(`input_${field.key}`).value.trim();
+                let val = '';
+                if(field.type === 'date-present') {
+                    const cb = document.getElementById(`checkbox_${field.key}_present`);
+                    if(cb && cb.checked) {
+                        val = "Present";
+                    } else {
+                        val = document.getElementById(`input_${field.key}`).value.trim();
+                    }
+                } else {
+                    val = document.getElementById(`input_${field.key}`).value.trim();
+                }
+
                 if (field.isArray) {
                     newData[field.key] = val ? [val] : [];
                 } else {
@@ -831,7 +943,6 @@
                 }
             });
 
-            const dataArr = getCategoryDataArray();
             if (editingIndex >= 0) {
                 dataArr[editingIndex] = newData;
                 showToast('তথ্য সফলভাবে আপডেট করা হয়েছে', 'success');
@@ -848,7 +959,6 @@
         function editItem(index) { openFormModal(index); }
         
         function deleteItem(index) {
-            // Elegant custom confirmation could be built, but using native for bulletproof reliability
             if(confirm('সতর্কতা: আপনি কি নিশ্চিত যে এই তথ্যটি মুছে ফেলতে চান?')) {
                 const dataArr = getCategoryDataArray();
                 dataArr.splice(index, 1);
@@ -859,24 +969,14 @@
         }
 
         function updateVitals() {
-            const hlValue = document.getElementById('vital_hl').value;
-            const ldValue = document.getElementById('vital_ld').value;
-            
-            SYSTEM_DATA.hl = parseFloat(hlValue) || 0;
-            
-            if(ldValue) {
-                const parts = ldValue.split('-');
-                if(parts.length === 3 && parts[0].length === 4) {
-                    SYSTEM_DATA.ld = `${parts[2]}-${parts[1]}-${parts[0]}`;
-                } else { SYSTEM_DATA.ld = ldValue; }
-            } else { SYSTEM_DATA.ld = ""; }
-
+            SYSTEM_DATA.hl = parseFloat(document.getElementById('vital_hl').value) || 0;
+            SYSTEM_DATA.ld = document.getElementById('vital_ld').value || "";
             updateCodePreview();
             showToast('স্বাস্থ্য তথ্য সিঙ্ক হয়েছে', 'success');
         }
 
         /* -------------------------------------------------------------------------- */
-        /* 5. FILE HANDLING & CODE GENERATION                                         */
+        /* FILE EXPORT & PREVIEW                                                      */
         /* -------------------------------------------------------------------------- */
         function handleFileUpload(event) {
             const file = event.target.files[0];
@@ -884,35 +984,25 @@
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const content = e.target.result;
                 try {
+                    const content = e.target.result;
                     const firstBrace = content.indexOf('{');
                     const lastBrace = content.lastIndexOf('}');
-                    if (firstBrace === -1 || lastBrace === -1) throw new Error("অবৈধ ফাইল ফরম্যাট");
+                    if (firstBrace === -1 || lastBrace === -1) throw new Error("অবৈধ ফাইল");
                     
-                    const jsonString = content.substring(firstBrace, lastBrace + 1);
-                    const parsedData = JSON.parse(jsonString);
-                    
+                    const parsedData = JSON.parse(content.substring(firstBrace, lastBrace + 1));
                     if(parsedData && typeof parsedData === 'object') {
-                        SYSTEM_DATA.hl = parsedData.hl || 0;
-                        SYSTEM_DATA.ld = parsedData.ld || "";
-                        SYSTEM_DATA.projects = parsedData.projects || [];
-                        SYSTEM_DATA.thoughts = parsedData.thoughts || [];
-                        
-                        SYSTEM_DATA.debate = parsedData.debate || { experience: [], achievements: [] };
-                        if(!SYSTEM_DATA.debate.experience) SYSTEM_DATA.debate.experience = [];
-                        if(!SYSTEM_DATA.debate.achievements) SYSTEM_DATA.debate.achievements = [];
-                        
-                        SYSTEM_DATA.politics = parsedData.politics || { positions: [], activities: [] };
-                        if(!SYSTEM_DATA.politics.positions) SYSTEM_DATA.politics.positions = [];
-                        if(!SYSTEM_DATA.politics.activities) SYSTEM_DATA.politics.activities = [];
-
-                        delete SYSTEM_DATA.lut1; delete SYSTEM_DATA.lut2; delete SYSTEM_DATA.lut3; delete SYSTEM_DATA.lutd;
+                        SYSTEM_DATA = parsedData;
+                        // Basic init arrays
+                        if (!SYSTEM_DATA.projects) SYSTEM_DATA.projects = [];
+                        if (!SYSTEM_DATA.thoughts) SYSTEM_DATA.thoughts = [];
+                        if (!SYSTEM_DATA.debate) SYSTEM_DATA.debate = { experience: [], achievements: [] };
+                        if (!SYSTEM_DATA.politics) SYSTEM_DATA.politics = { positions: [], activities: [] };
 
                         switchCategory(currentCategory);
                         updateCodePreview();
                         showToast('ফাইল সফলভাবে লোড হয়েছে!', 'success');
-                    } else { throw new Error("ভুল ডেটা স্ট্রাকচার"); }
+                    }
                 } catch (err) {
                     alert('ত্রুটি: ফাইলটি পড়া যায়নি। সঠিক Data.js ফাইল নির্বাচন করুন।');
                 }
@@ -926,10 +1016,8 @@
         }
 
         function exportDataJS() {
-            const jsContent = generateJsString();
-            const blob = new Blob([jsContent], { type: "text/javascript;charset=utf-8" });
+            const blob = new Blob([generateJsString()], { type: "text/javascript;charset=utf-8" });
             const url = URL.createObjectURL(blob);
-            
             const a = document.createElement("a");
             a.href = url;
             a.download = "Data.js";
@@ -937,7 +1025,6 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            
             showToast('Data.js ডাউনলোড সম্পন্ন হয়েছে', 'success');
         }
 
@@ -945,29 +1032,24 @@
             navigator.clipboard.writeText(generateJsString()).then(() => {
                 showToast('কোড ক্লিপবোর্ডে কপি করা হয়েছে!', 'success');
                 const mobileModal = document.getElementById('mobile-code-modal');
-                if(!mobileModal.classList.contains('translate-y-full')) {
-                    toggleMobileCode();
-                }
-            }).catch(() => alert('কপি করতে সমস্যা হয়েছে।'));
+                if(!mobileModal.classList.contains('translate-y-full')) toggleMobileCode();
+            });
         }
 
         function updateCodePreview() {
             const jsonStr = JSON.stringify(SYSTEM_DATA, null, 4);
-            
-            // Advanced RegEx for beautiful Syntax Highlighting
             const highlighted = jsonStr
                 .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
                 .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-                    let cls = 'text-[#e5c07b]'; // numbers
+                    let cls = 'text-[#e5c07b]';
                     if (/^"/.test(match)) {
-                        if (/:$/.test(match)) { cls = 'text-[#e06c75]'; } // keys
-                        else { cls = 'text-[#98c379]'; } // strings
-                    } else if (/true|false/.test(match)) { cls = 'text-[#d19a66]'; } // boolean
-                    else if (/null/.test(match)) { cls = 'text-[#5c6370] italic'; } // null
+                        if (/:$/.test(match)) cls = 'text-[#e06c75]'; 
+                        else cls = 'text-[#98c379]'; 
+                    } else if (/true|false/.test(match)) cls = 'text-[#d19a66]';
+                    else if (/null/.test(match)) cls = 'text-[#5c6370] italic';
                     return '<span class="' + cls + '">' + match + '</span>';
                 });
 
-            // Construct exact terminal output format
             const finalCode = `<span class="text-[#c678dd] font-bold">const</span> <span class="text-[#61afef] font-bold">portfolioData</span> <span class="text-[#56b6c2]">=</span> ${highlighted}<span class="text-[#abb2bf]">;</span>`;
             
             document.getElementById('code-preview').innerHTML = finalCode;
@@ -975,38 +1057,32 @@
         }
 
         /* -------------------------------------------------------------------------- */
-        /* 6. UI UTILITIES & MICRO-INTERACTIONS                                       */
+        /* UI UTILITIES                                                               */
         /* -------------------------------------------------------------------------- */
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             
             let bgClass = 'bg-slate-800 dark:bg-slate-800 border border-slate-700';
-            let icon = 'info';
-            let iconColor = 'text-blue-400';
+            let icon = 'info', iconColor = 'text-blue-400';
             
             if (type === 'success') {
                 bgClass = 'bg-[#0f172a] border border-[#14b8a6]/30 shadow-[0_5px_20px_rgba(20,184,166,0.15)]';
-                icon = 'check-circle-2';
-                iconColor = 'text-brand-400';
+                icon = 'check-circle-2'; iconColor = 'text-brand-400';
             } else if (type === 'error') {
                 bgClass = 'bg-[#1a0f0f] border border-red-500/30 shadow-[0_5px_20px_rgba(239,68,68,0.15)]';
-                icon = 'alert-triangle';
-                iconColor = 'text-red-400';
+                icon = 'alert-triangle'; iconColor = 'text-red-400';
             }
 
             toast.className = `flex items-center gap-3 px-5 py-4 rounded-2xl text-white toast-enter pointer-events-auto backdrop-blur-md ${bgClass}`;
-            toast.innerHTML = `
-                <i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0 ${iconColor}"></i>
-                <span class="font-bold text-sm sm:text-base tracking-wide">${message}</span>
-            `;
+            toast.innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0 ${iconColor}"></i><span class="font-bold tracking-wide">${message}</span>`;
             
             container.appendChild(toast);
             lucide.createIcons({root: toast});
 
             setTimeout(() => {
                 toast.classList.replace('toast-enter', 'toast-leave');
-                setTimeout(() => toast.remove(), 400); // Wait for exit animation
+                setTimeout(() => toast.remove(), 400);
             }, 3500);
         }
 
@@ -1014,19 +1090,14 @@
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             sidebar.classList.toggle('-translate-x-full');
-            
-            if(sidebar.classList.contains('-translate-x-full')) {
-                overlay.classList.add('hidden-safely');
-            } else {
-                overlay.classList.remove('hidden-safely');
-            }
+            if(sidebar.classList.contains('-translate-x-full')) overlay.classList.add('hidden-safely');
+            else overlay.classList.remove('hidden-safely');
         }
 
         function toggleMobileCode() {
             const modal = document.getElementById('mobile-code-modal');
             if(modal.classList.contains('hidden-safely') || modal.classList.contains('translate-y-full')) {
                 modal.classList.remove('hidden-safely');
-                // Allow display to register before transition
                 requestAnimationFrame(() => modal.classList.remove('translate-y-full'));
             } else {
                 modal.classList.add('translate-y-full');
@@ -1057,9 +1128,9 @@
             return engNum.toString().replace(/[0-9]/g, w => banglaDigits[w]);
         }
         
-        // Initialize simple icon render for login screen initially
         lucide.createIcons();
     </script>
 </body>
 </html>
+
 
