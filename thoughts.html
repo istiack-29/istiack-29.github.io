@@ -1,603 +1,445 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#020202">
     
-    <!-- Dynamic Open Graph Meta Tags for Social Media Sharing -->
-    <title>IstiGram</title>
+    <!-- Dynamic Open Graph Meta Tags -->
+    <title>IstiGram | Anonymous.Istiack</title>
     <meta property="og:title" content="IstiGram Post - anonymous.istiack" id="og-title">
     <meta property="og:description" content="Read my thoughts and check out the latest posts on IstiGram." id="og-desc">
     <meta property="og:image" content="https://istiack-29.github.io/istigram.jpg" id="og-image">
-<meta name="twitter:image" content="https://istiack-29.github.io/istigram.jpg" id="tw-image">
+    <meta name="twitter:image" content="https://istiack-29.github.io/istigram.jpg" id="tw-image">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:type" content="article">
-    
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/111/D4AF37?text=IstiGram" id="tw-image">
 
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Cinzel:wght@600;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           ISTIGRAM V4.0 - ULTRA-PREMIUM ARCHITECTURE
+           ISTIGRAM V6.0 - GOD TIER ARCHITECTURE (THE MASTERCLASS)
            ========================================================================== */
 
         :root {
-            /* --- Deepened Core Color System for OLED Aesthetics --- */
+            /* Ultimate Color Palette */
             --void: #000000;
-            --surface-0: #050505;
-            --surface-1: #0A0A0C;
-            --surface-2: #121216;
-            --surface-3: #1A1A20;
+            --surface-alpha: rgba(10, 10, 12, 0.7);
+            --surface-beta: rgba(18, 18, 22, 0.85);
+            --surface-solid: #0d0d12;
             
-            /* --- Accent System (Premium Gold/Obsidian) --- */
-            --accent-primary: #E5C05C;
-            --accent-secondary: #B38F36;
-            --accent-glow: rgba(229, 192, 92, 0.15);
-            --accent-glow-strong: rgba(229, 192, 92, 0.4);
+            --gold-primary: #D4AF37;
+            --gold-light: #F9E596;
+            --gold-glow: rgba(212, 175, 55, 0.25);
             
-            /* --- Text System --- */
-            --text-pure: #FFFFFF;
-            --text-primary: #EDEDF0;
-            --text-secondary: #A1A1AA;
-            --text-tertiary: #606068;
+            --text-pure: #ffffff;
+            --text-muted: #a1a1aa;
+            --text-dark: #52525b;
             
-            /* --- Interaction Colors --- */
-            --heart-base: #FF2E4C;
-            --heart-glow: rgba(255, 46, 76, 0.4);
+            --heart-base: #ff2a5f;
+            --heart-glow: rgba(255, 42, 95, 0.6);
 
-            /* --- Border & Glass System --- */
-            --border-ultra-thin: rgba(255, 255, 255, 0.03);
-            --border-light: rgba(255, 255, 255, 0.08);
-            --border-medium: rgba(255, 255, 255, 0.15);
-            --glass-panel: rgba(10, 10, 12, 0.55);
-            --glass-drawer: rgba(5, 5, 7, 0.85);
-            --blur-light: blur(12px) saturate(180%);
-            --blur-heavy: blur(40px) saturate(200%);
+            /* Physics & Animation Variables */
+            --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --spring-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 
-            /* --- Elevation & Shadows (Refined) --- */
-            --shadow-float: 0 24px 48px -12px rgba(0, 0, 0, 0.9);
-            --shadow-glow: 0 0 30px var(--accent-glow);
-            --shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.07);
-            --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
-            /* --- Typography --- */
-            --font-ui: "Hind Siliguri", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --font-brand: 'Cinzel', serif;
-            --font-quote: 'Playfair Display', serif;
-
-            /* --- Motion & Physics --- */
-            --spring: cubic-bezier(0.25, 1, 0.5, 1);
-            --spring-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1);
-            --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
-            --transition-fast: 0.2s var(--ease-smooth);
-            --transition-medium: 0.4s var(--spring);
-            --transition-slow: 0.7s var(--spring);
-
-            /* --- Layout --- */
-            --nav-desktop-width: 280px;
-            --feed-max-width: 580px;
-            --border-radius-sm: 8px;
-            --border-radius-md: 16px;
-            --border-radius-lg: 24px;
-            --border-radius-xl: 32px;
-            --border-radius-pill: 9999px;
+            /* Glassmorphism Details */
+            --glass-border: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+            --glass-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            --blur-fx: blur(20px) saturate(190%);
         }
 
-        /* ==========================================================================
-           GLOBAL RESETS & BASE
-           ========================================================================== */
-
-        *, *::before, *::after {
-            margin: 0; padding: 0; box-sizing: border-box;
+        /* --- Global Resets & Body --- */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--void);
+            color: var(--text-pure);
+            font-family: 'Hind Siliguri', system-ui, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
+            background-attachment: fixed;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            -webkit-tap-highlight-color: transparent;
         }
-
-        ::selection { background: var(--accent-primary); color: var(--void); }
 
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: var(--border-radius-pill); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
 
-        html { scroll-behavior: smooth; font-size: 16px; }
-
-        body {
-            background-color: var(--void);
-            background-image: 
-                radial-gradient(circle at 10% 40%, rgba(229, 192, 92, 0.025), transparent 30%),
-                radial-gradient(circle at 90% 60%, rgba(255, 255, 255, 0.015), transparent 30%);
-            background-attachment: fixed;
-            color: var(--text-primary);
-            font-family: var(--font-ui);
-            line-height: 1.5;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        .mobile-menu-toggle { display: none; }
-
-        /* ==========================================================================
-           CURTAIN LOADER (CINEMATIC)
-           ========================================================================== */
-
-        #loader {
-            position: fixed; inset: 0; 
-            background: var(--void); 
-            z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s var(--ease-smooth), visibility 0.8s;
-            backdrop-filter: var(--blur-heavy);
-        }
-
-        #loader::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%);
-            opacity: 0.5;
-        }
-
-        #loader .p-ring {
-            width: 80px; height: 80px; padding: 3px;
-            background: conic-gradient(from 0deg, var(--accent-primary), transparent 60%, var(--accent-primary));
-            animation: spinLoader 2s linear infinite;
-            box-shadow: 0 0 40px var(--accent-glow-strong);
-            border-radius: 50%;
-        }
-
-        #loader .p-avatar {
-            border: 3px solid var(--void);
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-        }
-
-        .loading-text {
-            font-family: var(--font-brand); color: var(--accent-primary);
-            letter-spacing: 8px; font-size: 0.85rem; margin-top: 30px;
-            text-transform: uppercase; font-weight: 800;
-            background: linear-gradient(to right, #FFF, var(--accent-primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: textPulse 2s var(--ease-smooth) infinite;
-        }
-
-        @keyframes spinLoader { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes textPulse { 0%, 100% { opacity: 0.5; filter: blur(1px); transform: scale(0.98); } 50% { opacity: 1; filter: blur(0px); transform: scale(1); } }
-
-        /* ==========================================================================
-           HEADER & DYNAMIC ISLAND
-           ========================================================================== */
-
+        /* --- Magnetic Header (Glassmorphism) --- */
         .header {
-            position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-            width: calc(100% - 32px); max-width: var(--feed-max-width); height: 60px;
-            background: var(--glass-panel); backdrop-filter: var(--blur-heavy);
-            -webkit-backdrop-filter: var(--blur-heavy);
-            border: 1px solid var(--border-light); border-radius: var(--border-radius-xl);
-            z-index: 1000; display: flex; align-items: center; justify-content: space-between; 
-            padding: 0 20px; box-shadow: var(--shadow-float), var(--shadow-inset);
-            transition: var(--transition-medium);
+            position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 24px); max-width: 600px; height: 60px;
+            background: var(--surface-alpha); backdrop-filter: var(--blur-fx); -webkit-backdrop-filter: var(--blur-fx);
+            border-radius: 20px; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 0 24px; box-shadow: var(--glass-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s var(--spring-smooth);
+        }
+
+        .header.scrolled {
+            top: 0; width: 100%; max-width: 100%; border-radius: 0;
+            border-top: none; border-left: none; border-right: none; height: 65px;
         }
 
         .brand {
-            font-family: var(--font-brand); font-size: 1.35rem; font-weight: 800;
-            color: var(--text-pure); text-decoration: none; letter-spacing: -0.5px;
-            background: linear-gradient(135deg, var(--text-pure) 0%, var(--accent-primary) 100%);
+            font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 900;
+            background: linear-gradient(to right, #fff 20%, var(--gold-primary) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            transition: var(--transition-fast);
+            text-decoration: none; letter-spacing: 0.5px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
+            transition: 0.3s ease;
         }
 
-        .brand:hover { text-shadow: 0 0 20px rgba(229, 192, 92, 0.4); transform: scale(1.02); }
+        .brand:hover { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6)); }
 
         .top-btns { display: flex; gap: 20px; align-items: center; }
-        .top-btns i { font-size: 1.3rem; color: var(--text-primary); cursor: pointer; transition: var(--transition-medium); }
-        .top-btns i:hover { color: var(--accent-primary); transform: scale(1.15) translateY(-2px); filter: drop-shadow(0 4px 12px var(--accent-glow)); }
+        .top-btns i { font-size: 1.3rem; color: #fff; cursor: pointer; transition: 0.4s var(--spring-bounce); }
+        .top-btns i:hover { color: var(--gold-primary); transform: scale(1.2) rotate(-5deg); }
 
+        /* --- 3D Navigation Drawer --- */
+        .mobile-menu-toggle { display: none; }
+        
         .hamburger-btn {
             display: flex; flex-direction: column; justify-content: space-between;
-            width: 24px; height: 16px; cursor: pointer; z-index: 2100; position: relative;
+            width: 26px; height: 16px; cursor: pointer; z-index: 2100; position: relative;
         }
-
         .hamburger-btn span {
-            display: block; width: 100%; height: 2px; background-color: var(--text-pure);
-            border-radius: var(--border-radius-pill);
-            transition: transform 0.5s var(--spring-bouncy), opacity 0.3s var(--ease-smooth), background-color 0.3s;
-            transform-origin: left center;
+            display: block; width: 100%; height: 2px; background-color: #fff; border-radius: 2px;
+            transition: 0.5s var(--spring-bounce); transform-origin: left center;
         }
-
-        .mobile-menu-toggle:checked ~ .header .hamburger-btn span:nth-child(1) { transform: rotate(45deg) scaleX(1.1); background-color: var(--accent-primary); }
+        .mobile-menu-toggle:checked ~ .header .hamburger-btn span:nth-child(1) { transform: rotate(45deg) scaleX(1.1); background-color: var(--gold-primary); }
         .mobile-menu-toggle:checked ~ .header .hamburger-btn span:nth-child(2) { opacity: 0; transform: translateX(10px); }
-        .mobile-menu-toggle:checked ~ .header .hamburger-btn span:nth-child(3) { transform: rotate(-45deg) scaleX(1.1); background-color: var(--accent-primary); }
-
-        /* ==========================================================================
-           NAVIGATION DRAWER
-           ========================================================================== */
+        .mobile-menu-toggle:checked ~ .header .hamburger-btn span:nth-child(3) { transform: rotate(-45deg) scaleX(1.1); background-color: var(--gold-primary); }
 
         .nav-grid {
-            position: fixed; inset: 0; background: var(--glass-drawer);
-            backdrop-filter: var(--blur-heavy); -webkit-backdrop-filter: var(--blur-heavy);
-            z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 40px 20px; gap: 8px; opacity: 0; pointer-events: none;
-            clip-path: circle(0% at 100% 0%); transition: clip-path 0.8s var(--spring), opacity 0.8s var(--ease-smooth);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: var(--blur-fx); -webkit-backdrop-filter: var(--blur-fx);
+            z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;
+            opacity: 0; pointer-events: none; transition: 0.6s var(--spring-smooth);
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
         }
-
-        .mobile-menu-toggle:checked ~ .nav-grid { opacity: 1; pointer-events: auto; clip-path: circle(150% at 100% 0%); }
-
-        .nav-grid::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 80% 20%, var(--accent-glow) 0%, transparent 50%);
-            pointer-events: none; z-index: -1;
+        .mobile-menu-toggle:checked ~ .nav-grid {
+            opacity: 1; pointer-events: auto;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
         }
 
         .nav-btn {
-            display: flex; align-items: center; justify-content: flex-start;
-            width: 100%; max-width: 280px; padding: 16px 24px;
-            text-decoration: none; color: var(--text-secondary);
-            border-radius: var(--border-radius-lg); transition: var(--transition-medium);
-            position: relative; overflow: hidden; opacity: 0; transform: translateY(20px);
+            display: flex; align-items: center; width: 100%; max-width: 280px; padding: 18px 24px;
+            text-decoration: none; color: var(--text-muted); border-radius: 20px;
+            transition: 0.4s var(--spring-smooth); opacity: 0; transform: translateX(50px);
+            position: relative; overflow: hidden; background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
         }
-
-        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn { opacity: 1; transform: translateY(0); }
-        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(1) { transition-delay: 0.10s; }
+        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn { opacity: 1; transform: translateX(0); }
+        /* Staggered animation */
+        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(1) { transition-delay: 0.1s; }
         .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(2) { transition-delay: 0.15s; }
-        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(3) { transition-delay: 0.20s; }
+        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(3) { transition-delay: 0.2s; }
         .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(4) { transition-delay: 0.25s; }
-        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(5) { transition-delay: 0.30s; }
+        .mobile-menu-toggle:checked ~ .nav-grid .nav-btn:nth-child(5) { transition-delay: 0.3s; }
 
-        .nav-btn i { font-size: 1.3rem; width: 32px; text-align: center; margin-right: 14px; transition: var(--transition-medium); }
-        .nav-btn span { font-size: 1.05rem; font-weight: 500; letter-spacing: 0.5px; }
-
-        .nav-btn::before {
-            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 0%;
-            background: linear-gradient(90deg, rgba(229, 192, 92, 0.1), transparent);
-            transition: var(--transition-medium); z-index: -1;
+        .nav-btn:hover, .nav-btn.active {
+            color: #fff; background: rgba(255,255,255,0.08);
+            border-color: rgba(212, 175, 55, 0.3); transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
+        .nav-btn i { font-size: 1.4rem; width: 36px; transition: 0.3s; color: var(--text-dark); }
+        .nav-btn:hover i, .nav-btn.active i { color: var(--gold-primary); filter: drop-shadow(0 0 8px var(--gold-glow)); }
+        .nav-btn span { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.5px; }
 
-        .nav-btn:hover, .nav-btn.active { color: var(--text-pure); background: rgba(255, 255, 255, 0.03); transform: translateX(10px); }
-        .nav-btn.active i, .nav-btn:hover i { color: var(--accent-primary); filter: drop-shadow(0 0 10px var(--accent-glow)); }
-        .nav-btn.active::before { width: 100%; border-left: 3px solid var(--accent-primary); }
-
-        /* ==========================================================================
-           MAIN FEED & PROFILE HERO
-           ========================================================================== */
-
+        /* --- Core Feed Layout --- */
         .feed {
-            max-width: var(--feed-max-width); margin: 0 auto; padding: 0 16px;
-            display: flex; flex-direction: column; gap: 32px; position: relative; z-index: 1;
+            max-width: 600px; margin: 100px auto 60px; padding: 0 16px;
+            display: flex; flex-direction: column; gap: 40px; position: relative; z-index: 1;
         }
 
-        .profile-hero {
-            margin: 100px auto 32px; max-width: calc(var(--feed-max-width) - 32px);
-            padding: 16px 20px; background: linear-gradient(160deg, var(--surface-2), var(--surface-1));
-            border: 1px solid var(--border-light); border-radius: var(--border-radius-xl);
-            display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit;
-            box-shadow: var(--shadow-card); position: relative; overflow: hidden; transition: var(--transition-medium);
+        /* --- Skeleton Preloader (Premium) --- */
+        .skeleton-post {
+            background: var(--surface-solid); border-radius: 24px; padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05); box-shadow: var(--glass-shadow);
         }
-
-        .profile-hero::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-            transform: translateX(-100%); transition: 0.6s;
+        .skel-head { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .skel-avatar { width: 40px; height: 40px; border-radius: 50%; }
+        .skel-name { width: 120px; height: 14px; border-radius: 4px; }
+        .skel-body { width: 100%; height: 400px; border-radius: 16px; }
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%; animation: shimmer 1.5s infinite linear;
         }
+        @keyframes shimmer { to { background-position: -200% 0; } }
 
-        .profile-hero:hover {
-            transform: translateY(-4px) scale(1.01); border-color: rgba(229, 192, 92, 0.3);
-            box-shadow: 0 16px 48px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
-        }
-        .profile-hero:hover::after { transform: translateX(100%); }
-
-        .p-ring {
-            width: 56px; height: 56px; border-radius: 50%; padding: 2px;
-            background: conic-gradient(from 0deg, var(--accent-primary), #FFDF73, #AA7700, var(--accent-primary));
-            flex-shrink: 0; box-shadow: 0 0 15px var(--accent-glow); animation: ringRotate 4s linear infinite;
-        }
-
-        @keyframes ringRotate { 100% { transform: rotate(360deg); } }
-
-        .p-avatar {
-            width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--surface-1); 
-            object-fit: cover; background: var(--surface-3); animation: ringRotateReverse 4s linear infinite;
-        }
-
-        @keyframes ringRotateReverse { 100% { transform: rotate(-360deg); } }
-
-        .p-info { flex: 1; z-index: 2; }
-        .p-info b { display: block; font-size: 1rem; font-weight: 700; letter-spacing: -0.2px; color: var(--text-pure); margin-bottom: 2px; }
-        .p-info span { font-size: 0.8rem; color: var(--text-secondary); font-weight: 400; }
-
-        .profile-hero .fa-paper-plane { font-size: 1.1rem; color: var(--accent-primary); transition: var(--transition-medium); z-index: 2; }
-        .profile-hero:hover .fa-paper-plane { transform: translateX(4px) translateY(-4px); }
-
-        /* ==========================================================================
-           POST CARDS (DYNAMIC AUTO-HEIGHT ARCHITECTURE)
-           ========================================================================== */
-
+        /* --- Post Card (The Masterpiece) --- */
         .post {
-            background: var(--surface-1); border-radius: var(--border-radius-xl);
-            border: 1px solid var(--border-light); box-shadow: var(--shadow-card);
-            opacity: 0; transform: translateY(30px) scale(0.97);
-            transition: opacity 0.8s var(--spring), transform 0.8s var(--spring), box-shadow 0.4s ease;
-            position: relative; overflow: hidden; /* Added overflow hidden for cleaner edges */
+            background: var(--surface-solid); border-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.08); box-shadow: var(--glass-shadow);
+            opacity: 0; transform: translateY(60px) scale(0.95) rotateX(10deg);
+            transition: all 0.8s var(--ease-out-expo);
+            perspective: 1000px; overflow: hidden;
+            position: relative;
+        }
+        .post.in-view { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
+        .post::before {
+            content: ''; position: absolute; inset: 0; border-radius: 28px;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 50%);
+            pointer-events: none; z-index: 2;
         }
 
-        .post:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08); border-color: var(--border-medium); }
-        .post.visible { opacity: 1; transform: translateY(0) scale(1); }
+        /* Post Header */
+        .post-head { display: flex; align-items: center; padding: 16px 20px; gap: 14px; position: relative; z-index: 3; }
+        .avatar-ring {
+            width: 44px; height: 44px; border-radius: 50%; padding: 2px;
+            background: linear-gradient(45deg, var(--gold-primary), #fff, var(--gold-primary));
+            animation: ringSpin 4s linear infinite;
+        }
+        @keyframes ringSpin { 100% { transform: rotate(360deg); } }
+        .head-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--void); animation: ringSpinRev 4s linear infinite; }
+        @keyframes ringSpinRev { 100% { transform: rotate(-360deg); } }
+        
+        .head-info { flex: 1; }
+        .head-name { font-weight: 700; font-size: 0.95rem; color: #fff; display: block; line-height: 1.2; letter-spacing: -0.2px; }
+        .head-tag { font-size: 0.75rem; color: var(--gold-primary); font-weight: 500; }
+        .post-head .fa-ellipsis { color: var(--text-muted); cursor: pointer; padding: 8px; transition: 0.3s; }
+        .post-head .fa-ellipsis:hover { color: #fff; transform: scale(1.2); }
 
-        /* --- Post Header --- */
-        .post-head { display: flex; align-items: center; padding: 14px 16px; gap: 12px; }
-        .head-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-medium); }
-        .head-name { font-weight: 600; font-size: 0.9rem; color: var(--text-pure); letter-spacing: -0.1px; }
-        .post-head .fa-ellipsis { padding: 8px; cursor: pointer; transition: var(--transition-fast); margin-left: auto; color: var(--text-secondary); }
-        .post-head .fa-ellipsis:hover { color: var(--text-pure); }
-
-        /* --- DYNAMIC Carousel System --- */
+        /* --- ADVANCED CAROUSEL (Liquid Height & Physics) --- */
         .carousel-container {
-            position: relative; width: 100%; 
-            background: #000; overflow: hidden; cursor: pointer;
-            transition: height 0.4s var(--spring); /* MAGIC TRICK: Smooth height transition */
-            display: flex;
+            position: relative; width: 100%; background: #000;
+            overflow: hidden; cursor: pointer; display: flex;
+            transition: height 0.5s var(--spring-smooth);
+            z-index: 3;
         }
-
         .carousel-track {
-            display: flex; width: 100%; align-items: flex-start; /* Crucial for variable heights */
+            display: flex; width: 100%; align-items: flex-start;
             overflow-x: auto; scroll-snap-type: x mandatory; 
             scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
         .carousel-track::-webkit-scrollbar { display: none; }
-        
         .carousel-slide {
-            flex: 0 0 100%; width: 100%; scroll-snap-align: start; 
-            display: flex; align-items: center; justify-content: center; background: #000;
+            flex: 0 0 100%; width: 100%; scroll-snap-align: center; 
+            display: flex; justify-content: center; background: #000; position: relative;
         }
-        
         .media-img {
-            width: 100%; height: auto; /* Respects native aspect ratio! */
-            max-height: 85vh; /* Prevents excessively tall images from ruining UX */
-            object-fit: contain; /* Fills empty space nicely if max-height hits */
-            display: block; transition: transform 0.8s ease;
+            width: 100%; height: auto; display: block;
+            max-height: 85vh; object-fit: contain;
+            transition: transform 0.6s var(--spring-smooth), filter 0.3s;
         }
-
-        .carousel-container:hover .media-img { transform: scale(1.02); }
-
-        /* --- Quote Card (Text Only) --- */
-        .quote-card {
-            padding: 40px; text-align: center; font-family: var(--font-quote);
-            font-size: clamp(1.3rem, 4vw, 1.6rem); font-style: italic; line-height: 1.5;
-            background: radial-gradient(circle at top right, var(--surface-2), var(--void));
-            color: var(--accent-primary); width: 100%; height: 100%; min-height: 300px;
-            display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
-        }
-
-        /* --- Carousel UI --- */
-        .carousel-dots {
-            position: absolute; bottom: 12px; left: 0; width: 100%;
-            display: flex; justify-content: center; gap: 5px; z-index: 10; pointer-events: none;
-        }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: var(--transition-medium); }
-        .dot.active { background: var(--text-pure); transform: scale(1.4); box-shadow: 0 0 8px rgba(255,255,255,0.8); }
+        .carousel-container:active .media-img { transform: scale(0.98); } /* Haptic tap simulation */
         
+        /* Carousel Controls UI */
+        .carousel-dots {
+            position: absolute; bottom: 16px; left: 0; width: 100%;
+            display: flex; justify-content: center; gap: 6px; z-index: 10; pointer-events: none;
+        }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: 0.4s var(--spring-bounce); backdrop-filter: blur(4px); }
+        .dot.active { background: #fff; transform: scale(1.6); box-shadow: 0 0 10px rgba(255,255,255,0.8); }
         .slide-counter {
-            position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); backdrop-filter: var(--blur-light);
-            color: var(--text-pure); font-size: 0.7rem; font-weight: 600; padding: 4px 10px; 
-            border-radius: var(--border-radius-pill); z-index: 10; pointer-events: none; border: 1px solid var(--border-ultra-thin);
+            position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            color: #fff; font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 20px; z-index: 10; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        /* --- Heart Pop --- */
+        /* --- Text/Quote Card (Premium Typography) --- */
+        .quote-card {
+            padding: 60px 40px; text-align: center; font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 5vw, 1.8rem); font-style: italic; line-height: 1.6;
+            background: linear-gradient(135deg, var(--surface-beta), var(--void));
+            color: var(--gold-primary); width: 100%; min-height: 400px;
+            display: flex; align-items: center; justify-content: center; position: relative;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+        .quote-card::before { content: '“'; position: absolute; top: 20px; left: 30px; font-size: 6rem; color: rgba(212, 175, 55, 0.1); font-family: sans-serif; line-height: 1; }
+
+        /* --- Particle Engine System --- */
         .heart-pop {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            color: var(--heart-base); font-size: 100px; pointer-events: none; z-index: 20; 
-            filter: drop-shadow(0 20px 40px var(--heart-glow));
+            color: var(--heart-base); font-size: 120px; pointer-events: none; z-index: 20; 
+            filter: drop-shadow(0 20px 50px var(--heart-glow));
             background: linear-gradient(135deg, #ff4b60, #ff0055);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .heart-pop.active { animation: popMaster 0.9s var(--spring-bouncy) forwards; }
-        
-        @keyframes popMaster {
-            0% { transform: translate(-50%, -50%) scale(0) rotate(-15deg); opacity: 0; }
-            40% { transform: translate(-50%, -50%) scale(1.2) rotate(5deg); opacity: 1; }
-            60% { transform: translate(-50%, -50%) scale(1.05) rotate(0deg); opacity: 0.9; }
-            100% { transform: translate(-50%, -50%) scale(0) rotate(10deg); opacity: 0; }
+        .heart-pop.active { animation: popGodTier 0.9s var(--spring-bounce) forwards; }
+        @keyframes popGodTier {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 0; }
+            40% { transform: translate(-50%, -50%) scale(1.4) rotate(10deg); opacity: 1; filter: brightness(1.5); }
+            60% { transform: translate(-50%, -50%) scale(1.1) rotate(0deg); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(0) rotate(15deg); opacity: 0; }
         }
 
-        /* --- Post Meta --- */
-        .post-meta { padding: 14px 16px 20px; }
-        .actions { display: flex; gap: 18px; font-size: 1.5rem; margin-bottom: 12px; color: var(--text-primary); }
-        .actions i { cursor: pointer; transition: var(--transition-medium); position: relative; }
-        .actions i:hover { transform: scale(1.15) translateY(-2px); color: var(--text-pure); }
-        .actions i.btn-like { transition: transform 0.3s var(--spring-bouncy), color 0.3s; }
-        
-        .likes-count { font-weight: 700; font-size: 0.9rem; display: block; margin-bottom: 6px; color: var(--text-pure); }
-        
-        .caption-box { font-size: 0.9rem; line-height: 1.6; color: var(--text-primary); }
-        .caption-box b { font-weight: 700; color: var(--text-pure); margin-right: 5px; }
-        .caption-box span[onclick] { color: var(--text-secondary); font-weight: 500; transition: var(--transition-fast); margin-left: 4px;}
-        .caption-box span[onclick]:hover { color: var(--text-pure); }
-        
-        .time-stamp { font-size: 0.65rem; color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; margin-top: 10px; display: block; letter-spacing: 0.5px; }
+        .particle {
+            position: absolute; pointer-events: none; opacity: 0; z-index: 15;
+            color: var(--heart-base); font-size: 20px;
+        }
 
-        /* ==========================================================================
-           FULLSCREEN DETAIL VIEW (MODAL)
-           ========================================================================== */
+        /* --- Post Meta Data --- */
+        .post-meta { padding: 18px 20px 24px; position: relative; z-index: 3; }
+        .actions { display: flex; gap: 20px; font-size: 1.6rem; margin-bottom: 14px; color: #fff; }
+        .actions i { cursor: pointer; transition: 0.4s var(--spring-bounce); position: relative; }
+        .actions i:hover { transform: scale(1.2) translateY(-3px); filter: drop-shadow(0 5px 10px rgba(255,255,255,0.2)); }
+        .actions i.btn-like.liked { color: var(--heart-base); animation: likeBump 0.4s var(--spring-bounce); filter: drop-shadow(0 0 15px var(--heart-glow)); }
+        @keyframes likeBump { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+        
+        .likes-count { font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; display: block; color: #fff; }
+        .caption-box { font-size: 0.95rem; line-height: 1.6; color: var(--text-pure); }
+        .caption-box b { font-weight: 700; margin-right: 6px; }
+        .caption-box span.read-more { color: var(--text-muted); font-weight: 600; cursor: pointer; transition: 0.3s; margin-left: 5px; }
+        .caption-box span.read-more:hover { color: var(--gold-primary); }
+        .time-stamp { font-size: 0.7rem; color: var(--text-dark); font-weight: 700; text-transform: uppercase; margin-top: 14px; display: block; letter-spacing: 1px; }
 
+        /* --- Fullscreen Details Modal --- */
         #detail-view {
-            position: fixed; inset: 0; z-index: 3000; background: var(--glass-drawer);
-            backdrop-filter: var(--blur-heavy); -webkit-backdrop-filter: var(--blur-heavy);
-            display: none; flex-direction: column; animation: modalFadeIn 0.4s var(--spring) forwards;
+            position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.7);
+            backdrop-filter: var(--blur-fx); -webkit-backdrop-filter: var(--blur-fx);
+            display: none; flex-direction: column; opacity: 0; transition: opacity 0.4s ease;
         }
-
-        @keyframes modalFadeIn { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-
-        .detail-header { 
-            height: 60px; display: flex; justify-content: space-between; align-items: center; 
-            padding: 0 20px; border-bottom: 1px solid var(--border-light); background: rgba(0,0,0,0.3);
+        #detail-view.active { display: flex; opacity: 1; }
+        .detail-content {
+            background: var(--surface-solid); width: 100%; height: 100%; max-width: 600px; margin: 0 auto;
+            transform: translateY(100%); transition: transform 0.5s var(--spring-bounce);
+            display: flex; flex-direction: column; border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1);
         }
-        .detail-header .fa-xmark { font-size: 1.6rem; color: var(--text-secondary); transition: var(--transition-fast); }
-        .detail-header .fa-xmark:hover { color: var(--heart-base); transform: rotate(90deg) scale(1.1); }
-        .detail-body { flex: 1; overflow-y: auto; padding: 30px 20px; display: flex; justify-content: center; }
-        .detail-text { max-width: 600px; width: 100%; font-size: clamp(1.05rem, 2vw, 1.2rem); line-height: 1.8; color: var(--text-primary); font-weight: 400; white-space: pre-wrap; letter-spacing: 0.2px; }
+        #detail-view.active .detail-content { transform: translateY(0); }
+        
+        .detail-header {
+            height: 70px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02);
+        }
+        .detail-header .fa-chevron-down { font-size: 1.5rem; color: #fff; cursor: pointer; transition: 0.3s; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+        .detail-header .fa-chevron-down:hover { background: rgba(255,255,255,0.2); transform: translateY(3px); }
+        .detail-body { flex: 1; overflow-y: auto; padding: 40px 24px; display: flex; justify-content: center; }
+        .detail-text { width: 100%; font-size: 1.15rem; line-height: 1.9; color: rgba(255,255,255,0.9); white-space: pre-wrap; font-family: 'Hind Siliguri', sans-serif; }
 
-        /* ==========================================================================
-           TOAST NOTIFICATION
-           ========================================================================== */
-
+        /* --- Premium Toast Notification --- */
         .toast-notification {
-            position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%);
-            background: var(--surface-2); color: var(--text-pure); padding: 12px 24px;
-            border-radius: var(--border-radius-pill); box-shadow: var(--shadow-float);
-            border: 1px solid var(--border-medium); z-index: 5000; font-weight: 600;
-            font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
-            opacity: 0; transition: bottom 0.5s var(--spring-bouncy), opacity 0.5s;
+            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+            background: rgba(255,255,255,0.95); color: #000; padding: 14px 30px;
+            border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 5000;
+            font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 12px;
+            transition: 0.6s var(--spring-bounce); pointer-events: none;
         }
-        .toast-notification.show { bottom: 80px; opacity: 1; }
-        .toast-notification i { color: #4ade80; font-size: 1.1rem; }
+        .toast-notification.show { bottom: 40px; }
+        .toast-notification i { color: #10b981; font-size: 1.3rem; }
 
-        /* ==========================================================================
-           DESKTOP ARCHITECTURE
-           ========================================================================== */
-
+        /* --- Desktop Architecture Enhancements --- */
         @media (min-width: 1024px) {
-            .mobile-menu-toggle, .hamburger-btn { display: none !important; }
-            body { display: flex; justify-content: center; }
-
-            .nav-grid {
-                clip-path: none !important; position: fixed; top: 0; left: 0;
-                width: var(--nav-desktop-width); height: 100vh; background: var(--surface-0);
-                border-right: 1px solid var(--border-ultra-thin); box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-                flex-direction: column; justify-content: flex-start; align-items: stretch;
-                padding: 100px 20px 40px; gap: 8px; opacity: 1 !important; pointer-events: auto !important;
-                transform: none !important; backdrop-filter: none; z-index: 100;
-            }
-
-            .nav-btn { opacity: 1 !important; transform: none !important; max-width: 100%; padding: 16px 20px; border-radius: var(--border-radius-md); }
-
-            .header {
-                width: var(--nav-desktop-width); left: 0; top: 0; transform: none; height: 90px;
-                background: transparent; border: none; box-shadow: none; backdrop-filter: none;
-                -webkit-backdrop-filter: none; padding: 30px 24px 0; border-radius: 0; z-index: 101;
-            }
-            .brand { font-size: 1.6rem; }
-            .top-btns { display: none; }
-
-            .feed, .profile-hero { margin-left: calc(var(--nav-desktop-width)); width: 100%; max-width: 600px; }
-            .profile-hero { margin-top: 40px; margin-bottom: 40px; }
-            .post { margin-bottom: 40px; }
-            .toast-notification.show { bottom: 40px; }
+            .mobile-menu-toggle, .hamburger-btn, .top-btns { display: none !important; }
+            .header { width: 280px; left: 0; top: 0; height: 100vh; background: var(--surface-solid); border: none; border-right: 1px solid rgba(255,255,255,0.08); box-shadow: none; border-radius: 0; padding: 40px 24px; align-items: flex-start; }
+            .header.scrolled { height: 100vh; width: 280px; }
+            .brand { font-size: 1.8rem; margin-bottom: 50px; display: block; width: 100%; text-align: center; }
+            .nav-grid { clip-path: none !important; position: absolute; top: 120px; left: 0; width: 100%; height: auto; background: transparent; backdrop-filter: none; flex-direction: column; padding: 0 16px; opacity: 1 !important; pointer-events: auto !important; }
+            .nav-btn { opacity: 1 !important; transform: none !important; max-width: 100%; border-radius: 12px; padding: 16px 20px; margin-bottom: 5px; }
+            .nav-btn:hover { background: rgba(255,255,255,0.05); transform: translateX(8px); }
+            .feed { margin-left: 280px; width: calc(100% - 280px); padding-top: 40px; }
+            .detail-content { border-radius: 24px; height: 85vh; margin-top: 5vh; box-shadow: var(--glass-shadow); }
         }
-
-        #data-status { font-family: var(--font-brand); letter-spacing: 2px; animation: textPulse 2s infinite; }
     </style>
 </head>
 <body>
 
+    <!-- Native App Feel: Header & Navigation -->
     <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle">
 
-    <div id="loader">
-        <div class="p-ring">
-            <img src="profile.png" class="p-avatar" referrerpolicy="no-referrer" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=D4AF37&color=000'">
-        </div>
-        <div class="loading-text">ISTIGRAM</div>
-    </div>
-
-    <header class="header">
+    <header class="header" id="main-header">
         <a href="index.html" class="brand">IstiGram</a>
         <div class="top-btns">
             <i class="fa-brands fa-facebook-messenger" onclick="location.href='https://www.instagram.com/direct/t/anonymous.istiack'"></i>
-            <label for="mobile-menu-toggle" class="hamburger-btn">
-                <span></span><span></span><span></span>
-            </label>
+            <label for="mobile-menu-toggle" class="hamburger-btn"><span></span><span></span><span></span></label>
         </div>
+        <!-- Desktop Nav injected here via CSS absolute positioning -->
+        <nav class="nav-grid">
+            <a href="index.html" class="nav-btn active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+            <a href="debate.html" class="nav-btn"><i class="fa-solid fa-microphone-lines"></i><span>Debate</span></a>
+            <a href="politics.html" class="nav-btn"><i class="fa-solid fa-landmark"></i><span>Politics</span></a>
+            <a href="thoughts.html" class="nav-btn"><i class="fa-solid fa-lightbulb"></i><span>Thoughts</span></a>
+            <a href="donate.html" class="nav-btn"><i class="fa-solid fa-mug-hot"></i><span>Donate</span></a>
+            <a href="contact.html" class="nav-btn"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+        </nav>
     </header>
 
-    <a href="https://www.instagram.com/direct/t/anonymous.istiack" class="profile-hero">
-        <div class="p-ring">
-            <img src="profile.png" class="p-avatar" referrerpolicy="no-referrer" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=D4AF37&color=000'">
-        </div>
-        <div class="p-info">
-            <b>@anonymous.istiack</b>
-            <span>Tap to send a direct message...</span>
-        </div>
-        <i class="fa-solid fa-paper-plane"></i>
-    </a>
-
+    <!-- Main Feed Container -->
     <main class="feed" id="main-feed">
-        <div id="data-status" style="padding:100px 20px; text-align:center; color:var(--text-secondary); font-size:0.95rem;">
-            INITIALIZING SECURE DATA CONNECTION...
+        <!-- Premium Skeleton UI while loading -->
+        <div class="skeleton-post shimmer">
+            <div class="skel-head">
+                <div class="skel-avatar shimmer" style="background:rgba(255,255,255,0.1)"></div>
+                <div class="skel-name shimmer" style="background:rgba(255,255,255,0.1)"></div>
+            </div>
+            <div class="skel-body shimmer" style="background:rgba(255,255,255,0.05)"></div>
+        </div>
+        <div class="skeleton-post shimmer">
+            <div class="skel-head">
+                <div class="skel-avatar shimmer" style="background:rgba(255,255,255,0.1)"></div>
+                <div class="skel-name shimmer" style="background:rgba(255,255,255,0.1)"></div>
+            </div>
+            <div class="skel-body shimmer" style="background:rgba(255,255,255,0.05); height:250px;"></div>
         </div>
     </main>
 
-    <nav class="nav-grid">
-        <a href="index.html" class="nav-btn active"><i class="fa-solid fa-house"></i><span>Home</span></a>
-        <a href="debate.html" class="nav-btn"><i class="fa-solid fa-microphone-lines"></i><span>Debate</span></a>
-        <a href="politics.html" class="nav-btn"><i class="fa-solid fa-landmark"></i><span>Politics</span></a>
-        <a href="thoughts.html" class="nav-btn"><i class="fa-solid fa-lightbulb"></i><span>Thoughts</span></a>
-        <a href="donate.html" class="nav-btn"><i class="fa-solid fa-mug-hot"></i><span>Donate</span></a>
-        <a href="contact.html" class="nav-btn"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
-        <a href="nn.html" class="nav-btn"><i class="fa-solid fa-book-open"></i><span>Nasiha</span></a>
-        <a href="hm.html" class="nav-btn"><i class="fa-solid fa-briefcase"></i><span>Hire</span></a>
-    </nav>
-
+    <!-- Fullscreen Detail Modal -->
     <div id="detail-view">
-        <div class="detail-header">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <img src="profile.png" style="width:34px; height:34px; border-radius:50%; object-fit:cover;" referrerpolicy="no-referrer" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=D4AF37&color=000'">
-                <span style="font-weight:600; font-size:0.95rem; color:#fff;">anonymous.istiack</span>
+        <div class="detail-content">
+            <div class="detail-header">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div class="avatar-ring" style="width:36px; height:36px;"><img src="profile.png" class="head-avatar" referrerpolicy="no-referrer" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=D4AF37&color=000'"></div>
+                    <span style="font-weight:700; font-size:1rem; color:#fff;">anonymous.istiack</span>
+                </div>
+                <i class="fa-solid fa-chevron-down" onclick="closeDetail()"></i>
             </div>
-            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeDetail()"></i>
-        </div>
-        <div class="detail-body">
-            <div id="detail-text" class="detail-text"></div>
+            <div class="detail-body"><div id="detail-text" class="detail-text"></div></div>
         </div>
     </div>
 
-    <div id="toast" class="toast-notification">
-        <i class="fa-solid fa-check-circle"></i> <span>Link copied to clipboard!</span>
-    </div>
+    <div id="toast" class="toast-notification"><i class="fa-solid fa-circle-check"></i> <span id="toast-msg">Link copied!</span></div>
 
+    <!-- Core Data Script -->
     <script src="Data.js"></script>
+    
     <script>
         /**
-         * IstiGram Engine v4.0 - Flagship Architecture
-         * Features: 
-         * - Auto-Resizing Dynamic Frames (Adapts smoothly to ANY Image Ratio)
-         * - Native Image Support (No Cropping)
-         * - Smart Open Graph Integration for Social Shares
+         * ISTIGRAM V6.0 - THE GOD TIER ENGINE
+         * Features: ResizeObserver, IntersectionObserver, Particle Physics, String/Array Parsing
          */
 
         const FeedDOM = document.getElementById('main-feed');
-        const StatusDOM = document.getElementById('data-status');
         
-        // Setup Dynamic Sharing Data immediately if ?id= is present in URL
+        // 1. Dynamic Open Graph Setup (Perfected)
         function setupDynamicMetaTags(data) {
             const urlParams = new URLSearchParams(window.location.search);
             const postId = urlParams.get('id');
             if (postId && data && data.thoughts) {
                 const post = data.thoughts.find(p => String(p.id) === String(postId));
                 if (post) {
-                    if (post.text) {
-                        document.getElementById('og-desc').setAttribute('content', post.text.substring(0, 150) + "...");
-                    }
+                    if (post.text) document.getElementById('og-desc').setAttribute('content', post.text.substring(0, 160) + "...");
                     if (post.ph) {
-                        const firstImage = Array.isArray(post.ph) ? post.ph[0] : post.ph;
-                        document.getElementById('og-image').setAttribute('content', firstImage);
-                        document.getElementById('tw-image').setAttribute('content', firstImage);
+                        let firstImage = typeof post.ph === 'string' ? post.ph.split(',')[0].trim() : (Array.isArray(post.ph) ? post.ph[0] : "");
+                        if (firstImage) {
+                            document.getElementById('og-image').setAttribute('content', firstImage);
+                            document.getElementById('tw-image').setAttribute('content', firstImage);
+                        }
                     }
                 }
             }
         }
 
-        const getLikes = () => (Math.random() * 5000 + 1000).toLocaleString(undefined, {maximumFractionDigits:0});
-
-        function findData() {
-            let data = null;
-            if (typeof portfolioData !== 'undefined') data = portfolioData;
-            else if (window.portfolioData) data = window.portfolioData;
-
+        // 2. Data Initialization Engine
+        function initEngine() {
+            let data = typeof portfolioData !== 'undefined' ? portfolioData : (window.portfolioData || null);
             if (data && data.thoughts && data.thoughts.length > 0) {
                 setupDynamicMetaTags(data);
-                buildFeed(data.thoughts);
+                renderFeed(data.thoughts);
             } else {
                 let retries = 0;
                 const timer = setInterval(() => {
@@ -606,217 +448,300 @@
                     if (retryData && retryData.thoughts) {
                         clearInterval(timer);
                         setupDynamicMetaTags(retryData);
-                        buildFeed(retryData.thoughts);
-                    } else if (retries > 30) {
+                        renderFeed(retryData.thoughts);
+                    } else if (retries > 40) {
                         clearInterval(timer);
-                        StatusDOM.innerHTML = "No posts available or Data.js connection failed.";
-                        document.getElementById('loader').style.display = 'none';
+                        FeedDOM.innerHTML = `
+                            <div style="text-align:center; padding:80px 20px; border:1px solid rgba(255,255,255,0.1); border-radius:24px;">
+                                <i class="fa-solid fa-satellite-dish" style="font-size:3rem; color:var(--text-dark); margin-bottom:15px;"></i>
+                                <h3 style="color:#fff; font-family:'Cinzel';">Connection Lost</h3>
+                                <p style="color:var(--text-muted); font-size:0.9rem;">Unable to sync with Data.js securely.</p>
+                            </div>`;
                     }
                 }, 100);
             }
         }
 
-        // MAGIC TRICK: Sets the container height dynamically based on the loaded image
-        function updateContainerHeight(imgElement, index) {
-            const container = document.getElementById(`carousel-container-${index}`);
-            if (container && imgElement.clientHeight > 0) {
-                container.style.height = imgElement.clientHeight + 'px';
-            }
-        }
+        // Number Formatter (e.g. 1.2k)
+        const formatNumber = (num) => Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num);
+        const getLikes = () => formatNumber(Math.floor(Math.random() * 8000 + 500));
 
-        function buildFeed(items) {
-            FeedDOM.innerHTML = '';
+        // 3. The Master Render Function
+        function renderFeed(items) {
+            FeedDOM.innerHTML = ''; // Clear skeletons
+            
+            // Intersection Observer for 3D Reveal on Scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target); // Reveal only once
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
             items.forEach((item, index) => {
-                const post = document.createElement('div');
+                const post = document.createElement('article');
                 post.className = 'post';
+                post.id = `post-${item.id || index}`;
 
+                // Parse Media Array/String smoothly
                 let photos = [];
                 if (item.ph) {
-                    photos = Array.isArray(item.ph) ? item.ph : [item.ph];
+                    photos = typeof item.ph === 'string' ? item.ph.split(',').map(s => s.trim()).filter(Boolean) : (Array.isArray(item.ph) ? item.ph : []);
                 }
 
-                let mediaContent = '';
-
+                let mediaHTML = '';
                 if (photos.length > 0) {
                     let trackHtml = photos.map((src, i) => `
                         <div class="carousel-slide">
                             <img src="${src}" class="media-img" loading="lazy" referrerpolicy="no-referrer" 
-                                 onload="if(${i}===0) updateContainerHeight(this, ${index})" 
-                                 onerror="this.onerror=null; this.src='https://placehold.co/800x800/111/D4AF37?text=Image+Unavailable';">
+                                 onload="setupResizeObserver(this, ${index})" 
+                                 onerror="this.src='https://placehold.co/800x800/111/D4AF37?text=Image+Lost';">
                         </div>
                     `).join('');
 
                     let dotsHtml = photos.length > 1 ? photos.map((_, i) => `<div class="dot ${i===0?'active':''}"></div>`).join('') : '';
                     let counterHtml = photos.length > 1 ? `<div class="slide-counter" id="counter-${index}">1/${photos.length}</div>` : '';
 
-                    mediaContent = `
-                        <div class="carousel-container" id="carousel-container-${index}" onclick="handleInteraction(this, ${index})">
-                            <div class="carousel-track" onscroll="updateDots(this, ${index}, ${photos.length})">
+                    mediaHTML = `
+                        <div class="carousel-container" id="carousel-container-${index}" data-index="${index}">
+                            <div class="carousel-track" onscroll="syncSliderUI(this, ${index}, ${photos.length})">
                                 ${trackHtml}
                             </div>
                             ${counterHtml}
-                            <div class="carousel-dots" id="dots-${index}">
-                                ${dotsHtml}
-                            </div>
+                            <div class="carousel-dots" id="dots-${index}">${dotsHtml}</div>
                             <div class="heart-pop"><i class="fa-solid fa-heart"></i></div>
                         </div>
                     `;
                 } else {
-                    mediaContent = `
-                        <div class="carousel-container" onclick="handleInteraction(this, ${index})">
-                            <div class="quote-card">"${item.text.substring(0,85)}..."</div>
+                    mediaHTML = `
+                        <div class="carousel-container" data-index="${index}">
+                            <div class="quote-card">${item.text.substring(0, 100)}...</div>
                             <div class="heart-pop"><i class="fa-solid fa-heart"></i></div>
                         </div>
                     `;
                 }
 
+                const safeText = item.text.replace(/"/g, '&quot;');
+                const isLong = item.text.length > 110;
+                
                 post.innerHTML = `
                     <div class="post-head">
-                        <img src="profile.png" class="head-avatar" referrerpolicy="no-referrer" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=D4AF37&color=000'">
-                        <span class="head-name">@anonymous.istiack</span>
+                        <div class="avatar-ring"><img src="profile.png" class="head-avatar" referrerpolicy="no-referrer" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=D4AF37&color=000'"></div>
+                        <div class="head-info">
+                            <span class="head-name">anonymous.istiack</span>
+                            <span class="head-tag">Original Audio</span>
+                        </div>
                         <i class="fa-solid fa-ellipsis"></i>
                     </div>
                     
-                    ${mediaContent}
+                    ${mediaHTML}
 
                     <div class="post-meta">
                         <div class="actions">
                             <i class="fa-regular fa-heart btn-like" onclick="toggleLike(this)"></i>
-                            <i class="fa-regular fa-comment" onclick="openDetail(${index})"></i>
-                            <i class="fa-regular fa-paper-plane" onclick="sharePost('${item.id || index}')" title="Copy Link"></i>
+                            <i class="fa-regular fa-comment" onclick="openDetail('${item.id || index}')"></i>
+                            <i class="fa-regular fa-paper-plane" onclick="shareToNetwork('${item.id || index}')"></i>
                         </div>
                         <span class="likes-count">${getLikes()} likes</span>
                         <div class="caption-box">
                             <b>anonymous.istiack</b> 
-                            <span>${item.text.substring(0, 95)}${item.text.length > 95 ? '...' : ''}</span>
-                            ${item.text.length > 95 ? `<span style="cursor:pointer;" onclick="openDetail(${index})">more</span>` : ''}
+                            <span>${item.text.substring(0, 110)}${isLong ? '...' : ''}</span>
+                            ${isLong ? `<span class="read-more" onclick="openDetail('${item.id || index}')">more</span>` : ''}
                         </div>
-                        <span class="time-stamp">${item.date || 'Today'}</span>
+                        <span class="time-stamp">${item.date || 'Just now'}</span>
                     </div>
                 `;
+
                 FeedDOM.appendChild(post);
+                observer.observe(post);
 
-                setTimeout(() => post.classList.add('visible'), index * 150);
+                // Add Double Tap Event Listener to the newly created container
+                const container = post.querySelector('.carousel-container');
+                setupDoubleTap(container);
             });
-
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => document.getElementById('loader').style.display = 'none', 800);
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.querySelector('span').innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        function sharePost(id) {
-            // Update the URL to match your site's structure
-            const link = `https://istiack-29.github.io/thoughts.html?id=${id}`;
+        // 4. Ultimate ResizeObserver for perfect Fluid Heights
+        // This watches the image itself. If it loads or screen resizes, frame adapts instantly.
+        function setupResizeObserver(imgElement, index) {
+            const container = document.getElementById(`carousel-container-${index}`);
+            if(!container) return;
             
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showToast('Link copied to clipboard!');
-                }).catch(err => copyFallback(link));
-            } else {
-                copyFallback(link);
-            }
+            const ro = new ResizeObserver(entries => {
+                for (let entry of entries) {
+                    // Only adjust height if this image is currently the visible one
+                    const track = container.querySelector('.carousel-track');
+                    if(track) {
+                        const activeIndex = Math.round(track.scrollLeft / track.clientWidth);
+                        const slides = track.querySelectorAll('.media-img');
+                        if(slides[activeIndex] === imgElement && entry.contentRect.height > 0) {
+                            container.style.height = `${entry.contentRect.height}px`;
+                        }
+                    }
+                }
+            });
+            ro.observe(imgElement);
+            // Initial set
+            if(imgElement.clientHeight > 0) container.style.height = `${imgElement.clientHeight}px`;
         }
 
-        function copyFallback(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "absolute";
-            textArea.style.left = "-999999px";
-            document.body.prepend(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast('Link copied to clipboard!');
-            } catch (error) {
-                showToast('Failed to copy link.');
-            } finally {
-                textArea.remove();
-            }
-        }
-
-        // DYNAMIC HEIGHT UPDATE ON SWIPE
-        function updateDots(track, index, totalSlides) {
-            const scrollLeft = track.scrollLeft;
+        function syncSliderUI(track, index, total) {
             const width = track.clientWidth || 1;
-            const activeIndex = Math.round(scrollLeft / width);
+            const activeIndex = Math.round(track.scrollLeft / width);
 
-            const dotsContainer = document.getElementById(`dots-${index}`);
-            if(dotsContainer) {
-                const dots = dotsContainer.querySelectorAll('.dot');
-                dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
-            }
-
+            const dots = document.querySelectorAll(`#dots-${index} .dot`);
+            if(dots.length) dots.forEach((d, i) => d.classList.toggle('active', i === activeIndex));
+            
             const counter = document.getElementById(`counter-${index}`);
-            if(counter) {
-                counter.innerText = `${activeIndex + 1}/${totalSlides}`;
-            }
+            if(counter) counter.innerText = `${activeIndex + 1}/${total}`;
 
-            // Adjust Height based on the current slide's image height
+            // Sync height to the active slide dynamically
             const container = document.getElementById(`carousel-container-${index}`);
             const slides = track.querySelectorAll('.media-img');
-            if (container && slides[activeIndex]) {
-                const newHeight = slides[activeIndex].clientHeight;
-                if (newHeight > 0) {
-                    container.style.height = newHeight + 'px';
-                }
+            if (container && slides[activeIndex] && slides[activeIndex].clientHeight > 0) {
+                container.style.height = `${slides[activeIndex].clientHeight}px`;
             }
         }
 
-        // Adjust heights on window resize to keep it responsive
-        window.addEventListener('resize', () => {
-            document.querySelectorAll('.carousel-track').forEach((track) => {
-                track.dispatchEvent(new Event('scroll'));
-            });
-        });
+        // 5. Physics Particle Engine for Double Tap
+        function spawnParticles(container) {
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            for(let i=0; i<8; i++) {
+                const p = document.createElement('i');
+                p.className = 'fa-solid fa-heart particle';
+                
+                // Random physics
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 50 + Math.random() * 80;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity - 50; // Bias upwards
+                const rot = (Math.random() - 0.5) * 90;
+                const scale = 0.5 + Math.random() * 0.5;
 
-        let lastTap = 0;
-        function handleInteraction(container, idx) {
-            const now = Date.now();
-            if (now - lastTap < 300) {
-                const heart = container.querySelector('.heart-pop');
-                heart.classList.remove('active');
-                void heart.offsetWidth; 
-                heart.classList.add('active');
+                p.style.left = `${centerX - 10}px`;
+                p.style.top = `${centerY - 10}px`;
+                container.appendChild(p);
 
-                const btn = container.parentElement.querySelector('.btn-like');
-                btn.className = 'fa-solid fa-heart btn-like';
-                btn.style.color = 'var(--heart-base)';
-                btn.style.transform = 'scale(1.2)';
-                setTimeout(() => btn.style.transform = 'scale(1)', 200);
+                // Animate via Web Animations API for performance
+                p.animate([
+                    { transform: `translate(0,0) scale(${scale}) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate(${tx}px, ${ty}px) scale(0) rotate(${rot}deg)`, opacity: 0 }
+                ], {
+                    duration: 800 + Math.random()*400,
+                    easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                    fill: 'forwards'
+                });
+
+                setTimeout(() => p.remove(), 1200);
             }
-            lastTap = now;
+            
+            // Haptic Feedback
+            if(navigator.vibrate) navigator.vibrate(50);
+        }
+
+        function setupDoubleTap(container) {
+            let lastTap = 0;
+            container.addEventListener('click', (e) => {
+                const now = Date.now();
+                if (now - lastTap < 350) { // Valid Double Tap
+                    const heart = container.querySelector('.heart-pop');
+                    heart.classList.remove('active');
+                    void heart.offsetWidth; // Reflow
+                    heart.classList.add('active');
+                    
+                    spawnParticles(container);
+
+                    // Sync Like Button
+                    const btn = container.parentElement.querySelector('.btn-like');
+                    if(btn && btn.classList.contains('fa-regular')) {
+                        btn.className = 'fa-solid fa-heart btn-like liked';
+                    }
+                }
+                lastTap = now;
+            });
         }
 
         function toggleLike(btn) {
             if (btn.classList.contains('fa-regular')) {
-                btn.className = 'fa-solid fa-heart btn-like';
-                btn.style.color = 'var(--heart-base)';
+                btn.className = 'fa-solid fa-heart btn-like liked';
+                if(navigator.vibrate) navigator.vibrate(20);
             } else {
                 btn.className = 'fa-regular fa-heart btn-like';
-                btn.style.color = 'var(--text-primary)';
             }
         }
 
-        function openDetail(idx) {
-            const data = (typeof portfolioData !== 'undefined' ? portfolioData : window.portfolioData).thoughts[idx];
-            document.getElementById('detail-text').innerText = data.text;
-            document.getElementById('detail-view').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        // 6. Native Share Integration
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        function shareToNetwork(id) {
+            const link = `${window.location.origin}${window.location.pathname}?id=${id}`;
+            const title = 'IstiGram Post';
+            
+            // Try Native Web Share API first (Super Premium UX on Mobile)
+            if (navigator.share) {
+                navigator.share({ title: title, url: link })
+                .catch(() => copyLinkFallback(link));
+            } else {
+                copyLinkFallback(link);
+            }
+        }
+
+        function copyLinkFallback(link) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(link).then(() => showToast('Link copied to clipboard!')).catch(() => copyOldSchool(link));
+            } else {
+                copyOldSchool(link);
+            }
+        }
+
+        function copyOldSchool(text) {
+            const ta = document.createElement("textarea");
+            ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); showToast('Link copied to clipboard!'); } 
+            catch (e) { showToast('Unable to copy link.'); } 
+            finally { ta.remove(); }
+        }
+
+        // 7. Fullscreen Modal Engine
+        function openDetail(id) {
+            const data = typeof portfolioData !== 'undefined' ? portfolioData : window.portfolioData;
+            const post = data.thoughts.find(p => String(p.id) === String(id) || String(data.thoughts.indexOf(p)) === String(id));
+            if(post) {
+                document.getElementById('detail-text').innerText = post.text;
+                const modal = document.getElementById('detail-view');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                if(navigator.vibrate) navigator.vibrate(10);
+            }
         }
 
         function closeDetail() {
-            document.getElementById('detail-view').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            document.getElementById('detail-view').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        window.addEventListener('load', findData);
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if(window.scrollY > 50 && window.innerWidth < 1024) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        }, { passive: true });
+
+        // Ignite the Engine
+        window.addEventListener('DOMContentLoaded', initEngine);
     </script>
 </body>
 </html>
+
 
