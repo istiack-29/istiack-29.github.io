@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Istiack — Academic Record</title>
+<meta name="description" content="A live, verified academic record — PSC through Masters and beyond — with performance charts and a downloadable academic status report.">
+<meta name="theme-color" content="#1B2A45">
+<meta name="color-scheme" content="light">
+
+<!-- =====================================================================
+     ASSET REQUIREMENTS — place these three files next to this index.html
+     1) profile.png  → used as favicon, hero photo and PDF report photo
+     2) as.png       → used as the Open Graph / social-share image
+     3) B2.ttf       → the required print/PDF font (Bangla-capable)
+     ===================================================================== -->
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/profile.png">
+<link rel="apple-touch-icon" href="/profile.png">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Istiack — Academic Record">
+<meta property="og:description" content="A live, verified academic record — PSC through Masters and beyond.">
+<meta property="og:image" content="as.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Istiack — Academic Record">
+<meta name="twitter:image" content="as.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   0. PRINT FONT — required to be B2.ttf for any printed / downloaded output
+   ========================================================================== */
+@font-face {
+  font-family: 'B2';
+  src: url('B2.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   1. TOKENS — design system
+   ========================================================================== */
+:root{
+  /* -- Registry-ledger palette -------------------------------------------- */
+  --ink:        #1B2A45;   /* primary text / headline ink */
+  --ink-soft:   #4B5768;   /* secondary text */
+  --ink-faint:  #8893A1;   /* tertiary / placeholder text */
+
+  --paper:      #ECEFE5;   /* page background — cool sage "registry paper" */
+  --paper-deep: #E1E5D7;   /* deeper paper tone for nested surfaces */
+  --card:       #FBFAF5;   /* card surface, slightly warmer than paper */
+  --white:      #FFFFFF;
+
+  --line:       #D6DAC8;   /* hairline rule */
+  --line-soft:  #E4E7DB;
+
+  --brass:      #9C7A3C;   /* seal / accent / primary action */
+  --brass-deep: #7C5F2C;
+  --brass-soft: #E7DAB9;
+
+  --green:      #3F6B4F;   /* "verified / pass" */
+  --green-soft: #DCE8DE;
+
+  --red:        #9A3B34;   /* "remarks / attention" */
+  --red-soft:   #F1DEDB;
+
+  --amber:      #C07830;
+  --sage:       #6B8F5E;
+
+  --shadow-1: 0 1px 2px rgba(27,42,69,0.06);
+  --shadow-2: 0 6px 18px rgba(27,42,69,0.10);
+  --shadow-3: 0 16px 40px rgba(27,42,69,0.16);
+
+  /* -- Type ---------------------------------------------------------------- */
+  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-body:    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'IBM Plex Mono', 'SF Mono', 'Courier New', monospace;
+
+  /* -- Layout ---------------------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --container: 1080px;
+  --gutter: clamp(20px, 5vw, 56px);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+/* ==========================================================================
+   2. RESET / BASE
+   ========================================================================== */
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; }
+h1,h2,h3,p{ margin:0; }
+ul{ margin:0; padding:0; list-style:none; }
+table{ border-collapse:collapse; width:100%; }
+
+:focus-visible{ outline:2px solid var(--brass); outline-offset:3px; border-radius:4px; }
+
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+.hidden{ display:none !important; }
+
+/* Faint dotted "graph paper" texture behind the whole page */
+.bg-texture{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:
+    radial-gradient(var(--line) 1px, transparent 1px);
+  background-size:26px 26px;
+  opacity:.45;
+}
+
+/* ==========================================================================
+   3. SITE HEADER
+   ========================================================================== */
+.site-header{
+  position:sticky; top:0; z-index:40;
+  background:rgba(236,239,229,0.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.site-header__inner{
+  max-width:var(--container); margin:0 auto;
+  padding:14px var(--gutter);
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand__mark{
+  width:30px; height:30px; border-radius:7px;
+  background:var(--ink); color:var(--brass-soft);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:15px;
+  border:1px solid var(--brass);
+}
+.brand__name{
+  font-family:var(--font-display); font-weight:600; font-size:17px; letter-spacing:.2px;
+}
+.site-nav{ display:flex; align-items:center; gap:18px; }
+.sync-chip{
+  display:flex; align-items:center; gap:7px;
+  font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);
+  letter-spacing:.02em;
+}
+.sync-dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--ink-faint);
+  box-shadow:0 0 0 0 rgba(63,107,79,0.5);
+}
+.sync-dot.is-live{
+  background:var(--green);
+  animation:pulse-dot 2.4s var(--ease) infinite;
+}
+.sync-dot.is-error{ background:var(--red); animation:none; }
+@keyframes pulse-dot{
+  0%{ box-shadow:0 0 0 0 rgba(63,107,79,0.45); }
+  70%{ box-shadow:0 0 0 6px rgba(63,107,79,0); }
+  100%{ box-shadow:0 0 0 0 rgba(63,107,79,0); }
+}
+.site-nav__link{
+  font-size:13px; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+  padding:8px 14px; border:1px solid var(--ink); border-radius:999px;
+  transition:background .18s var(--ease), color .18s var(--ease);
+}
+.site-nav__link:hover{ background:var(--ink); color:var(--card); }
+
+/* ==========================================================================
+   4. HERO
+   ========================================================================== */
+.hero{ padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,64px); }
+.hero__inner{
+  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(28px,5vw,56px);
+  align-items:center;
+}
+.hero__photo-block{ position:relative; justify-self:start; }
+.hero__photo-frame{
+  position:relative; width:clamp(120px,18vw,168px); height:clamp(120px,18vw,168px);
+  border-radius:var(--radius-lg);
+  border:3px solid var(--ink);
+  background:var(--card);
+  box-shadow:var(--shadow-3), 0 0 0 6px var(--paper), 0 0 0 7px var(--line);
+  overflow:hidden;
+  animation:rise .7s var(--ease) both;
+}
+.hero__photo{
+  width:100%; height:100%; object-fit:cover; object-position:center;
+}
+.hero__seal{
+  position:absolute; top:-22px; right:-30px;
+  width:78px; height:78px;
+  filter:drop-shadow(0 4px 8px rgba(27,42,69,.25));
+  animation:seal-in .8s .25s var(--ease) both;
+}
+@keyframes seal-in{
+  from{ opacity:0; transform:scale(.5) rotate(-26deg); }
+  to{ opacity:1; transform:scale(1) rotate(-12deg); }
+}
+.hero__copy{ animation:rise .7s .1s var(--ease) both; }
+.hero__eyebrow{
+  font-family:var(--font-mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--brass-deep); font-weight:600; margin:0 0 10px;
+}
+.hero__name{
+  font-family:var(--font-display); font-weight:700;
+  font-size:clamp(34px,6vw,58px); line-height:1.04; letter-spacing:-.01em;
+  color:var(--ink);
+}
+.hero__tagline{
+  margin-top:14px; max-width:46ch;
+  color:var(--ink-soft); font-size:clamp(15px,2vw,17px);
+}
+.hero__url{
+  margin-top:18px; display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:13px; color:var(--ink-soft);
+  padding:6px 12px; border:1px dashed var(--line); border-radius:999px; background:var(--card);
+}
+.hero__url-label{
+  text-transform:uppercase; letter-spacing:.08em; font-size:10.5px; color:var(--ink-faint);
+}
+#heroUrl{ color:var(--ink); font-weight:600; }
+
+@keyframes rise{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+@media (max-width:720px){
+  .hero__inner{ grid-template-columns:1fr; text-align:center; }
+  .hero__photo-block{ justify-self:center; }
+  .hero__tagline{ margin-inline:auto; }
+}
+
+/* ==========================================================================
+   5. SECTION HEAD (shared)
+   ========================================================================== */
+.section-head{
+  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
+  margin-bottom:28px;
+}
+.section-eyebrow{
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--brass-deep); font-weight:600; margin:0 0 8px;
+}
+.section-title{
+  font-family:var(--font-display); font-weight:600; font-size:clamp(24px,3.4vw,32px);
+  color:var(--ink);
+}
+
+/* ==========================================================================
+   6. STATS
+   ========================================================================== */
+.stats{ padding:8px 0 clamp(32px,5vw,56px); }
+.stats__inner{
+  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
+  display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+}
+@media (max-width:880px){ .stats__inner{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px){ .stats__inner{ grid-template-columns:1fr; } }
+
+.stat-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:20px 20px 18px; box-shadow:var(--shadow-1);
+  position:relative; overflow:hidden;
+  opacity:0; transform:translateY(16px);
+}
+.stat-card.is-visible{
+  animation:rise .55s var(--ease) both;
+}
+.stat-card::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--brass);
+}
+.stat-card__label{
+  font-family:var(--font-mono); font-size:11.5px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:10px;
+}
+.stat-card__value{
+  font-family:var(--font-display); font-weight:600; font-size:24px; color:var(--ink); line-height:1.2;
+}
+.stat-card__sub{
+  margin-top:6px; font-size:13px; color:var(--ink-soft); font-family:var(--font-mono);
+}
+
+/* skeleton shimmer */
+.skel{
+  background:linear-gradient(100deg, var(--line-soft) 30%, var(--paper-deep) 50%, var(--line-soft) 70%);
+  background-size:200% 100%;
+  animation:shimmer 1.4s linear infinite;
+  border-radius:6px;
+}
+@keyframes shimmer{ from{ background-position:120% 0; } to{ background-position:-20% 0; } }
+.skel-text{ height:14px; width:70%; }
+.skel-block{ height:100%; width:100%; }
+
+/* ==========================================================================
+   7. CHARTS
+   ========================================================================== */
+.charts-section{ padding:0 0 clamp(40px,6vw,64px); }
+.charts-grid{
+  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
+  display:grid; grid-template-columns:repeat(2,1fr); gap:18px;
+}
+@media (max-width:760px){ .charts-grid{ grid-template-columns:1fr; } }
+
+.chart-panel{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:18px 18px 14px; box-shadow:var(--shadow-1);
+  opacity:0; transform:translateY(16px);
+}
+.chart-panel.is-visible{ animation:rise .55s var(--ease) both; }
+.chart-panel__canvas-wrap{ position:relative; height:240px; }
+.chart-panel__cap{
+  margin-top:10px; padding-top:10px; border-top:1px dashed var(--line);
+  font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); letter-spacing:.01em;
+}
+.chart-panel__cap b{ color:var(--ink); font-weight:600; }
+
+/* ==========================================================================
+   8. LEDGER (table) — id="academic-details"
+   ========================================================================== */
+.ledger-section{ padding:0 0 clamp(56px,7vw,90px); }
+.ledger-toolbar{
+  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.verify-chip{
+  display:flex; align-items:center; gap:10px;
+  background:var(--card); border:1px solid var(--line); border-radius:999px;
+  padding:6px 14px 6px 6px;
+}
+.verify-chip img{ width:34px; height:34px; border-radius:6px; border:1px solid var(--line); }
+.verify-chip__text{ font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); }
+.verify-chip__text b{ color:var(--ink); display:block; font-size:12.5px; }
+.copy-btn{
+  border:none; background:transparent; color:var(--brass-deep); font-size:11.5px; font-weight:700;
+  letter-spacing:.04em; text-transform:uppercase; cursor:pointer; padding:4px 8px; border-radius:6px;
+}
+.copy-btn:hover{ background:var(--brass-soft); }
+
+.btn{
+  font-family:var(--font-body); font-weight:600; font-size:14.5px;
+  padding:13px 22px; border-radius:999px; cursor:pointer; border:1px solid transparent;
+  display:inline-flex; align-items:center; gap:9px;
+  transition:transform .15s var(--ease), box-shadow .15s var(--ease), background .15s var(--ease);
+}
+.btn--primary{
+  background:var(--ink); color:var(--card); box-shadow:var(--shadow-2);
+}
+.btn--primary:hover{ transform:translateY(-2px); box-shadow:var(--shadow-3); }
+.btn--primary:active{ transform:translateY(0) scale(.97); box-shadow:var(--shadow-1); }
+.btn--primary:disabled{ opacity:.6; cursor:wait; transform:none; box-shadow:var(--shadow-1); }
+.btn__icon{ font-size:16px; line-height:1; }
+
+.banner{
+  max-width:var(--container); margin:0 auto 16px; padding:0 var(--gutter);
+}
+.banner__box{
+  display:flex; align-items:flex-start; gap:10px;
+  border-radius:var(--radius-sm); padding:12px 16px; font-size:13.5px;
+  border:1px solid var(--line);
+}
+.banner--error .banner__box{ background:var(--red-soft); border-color:#d8b6b2; color:#5e2722; }
+.banner--info .banner__box{ background:var(--green-soft); border-color:#bcd3c2; color:#2c4a37; }
+
+.ledger-table-wrap{
+  max-width:var(--container); margin:0 auto; padding:0 var(--gutter);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.ledger-table{
+  min-width:840px;
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius-md);
+  overflow:hidden;
+}
+.ledger-table thead th{
+  text-align:left; font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:600; padding:14px 16px; background:var(--paper-deep);
+  border-bottom:1px solid var(--line);
+}
+.ledger-table tbody td{
+  padding:14px 16px; font-size:14.5px; color:var(--ink); border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.ledger-table tbody tr.row-main:hover td{ background:var(--paper-deep); }
+.ledger-table td.col-idx{ font-family:var(--font-mono); color:var(--ink-faint); width:36px; }
+.ledger-table td.col-level{ font-weight:700; font-family:var(--font-display); }
+.ledger-table td.col-result{ font-family:var(--font-mono); font-weight:600; white-space:nowrap; }
+.ledger-table td.col-year{ font-family:var(--font-mono); }
+.row-remark td{ padding:0 16px 14px 52px; border-bottom:1px solid var(--line-soft); }
+.row-remark p{
+  font-size:13px; font-style:italic; color:var(--ink-soft);
+  border-left:2px solid var(--brass-soft); padding-left:10px;
+}
+
+.badge{
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.03em;
+  padding:4px 9px; border-radius:999px; text-transform:uppercase; white-space:nowrap;
+}
+.badge--current{ background:var(--brass-soft); color:var(--brass-deep); }
+.badge--done{ background:var(--green-soft); color:#2c4a37; }
+.badge--band-outstanding{ background:var(--green-soft); color:#2c4a37; }
+.badge--band-excellent{ background:#e3ecdc; color:#3e5a32; }
+.badge--band-verygood{ background:var(--brass-soft); color:var(--brass-deep); }
+.badge--band-good{ background:#f3e3cd; color:#7a4f17; }
+.badge--band-needsimprovement{ background:var(--red-soft); color:#7a2c26; }
+
+.empty-state{
+  max-width:var(--container); margin:18px auto 0; padding:40px var(--gutter);
+  text-align:center; color:var(--ink-soft); font-size:15px;
+  background:var(--card); border:1px dashed var(--line); border-radius:var(--radius-md);
+}
+
+/* ==========================================================================
+   9. FOOTER
+   ========================================================================== */
+.site-footer{
+  border-top:1px solid var(--line);
+  padding:26px var(--gutter) 40px;
+  text-align:center;
+  font-size:13px; color:var(--ink-faint);
+}
+
+/* ==========================================================================
+   10. LOADING OVERLAY (used during PDF generation)
+   ========================================================================== */
+.loading-overlay{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(27,42,69,0.55);
+  display:flex; align-items:center; justify-content:center;
+  backdrop-filter:blur(2px);
+}
+.loading-overlay__box{
+  background:var(--card); border-radius:var(--radius-md); padding:28px 34px;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  box-shadow:var(--shadow-3); max-width:300px; text-align:center;
+}
+.spinner{
+  width:34px; height:34px; border-radius:50%;
+  border:3px solid var(--line); border-top-color:var(--brass);
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.loading-overlay__box p{ font-size:13.5px; color:var(--ink-soft); }
+
+/* ==========================================================================
+   11. OFF-SCREEN PRINT TEMPLATE (captured by html2canvas → jsPDF)
+   This block intentionally uses literal hex colors (not CSS vars) and mm
+   units for maximum fidelity inside the rasterized canvas capture.
+   ========================================================================== */
+#print-template{
+  position:fixed;
+  left:-99999px;
+  top:0;
+  width:210mm;
+  background:#FFFFFF;
+  color:#1B2A45;
+  font-family:'B2','IBM Plex Sans',sans-serif;
+  padding:14mm 15mm 12mm;
+  box-sizing:border-box;
+}
+#print-template *{ box-sizing:border-box; }
+.pt-header{ display:flex; justify-content:space-between; align-items:flex-start; gap:14mm; }
+.pt-header-left{ display:flex; gap:6mm; align-items:flex-start; }
+.pt-photo{
+  width:26mm; height:26mm; object-fit:cover; border-radius:3mm; border:1.2pt solid #1B2A45;
+}
+.pt-name{ font-size:20pt; font-weight:700; color:#1B2A45; }
+.pt-role{ font-size:10pt; color:#9C7A3C; letter-spacing:.04em; text-transform:uppercase; margin-top:1.5mm; font-weight:700;}
+.pt-url{ font-size:9.5pt; color:#4B5768; margin-top:2.5mm; }
+.pt-header-right{ text-align:center; flex-shrink:0; }
+.pt-qr{ width:26mm; height:26mm; border:1pt solid #D6DAC8; padding:1mm; background:#fff; }
+.pt-qr-cap{ font-size:7.5pt; color:#8893A1; margin-top:1.5mm; max-width:26mm; }
+.pt-meta-row{
+  display:flex; justify-content:space-between; margin-top:6mm; font-size:9pt; color:#4B5768;
+}
+.pt-rule{ border:none; border-top:1pt dashed #9C7A3C; margin:4mm 0 6mm; }
+.pt-stats{ display:flex; gap:5mm; margin-bottom:7mm; }
+.pt-stat{ flex:1; border:1pt solid #D6DAC8; border-radius:2mm; padding:3mm 3.5mm; }
+.pt-stat-label{ font-size:7.5pt; letter-spacing:.05em; text-transform:uppercase; color:#8893A1; margin-bottom:1.5mm; }
+.pt-stat-value{ font-size:13pt; font-weight:700; color:#1B2A45; }
+.pt-section-title{
+  font-size:13pt; font-weight:700; color:#1B2A45; margin:5mm 0 3mm;
+  border-bottom:1.4pt solid #1B2A45; padding-bottom:1.5mm;
+}
+.pt-charts-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4mm; margin-bottom:6mm; }
+.pt-chart{ border:1pt solid #D6DAC8; border-radius:2mm; padding:2.5mm; background:#fff; }
+.pt-chart img{ width:100%; display:block; }
+.pt-chart-cap{ font-size:8pt; color:#4B5768; text-align:center; margin-top:1.5mm; }
+.pt-table{ width:100%; border-collapse:collapse; font-size:8.6pt; margin-bottom:5mm; }
+.pt-table th{
+  text-align:left; background:#ECEFE5; color:#4B5768; font-size:7.4pt; letter-spacing:.04em;
+  text-transform:uppercase; padding:2.2mm 2.4mm; border:0.6pt solid #D6DAC8;
+}
+.pt-table td{ padding:2.2mm 2.4mm; border:0.6pt solid #D6DAC8; vertical-align:top; }
+.pt-table td.pt-num{ font-family:'B2','IBM Plex Mono',monospace; }
+.pt-remark{ font-size:7.8pt; font-style:italic; color:#4B5768; }
+.pt-footer{
+  display:flex; justify-content:space-between; font-size:7.6pt; color:#8893A1;
+  border-top:0.6pt solid #D6DAC8; padding-top:2.5mm; margin-top:4mm;
+}
+.pt-badge{
+  display:inline-block; font-size:7.4pt; font-weight:700; padding:0.6mm 2mm; border-radius:3mm;
+  text-transform:uppercase;
+}
+
+/* ==========================================================================
+   12. NATIVE BROWSER PRINT FALLBACK (Ctrl+P) — courtesy support
+   ========================================================================== */
+@media print{
+  @page{ size:A4; margin:12mm; }
+  .site-header, .loading-overlay, .skel, .no-print, .ledger-toolbar .btn, .copy-btn{
+    display:none !important;
+  }
+  body{ background:#fff; }
+  .bg-texture{ display:none; }
+  *{ font-family:'B2','IBM Plex Sans',sans-serif !important; }
+  .hero, .stats__inner, .charts-grid, .ledger-table-wrap{ break-inside:avoid; }
+  .stat-card, .chart-panel{ box-shadow:none !important; opacity:1 !important; transform:none !important; }
+}
+</style>
+</head>
+<body>
+
+<noscript>
+  <div style="padding:40px;font-family:sans-serif;text-align:center;">
+    This page needs JavaScript enabled to load and display the academic record.
+  </div>
+</noscript>
+
+<div class="bg-texture" aria-hidden="true"></div>
+
+<!-- ================================ HEADER ================================ -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" id="brandMark">I</span>
+      <span class="brand__name" id="brandName">Istiack</span>
+    </a>
+    <nav class="site-nav">
+      <span class="sync-chip" id="syncChip" role="status" aria-live="polite">
+        <span class="sync-dot" id="syncDot"></span>
+        <span id="syncText">Connecting…</span>
+      </span>
+      <a class="site-nav__link" href="#academic-details">Ledger ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================================ HERO ================================ -->
+  <section class="hero" aria-labelledby="heroName">
+    <div class="hero__inner">
+      <div class="hero__photo-block">
+        <div class="hero__photo-frame">
+          <img src="/profile.png" alt="" class="hero__photo" id="heroPhoto">
+        </div>
+        <svg class="hero__seal" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <path id="sealCirclePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
+          </defs>
+          <circle cx="50" cy="50" r="46" fill="#FBFAF5" stroke="#9C7A3C" stroke-width="2"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#9C7A3C" stroke-width="1" stroke-dasharray="2 3"/>
+          <text font-size="7.6" font-family="IBM Plex Mono, monospace" fill="#7C5F2C" font-weight="700" letter-spacing="1.5">
+            <textPath href="#sealCirclePath" startOffset="2%">VERIFIED ACADEMIC RECORD • LIVE DATA •</textPath>
+          </text>
+          <g transform="translate(50,50)">
+            <path d="M0,-13 L4,-3 L14,-3 L6,3 L9,13 L0,7 L-9,13 L-6,3 L-14,-3 L-4,-3 Z" fill="#9C7A3C"/>
+          </g>
+        </svg>
+      </div>
+      <div class="hero__copy">
+        <p class="hero__eyebrow">Academic Record · Live &amp; Verified</p>
+        <h1 class="hero__name" id="heroName">Istiack</h1>
+        <p class="hero__tagline">A live, verifiable record of every examination and degree — from primary school to the present, synced directly from a private academic registry.</p>
+        <p class="hero__url"><span class="hero__url-label">Source</span><span id="heroUrl">yourdomain.com</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================ STATS ================================ -->
+  <section class="stats" aria-label="Summary statistics">
+    <div class="stats__inner" id="statsGrid">
+      <!-- populated by JS; skeletons shown until data arrives -->
+      <div class="stat-card"><div class="stat-card__label">Qualifications Tracked</div><div class="skel skel-text" style="height:24px;width:50%;"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Currently Pursuing</div><div class="skel skel-text" style="height:24px;width:60%;"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Highest Performance</div><div class="skel skel-text" style="height:24px;width:70%;"></div></div>
+      <div class="stat-card"><div class="stat-card__label">Average Performance</div><div class="skel skel-text" style="height:24px;width:45%;"></div></div>
+    </div>
+  </section>
+
+  <!-- ================================ CHARTS ================================ -->
+  <section class="charts-section" id="charts">
+    <div class="section-head">
+      <p class="section-eyebrow">Visual Summary</p>
+      <h2 class="section-title">Performance at a Glance</h2>
+    </div>
+    <div class="charts-grid" id="chartsGrid">
+      <div class="chart-panel" id="panelTrend">
+        <div class="chart-panel__canvas-wrap"><canvas id="trendChart"></canvas></div>
+        <p class="chart-panel__cap"><b>Fig. 1</b> — Performance trend across exam years, normalised to a 0–100% scale.</p>
+      </div>
+      <div class="chart-panel" id="panelMix">
+        <div class="chart-panel__canvas-wrap"><canvas id="mixChart"></canvas></div>
+        <p class="chart-panel__cap"><b>Fig. 2</b> — Distribution of results by performance band.</p>
+      </div>
+      <div class="chart-panel" id="panelBar">
+        <div class="chart-panel__canvas-wrap"><canvas id="comparisonChart"></canvas></div>
+        <p class="chart-panel__cap"><b>Fig. 3</b> — Level-by-level comparison, oldest to most recent.</p>
+      </div>
+      <div class="chart-panel" id="panelRadar">
+        <div class="chart-panel__canvas-wrap"><canvas id="radarChart"></canvas></div>
+        <p class="chart-panel__cap"><b>Fig. 4</b> — Overall academic shape across every completed level.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================ LEDGER ================================ -->
+  <section class="ledger-section" id="academic-details">
+    <div class="section-head">
+      <p class="section-eyebrow">Full History</p>
+      <h2 class="section-title">Academic Ledger</h2>
+    </div>
+
+    <div class="ledger-toolbar">
+      <div class="verify-chip">
+        <img id="verifyQr" src="" alt="QR code linking to this academic record" width="34" height="34">
+        <div class="verify-chip__text">
+          <b id="verifyUrlText">yourdomain.com/#academic-details</b>
+          Scan or copy to verify online
+        </div>
+        <button class="copy-btn" id="copyLinkBtn" type="button">Copy</button>
+      </div>
+      <button class="btn btn--primary" id="downloadBtn" type="button">
+        <span class="btn__icon">⬇</span> Download Academic Status
+      </button>
+    </div>
+
+    <div id="bannerSlot"></div>
+
+    <div class="ledger-table-wrap">
+      <table class="ledger-table" id="ledgerTable">
+        <thead>
+          <tr>
+            <th>#</th><th>Level</th><th>Institution</th><th>Department</th>
+            <th>Board</th><th>Year</th><th>Result</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ledgerBody">
+          <tr><td colspan="8"><div class="skel skel-text" style="height:18px;width:100%;"></div></td></tr>
+          <tr><td colspan="8"><div class="skel skel-text" style="height:18px;width:100%;"></div></td></tr>
+          <tr><td colspan="8"><div class="skel skel-text" style="height:18px;width:100%;"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="emptyState" class="empty-state hidden">No academic records found yet. Once records are added to the registry, they will appear here automatically.</div>
+  </section>
+
+</main>
+
+<!-- ================================ FOOTER ================================ -->
+<footer class="site-footer">
+  <p>© <span id="footerYear"></span> <span id="footerName">Istiack</span>. Academic data synced live from a private registry.</p>
+</footer>
+
+<!-- ============================ LOADING OVERLAY ============================ -->
+<div class="loading-overlay hidden" id="loadingOverlay" role="status" aria-live="assertive">
+  <div class="loading-overlay__box">
+    <div class="spinner" aria-hidden="true"></div>
+    <p id="loadingText">Preparing your academic status report…</p>
+  </div>
+</div>
+
+<!-- ============================ THIRD-PARTY LIBRARIES ============================ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+<script>
+'use strict';
+
+/* ==========================================================================
+   CONFIG — edit these to match your own deployment
+   ========================================================================== */
+const CONFIG = {
+  SUPABASE_URL: 'https://aqkeowuypcnavpuhyiuu.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxa2Vvd3V5cGNuYXZwdWh5aXV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4OTY3OTgsImV4cCI6MjA5MTQ3Mjc5OH0.dDVSlMfmNFo2avZ3WkIlA5wBuZxBQWxqrr-yj2eldQk',
+  TABLE_NAME: 'academic_records',
+
+  // Leave blank to show every row in the table. Set to your auth.users UUID
+  // if this table might ever contain more than one person's records — and
+  // also restrict this at the database (RLS) level for real security.
+  OWNER_USER_ID: '',
+
+  // EDIT ME — shown as the page name everywhere
+  OWNER_NAME: 'Istiack',
+
+  PROFILE_IMAGE: 'profile.png',
+
+  TIME_API_PRIMARY: 'https://worldtimeapi.org/api/timezone/Etc/UTC',
+  TIME_API_FALLBACK: 'https://timeapi.io/api/Time/current/zone?timeZone=Etc/UTC'
+};
+
+/* ==========================================================================
+   LEVEL NORMALISATION
+   Only these milestone levels are ever shown, regardless of what other
+   class-level rows might exist in the table (e.g. "Class 3", "Class 6").
+   To support a brand-new post-Masters qualification, add a token below.
+   ========================================================================== */
+const LEVEL_RULES = [
+  { key:'PSC',      label:'PSC',      order:1, tokens:['psc'] },
+  { key:'JSC',       label:'JSC',      order:2, tokens:['jsc','class8','classviii','8thclass'] },
+  { key:'SSC',       label:'SSC',      order:3, tokens:['ssc','class10','classx','10thclass'] },
+  { key:'HSC',       label:'HSC',      order:4, tokens:['hsc','class12','classxii','12thclass','intermediate'] },
+  { key:'HONOURS',   label:'Honours',  order:5, tokens:['honours','honors','bachelor','bachelors','bsc','ba','bba','bcom','beng','btech','bed','llb','mbbs','undergraduate','undergrad'] },
+  { key:'MASTERS',   label:'Masters',  order:6, tokens:['masters','master','msc','ma','mba','mcom','meng','mtech','med','llm','postgraduate','postgrad'] },
+  { key:'POSTGRAD',  label:null,       order:7, tokens:['phd','doctorate','doctoral','mphil','postdoc','postdoctoral','fellowship','dlitt','dsc','dphil'] }
+];
+
+const BAND_COLORS = {
+  'Outstanding':        '#3F6B4F',
+  'Excellent':           '#6B8F5E',
+  'Very Good':           '#9C7A3C',
+  'Good':                '#C07830',
+  'Needs Improvement':   '#9A3B34'
+};
+const BAND_ORDER = ['Outstanding','Excellent','Very Good','Good','Needs Improvement'];
+
+/* ==========================================================================
+   STATE
+   ========================================================================== */
+let allRecords = [];     // normalised + filtered + sorted
+let charts = { trend:null, mix:null, bar:null, radar:null };
+let b2FontReady = null;
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+function normToken(s){
+  return String(s == null ? '' : s).toLowerCase().replace(/[^a-z0-9]/g,'');
+}
+
+function getCanonicalLevel(raw){
+  const token = normToken(raw);
+  if (!token) return null;
+  for (const rule of LEVEL_RULES){
+    if (rule.tokens.indexOf(token) !== -1){
+      return { key: rule.key, label: rule.label || String(raw).trim(), order: rule.order };
+    }
+  }
+  return null;
+}
+
+function escapeHtml(str){
+  return String(str == null ? '' : str).replace(/[&<>"']/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+  });
+}
+
+function toNum(v){
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function gradeBand(pct){
+  if (pct >= 90) return 'Outstanding';
+  if (pct >= 80) return 'Excellent';
+  if (pct >= 70) return 'Very Good';
+  if (pct >= 60) return 'Good';
+  return 'Needs Improvement';
+}
+
+function bandClass(band){
+  return 'badge--band-' + band.toLowerCase().replace(/\s+/g,'');
+}
+
+function formatResult(r){
+  if (r.is_current){
+    return (r.result_type || 'GPA') + ' result not gotten';
+  }
+  const v = toNum(r.result_value);
+  return (v == null ? '—' : v.toFixed(2)) + ' ' + r.result_type;
+}
+
+function getDisplayDomain(){
+  const host = window.location.hostname;
+  return host ? host : 'yourdomain.com';
+}
+
+function getVerifyUrl(){
+  const proto = (window.location.protocol === 'http:') ? 'http:' : 'https:';
+  const host = window.location.hostname || 'yourdomain.com';
+  const port = (window.location.port && ['80','443',''].indexOf(window.location.port) === -1) ? (':' + window.location.port) : '';
+  return proto + '//' + host + port + '/#academic-details';
+}
+
+/* ==========================================================================
+   DATA LAYER — Supabase
+   ========================================================================== */
+async function fetchAcademicRecords(){
+  if (!window.supabase || typeof window.supabase.createClient !== 'function'){
+    throw new Error('Supabase client library failed to load.');
+  }
+  const client = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+  let query = client.from(CONFIG.TABLE_NAME).select('*');
+  if (CONFIG.OWNER_USER_ID){
+    query = query.eq('user_id', CONFIG.OWNER_USER_ID);
+  }
+  const { data, error } = await query;
+  if (error) throw error;
+  return data || [];
+}
+
+function normalizeAndFilter(rawRows){
+  const out = [];
+  for (const row of rawRows){
+    const canon = getCanonicalLevel(row.level);
+    if (!canon) continue; // strictly excludes Class 3/6/7/9/11 and anything unrecognised
+    const isCurrent = !!row.is_current;
+    const value = toNum(row.result_value);
+    const pct = (isCurrent || value == null) ? null :
+      (row.result_type === 'GPA' ? (value/5*100) : (value/4*100));
+    out.push(Object.assign({}, row, {
+      _levelKey: canon.key,
+      _levelLabel: canon.label,
+      _order: canon.order,
+      _pct: pct,
+      is_current: isCurrent
+    }));
+  }
+  out.sort(function(a,b){
+    if (b.exam_year !== a.exam_year) return b.exam_year - a.exam_year;
+    if (b._order !== a._order) return b._order - a._order;
+    return new Date(b.created_at || 0) - new Date(a.created_at || 0);
+  });
+  return out;
+}
+
+function computeStats(records){
+  const completed = records.filter(function(r){ return !r.is_current && r._pct != null; });
+  const current = records.find(function(r){ return r.is_current; });
+  let highest = null, sum = 0;
+  completed.forEach(function(r){
+    if (!highest || r._pct > highest._pct) highest = r;
+    sum += r._pct;
+  });
+  return {
+    total: records.length,
+    currentLabel: current ? current._levelLabel : '—',
+    highest: highest,
+    avgPct: completed.length ? (sum/completed.length) : null,
+    completedCount: completed.length
+  };
+}
+
+/* ==========================================================================
+   RENDER — Stats
+   ========================================================================== */
+function renderStats(stats){
+  const grid = document.getElementById('statsGrid');
+  const cards = [
+    {
+      label:'Qualifications Tracked',
+      value:String(stats.total),
+      sub: stats.total === 1 ? '1 milestone on record' : (stats.total + ' milestones on record')
+    },
+    {
+      label:'Currently Pursuing',
+      value: stats.currentLabel,
+      sub: stats.currentLabel === '—' ? 'No level currently in progress' : 'Result not yet declared'
+    },
+    {
+      label:'Highest Performance',
+      value: stats.highest ? (stats.highest._pct.toFixed(1) + '%') : '—',
+      sub: stats.highest ? (stats.highest._levelLabel + ' · ' + formatResult(stats.highest)) : 'No completed results yet'
+    },
+    {
+      label:'Average Performance',
+      value: stats.avgPct != null ? (stats.avgPct.toFixed(1) + '%') : '—',
+      sub: stats.completedCount ? ('Across ' + stats.completedCount + ' completed level' + (stats.completedCount===1?'':'s')) : 'No completed results yet'
+    }
+  ];
+  grid.innerHTML = cards.map(function(c){
+    return '<div class="stat-card is-visible">' +
+      '<div class="stat-card__label">' + escapeHtml(c.label) + '</div>' +
+      '<div class="stat-card__value">' + escapeHtml(c.value) + '</div>' +
+      '<div class="stat-card__sub">' + escapeHtml(c.sub) + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ==========================================================================
+   RENDER — Table
+   ========================================================================== */
+function renderTable(records){
+  const tbody = document.getElementById('ledgerBody');
+  const emptyState = document.getElementById('emptyState');
+  const wrap = document.querySelector('.ledger-table-wrap');
+
+  if (!records.length){
+    tbody.innerHTML = '';
+    wrap.classList.add('hidden');
+    emptyState.classList.remove('hidden');
+    return;
+  }
+  wrap.classList.remove('hidden');
+  emptyState.classList.add('hidden');
+
+  let html = '';
+  records.forEach(function(r, i){
+    const statusBadge = r.is_current
+      ? '<span class="badge badge--current">Current</span>'
+      : '<span class="badge badge--done">Completed</span>'
+        + (r._pct != null ? ' <span class="badge ' + bandClass(gradeBand(r._pct)) + '">' + escapeHtml(gradeBand(r._pct)) + '</span>' : '');
+
+    html += '<tr class="row-main">' +
+      '<td class="col-idx">' + String(i+1).padStart(2,'0') + '</td>' +
+      '<td class="col-level">' + escapeHtml(r._levelLabel) + '</td>' +
+      '<td>' + escapeHtml(r.institution_name) + '</td>' +
+      '<td>' + (r.department ? escapeHtml(r.department) : '') + '</td>' +
+      '<td>' + (r.board ? escapeHtml(r.board) : '') + '</td>' +
+      '<td class="col-year">' + escapeHtml(r.exam_year) + '</td>' +
+      '<td class="col-result">' + escapeHtml(formatResult(r)) + '</td>' +
+      '<td>' + statusBadge + '</td>' +
+    '</tr>';
+
+    if (r.performance){
+      html += '<tr class="row-remark"><td colspan="8"><p>' + escapeHtml(r.performance) + '</p></td></tr>';
+    }
+  });
+  tbody.innerHTML = html;
+}
+
+/* ==========================================================================
+   RENDER — Charts
+   ========================================================================== */
+function uniqueAxisLabels(records){
+  const seen = {};
+  return records.map(function(r){
+    let label = r._levelLabel;
+    if (seen[label] !== undefined){
+      label = label + ' (' + r.exam_year + ')';
+    } else {
+      seen[label] = true;
+    }
+    return label;
+  });
+}
+
+function renderCharts(records){
+  const completedChrono = records
+    .filter(function(r){ return !r.is_current && r._pct != null; })
+    .slice()
+    .sort(function(a,b){ return a.exam_year - b.exam_year || a._order - b._order; });
+
+  renderTrendChart(completedChrono);
+  renderMixChart(completedChrono);
+  renderComparisonChart(completedChrono);
+  renderRadarChart(completedChrono);
+}
+
+function destroyChart(key){
+  if (charts[key]){ charts[key].destroy(); charts[key] = null; }
+}
+
+function renderTrendChart(rows){
+  destroyChart('trend');
+  const ctx = document.getElementById('trendChart');
+  const labels = rows.map(function(r){ return String(r.exam_year); });
+  const data = rows.map(function(r){ return Math.round(r._pct*10)/10; });
+  const pointColors = rows.map(function(r){ return BAND_COLORS[gradeBand(r._pct)]; });
+
+  charts.trend = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: labels,
+      datasets:[{
+        label:'Performance',
+        data:data,
+        borderColor:'#1B2A45',
+        backgroundColor:'rgba(156,122,60,0.14)',
+        borderWidth:2.4,
+        tension:0.35,
+        fill:true,
+        pointRadius:5,
+        pointHoverRadius:7,
+        pointBackgroundColor:pointColors,
+        pointBorderColor:'#FBFAF5',
+        pointBorderWidth:1.5
+      }]
+    },
+    options: baseChartOptions({
+      yMax:100,
+      tooltipExtra: function(ctxItem){
+        const r = rows[ctxItem.dataIndex];
+        return r._levelLabel + ' · ' + formatResult(r);
+      }
+    })
+  });
+}
+
+function renderMixChart(rows){
+  destroyChart('mix');
+  const ctx = document.getElementById('mixChart');
+  const counts = {};
+  rows.forEach(function(r){ const b = gradeBand(r._pct); counts[b] = (counts[b]||0)+1; });
+  const labels = BAND_ORDER.filter(function(b){ return counts[b]; });
+  const data = labels.map(function(b){ return counts[b]; });
+  const colors = labels.map(function(b){ return BAND_COLORS[b]; });
+
+  if (!labels.length){
+    charts.mix = new Chart(ctx, { type:'doughnut', data:{ labels:['No data'], datasets:[{ data:[1], backgroundColor:['#E4E7DB'] }] },
+      options:{ plugins:{ legend:{ display:false }, tooltip:{ enabled:false } } } });
+    return;
+  }
+
+  charts.mix = new Chart(ctx, {
+    type:'doughnut',
+    data:{ labels:labels, datasets:[{ data:data, backgroundColor:colors, borderColor:'#FBFAF5', borderWidth:2 }] },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      plugins:{
+        legend:{ position:'bottom', labels:{ font:{ family:"'IBM Plex Mono',monospace", size:11 }, color:'#4B5768', boxWidth:10, padding:12 } },
+        tooltip:{ callbacks:{ label: function(item){ return item.label + ': ' + item.raw + ' level' + (item.raw===1?'':'s'); } } }
+      }
+    }
+  });
+}
+
+function renderComparisonChart(rows){
+  destroyChart('bar');
+  const ctx = document.getElementById('comparisonChart');
+  const labels = uniqueAxisLabels(rows);
+  const data = rows.map(function(r){ return Math.round(r._pct*10)/10; });
+  const colors = rows.map(function(r){ return BAND_COLORS[gradeBand(r._pct)]; });
+
+  charts.bar = new Chart(ctx, {
+    type:'bar',
+    data:{ labels:labels, datasets:[{ label:'Performance', data:data, backgroundColor:colors, borderRadius:6, maxBarThickness:46 }] },
+    options: baseChartOptions({
+      yMax:100,
+      tooltipExtra: function(ctxItem){ return formatResult(rows[ctxItem.dataIndex]); }
+    })
+  });
+}
+
+function renderRadarChart(rows){
+  destroyChart('radar');
+  const ctx = document.getElementById('radarChart');
+  const labels = uniqueAxisLabels(rows);
+  const data = rows.map(function(r){ return Math.round(r._pct*10)/10; });
+
+  if (rows.length < 3){
+    charts.radar = new Chart(ctx, { type:'bar', data:{ labels:labels, datasets:[{ label:'Performance', data:data, backgroundColor:'#9C7A3C', borderRadius:6 }] },
+      options: baseChartOptions({ yMax:100 }) });
+    return;
+  }
+
+  charts.radar = new Chart(ctx, {
+    type:'radar',
+    data:{ labels:labels, datasets:[{
+      label:'Performance %', data:data,
+      borderColor:'#1B2A45', backgroundColor:'rgba(27,42,69,0.14)',
+      pointBackgroundColor:'#9C7A3C', pointBorderColor:'#FBFAF5', pointBorderWidth:1.5, pointRadius:4, borderWidth:2
+    }] },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label: function(item){ return item.formattedValue + '%'; } } } },
+      scales:{ r:{ min:0, max:100, ticks:{ stepSize:25, font:{ size:9, family:"'IBM Plex Mono',monospace" }, color:'#8893A1', backdropColor:'transparent' },
+        grid:{ color:'#E4E7DB' }, angleLines:{ color:'#E4E7DB' },
+        pointLabels:{ font:{ size:10.5, family:"'IBM Plex Sans',sans-serif" }, color:'#4B5768' } } }
+    }
+  });
+}
+
+function baseChartOptions(opts){
+  opts = opts || {};
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{ display:false },
+      tooltip:{
+        backgroundColor:'#1B2A45', titleFont:{ family:"'IBM Plex Sans',sans-serif", weight:'600' },
+        bodyFont:{ family:"'IBM Plex Mono',monospace", size:12 }, padding:10, cornerRadius:8,
+        callbacks:{
+          label: function(item){
+            const base = (item.formattedValue) + '%';
+            return opts.tooltipExtra ? (base + '  ·  ' + opts.tooltipExtra(item)) : base;
+          }
+        }
+      }
+    },
+    scales:{
+      x:{ grid:{ display:false }, ticks:{ font:{ family:"'IBM Plex Mono',monospace", size:11 }, color:'#4B5768' } },
+      y:{ min:0, max: opts.yMax || 100, grid:{ color:'#E4E7DB' },
+        ticks:{ callback:function(v){ return v+'%'; }, font:{ family:"'IBM Plex Mono',monospace", size:11 }, color:'#8893A1' } }
+    }
+  };
+}
+
+/* ==========================================================================
+   SCROLL REVEAL (stat cards + chart panels)
+   ========================================================================== */
+function setupScrollReveal(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('.stats .stat-card, .chart-panel');
+  if (reduced || !('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.15 });
+  targets.forEach(function(el){ io.observe(el); });
+}
+
+/* ==========================================================================
+   QR CODE
+   ========================================================================== */
+async function generateQrDataUrl(text){
+  if (!window.QRCode) return null;
+  try{
+    return await window.QRCode.toDataURL(text, {
+      width:260, margin:1, color:{ dark:'#1B2A45', light:'#FFFFFF' }
+    });
+  }catch(e){
+    console.error('QR generation failed', e);
+    return null;
+  }
+}
+
+/* ==========================================================================
+   ACCURATE TIMEZONE-AWARE TIMESTAMP
+   Fetches real UTC time from a time API (never trusts the device clock for
+   "now"), detects the device's IANA timezone (independent of clock
+   accuracy), then renders the correct local time with an explicit GMT
+   offset, e.g. "27 June 2026 at 04:42 PM (GMT+6:00)".
+   ========================================================================== */
+async function fetchUtcMillis(){
+  try{
+    const res = await fetch(CONFIG.TIME_API_PRIMARY, { cache:'no-store' });
+    if (res.ok){
+      const j = await res.json();
+      if (j && j.unixtime) return j.unixtime * 1000;
+    }
+  }catch(e){ /* try fallback */ }
+
+  try{
+    const res = await fetch(CONFIG.TIME_API_FALLBACK, { cache:'no-store' });
+    if (res.ok){
+      const j = await res.json();
+      if (j && j.dateTime) return new Date(j.dateTime + 'Z').getTime();
+    }
+  }catch(e){ /* fall through to device clock */ }
+
+  return Date.now();
+}
+
+function formatGmtOffset(date, timeZone){
+  try{
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName:'longOffset', hour:'2-digit' }).formatToParts(date);
+    const tzPart = parts.find(function(p){ return p.type === 'timeZoneName'; });
+    let off = tzPart ? tzPart.value : '';
+    if (off === 'GMT' || off === '') off = 'GMT+0:00';
+    off = off.replace(/GMT([+-])0?(\d+):(\d{2})/, 'GMT$1$2:$3');
+    if (/^GMT[+-]\d+:\d{2}$/.test(off)) return off;
+  }catch(e){ /* fall through to manual calc */ }
+
+  // Manual fallback offset calculation
+  const utcMs = new Date(date.toLocaleString('en-US', { timeZone:'UTC' })).getTime();
+  const tzMs  = new Date(date.toLocaleString('en-US', { timeZone })).getTime();
+  const diffMin = Math.round((tzMs - utcMs) / 60000);
+  const sign = diffMin < 0 ? '-' : '+';
+  const abs = Math.abs(diffMin);
+  const h = Math.floor(abs/60), m = abs % 60;
+  return 'GMT' + sign + h + ':' + String(m).padStart(2,'0');
+}
+
+async function getAccurateLocalTimestamp(){
+  const ms = await fetchUtcMillis();
+  const date = new Date(ms);
+  const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone) || 'UTC';
+  const offset = formatGmtOffset(date, tz);
+  const dateTimeStr = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:true
+  }).format(date);
+  return { display: dateTimeStr + ' (' + offset + ')', date: date, timeZone: tz };
+}
+
+/* ==========================================================================
+   PDF GENERATION — html2canvas + jsPDF, A4, B2 font
+   ========================================================================== */
+function buildPrintHeader(qrDataUrl, timestampDisplay, verifyUrl){
+  return (
+    '<div class="pt-header">' +
+      '<div class="pt-header-left">' +
+        '<img class="pt-photo" src="' + CONFIG.PROFILE_IMAGE + '">' +
+        '<div>' +
+          '<div class="pt-name">' + escapeHtml(CONFIG.OWNER_NAME) + '</div>' +
+          '<div class="pt-role">Academic Status Report</div>' +
+          '<div class="pt-url">' + escapeHtml(getDisplayDomain()) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pt-header-right">' +
+        (qrDataUrl ? '<img class="pt-qr" src="' + qrDataUrl + '">' : '') +
+        '<div class="pt-qr-cap">' + escapeHtml(verifyUrl) + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pt-meta-row">' +
+      '<span>Report generated: ' + escapeHtml(timestampDisplay) + '</span>' +
+      '<span>Records included: ' + allRecords.length + '</span>' +
+    '</div>' +
+    '<hr class="pt-rule">'
+  );
+}
+
+function buildPrintStats(stats){
+  const items = [
+    ['Qualifications', String(stats.total)],
+    ['Currently Pursuing', stats.currentLabel],
+    ['Highest Performance', stats.highest ? (stats.highest._pct.toFixed(1)+'% · '+stats.highest._levelLabel) : '—'],
+    ['Average Performance', stats.avgPct != null ? (stats.avgPct.toFixed(1)+'%') : '—']
+  ];
+  return '<div class="pt-stats">' + items.map(function(it){
+    return '<div class="pt-stat"><div class="pt-stat-label">' + escapeHtml(it[0]) + '</div><div class="pt-stat-value">' + escapeHtml(it[1]) + '</div></div>';
+  }).join('') + '</div>';
+}
+
+function buildPrintCharts(){
+  const figs = [
+    { key:'trend', cap:'Fig. 1 — Performance Trend' },
+    { key:'mix',   cap:'Fig. 2 — Result Distribution' },
+    { key:'bar',   cap:'Fig. 3 — Level Comparison' },
+    { key:'radar', cap:'Fig. 4 — Academic Shape' }
+  ];
+  let html = '<div class="pt-section-title">Performance Charts</div><div class="pt-charts-grid">';
+  figs.forEach(function(f){
+    const chart = charts[f.key];
+    const img = chart ? chart.toBase64Image('image/png', 1) : null;
+    html += '<div class="pt-chart">' + (img ? '<img src="'+img+'">' : '') + '<div class="pt-chart-cap">' + escapeHtml(f.cap) + '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function buildPrintTable(records){
+  let rows = '';
+  records.forEach(function(r, i){
+    const status = r.is_current ? 'Current' : 'Completed';
+    rows += '<tr>' +
+      '<td class="pt-num">' + String(i+1).padStart(2,'0') + '</td>' +
+      '<td>' + escapeHtml(r._levelLabel) + '</td>' +
+      '<td>' + escapeHtml(r.institution_name) + '</td>' +
+      '<td>' + (r.department ? escapeHtml(r.department) : '') + '</td>' +
+      '<td>' + (r.board ? escapeHtml(r.board) : '') + '</td>' +
+      '<td class="pt-num">' + escapeHtml(r.exam_year) + '</td>' +
+      '<td class="pt-num">' + escapeHtml(formatResult(r)) + '</td>' +
+      '<td>' + status + '</td>' +
+    '</tr>';
+    if (r.performance){
+      rows += '<tr><td></td><td colspan="7" class="pt-remark">' + escapeHtml(r.performance) + '</td></tr>';
+    }
+  });
+  return (
+    '<div class="pt-section-title">Academic Ledger</div>' +
+    '<table class="pt-table"><thead><tr>' +
+      '<th>#</th><th>Level</th><th>Institution</th><th>Department</th><th>Board</th><th>Year</th><th>Result</th><th>Status</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>'
+  );
+}
+
+function buildPrintFooter(){
+  return '<div class="pt-footer">' +
+    '<span>System-generated report reflecting live academic records.</span>' +
+    '<span>' + escapeHtml(CONFIG.OWNER_NAME) + ' · Academic Status</span>' +
+  '</div>';
+}
+
+async function downloadAcademicStatus(){
+  const btn = document.getElementById('downloadBtn');
+  const overlay = document.getElementById('loadingOverlay');
+  const loadingText = document.getElementById('loadingText');
+
+  if (!allRecords.length){
+    showBanner('error', 'There are no academic records to include in a report yet.');
+    return;
+  }
+
+  btn.disabled = true;
+  overlay.classList.remove('hidden');
+  loadingText.textContent = 'Preparing your academic status report…';
+
+  let printEl = null;
+  try{
+    if (b2FontReady) await b2FontReady;
+
+    const verifyUrl = getVerifyUrl();
+    const [qrDataUrl, timestamp] = await Promise.all([
+      generateQrDataUrl(verifyUrl),
+      getAccurateLocalTimestamp()
+    ]);
+
+    const stats = computeStats(allRecords);
+
+    printEl = document.createElement('div');
+    printEl.id = 'print-template';
+    printEl.innerHTML =
+      buildPrintHeader(qrDataUrl, timestamp.display, verifyUrl) +
+      buildPrintStats(stats) +
+      buildPrintCharts() +
+      buildPrintTable(allRecords) +
+      buildPrintFooter();
+    document.body.appendChild(printEl);
+
+    // let layout + webfont settle before rasterizing
+    await new Promise(function(resolve){ setTimeout(resolve, 60); });
+
+    loadingText.textContent = 'Rendering pages…';
+    const canvas = await html2canvas(printEl, { scale:2, useCORS:true, backgroundColor:'#FFFFFF' });
+
+    const pdf = new window.jspdf.jsPDF({ unit:'mm', format:'a4' });
+    const pageWidth = 210, pageHeight = 297;
+    const imgWidth = pageWidth;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+    const imgData = canvas.toDataURL('image/png');
+
+    let heightLeft = imgHeight;
+    let position = 0;
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    while (heightLeft > 0){
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    const fileSafeName = String(CONFIG.OWNER_NAME).replace(/[^a-z0-9]+/gi, '_');
+    const ymd = new Date().toISOString().slice(0,10);
+    pdf.save(fileSafeName + '_Academic_Status_' + ymd + '.pdf');
+
+    showBanner('info', 'Your academic status report has downloaded successfully.');
+  }catch(err){
+    console.error('PDF generation failed', err);
+    showBanner('error', 'Could not generate the report (' + (err && err.message ? err.message : 'unknown error') + '). Please try again.');
+  }finally{
+    if (printEl && printEl.parentNode) printEl.parentNode.removeChild(printEl);
+    overlay.classList.add('hidden');
+    btn.disabled = false;
+  }
+}
+
+/* ==========================================================================
+   BANNERS / SYNC INDICATOR
+   ========================================================================== */
+function showBanner(type, message){
+  const slot = document.getElementById('bannerSlot');
+  slot.innerHTML = '<div class="banner banner--' + (type==='error'?'error':'info') + '">' +
+    '<div class="banner__box">' + escapeHtml(message) + '</div></div>';
+  if (type !== 'error'){
+    setTimeout(function(){ if (slot.firstChild) slot.innerHTML=''; }, 4500);
+  }
+}
+
+function setSyncState(state, text){
+  const dot = document.getElementById('syncDot');
+  const label = document.getElementById('syncText');
+  dot.classList.remove('is-live','is-error');
+  if (state === 'live') dot.classList.add('is-live');
+  if (state === 'error') dot.classList.add('is-error');
+  label.textContent = text;
+}
+
+/* ==========================================================================
+   INIT
+   ========================================================================== */
+function applyOwnerName(){
+  document.getElementById('brandName').textContent = CONFIG.OWNER_NAME;
+  document.getElementById('brandMark').textContent = CONFIG.OWNER_NAME.charAt(0).toUpperCase();
+  document.getElementById('heroName').textContent = CONFIG.OWNER_NAME;
+  document.getElementById('footerName').textContent = CONFIG.OWNER_NAME;
+  document.title = CONFIG.OWNER_NAME + ' — Academic Record';
+}
+
+function preloadB2Font(){
+  try{
+    const face = new FontFace('B2', "url('B2.ttf')");
+    document.fonts.add(face);
+    b2FontReady = face.load().catch(function(){ /* font missing — printed output falls back gracefully */ });
+  }catch(e){
+    b2FontReady = Promise.resolve();
+  }
+}
+
+async function setupVerifyChip(){
+  const url = getVerifyUrl();
+  document.getElementById('heroUrl').textContent = getDisplayDomain();
+  document.getElementById('verifyUrlText').textContent = getDisplayDomain() + '/#academic-details';
+  const dataUrl = await generateQrDataUrl(url);
+  if (dataUrl) document.getElementById('verifyQr').src = dataUrl;
+
+  document.getElementById('copyLinkBtn').addEventListener('click', async function(){
+    try{
+      await navigator.clipboard.writeText(url);
+      const btn = document.getElementById('copyLinkBtn');
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(function(){ btn.textContent = original; }, 1800);
+    }catch(e){ /* clipboard unavailable — silently ignore */ }
+  });
+}
+
+async function loadAndRenderAll(){
+  setSyncState('connecting', 'Connecting…');
+  try{
+    const raw = await fetchAcademicRecords();
+    allRecords = normalizeAndFilter(raw);
+    const stats = computeStats(allRecords);
+
+    renderStats(stats);
+    renderTable(allRecords);
+    renderCharts(allRecords);
+    setupScrollReveal();
+
+    setSyncState('live', allRecords.length + ' record' + (allRecords.length===1?'':'s') + ' synced');
+  }catch(err){
+    console.error('Failed to load academic records', err);
+    setSyncState('error', 'Sync failed');
+    showBanner('error', 'Could not load academic records. If this persists, check that the Supabase table allows public read access (RLS policy) and that the network can reach ' + new URL(CONFIG.SUPABASE_URL).hostname + '.');
+    document.getElementById('ledgerBody').innerHTML = '';
+    document.querySelector('.ledger-table-wrap').classList.add('hidden');
+    document.getElementById('emptyState').classList.remove('hidden');
+    document.getElementById('emptyState').textContent = 'Unable to load academic records right now.';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+  applyOwnerName();
+  preloadB2Font();
+  setupVerifyChip();
+  loadAndRenderAll();
+  document.getElementById('downloadBtn').addEventListener('click', downloadAcademicStatus);
+});
+</script>
+</body>
+</html>

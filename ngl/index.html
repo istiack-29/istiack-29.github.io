@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- ডেসক্রিপশন -->
+<meta name="description" content="Send anonymous message to Istiak">
+
+<!-- ওপেন গ্রাফ (ফেসবুক, হোয়াটসঅ্যাপ, ইত্যাদি) -->
+<meta property="og:title" content="Anonymous Message">
+<meta property="og:description" content="Send anonymous message to Istiak">
+<meta property="og:image" content="ngl.png">
+<meta property="og:type" content="website">
+
+<!-- টুইটার -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Anonymous Message">
+<meta name="twitter:description" content="Send anonymous message to Istiak">
+<meta name="twitter:image" content="ngl.png">
+    <title>Anonymous Message</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#ff4d6d',
+                            purple: '#7c3aed',
+                            blue: '#4f46e5',
+                            dark: '#09090b',
+                            card: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    fontFamily: {
+                        bengali: ['"B2"', '-apple-system', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 15s infinite ease-in-out alternate',
+                        'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pop-in': 'popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
+                    },
+                    keyframes: {
+                        float: { '0%': { transform: 'translate(0, 0) scale(1)' }, '100%': { transform: 'translate(5%, 10%) scale(1.15)' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        pulseGlow: { '0%, 100%': { filter: 'drop-shadow(0 0 10px rgba(124,58,237,0.6))', transform: 'scale(1)' }, '50%': { filter: 'drop-shadow(0 0 3px rgba(124,58,237,0.3))', transform: 'scale(0.95)' } },
+                        popIn: { '0%': { opacity: '0', transform: 'scale(0.5)' }, '80%': { transform: 'scale(1.1)' }, '100%': { opacity: '1', transform: 'scale(1)' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @font-face {
+            font-family: 'B2';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        body { 
+            background-color: #09090b; 
+            color: white; 
+            -webkit-tap-highlight-color: transparent; 
+            overflow-x: hidden; 
+            font-family: 'B2', sans-serif;
+        }
+        .glass-panel { 
+            background: var(--tw-colors-brand-card); 
+            backdrop-filter: blur(24px); 
+            -webkit-backdrop-filter: blur(24px); 
+            border: 1px solid var(--tw-colors-brand-border); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
+        }
+        .glass-input { 
+            background: rgba(0, 0, 0, 0.2); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            transition: all 0.3s ease; 
+            font-family: 'B2', -apple-system, sans-serif;
+        }
+        .glass-input:focus { 
+            border-color: #7c3aed; 
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1); 
+            outline: none; 
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 3px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.3); border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.6); }
+
+        .modal-enter { opacity: 1; pointer-events: auto; }
+        .modal-enter .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+        .modal-exit { opacity: 0; pointer-events: none; }
+        .modal-exit .modal-content { transform: scale(0.95) translateY(20px); opacity: 0; }
+        .hidden-view { display: none !important; }
+
+        /* Telegram Style Message Bubbles */
+        .tg-bubble-receive {
+            background: #18181b; /* Dark Gray */
+            border-radius: 18px 18px 18px 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .tg-bubble-send {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5); /* Purple Gradient */
+            border-radius: 18px 18px 4px 18px;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+        }
+        .tg-tail-receive {
+            position: absolute; bottom: 0; left: -8px; width: 8px; height: 16px;
+            color: #18181b;
+        }
+        .tg-tail-send {
+            position: absolute; bottom: 0; right: -8px; width: 8px; height: 16px;
+            color: #4f46e5;
+        }
+
+        .message-form-wrapper { transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .send-view-container.is-loading .message-form-wrapper,
+        .send-view-container.is-done .message-form-wrapper {
+            opacity: 0; transform: scale(0.9) translateY(20px); pointer-events: none; filter: blur(4px);
+        }
+
+        .ship-btn {
+            position: relative; width: 100%; height: 56px;
+            background: linear-gradient(to right, #7c3aed, #4f46e5); border-radius: 16px;
+            color: white; font-size: 17px; font-weight: 600; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.4); border: 1px solid rgba(255,255,255,0.1);
+        }
+        .ship-btn:hover { box-shadow: 0 15px 35px -5px rgba(124, 58, 237, 0.6); transform: translateY(-2px); }
+        .ship-btn:active { transform: translateY(1px) scale(0.98); }
+        .ship-btn .lbl { transition: opacity 0.3s ease; position: absolute; }
+        
+        .send-view-container.is-loading .ship-btn .lbl.idle { opacity: 0; }
+        .send-view-container.is-loading .ship-btn .lbl.loading { opacity: 1; }
+        .send-view-container.is-done .ship-btn .lbl { opacity: 0; }
+        .send-view-container.is-done .ship-btn .lbl.done { opacity: 1; }
+
+        /* =========================================
+           TRUCK & ENVELOPE BASE DESIGN
+           ========================================= */
+        .vehicle {
+            width: 80px; height: 32px;
+            display: flex; align-items: center; z-index: 3;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+        }
+        .trailer {
+            width: 56px; height: 32px; background: #e2e8f0;
+            border-radius: 4px 2px 2px 4px; position: relative; z-index: 1;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+        }
+        .cab {
+            width: 24px; height: 26px; background: #7c3aed;
+            border-radius: 0 6px 6px 0; position: relative; z-index: 3;
+            box-shadow: inset 2px 0 0 rgba(0,0,0,0.3);
+        }
+        .windshield {
+            position: absolute; right: 4px; top: 3px; bottom: 3px; width: 6px;
+            background: rgba(0,0,0,0.8); border-radius: 2px;
+        }
+        .headlight {
+            position: absolute; right: -2px; width: 3px; height: 6px;
+            background: #fff; border-radius: 0 2px 2px 0; box-shadow: 0 0 5px #fff;
+        }
+        .headlight.top { top: 3px; } .headlight.bottom { bottom: 3px; }
+        .headlight::before {
+            content: ""; position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+            height: 30px; width: 60px;
+            background: linear-gradient(to right, rgba(255,255,255,0.4), transparent);
+            clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 60%);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .door-top, .door-bottom {
+            position: absolute; left: -16px; width: 16px; height: 4px;
+            background: #94a3b8; z-index: 2;
+        }
+        .door-top { top: 0; transform-origin: right top; transform: rotate(-90deg); }
+        .door-bottom { bottom: 0; transform-origin: right bottom; transform: rotate(90deg); }
+
+        .svg-env { width: 32px; height: 22px; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5)); }
+
+        .road-line {
+            position: absolute; top: 50%; left: -50%; width: 200%; height: 2px;
+            background: repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(255,255,255,0.2) 15px, rgba(255,255,255,0.2) 30px);
+            transform: translateY(-50%); opacity: 0; z-index: 1;
+        }
+
+        /* SCENE 1: SEND VIEW ANIMATION */
+        #bigTruckScene { opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+        .send-view-container.is-loading #bigTruckScene,
+        .send-view-container.is-done #bigTruckScene { opacity: 1; }
+        .send-view-container.is-loading .road-line,
+        .send-view-container.is-done .road-line { opacity: 1; animation: roadRun 0.4s linear infinite; }
+        @keyframes roadRun { from { transform: translateY(-50%) translateX(0); } to { transform: translateY(-50%) translateX(-30px); } }
+        .send-view-container.is-loading .vehicle { animation: sDriveIn 3s forwards cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes sDriveIn {
+            0% { transform: scale(1.6) translateX(-150px); }
+            25%, 100% { transform: scale(1.6) translateX(15px); }
+        }
+        .send-view-container.is-loading .headlight::before { opacity: 1; }
+        .send-view-container.is-loading .door-top { animation: sDoorT 3s forwards; }
+        .send-view-container.is-loading .door-bottom { animation: sDoorB 3s forwards; }
+        @keyframes sDoorT { 
+            0%, 25% { transform: rotate(-90deg); }  
+            35%, 65% { transform: rotate(0deg); }  
+            75%, 100% { transform: rotate(-90deg); } 
+        }
+        @keyframes sDoorB { 
+            0%, 25% { transform: rotate(90deg); } 
+            35%, 65% { transform: rotate(0deg); }  
+            75%, 100% { transform: rotate(90deg); } 
+        }
+        .send-view-container.is-loading .big-envelope { animation: sEnvDrop 3s forwards; }
+        @keyframes sEnvDrop {
+            0%, 35% { opacity: 0; transform: translate(-80px, -150px) scale(1.5) rotate(-10deg); }
+            45%, 55% { opacity: 1; transform: translate(-45px, -30px) scale(1.2) rotate(0deg); } 
+            65%, 100% { opacity: 0; transform: translate(-10px, 0) scale(0.5); } 
+        }
+        .send-view-container.is-done .vehicle { transform: scale(1.6) translateX(15px); animation: sDriveOut 1s forwards cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes sDriveOut { to { transform: scale(1.6) translateX(250px); } }
+        .send-view-container.is-done .headlight::before { opacity: 1; }
+
+        /* SCENE 2: REPLY VIEW LOAD ANIMATION */
+        #replyTruckScene { opacity: 1; }
+        #replyTruckScene .road-line { opacity: 1; animation: roadRun 0.4s linear infinite; }
+        #replyTruckScene .headlight::before { opacity: 1; }
+        .reply-anim-truck { animation: rDrive 3s forwards cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes rDrive {
+            0% { transform: scale(1.6) translateX(-150px); }
+            25%, 75% { transform: scale(1.6) translateX(15px); } 
+            100% { transform: scale(1.6) translateX(250px); } 
+        }
+        .reply-anim-door-t { animation: rDoorT 3s forwards; }
+        .reply-anim-door-b { animation: rDoorB 3s forwards; }
+        @keyframes rDoorT { 
+            0%, 30% { transform: rotate(-90deg); } 
+            40%, 60% { transform: rotate(0deg); } 
+            70%, 100% { transform: rotate(-90deg); } 
+        }
+        @keyframes rDoorB { 
+            0%, 30% { transform: rotate(90deg); } 
+            40%, 60% { transform: rotate(0deg); } 
+            70%, 100% { transform: rotate(90deg); } 
+        }
+        .reply-anim-env { animation: rEnvPop 3s forwards; }
+        @keyframes rEnvPop {
+            0%, 40% { opacity: 0; transform: translate(-10px, 0) scale(0.5); }
+            50% { opacity: 1; transform: translate(-45px, -30px) scale(1.2) rotate(-5deg); } 
+            60% { opacity: 1; transform: translate(0, -30px) scale(1.5) rotate(0deg); } 
+            85% { opacity: 1; transform: translate(0, -20px) scale(1.8); } 
+            100% { opacity: 0; transform: translate(0, -20px) scale(4); filter: blur(10px); } 
+        }
+        
+        .messenger-reaction {
+            position: absolute; bottom: -12px; right: -5px;
+            background: #27272a; border: 2px solid #09090b; 
+            border-radius: 50%; padding: 4px; display: none;
+            align-items: center; justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.6); z-index: 20;
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center antialiased relative pb-10 pt-20">
+
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute -top-[10%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-brand-pink/20 filter blur-[100px] animate-float"></div>
+        <div class="absolute -bottom-[10%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-brand-blue/20 filter blur-[100px] animate-float" style="animation-delay: -5s;"></div>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full p-5 z-40 flex justify-end max-w-[500px] mx-auto right-0">
+        <button onclick="App.toggleHistoryModal(true)" class="flex items-center gap-2 px-5 py-2.5 rounded-full glass-panel hover:bg-white/10 transition-all text-sm font-bengali shadow-lg shadow-black/20 group">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:-rotate-45 transition-transform duration-300 text-brand-purple"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span class="font-medium text-white/90">পূর্বের মেসেজ</span>
+        </button>
+    </nav>
+
+    <main class="relative z-10 w-full max-w-[460px] px-5">
+
+        <header id="mainHeader" class="mb-8 flex items-center justify-center gap-4 bg-white/5 p-4 rounded-[24px] border border-white/10 backdrop-blur-sm animate-slide-up shadow-lg">
+            <div class="relative w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-brand-pink via-brand-purple to-brand-blue flex-shrink-0 shadow-[0_0_20px_rgba(124,58,237,0.3)]">
+                <img src="/profile.png" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=09090b&color=fff&size=150'" alt="Profile" class="w-full h-full rounded-full object-cover border-2 border-[#09090b]">
+            </div>
+            <div class="text-left">
+                <h1 class="text-[19px] font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent leading-tight tracking-wide">@anonymous_istiack</h1>
+                <p class="font-bengali text-white/50 text-[13px] font-medium mt-0.5">গোপন বার্তা পাঠান 🤫</p>
+            </div>
+        </header>
+
+        <!-- SEND VIEW -->
+        <section id="sendView" class="send-view-container glass-panel rounded-[32px] p-6 sm:p-8 animate-slide-up relative overflow-hidden min-h-[380px] flex flex-col justify-center">
+            
+            <div id="bigTruckScene" class="absolute inset-0 z-30 flex flex-col items-center justify-center">
+                <div class="road-line"></div>
+                <div class="big-envelope absolute z-20 opacity-0">
+                    <svg class="svg-env" viewBox="0 0 24 24" fill="white" stroke="#333" stroke-width="1.5" stroke-linejoin="round">
+                        <path d="M3 7l9 6 9-6v10H3V7z" fill="white"/><path d="M3 7l9 6 9-6M3 7h18" fill="none"/>
+                    </svg>
+                </div>
+                <div class="vehicle absolute z-10">
+                    <div class="trailer">
+                        <div class="door-top"></div>
+                        <div class="door-bottom"></div>
+                    </div>
+                    <div class="cab">
+                        <div class="windshield"></div>
+                        <div class="headlight top"></div>
+                        <div class="headlight bottom"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-form-wrapper space-y-4 relative z-20 w-full">
+                <input type="text" id="name" class="glass-input w-full rounded-2xl px-5 py-4 text-white font-bengali text-[15px] focus:bg-white/5 placeholder-white/40" placeholder="আপনার নাম (ঐচ্ছিক)">
+
+                <div class="relative">
+                    <textarea id="msg" class="glass-input custom-scroll w-full h-[140px] rounded-2xl px-5 py-4 text-white font-bengali text-[16px] resize-none focus:bg-white/5 placeholder-white/40 leading-relaxed" placeholder="এখানে আপনার গোপন কথাটি নির্দ্বিধায় লিখুন..."></textarea>
+                    <div class="absolute bottom-4 right-5 text-xs font-medium text-white/30 bg-black/40 px-2 py-1 rounded-md backdrop-blur-sm" id="charCount">0/1000</div>
+                </div>
+
+                <div class="pt-2">
+                    <button class="ship-btn group" id="shipBtn">
+                        <span class="lbl idle flex items-center gap-2 group-active:scale-95 transition-transform">
+                            মেসেজ পাঠান
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="translate-y-[1px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        </span>
+                        <span class="lbl loading hidden items-center gap-2">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            প্রসেসিং...
+                        </span>
+                        <span class="lbl done hidden items-center gap-2 text-[#16BF78] font-bold">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            সফল!
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- REPLY VIEW -->
+        <section id="replyView" class="hidden-view">
+            <div id="replyLoading" class="glass-panel rounded-[32px] h-[300px] flex flex-col items-center justify-center relative overflow-hidden">
+                <div id="replyTruckScene" class="absolute inset-0 z-30 flex flex-col items-center justify-center">
+                    <div class="road-line"></div>
+                    <div class="reply-envelope absolute z-20 opacity-0" id="rEnv">
+                        <svg class="svg-env" viewBox="0 0 24 24" fill="white" stroke="#333" stroke-width="1.5" stroke-linejoin="round">
+                            <path d="M3 7l9 6 9-6v10H3V7z" fill="white"/><path d="M3 7l9 6 9-6M3 7h18" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="vehicle absolute z-10" id="rTruck">
+                        <div class="trailer">
+                            <div class="door-top" id="rDoorT"></div>
+                            <div class="door-bottom" id="rDoorB"></div>
+                        </div>
+                        <div class="cab">
+                            <div class="windshield"></div>
+                            <div class="headlight top"></div>
+                            <div class="headlight bottom"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Telegram Style Content Container -->
+            <div id="replyContent" class="hidden flex-col gap-6">
+                
+                <!-- Received Message (Left Bubble) -->
+                <div class="animate-slide-up flex flex-col items-start w-full" style="animation-delay: 0.1s;">
+                    <div class="flex items-center gap-2.5 mb-1.5 ml-2">
+                        <div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-white/70"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </div>
+                        <span class="font-bengali text-[12px] font-semibold text-white/50">বেনামী প্রেরক</span>
+                    </div>
+                    
+                    <div class="relative tg-bubble-receive p-4 max-w-[88%] w-auto group">
+                        <!-- Telegram Left Tail -->
+                        <svg class="tg-tail-receive" fill="currentColor" viewBox="0 0 8 16"><path d="M8 0v16H0C4 16 8 12 8 8z"/></svg>
+                        
+                        <div class="max-h-[160px] overflow-y-auto custom-scroll pr-1 relative z-10">
+                            <p class="text-white/95 font-bengali text-[15px] leading-relaxed whitespace-pre-wrap break-words" id="origMsgText"></p>
+                        </div>
+                        
+                        <!-- Reaction Icon -->
+                        <div id="reactionSection" class="messenger-reaction animate-pop-in" style="animation-delay: 0.3s;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Reply (Right Bubble) -->
+                <div class="animate-slide-up flex flex-col items-end w-full" style="animation-delay: 0.4s;">
+                    <div class="flex items-center gap-2.5 mb-1.5 mr-2">
+                        <span class="font-bengali text-[12px] font-semibold text-brand-purple">ইসতিয়াক আহমেদ খাঁন</span>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-brand-pink to-brand-purple p-[1px]">
+                            <img src="/profile.png" onerror="this.src='https://ui-avatars.com/api/?name=Istiack&background=09090b&color=fff&size=150'" alt="Istiack" class="w-full h-full rounded-full object-cover">
+                        </div>
+                    </div>
+
+                    <div class="relative tg-bubble-send p-4 max-w-[88%] w-auto">
+                        <!-- Telegram Right Tail -->
+                        <svg class="tg-tail-send" fill="currentColor" viewBox="0 0 8 16"><path d="M0 0v16h8C4 16 0 12 0 8z"/></svg>
+
+                        <div class="max-h-[160px] overflow-y-auto custom-scroll pr-1 relative z-10">
+                            <div id="replyExists" class="hidden text-white font-bengali text-[15px] leading-relaxed whitespace-pre-wrap break-words"></div>
+                            <div id="replyPending" class="hidden text-white/70 font-bengali text-[14px] italic text-center py-2">এখনো কোনো উত্তর আসেনি... ⏳</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="location.href=window.location.href.split('?')[0]" class="mt-2 w-full rounded-2xl bg-white/5 border border-white/10 p-4 text-white font-bengali font-medium flex items-center justify-center gap-2 hover:bg-white/10 hover:border-brand-purple/50 transition-all duration-300 animate-slide-up shadow-sm group" style="animation-delay: 0.5s;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:-translate-y-1 transition-transform"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    নতুন মেসেজ পাঠান
+                </button>
+            </div>
+
+            <div id="replyError" class="hidden glass-panel rounded-[32px] p-10 text-center animate-slide-up border-red-500/20">
+                <div class="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-5 border border-red-500/20">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                </div>
+                <h3 class="font-bengali text-xl font-bold text-white mb-2">মেসেজটি পাওয়া যায়নি</h3>
+                <p class="font-bengali text-white/60 mb-8 text-[15px]">সম্ভবত মেসেজটি ডিলিট করা হয়েছে অথবা লিংকটি ভুল।</p>
+                <button onclick="location.href=window.location.href.split('?')[0]" class="px-8 py-3.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl text-[15px] font-bengali font-medium transition-all w-full">ফিরে যান</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="successModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center modal-exit transition-all duration-500">
+        <div class="modal-content bg-[#121214] border border-white/10 rounded-[32px] p-8 w-[90%] max-w-[400px] text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[200%] h-[100px] bg-gradient-to-b from-brand-purple/20 to-transparent pointer-events-none"></div>
+            <div class="w-20 h-20 bg-gradient-to-br from-green-400/20 to-emerald-600/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.2)]">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" class="animate-[popIn_0.5s_ease-out_0.2s_both]"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 class="font-bengali text-2xl font-bold text-white mb-3">সফলভাবে পাঠানো হয়েছে!</h3>
+            <p class="font-bengali text-white/60 mb-6 text-[15px] leading-relaxed">রিপ্লাই দেখার জন্য নিচের লিংকটি কপি করে আপনার কাছে সেভ রাখুন।</p>
+            <div class="bg-[#09090b] border border-white/10 rounded-2xl p-2 pl-4 flex items-center gap-3 mb-8 focus-within:border-brand-purple/50 transition-colors shadow-inner">
+                <input type="text" id="replyLinkInput" readonly class="bg-transparent text-brand-purple text-[13px] w-full outline-none font-medium truncate tracking-wide">
+                <button onclick="App.copyReplyLink()" class="p-3 rounded-xl bg-brand-purple/20 hover:bg-brand-purple/40 text-brand-purple transition-all duration-300 group">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-active:scale-90 transition-transform"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+            </div>
+            <button onclick="App.closeSuccessModal()" class="w-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 py-4 rounded-2xl font-bengali text-[16px] font-medium transition-all duration-300 hover:shadow-lg">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <div id="historyModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-end sm:items-center justify-center modal-exit transition-all duration-500">
+        <div class="modal-content bg-[#121214] border border-white/10 rounded-t-[32px] sm:rounded-[32px] w-full sm:w-[440px] max-h-[85vh] flex flex-col shadow-2xl relative overflow-hidden">
+            <div class="px-6 py-5 border-b border-white/5 flex justify-between items-center bg-[#121214]/90 backdrop-blur-xl z-10 sticky top-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-brand-purple/20 flex items-center justify-center text-brand-purple">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-bengali text-[17px] font-bold text-white">পূর্বের প্রেরিত মেসেজসমূহ</h3>
+                </div>
+                <button onclick="App.toggleHistoryModal(false)" class="text-white/40 hover:text-white hover:bg-white/10 transition-colors p-2 rounded-full bg-white/5">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div id="historyList" class="overflow-y-auto custom-scroll flex-1 p-3 pb-8"></div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed top-6 left-1/2 -translate-x-1/2 z-[60] flex flex-col gap-3 w-[90%] max-w-[350px]"></div>
+
+    <script>
+        const CONFIG = {
+            SUPABASE_URL: "https://aqkeowuypcnavpuhyiuu.supabase.co",
+            SUPABASE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxa2Vvd3V5cGNuYXZwdWh5aXV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4OTY3OTgsImV4cCI6MjA5MTQ3Mjc5OH0.dDVSlMfmNFo2avZ3WkIlA5wBuZxBQWxqrr-yj2eldQk",
+            DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1517539386043138252/o7mQ30AIKEcZCLzsqqenJAeV42sobDBqhUt7X0yRUg_tu80hxAvUUUY_fUlayaU-pXix",
+            MAX_CHARS: 1000
+        };
+
+        const REACTIONS = { 1:'❤️', 2:'😕', 3:'🤨', 4:'😭', 5:'😡', 6:'😊', 7:'🔥', 8:'💀', 9:'😍', 10:'😎', 11:'🤯', 12:'😴' };
+
+        // Helper function to replace standard Emojis with Apple style Emojis globally
+        function applyAppleEmojis(rawText) {
+            if (!rawText) return "";
+            // Safely escape HTML characters
+            const div = document.createElement('div');
+            div.textContent = rawText;
+            let escapedText = div.innerHTML;
+
+            const emojiRegex = /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g;
+            return escapedText.replace(emojiRegex, (match) => {
+                const encoded = encodeURIComponent(match);
+                return `<img src="https://emojicdn.elk.sh/${encoded}?style=apple" alt="${match}" class="inline-block w-[20px] h-[20px] align-text-bottom mx-[1px] select-none">`;
+            });
+        }
+
+        const ClientInfo = {
+            data: { ip: null, city: null, country: null, timezone: null, dev: null, browser: null, os: null, screen: null, lang: null, fingerprint: null },
+            isReady: false,
+            async init() {
+                try { this.getDeviceData(); } catch(e) {}
+                try { this.generateFingerprint(); } catch(e) {}
+                await this.getIpData();
+                this.isReady = true;
+            },
+            getDeviceData() {
+                const ua = navigator.userAgent || "";
+                this.data.screen = `${window.screen.width || 0}x${window.screen.height || 0}`;
+                this.data.lang = navigator.language || "Unknown";
+                
+                if (/windows/i.test(ua)) this.data.os = "Windows";
+                else if (/mac/i.test(ua)) this.data.os = "macOS";
+                else if (/linux/i.test(ua)) this.data.os = "Linux";
+                else if (/android/i.test(ua)) this.data.os = "Android";
+                else if (/iphone|ipad|ipod/i.test(ua)) this.data.os = "iOS";
+                else this.data.os = "Unknown";
+
+                if (/chrome|crios/i.test(ua) && !/edge|edg|opr|opera/i.test(ua)) this.data.browser = "Chrome";
+                else if (/safari/i.test(ua) && !/chrome|crios/i.test(ua)) this.data.browser = "Safari";
+                else if (/firefox|fxios/i.test(ua)) this.data.browser = "Firefox";
+                else if (/edg/i.test(ua)) this.data.browser = "Edge";
+                else if (/opr|opera/i.test(ua)) this.data.browser = "Opera";
+                else this.data.browser = "Other";
+
+                if (/mobile/i.test(ua)) this.data.dev = "Mobile";
+                else if (/tablet/i.test(ua)) this.data.dev = "Tablet";
+                else this.data.dev = "Desktop";
+            },
+            async getIpData() {
+                try {
+                    const res = await fetch('https://ipapi.co/json/');
+                    if(res.ok) {
+                        const json = await res.json();
+                        this.data.ip = json.ip;
+                        this.data.city = json.city;
+                        this.data.country = json.country_name;
+                        this.data.timezone = json.timezone;
+                        return;
+                    }
+                } catch(e) {}
+                
+                try {
+                    const res2 = await fetch('https://ipinfo.io/json');
+                    if(res2.ok) {
+                        const json = await res2.json();
+                        this.data.ip = json.ip;
+                        this.data.city = json.city;
+                        this.data.country = json.country;
+                        this.data.timezone = json.timezone;
+                    }
+                } catch(e) {}
+            },
+            generateFingerprint() {
+                const str = `${navigator.userAgent}-${navigator.language}-${window.screen.width}x${window.screen.height}-${new Date().getTimezoneOffset()}`;
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; 
+                }
+                this.data.fingerprint = Math.abs(hash).toString(16);
+            }
+        };
+
+        const UI = {
+            elements: {
+                mainHeader: document.getElementById('mainHeader'),
+                sendView: document.getElementById('sendView'),
+                replyView: document.getElementById('replyView'),
+                msg: document.getElementById('msg'),
+                name: document.getElementById('name'),
+                btn: document.getElementById('shipBtn'),
+                successModal: document.getElementById('successModal'),
+                replyLinkInput: document.getElementById('replyLinkInput'),
+                historyModal: document.getElementById('historyModal'),
+                historyList: document.getElementById('historyList'),
+                charCount: document.getElementById('charCount'),
+                toastContainer: document.getElementById('toastContainer')
+            },
+            init() {
+                this.elements.msg.addEventListener('input', (e) => {
+                    this.elements.charCount.innerText = `${e.target.value.length}/${CONFIG.MAX_CHARS}`;
+                });
+                this.elements.btn.onclick = () => App.send();
+            }
+        };
+
+        const App = {
+            async init() {
+                UI.init();
+                ClientInfo.init(); 
+                
+                const id = new URLSearchParams(window.location.search).get('reply');
+                if(id) {
+                    UI.elements.mainHeader.classList.add('hidden'); 
+                    UI.elements.sendView.classList.add('hidden-view');
+                    UI.elements.replyView.classList.remove('hidden-view');
+                    this.fetchReply(id);
+                }
+            },
+            showToast(m, s=false) {
+                const t = document.createElement('div');
+                t.className = `animate-[slideUp_0.3s_ease-out] ${s ? 'bg-[#16BF78]' : 'bg-[#ef4444]'} text-white px-5 py-3.5 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] font-bengali text-[14px] font-medium border border-white/20 flex items-center justify-center gap-2`;
+                t.innerHTML = s ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> ${m}` : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> ${m}`;
+                UI.elements.toastContainer.appendChild(t);
+                setTimeout(() => {
+                    t.style.opacity = '0';
+                    t.style.transform = 'translateY(-20px) scale(0.95)';
+                    t.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                    setTimeout(() => t.remove(), 300);
+                }, 3500);
+            },
+            async sendToDiscord(message, id) {
+                // Simplified Discord Payload as requested
+                const payload = {
+                    content: id.toString(), // Makes it super easy to copy directly on mobile
+                    embeds: [{
+                        title: "📩 New Message",
+                        color: 0x7c3aed,
+                        description: `**মেসেজ-** ${message}\n**রিপ্লায়-** Not replied`,
+                        footer: { text: id.toString() } // Small text showing only the ID
+                    }]
+                };
+
+                try {
+                    await fetch(CONFIG.DISCORD_WEBHOOK, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                } catch(e) { console.error("Discord error:", e); }
+            },
+            async fetchReply(id) {
+                try {
+                    document.getElementById('rTruck').classList.add('reply-anim-truck');
+                    document.getElementById('rDoorT').classList.add('reply-anim-door-t');
+                    document.getElementById('rDoorB').classList.add('reply-anim-door-b');
+                    document.getElementById('rEnv').classList.add('reply-anim-env');
+
+                    const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/messages?id=eq.${id}&select=message,rep,roq`, {
+                        headers: { "apikey": CONFIG.SUPABASE_KEY, "Authorization": `Bearer ${CONFIG.SUPABASE_KEY}` }
+                    });
+                    const data = await res.json();
+
+                    setTimeout(() => {
+                        document.getElementById('replyLoading').classList.add('hidden');
+
+                        if(data && data[0]) {
+                            document.getElementById('replyContent').classList.remove('hidden');
+                            document.getElementById('replyContent').classList.add('flex');
+
+                            // Apply Apple Emojis on Received Text
+                            document.getElementById('origMsgText').innerHTML = applyAppleEmojis(data[0].message);
+
+                            if (data[0].roq) {
+                                const roqId = parseInt(data[0].roq);
+                                if (REACTIONS[roqId]) {
+                                    const emojiChar = REACTIONS[roqId];
+                                    const encodedEmoji = encodeURIComponent(emojiChar);
+                                    const reactionSection = document.getElementById('reactionSection');
+                                    
+                                    reactionSection.style.display = 'flex';
+                                    reactionSection.innerHTML = `<img src="https://emojicdn.elk.sh/${encodedEmoji}?style=apple" alt="${emojiChar}" class="w-[18px] h-[18px] drop-shadow-sm select-none">`;
+                                }
+                            }
+
+                            if(data[0].rep) {
+                                document.getElementById('replyExists').classList.remove('hidden');
+                                // Apply Apple Emojis on Reply Text
+                                document.getElementById('replyExists').innerHTML = applyAppleEmojis(data[0].rep);
+                            } else {
+                                document.getElementById('replyPending').classList.remove('hidden');
+                            }
+                        } else {
+                            document.getElementById('replyError').classList.remove('hidden');
+                        }
+                    }, 3000);
+
+                } catch(e) { 
+                    setTimeout(() => {
+                        document.getElementById('replyLoading').classList.add('hidden');
+                        document.getElementById('replyError').classList.remove('hidden');
+                    }, 3000);
+                }
+            },
+            async send() {
+                const m = UI.elements.msg.value.trim();
+                const senderName = UI.elements.name.value.trim() || null;
+                if(!m) return this.showToast("দয়া করে কিছু লিখুন!");
+
+                const container = UI.elements.sendView;
+                if (container.classList.contains('is-loading') || container.classList.contains('is-done')) return;
+
+                container.classList.add('is-loading');
+                UI.elements.btn.querySelector('.idle').classList.add('hidden');
+                UI.elements.btn.querySelector('.loading').classList.remove('hidden');
+                UI.elements.btn.querySelector('.loading').classList.add('flex');
+
+                const startTime = Date.now();
+
+                if(!ClientInfo.isReady) await new Promise(resolve => setTimeout(resolve, 800));
+
+                const payload = {
+                    message: m,
+                    name: senderName,
+                    ip: ClientInfo.data.ip || null,
+                    city: ClientInfo.data.city || null,
+                    country: ClientInfo.data.country || null,
+                    timezone: ClientInfo.data.timezone || null,
+                    dev: ClientInfo.data.dev || null,
+                    browser: ClientInfo.data.browser || null,
+                    os: ClientInfo.data.os || null,
+                    screen: ClientInfo.data.screen || null,
+                    lang: ClientInfo.data.lang || null,
+                    fingerprint: ClientInfo.data.fingerprint || null
+                };
+
+                try {
+                    const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/messages`, {
+                        method: "POST",
+                        headers: { 
+                            "Content-Type": "application/json", 
+                            "apikey": CONFIG.SUPABASE_KEY, 
+                            "Authorization": `Bearer ${CONFIG.SUPABASE_KEY}`, 
+                            "Prefer": "return=representation" 
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, 3000 - elapsed);
+
+                    setTimeout(async () => {
+                        if(res.ok) {
+                            const data = await res.json();
+                            const msgId = data[0].id;
+
+                            // 1. Send To Discord Webhook in background (New simplified format)
+                            this.sendToDiscord(m, msgId);
+
+                            // 2. Generate Dynamic Link based on current hosting site
+                            const baseUrl = window.location.href.split('?')[0];
+                            const link = `${baseUrl}?reply=${msgId}`;
+                            
+                            this.saveHistory(msgId, m);
+                            UI.elements.replyLinkInput.value = link;
+
+                            container.classList.replace('is-loading', 'is-done');
+                            UI.elements.btn.querySelector('.loading').classList.add('hidden');
+                            UI.elements.btn.querySelector('.loading').classList.remove('flex');
+                            UI.elements.btn.querySelector('.done').classList.remove('hidden');
+                            UI.elements.btn.querySelector('.done').classList.add('flex');
+
+                            setTimeout(() => {
+                                UI.elements.successModal.classList.replace('modal-exit', 'modal-enter');
+                                setTimeout(() => {
+                                    container.classList.remove('is-done');
+                                    UI.elements.btn.querySelector('.done').classList.add('hidden');
+                                    UI.elements.btn.querySelector('.done').classList.remove('flex');
+                                    UI.elements.btn.querySelector('.idle').classList.remove('hidden');
+                                    UI.elements.msg.value = "";
+                                    UI.elements.name.value = "";
+                                    UI.elements.charCount.innerText = `0/${CONFIG.MAX_CHARS}`;
+                                }, 500);
+                            }, 1000);
+
+                        } else { 
+                            this.showToast("সার্ভার সমস্যা, পরে চেষ্টা করুন!"); 
+                            this.resetSendState(container);
+                        }
+                    }, remainingTime);
+
+                } catch(e) { 
+                    this.showToast("নেটওয়ার্ক সমস্যা!"); 
+                    this.resetSendState(container);
+                }
+            },
+            resetSendState(container) {
+                container.classList.remove('is-loading', 'is-done');
+                UI.elements.btn.querySelector('.loading').classList.add('hidden');
+                UI.elements.btn.querySelector('.loading').classList.remove('flex');
+                UI.elements.btn.querySelector('.idle').classList.remove('hidden');
+            },
+            saveHistory(id, m) {
+                const h = JSON.parse(localStorage.getItem('anon_h') || '[]');
+                h.unshift({id, m, d: new Date().toISOString()});
+                localStorage.setItem('anon_h', JSON.stringify(h.slice(0, 30)));
+            },
+            toggleHistoryModal(s) {
+                if(s) this.renderHistory();
+                UI.elements.historyModal.classList.toggle('modal-enter', s);
+                UI.elements.historyModal.classList.toggle('modal-exit', !s);
+            },
+            formatDate(isoString) {
+                const date = new Date(isoString);
+                const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                return date.toLocaleDateString('bn-BD', options);
+            },
+            renderHistory() {
+                const h = JSON.parse(localStorage.getItem('anon_h') || '[]');
+                const baseUrl = window.location.href.split('?')[0];
+
+                UI.elements.historyList.innerHTML = h.map(i => `
+                    <div class="group flex items-center justify-between p-3.5 mx-2 my-1.5 bg-transparent border border-transparent hover:bg-white/5 hover:border-white/10 rounded-2xl transition-all duration-300">
+                        <div class="flex-1 min-w-0 pr-4">
+                            <p class="text-[15px] font-bengali text-white/90 truncate font-medium group-hover:text-white transition-colors">${applyAppleEmojis(i.m)}</p>
+                            <p class="text-[11px] font-bengali text-white/30 mt-1">${this.formatDate(i.d)}</p>
+                        </div>
+                        <a href="${baseUrl}?reply=${i.id}" class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-brand-purple/10 text-brand-purple rounded-xl group-hover:bg-brand-purple group-hover:text-white group-hover:shadow-[0_0_15px_rgba(124,58,237,0.4)] transition-all duration-300">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ml-0.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                `).join('') || `
+                    <div class="flex flex-col items-center justify-center py-16 opacity-50">
+                        <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <p class="font-bengali text-[15px] tracking-wide">কোনো পূর্বের মেসেজ নেই</p>
+                    </div>`;
+            },
+            copyReplyLink() {
+                const link = UI.elements.replyLinkInput.value;
+                
+                // One-click reliable copy workaround for mobile/iframes
+                const textArea = document.createElement("textarea");
+                textArea.value = link;
+                textArea.style.position = "fixed"; 
+                textArea.style.top = "0";
+                textArea.style.left = "0";
+                textArea.style.opacity = "0";
+                
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    this.showToast("লিংক কপি করা হয়েছে!", true);
+                } catch (err) {
+                    console.error('Copy failed', err);
+                    this.showToast("কপি করা যায়নি!");
+                }
+                
+                document.body.removeChild(textArea);
+            },
+            closeSuccessModal() { UI.elements.successModal.classList.replace('modal-enter', 'modal-exit'); }
+        };
+
+        App.init();
+    </script>
+</body>
+</html>

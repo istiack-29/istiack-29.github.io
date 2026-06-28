@@ -1,0 +1,1448 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" href="/profile.png">
+<link rel="shortcut icon" href="/profile.png">
+
+<!-- সোশ্যাল মিডিয়া শেয়ারিং (Open Graph/Facebook/WhatsApp) -->
+<meta property="og:title" content="ADMIN PANEL">
+<meta property="og:description" content="ADMIN PANEL">
+<meta property="og:image" content="https://istiack.ami.bd/admin/thumbnail.png">
+<meta property="og:url" content="https://istiack.ami.bd/">
+<meta property="og:type" content="website">
+
+<!-- টুইটার শেয়ারিং (Twitter Card) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ADMIN PANEL">
+<meta name="twitter:description" content="ADMIN PANEL">
+<meta name="twitter:image" content="https://istiack.ami.bd/admin/thumbnail.png">
+    <title>ADMIN PANEL</title>
+
+    <!-- PRE-FLIGHT SESSION CHECK: Prevents login screen from flashing on refresh -->
+    <script>
+        if (sessionStorage.getItem('auth_session') === 'active' || sessionStorage.getItem('auth_session') === 'read_only') {
+            document.documentElement.classList.add('session-active');
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- SUPABASE JS CLIENT -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* Custom Local Font Implementation (Universal) */
+        @font-face {
+            font-family: 'E1';
+            src: url('E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'E2';
+            src: url('E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"E1"', 'sans-serif'],
+                        heading: ['"E2"', 'serif'],
+                        code: ['"E1"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa', 100: '#ccfbf1', 400: '#2dd4bf',
+                            500: '#14b8a6', 600: '#0d9488', 900: '#134e4a', 950: '#042f2e',
+                        },
+                        dark: {
+                            bg: '#050505', surface: 'rgba(20, 20, 20, 0.7)',
+                            panel: 'rgba(30, 30, 30, 0.6)', border: 'rgba(255, 255, 255, 0.08)'
+                        },
+                        light: {
+                            bg: '#f8fafc', surface: 'rgba(255, 255, 255, 0.8)',
+                            panel: 'rgba(255, 255, 255, 0.9)', border: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --glass-blur: blur(16px);
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+        @media (max-width: 640px) { html { font-size: 15px; } }
+
+        body { 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale; 
+            overflow: hidden; 
+            font-family: 'E1', sans-serif;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .heading-text {
+            font-family: 'E2', serif !important;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: rgba(71, 85, 105, 0.4); }
+
+        /* SESSION PERSISTENCE RULES */
+        html.session-active #login-gateway { display: none !important; }
+        html.session-active #app-wrapper { opacity: 1 !important; pointer-events: auto !important; }
+
+        .glass-panel {
+            background: var(--tw-colors-light-surface);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--tw-colors-light-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass-panel {
+            background: var(--tw-colors-dark-surface); border: 1px solid var(--tw-colors-dark-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card {
+            background: var(--tw-colors-light-panel); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s var(--transition-bounce);
+        }
+        .dark .glass-card {
+            background: var(--tw-colors-dark-panel); border: 1px solid rgba(255,255,255,0.03);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .glass-card:hover {
+            transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 40px -10px rgba(20, 184, 166, 0.15);
+            border-color: rgba(20, 184, 166, 0.3);
+        }
+
+        .login-input-group { position: relative; width: 100%; margin-bottom: 1.5rem; }
+        .login-input-field {
+            width: 100%; padding: 1rem 1.25rem; border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.6); border: 2px solid transparent;
+            font-family: inherit; font-size: 1rem; color: #0f172a; outline: none; transition: all 0.3s var(--transition-smooth);
+        }
+        .dark .login-input-field { background: rgba(0, 0, 0, 0.4); color: #f1f5f9; }
+        .login-input-field:focus { background: #ffffff; border-color: #14b8a6; box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1); }
+        .dark .login-input-field:focus { background: rgba(20,20,20,0.8); box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2); }
+
+        .login-input-label {
+            position: absolute; left: 1.25rem; top: 1rem; color: #64748b; font-size: 1rem; pointer-events: none;
+            transition: all 0.3s var(--transition-bounce); background: transparent; padding: 0 0.25rem;
+        }
+        .login-input-field:focus ~ .login-input-label, .login-input-field:not(:placeholder-shown) ~ .login-input-label {
+            transform: translateY(-1.6rem) scale(0.85); color: #14b8a6; font-weight: 600;
+        }
+        .dark .login-input-field:focus ~ .login-input-label, .dark .login-input-field:not(:placeholder-shown) ~ .login-input-label { color: #2dd4bf; }
+
+        .ambient-orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.5; animation: blob 15s infinite alternate; }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(20, 184, 166, 0.3); animation-delay: 0s; }
+        .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: rgba(56, 189, 248, 0.2); animation-delay: 2s; }
+        .orb-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: rgba(139, 92, 246, 0.2); animation-delay: 4s; }
+
+        .modal-enter { animation: modalEnter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        .list-item-enter { opacity: 0; animation: fadeInUp 0.6s var(--transition-bounce) forwards; }
+        .toast-enter { animation: slideInRight 0.5s var(--transition-bounce) forwards; }
+        .toast-leave { animation: slideOutRight 0.4s var(--transition-smooth) forwards; }
+        @keyframes modalEnter { 0% { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(10px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+        @keyframes slideInRight { 0% { transform: translateX(120%) scale(0.9); opacity: 0; } 100% { transform: translateX(0) scale(1); opacity: 1; } }
+        @keyframes slideOutRight { 0% { transform: translateX(0) scale(1); opacity: 1; } 100% { transform: translateX(120%) scale(0.9); opacity: 0; } }
+
+        .hidden-safely { display: none !important; }
+        
+        /* Updated adaptive spinner */
+        .spinner { width: 20px; height: 20px; border: 3px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .glitch-text { background: linear-gradient(to right, #2dd4bf, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        input[type="date"]::-webkit-calendar-picker-indicator, input[type="datetime-local"]::-webkit-calendar-picker-indicator { background-color: #14b8a6; padding: 5px; cursor: pointer; border-radius: 6px; }
+
+        #export-studio { position: fixed; left: -9999px; top: -9999px; width: 1080px; z-index: -9999; }
+
+        .editorial-export {
+            width: 1080px;
+            min-height: 1920px;
+            background-color: #F4EFE9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 120px 80px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .editorial-export::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.12"/></svg>');
+            pointer-events: none;
+            mix-blend-mode: multiply;
+        }
+
+        .editorial-header {
+            font-family: 'E2', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: #111;
+            letter-spacing: 12px;
+            margin-bottom: 90px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .editorial-header-line {
+            margin-top: 15px;
+            width: 65px;
+            height: 2px;
+            background-color: #8B312A;
+        }
+
+        .editorial-cards-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            z-index: 10;
+        }
+
+        .editorial-card {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            padding: 45px 50px;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .editorial-q {
+            font-size: 36px;
+            font-weight: 700;
+            color: #8B312A;
+            font-family: 'E1', sans-serif;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .editorial-a {
+            font-size: 32px;
+            font-weight: 500;
+            color: #222;
+            font-family: 'E1', sans-serif;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-100 h-screen w-screen flex relative selection:bg-brand-500 selection:text-white transition-colors duration-500">
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <!-- Ultra Premium Login Gateway -->
+    <div id="login-gateway" class="fixed inset-0 z-[100] flex items-center justify-center transition-all duration-700 bg-white/40 dark:bg-[#030303]/60 backdrop-blur-[40px]">
+        
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] bg-brand-400/20 dark:bg-brand-500/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-blob"></div>
+            <div class="absolute top-[30%] -right-[10%] w-[60vw] h-[60vw] bg-blue-400/20 dark:bg-blue-500/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-blob" style="animation-delay: 2s;"></div>
+        </div>
+
+        <a href="index.html" class="absolute top-6 left-6 flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/50 dark:bg-white/5 border border-white/60 dark:border-white/10 backdrop-blur-xl text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-white dark:hover:bg-white/10 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300 z-20 font-bold text-sm group">
+            <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300"></i>
+            Return to Portfolio
+        </a>
+
+        <!-- Premium Login Card -->
+        <div class="relative w-[90%] max-w-[440px] p-10 sm:p-12 rounded-[2.5rem] bg-white/70 dark:bg-[#0a0a0a]/80 backdrop-blur-3xl border border-white/60 dark:border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] modal-enter before:absolute before:inset-0 before:rounded-[2.5rem] before:border before:border-white/80 dark:before:border-white/5 before:pointer-events-none after:absolute after:inset-0 after:rounded-[2.5rem] after:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6)] dark:after:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] after:pointer-events-none">
+
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-brand-500 to-transparent opacity-80"></div>
+
+            <div class="text-center mb-10 relative z-10">
+                <div class="w-20 h-20 bg-gradient-to-tr from-brand-500 via-teal-400 to-blue-500 rounded-[1.8rem] mx-auto flex items-center justify-center mb-6 shadow-[0_20px_40px_-10px_rgba(20,184,166,0.6)] transform rotate-3 hover:rotate-12 transition-all duration-500 relative group cursor-pointer">
+                    <div class="absolute inset-0 bg-white/20 rounded-[1.8rem] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i data-lucide="shield-check" class="w-10 h-10 text-white drop-shadow-md"></i>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-white mb-2 tracking-tight heading-text">Admin Panel</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Secure System Login</p>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)" class="relative z-10">
+                <div class="login-input-group mb-5">
+                    <input type="email" id="auth-user" class="login-input-field !bg-white/60 dark:!bg-black/40 !border-white/60 dark:!border-white/10 focus:!border-brand-500 !shadow-inner !rounded-2xl !py-4" placeholder=" " autocomplete="off">
+                    <label class="login-input-label !top-4">Email Address</label>
+                </div>
+                <div class="login-input-group mb-8">
+                    <input type="password" id="auth-pass" class="login-input-field !bg-white/60 dark:!bg-black/40 !border-white/60 dark:!border-white/10 focus:!border-brand-500 !shadow-inner !rounded-2xl !py-4" placeholder=" ">
+                    <label class="login-input-label !top-4">Password</label>
+                </div>
+                <div id="login-error" class="hidden-safely mb-6 p-4 rounded-2xl bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400 text-sm flex items-center gap-3 backdrop-blur-md">
+                    <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i>
+                    <span class="font-medium">Invalid Email or Password!</span>
+                </div>
+                <button type="submit" id="login-btn" class="w-full py-4 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-lg shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)] dark:shadow-[0_10px_30px_-10px_rgba(255,255,255,0.3)] transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] dark:hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.5)] active:scale-95 flex items-center justify-center gap-2 relative overflow-hidden group heading-text">
+                    <span id="login-btn-text">Authenticate</span>
+                    <i data-lucide="arrow-right" id="login-btn-icon" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    <div id="login-btn-loader" class="spinner hidden-safely"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-wrapper" class="flex w-full h-full opacity-0 pointer-events-none transition-opacity duration-700 z-10 relative">
+
+        <aside id="sidebar" class="w-72 glass-panel border-r border-slate-200/50 dark:border-slate-700/50 flex-shrink-0 flex flex-col h-full absolute z-40 md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-500 shadow-2xl md:shadow-none">
+            <div class="h-20 flex items-center justify-between px-6 border-b border-slate-200/50 dark:border-slate-700/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-blue-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                        <i data-lucide="layers" class="w-5 h-5"></i>
+                    </div>
+                    <h1 class="text-xl font-bold glitch-text tracking-tight heading-text">Dashboard</h1>
+                </div>
+                <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-brand-500 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2 relative scroll-smooth" id="nav-links"></nav>
+        </aside>
+
+        <!-- Deep black overlay fade -->
+        <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/70 dark:bg-black/80 z-30 hidden-safely md:hidden backdrop-blur-sm transition-opacity duration-300 opacity-0"></div>
+
+        <main class="flex-1 flex flex-col h-full min-w-0 relative">
+            <header class="h-20 glass-panel border-b border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between px-4 sm:px-6 z-20 flex-shrink-0">
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <button onclick="toggleSidebar()" class="md:hidden p-2.5 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 active:scale-95">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                    <div>
+                        <h2 id="current-category-title" class="text-lg sm:text-2xl font-bold text-slate-800 dark:text-white leading-tight heading-text">Overview</h2>
+                        <p id="current-category-desc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">Your complete portfolio management</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-3" id="top-action-buttons">
+                    <!-- Discord Link Button -->
+                    <button onclick="window.open(atob('aHR0cHM6Ly9kaXNjb3JkLmdnL0dISzd1a01xOE4='), '_blank')" class="w-10 h-10 sm:w-11 sm:h-11 flex flex-shrink-0 items-center justify-center rounded-xl bg-[#5865F2]/10 border border-[#5865F2]/20 hover:bg-[#5865F2]/20 text-[#5865F2] transition-all shadow-sm active:scale-95 group" title="Join Discord">
+                        <i data-lucide="message-square-plus" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    </button>
+
+                    <button onclick="switchCategory('ngl')" class="flex-shrink-0 relative flex items-center justify-center w-10 h-10 sm:w-auto sm:h-auto sm:px-5 sm:py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-pink-400 dark:hover:border-pink-500 text-slate-700 dark:text-slate-200 font-semibold transition-all shadow-sm group">
+                        <i data-lucide="mail" class="w-5 h-5 sm:mr-2 flex-shrink-0 group-hover:-translate-y-1 transition-transform text-slate-500 dark:text-slate-400 group-hover:text-pink-500"></i>
+                        <span class="hidden sm:inline">NGL Messages</span>
+                        <span id="global-unread-badge" class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-md hidden">0</span>
+                    </button>
+                    
+                    <div class="w-px h-8 bg-slate-200 dark:bg-slate-700 mx-1 hidden sm:block"></div>
+                    
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 sm:w-11 sm:h-11 flex flex-shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 text-slate-600 dark:text-slate-300 transition-all shadow-sm active:scale-95">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                    <button onclick="handleLogout()" class="w-10 h-10 sm:w-11 sm:h-11 flex flex-shrink-0 items-center justify-center rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 hover:bg-red-100 dark:hover:bg-red-500/20 hover:border-red-500 text-red-600 dark:text-red-400 transition-all shadow-sm active:scale-95" title="Logout">
+                        <i data-lucide="log-out" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-hidden relative z-10">
+                <div class="h-full overflow-y-auto p-4 sm:p-8 scroll-smooth" id="scroll-container">
+
+                    <!-- Home & Vitals -->
+                    <div id="overview-section" class="hidden-safely mb-10"><div id="overview-stats"></div></div>
+                    <div id="vitals-section" class="hidden-safely mb-8 glass-card p-6 sm:p-8 rounded-3xl">
+                        <div class="flex items-center justify-between gap-3 mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="p-3 bg-red-100 dark:bg-red-500/20 text-red-500 rounded-xl"><i data-lucide="activity" class="w-6 h-6 animate-pulse-slow"></i></div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-800 dark:text-white heading-text">Health & Personal Vitals</h3>
+                                    <p class="text-sm text-slate-500">Keep your essential records up to date</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                            <div class="login-input-group !mb-0">
+                                <input type="number" step="0.1" id="vital_hl" class="login-input-field" placeholder=" " onchange="updateVitals()">
+                                <label class="login-input-label">Hemoglobin Level</label>
+                            </div>
+                            <div class="login-input-group !mb-0">
+                                <input type="date" id="vital_ld" class="login-input-field" placeholder=" " onchange="updateVitals()">
+                                <label class="login-input-label">Last Blood Donation</label>
+                            </div>
+                            <div class="login-input-group !mb-0">
+                                <input type="number" id="vital_td" class="login-input-field" placeholder=" " onchange="updateVitals()">
+                                <label class="login-input-label">Total Donations</label>
+                            </div>
+                            <div class="login-input-group !mb-0 relative">
+                                <button onclick="clearCS()" class="absolute -top-6 right-0 text-[11px] font-bold text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-500/10 px-2 py-0.5 rounded cursor-pointer z-10 transition-colors">Clear</button>
+                                <input type="text" id="vital_cs" class="login-input-field" placeholder=" " onchange="updateVitals()">
+                                <label class="login-input-label">Current Study / Work</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Items List -->
+                    <div id="list-section" class="hidden-safely">
+                        <div id="list-header" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                            <div class="inline-flex items-center px-4 py-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-md">
+                                <div class="w-2 h-2 rounded-full bg-brand-500 mr-2 animate-pulse"></div>
+                                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 tracking-wide" id="item-count">Total 0 Records</span>
+                            </div>
+                            <button id="add-new-btn" onclick="openFormModal()" class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 group">
+                                <i data-lucide="plus" class="w-5 h-5 group-hover:rotate-90 transition-transform duration-300"></i> Add New
+                            </button>
+                        </div>
+                        <div id="empty-state" class="hidden-safely flex flex-col items-center justify-center py-24 text-center">
+                            <div class="relative w-32 h-32 mb-6 group">
+                                <div class="absolute inset-0 bg-brand-500/20 dark:bg-brand-500/10 rounded-full filter blur-xl group-hover:blur-2xl transition-all duration-500 animate-pulse-slow"></div>
+                                <div class="relative w-full h-full glass-card rounded-full flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700">
+                                    <i data-lucide="inbox" class="w-12 h-12 text-slate-400 dark:text-slate-500 group-hover:scale-110 transition-transform duration-500"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3 heading-text">No Records Found</h3>
+                            <p class="text-slate-500 dark:text-slate-400 max-w-md text-lg">This category is currently empty.</p>
+                        </div>
+                        <div id="data-list" class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 pb-24"></div>
+                    </div>
+
+                    <!-- NGL Section -->
+                    <div id="ngl-section" class="hidden-safely pb-24">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                            <div class="flex items-center gap-3">
+                                <div class="inline-flex items-center px-4 py-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-md shadow-sm">
+                                    <div class="w-2 h-2 rounded-full bg-pink-500 mr-2 animate-pulse"></div>
+                                    <span class="text-sm font-bold text-slate-600 dark:text-slate-300 tracking-wide" id="ngl-unread-count">Unread: 0</span>
+                                </div>
+                                <div id="ngl-sel-counter" class="hidden px-4 py-2 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-sm font-bold shadow-sm">
+                                    0 Selected
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2" id="ngl-admin-actions">
+                                <button onclick="fetchNGLData()" class="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold transition-all hover:bg-slate-300 dark:hover:bg-slate-700 active:scale-95 shadow-sm">
+                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Sync
+                                </button>
+                                <button onclick="NGLExport.bulk()" class="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold transition-all shadow-lg hover:shadow-xl active:scale-95">
+                                    <i data-lucide="image" class="w-4 h-4"></i> Batch Export
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="ngl-list" class="flex flex-col gap-4"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals (Data Form) -->
+    <div id="form-modal-overlay" class="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-md z-[60] hidden-safely flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
+        <div id="form-modal" class="glass-panel w-full max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-500 var(--transition-bounce)">
+            <div class="flex items-center justify-between px-8 py-6 border-b border-slate-200/50 dark:border-white/10">
+                <h3 id="modal-title" class="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3 heading-text"><span class="w-2 h-8 rounded-full bg-brand-500"></span><span id="modal-title-text">Add New Record</span></h3>
+                <button onclick="closeFormModal()" class="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 transition-all"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar"><form id="dynamic-form" class="space-y-6" onsubmit="event.preventDefault(); saveFormData();"></form></div>
+            <div class="px-8 py-6 border-t border-slate-200/50 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/50 rounded-b-3xl flex justify-end gap-4 backdrop-blur-sm">
+                <button type="button" onclick="closeFormModal()" class="px-6 py-3 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">Cancel</button>
+                <button type="button" onclick="saveFormData()" class="px-8 py-3 rounded-xl font-bold bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white shadow-[0_8px_20px_rgba(20,184,166,0.3)] transition-all active:scale-95 flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5"></i> Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULL DATA MODAL (NGL) -->
+    <div id="ngl-data-modal-overlay" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-xl z-[80] hidden-safely flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0" onclick="closeNGLDataModal()">
+        <div id="ngl-data-modal" class="glass-panel w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-500 overflow-hidden relative" onclick="event.stopPropagation()">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200/50 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/80 backdrop-blur-md z-10 flex-shrink-0">
+                <h3 class="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-3 heading-text">
+                    <div class="p-1.5 bg-indigo-500/10 text-indigo-500 rounded-lg"><i data-lucide="database" class="w-5 h-5"></i></div>
+                    <span>Full Raw Telemetry</span>
+                </h3>
+                <button onclick="closeNGLDataModal()" class="p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 hover:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 transition-all shadow-sm">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar bg-slate-100/50 dark:bg-[#0a0f1c]">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="ngl-data-grid"></div>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-200/50 dark:border-white/10 bg-slate-50/50 dark:bg-slate-900/80 backdrop-blur-md flex justify-end gap-3 flex-wrap">
+                <button id="view-ip-btn" class="hidden items-center gap-2 px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-bold transition-all active:scale-95">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i> View IP Details
+                </button>
+                <button id="copy-link-btn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold transition-all active:scale-95">
+                    <i data-lucide="link" class="w-4 h-4"></i> Copy Link
+                </button>
+                <button id="copy-ngl-data-btn" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold transition-all active:scale-95">
+                    <i data-lucide="copy" class="w-4 h-4"></i> Copy Raw JSON
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REACTION SELECTOR MODAL -->
+    <div id="reaction-modal-overlay" class="fixed inset-0 z-[100] hidden-safely flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeReactionModal()">
+        <div id="reaction-modal" class="bg-white dark:bg-slate-800 rounded-[2rem] p-6 shadow-[0_30px_60px_rgba(0,0,0,0.3)] transform scale-95 transition-all duration-300 border border-slate-200 dark:border-slate-700" onclick="event.stopPropagation()">
+            <h3 class="text-center font-bold text-slate-400 text-sm uppercase tracking-widest mb-5">Select Reaction</h3>
+            <div class="grid grid-cols-4 gap-3 sm:gap-4" id="reaction-grid"></div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-6 sm:bottom-auto sm:top-6 right-6 z-[200] flex flex-col gap-3 pointer-events-none"></div>
+
+    <div id="export-studio"></div>
+
+    <script>
+        /* -------------------------------------------------------------------------- */
+        /* SUPABASE INITIALIZATION & BACKGROUND FETCHING                              */
+        /* -------------------------------------------------------------------------- */
+        const SUPABASE_URL = 'https://aqkeowuypcnavpuhyiuu.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxa2Vvd3V5cGNuYXZwdWh5aXV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4OTY3OTgsImV4cCI6MjA5MTQ3Mjc5OH0.dDVSlMfmNFo2avZ3WkIlA5wBuZxBQWxqrr-yj2eldQk';
+        const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let SYSTEM_DATA = {
+            projects: [], notices: [],
+            debate: { experience: [], achievements: [] },
+            politics: [],
+            academic: [],
+            hl: '', ld: '', cs: '', td: 8
+        };
+
+        async function fetchAllData() {
+            try {
+                const [vitals, projects, debate, politics, academic, noticesFetch] = await Promise.all([
+                    sbClient.from('user_vitals').select('*').limit(1).maybeSingle(),
+                    sbClient.from('projects').select('*').order('created_at', { ascending: false }),
+                    sbClient.from('debate_records').select('*').order('created_at', { ascending: false }),
+                    sbClient.from('politics_records').select('*').order('created_at', { ascending: false }),
+                    sbClient.from('academic_records').select('*').order('created_at', { ascending: false }),
+                    sbClient.from('notice').select('*').order('id', { ascending: false })
+                ]);
+
+                if (vitals.data) {
+                    SYSTEM_DATA.hl = vitals.data.hl;
+                    SYSTEM_DATA.ld = vitals.data.ld;
+                    SYSTEM_DATA.cs = vitals.data.cs;
+                    SYSTEM_DATA.td = vitals.data.td;
+                }
+
+                SYSTEM_DATA.projects = (projects.data || []).map(row => ({
+                    id: row.id, work: row.work, desc: row.description, st: row.st, en: row.en,
+                    pc: row.pc, link: row.link
+                }));
+
+                SYSTEM_DATA.notices = noticesFetch.data || [];
+
+                SYSTEM_DATA.debate = { experience: [], achievements: [] };
+                (debate.data || []).forEach(row => {
+                    if (row.category === 'experience') {
+                        SYSTEM_DATA.debate.experience.push({ id: row.id, post: row.title, cl: row.org, st: row.st, en: row.en });
+                    } else {
+                        SYSTEM_DATA.debate.achievements.push({ id: row.id, ach: row.title, tn: row.org, date: row.st });
+                    }
+                });
+
+                SYSTEM_DATA.politics = (politics.data || []).map(row => ({
+                    id: row.id, post: row.post, org: row.org, st: row.st, en: row.en
+                }));
+
+                SYSTEM_DATA.academic = (academic.data || []).map(row => ({
+                    id: row.id, level: row.level, institution_name: row.institution_name, department: row.department,
+                    board: row.board, exam_year: row.exam_year, result_type: row.result_type, result_value: row.result_value,
+                    performance: row.performance, is_current: row.is_current
+                }));
+
+                if (document.documentElement.classList.contains('session-active')) {
+                    if (currentCategory === 'home') renderDashboardHome();
+                    else if (currentCategory === 'vitals') {
+                        document.getElementById('vital_hl').value = SYSTEM_DATA.hl || '';
+                        document.getElementById('vital_ld').value = SYSTEM_DATA.ld || '';
+                        document.getElementById('vital_cs').value = SYSTEM_DATA.cs || '';
+                        document.getElementById('vital_td').value = SYSTEM_DATA.td || 8;
+                    }
+                    else if (currentCategory !== 'ngl') renderDataList();
+                }
+            } catch (err) {
+                console.error("Supabase fetch error:", err);
+            }
+        }
+        
+        fetchAllData();
+
+        /* -------------------------------------------------------------------------- */
+        /* AUTH & CORE HELPER FUNCTIONS                                               */
+        /* -------------------------------------------------------------------------- */
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btnText = document.getElementById('login-btn-text');
+            const btnIcon = document.getElementById('login-btn-icon');
+            const loader = document.getElementById('login-btn-loader');
+            const errorBox = document.getElementById('login-error');
+
+            const user = document.getElementById('auth-user').value;
+            const pass = document.getElementById('auth-pass').value;
+
+            btnText.classList.add('hidden-safely');
+            btnIcon.classList.add('hidden-safely');
+            loader.classList.remove('hidden-safely');
+            errorBox.classList.add('hidden-safely');
+
+            let success = false;
+            if ((user === "Istiack" || user === "istiack") && pass === "istiack29") {
+                success = true;
+            } else {
+                const { data, error } = await sbClient.auth.signInWithPassword({ email: user, password: pass });
+                if (!error && data.session) success = true;
+            }
+
+            if (success) {
+                sessionStorage.setItem('auth_session', 'active');
+                document.documentElement.classList.add('session-active');
+                launchDashboard();
+                showToast('Logged in successfully! Welcome.', 'success');
+            } else {
+                btnText.classList.remove('hidden-safely');
+                btnIcon.classList.remove('hidden-safely');
+                loader.classList.add('hidden-safely');
+                errorBox.classList.remove('hidden-safely');
+                document.getElementById('login-form').animate([
+                    { transform: 'translateX(0)' }, { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(10px)' }, { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 400, easing: 'ease-in-out' });
+            }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem('auth_session');
+            document.documentElement.classList.remove('session-active');
+            sbClient.auth.signOut();
+            location.reload();
+        }
+
+        function launchDashboard() {
+            const loginScreen = document.getElementById('login-gateway');
+            const appWrapper = document.getElementById('app-wrapper');
+            loginScreen.classList.remove('modal-enter');
+            loginScreen.classList.add('opacity-0', 'scale-105');
+            loginScreen.style.pointerEvents = 'none';
+            setTimeout(() => {
+                loginScreen.classList.add('hidden-safely');
+                appWrapper.classList.remove('opacity-0', 'pointer-events-none');
+                initializeApp();
+            }, 500);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            if (sessionStorage.getItem('auth_session') === 'active' || sessionStorage.getItem('auth_session') === 'read_only') initializeApp();
+        });
+
+        function showToast(msg, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+            const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-octagon' : 'info';
+            toast.className = `${bgClass} text-white px-5 py-3.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.2)] flex items-center gap-3 toast-enter pointer-events-auto`;
+            toast.innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i><span class="font-bold text-sm">${msg}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            setTimeout(() => {
+                toast.classList.replace('toast-enter', 'toast-leave');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            if(sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden-safely');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden-safely'), 300);
+            }
+        }
+
+        function checkDarkMode() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            if (typeof str !== 'string') return String(str);
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* SCHEMAS & ROUTING                                                          */
+        /* -------------------------------------------------------------------------- */
+        const CATEGORIES = [
+            { id: 'home', icon: 'layout-dashboard', title: 'Dashboard Home', desc: 'Your complete portfolio overview' },
+            { id: 'ngl', icon: 'message-circle', title: 'NGL Messages', desc: 'Anonymous messages & replies' },
+            { id: 'notices', icon: 'bell', title: 'Notice System', desc: 'Manage website popup notices' },
+            { id: 'projects', icon: 'code-2', title: 'Projects', desc: 'Software and websites built by you' },
+            { id: 'debate_exp', icon: 'mic', title: 'Debate Experience', desc: 'Roles in debate organizations' },
+            { id: 'debate_ach', icon: 'award', title: 'Debate Achievements', desc: 'Tournament awards and wins' },
+            { id: 'pol_pos', icon: 'flag', title: 'Political Positions', desc: 'Roles in political parties' },
+            { id: 'academic', icon: 'graduation-cap', title: 'Academic Records', desc: 'Educational qualifications' },
+            { id: 'vitals', icon: 'activity', title: 'Health & Vitals', desc: 'Hemoglobin, studies, and personal info' }
+        ];
+        
+        let currentCategory = 'home';
+        let editingIndex = -1;
+        
+        const SCHEMAS = {
+            notices: [
+                { key: 'img', label: 'Image URL / Content', type: 'text', icon: 'image' },
+                { key: 'st', label: 'Start Time', type: 'datetime-local', icon: 'calendar' },
+                { key: 'ct', label: 'Close Time', type: 'datetime-local', icon: 'calendar-check' },
+                { key: 'ip', label: 'Permanent (Always Show)', type: 'checkbox', icon: 'pin' },
+                { key: 'iey', label: 'Yearly Repeating', type: 'checkbox', icon: 'repeat' }
+            ],
+            projects: [ 
+                { key: 'work', label: 'Project Name', type: 'text', icon: 'heading' }, 
+                { key: 'desc', label: 'Description', type: 'textarea', icon: 'align-left' }, 
+                { key: 'st', label: 'Start Date', type: 'date', icon: 'calendar' }, 
+                { key: 'en', label: 'End Date', type: 'date-present', icon: 'calendar-check' }, 
+                { key: 'pc', label: 'Image URL', type: 'text', icon: 'image' },
+                { key: 'link', label: 'Project URL (Optional)', type: 'text', icon: 'link' }
+            ],
+            debate_exp: [ { key: 'post', label: 'Position', type: 'text', icon: 'star' }, { key: 'cl', label: 'Organization', type: 'text', icon: 'building' }, { key: 'st', label: 'Start Date', type: 'date', icon: 'calendar' }, { key: 'en', label: 'End Date', type: 'date-present', icon: 'calendar-check' } ],
+            debate_ach: [ { key: 'ach', label: 'Achievement / Award', type: 'text', icon: 'trophy' }, { key: 'tn', label: 'Tournament Name', type: 'text', icon: 'swords' }, { key: 'date', label: 'Date/Year', type: 'date', icon: 'calendar' } ],
+            pol_pos: [ { key: 'post', label: 'Position', type: 'text', icon: 'shield' }, { key: 'org', label: 'Organization/Party Name', type: 'text', icon: 'flag' }, { key: 'st', label: 'Start Date', type: 'date', icon: 'calendar' }, { key: 'en', label: 'End Date', type: 'date-present', icon: 'calendar-check' } ],
+            academic: [
+                { key: 'level', label: 'Education Level (e.g. HSC, BSc)', type: 'text', icon: 'bar-chart' },
+                { key: 'institution_name', label: 'Institution Name', type: 'text', icon: 'building' },
+                { key: 'department', label: 'Department', type: 'text', icon: 'book-open' },
+                { key: 'board', label: 'Board (Default: Jessore Board)', type: 'text', icon: 'map-pin' },
+                { key: 'exam_year', label: 'Passing Year', type: 'number', icon: 'calendar' },
+                { key: 'result_type', label: 'Result Type (GPA/CGPA)', type: 'text', icon: 'percent' },
+                { key: 'result_value', label: 'Result/Score', type: 'number', icon: 'award' },
+                { key: 'performance', label: 'Performance Notes', type: 'text', icon: 'star' },
+                { key: 'is_current', label: 'Currently Studying?', type: 'checkbox', icon: 'check-circle' }
+            ]
+        };
+
+        function initializeApp() {
+            fetchNGLData(true);
+            lucide.createIcons();
+            renderSidebar();
+            checkDarkMode();
+            switchCategory('home');
+            
+            const isAdmin = sessionStorage.getItem('auth_session') === 'active';
+            if (!isAdmin) {
+                document.getElementById('vital_hl').disabled = true;
+                document.getElementById('vital_ld').disabled = true;
+                document.getElementById('vital_cs').disabled = true;
+                document.getElementById('vital_td').disabled = true;
+                document.getElementById('add-new-btn').classList.add('hidden-safely');
+                document.getElementById('ngl-admin-actions').classList.add('hidden-safely');
+            } else {
+                document.getElementById('add-new-btn').classList.remove('hidden-safely');
+                document.getElementById('ngl-admin-actions').classList.remove('hidden-safely');
+            }
+        }
+
+        function renderSidebar() {
+            document.getElementById('nav-links').innerHTML = CATEGORIES.map((cat, idx) => `
+                <button onclick="switchCategory('${cat.id}')" 
+                        class="w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all font-bold text-left group
+                        ${currentCategory === cat.id 
+                            ? 'bg-gradient-to-r from-brand-500/10 to-transparent text-brand-600 dark:text-brand-400 border border-brand-500/20' 
+                            : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-white/5 border border-transparent'}
+                        " style="animation: fadeInUp 0.4s ease-out ${idx * 0.05}s both;">
+                    <div class="p-2 rounded-xl ${currentCategory === cat.id ? 'bg-brand-500 text-white shadow-md shadow-brand-500/30' : 'bg-slate-200/50 dark:bg-slate-800 text-slate-500 group-hover:text-slate-700 dark:group-hover:text-white transition-colors'}">
+                        <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
+                    </div>
+                    <span class="heading-text">${cat.title}</span>
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function switchCategory(catId) {
+            currentCategory = catId;
+            renderSidebar();
+            const catInfo = CATEGORIES.find(c => c.id === catId);
+            document.getElementById('current-category-title').innerText = catInfo.title;
+            document.getElementById('current-category-desc').innerText = catInfo.desc;
+
+            ['vitals-section', 'overview-section', 'list-section', 'ngl-section'].forEach(id => {
+                document.getElementById(id).classList.add('hidden-safely');
+            });
+
+            if (catId === 'home') { document.getElementById('overview-section').classList.remove('hidden-safely'); renderDashboardHome(); }
+            else if (catId === 'vitals') { 
+                document.getElementById('vitals-section').classList.remove('hidden-safely'); 
+                document.getElementById('vital_hl').value = SYSTEM_DATA.hl || ''; 
+                document.getElementById('vital_ld').value = SYSTEM_DATA.ld || ''; 
+                document.getElementById('vital_cs').value = SYSTEM_DATA.cs || '';
+                document.getElementById('vital_td').value = SYSTEM_DATA.td || 8;
+            }
+            else if (catId === 'ngl') { document.getElementById('ngl-section').classList.remove('hidden-safely'); if(NGL_DB.data.length === 0) fetchNGLData(); else renderNGLList(); }
+            else { document.getElementById('list-section').classList.remove('hidden-safely'); renderDataList(); }
+
+            if(window.innerWidth < 1024 && !document.getElementById('sidebar').classList.contains('-translate-x-full')) toggleSidebar();
+            document.getElementById('scroll-container').scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function renderDashboardHome() {
+            const p = SYSTEM_DATA.projects || []; const ntc = SYSTEM_DATA.notices || []; 
+            const de = SYSTEM_DATA.debate?.experience || []; const da = SYSTEM_DATA.debate?.achievements || []; 
+            const pp = SYSTEM_DATA.politics || []; const nglCount = NGL_DB.data.length;
+            const ac = SYSTEM_DATA.academic || []; 
+            const hl = SYSTEM_DATA.hl || 'Not set'; const ld = SYSTEM_DATA.ld || 'Not set';
+            const cs = SYSTEM_DATA.cs || 'Not set'; 
+
+            let html = `<div onclick="switchCategory('vitals')" class="glass-card p-5 rounded-2xl mb-6 cursor-pointer hover:border-brand-500 transition-colors"><div class="flex items-center gap-3 mb-3"><div class="p-2 bg-red-100 dark:bg-red-500/20 text-red-500 rounded-lg"><i data-lucide="activity" class="w-5 h-5"></i></div><h3 class="font-bold text-slate-800 dark:text-white text-lg heading-text">Health & Personal Info</h3></div><div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-slate-600 dark:text-slate-300"><p><strong>Hemoglobin:</strong> ${hl}</p><p><strong>Last Donation:</strong> ${ld}</p><p><strong>Current Study:</strong> ${cs}</p></div></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">`;
+
+            const stats = [
+                { id: 'projects', title: 'Projects', count: p.length, icon: 'code-2', color: 'from-blue-500 to-blue-600' },
+                { id: 'notices', title: 'Active Notices', count: ntc.length, icon: 'bell', color: 'from-rose-500 to-rose-600' },
+                { id: 'ngl', title: 'NGL Messages', count: nglCount, icon: 'message-circle', color: 'from-pink-500 to-pink-600' },
+                { id: 'debate_exp', title: 'Debate Roles', count: de.length, icon: 'mic', color: 'from-purple-500 to-purple-600' },
+                { id: 'debate_ach', title: 'Debate Awards', count: da.length, icon: 'award', color: 'from-purple-400 to-purple-500' },
+                { id: 'pol_pos', title: 'Political Positions', count: pp.length, icon: 'shield', color: 'from-orange-500 to-orange-600' },
+                { id: 'academic', title: 'Academic Records', count: ac.length, icon: 'graduation-cap', color: 'from-green-500 to-green-600' }
+            ];
+
+            html += stats.map((s, i) => `<div onclick="switchCategory('${s.id}')" class="glass-card p-5 rounded-2xl flex items-center justify-between cursor-pointer group transition-colors hover:border-${s.color.split('-')[1]}-500" style="animation: fadeInUp 0.4s ease-out ${i * 0.05}s both;"><div><p class="text-xs text-slate-500 dark:text-slate-400 font-bold mb-1 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors uppercase tracking-wider">${s.title}</p><h4 class="text-2xl font-bold text-slate-800 dark:text-white">${s.count}</h4></div><div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${s.color} text-white flex items-center justify-center shadow-md transform group-hover:rotate-6 transition-transform"><i data-lucide="${s.icon}" class="w-5 h-5"></i></div></div>`).join('');
+            html += `</div>`;
+            document.getElementById('overview-stats').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* UPGRADED NGL SYSTEM & ENGINE (Batch Single Export Version)                 */
+        /* -------------------------------------------------------------------------- */
+        const NGL_CFG = {
+            API: "https://aqkeowuypcnavpuhyiuu.supabase.co/rest/v1/messages",
+            KEY: "sb_publishable_jyD9-9Mxi5kpfC6Ssibf2w_pclXZ04g",
+            MAX_EXPORT: 6 
+        };
+
+        const NGL_DB = { data: [], selected: new Set() };
+        const REACTIONS = { 1:'❤️', 2:'😕', 3:'🤨', 4:'😭', 5:'😡', 6:'😊', 7:'🔥', 8:'💀', 9:'😍', 10:'😎', 11:'🤯', 12:'😴' };
+
+        const NGL_API = {
+            headers: { "apikey": NGL_CFG.KEY, "Authorization": `Bearer ${NGL_CFG.KEY}`, "Content-Type": "application/json" },
+            get: async () => {
+                try { const res = await fetch(`${NGL_CFG.API}?select=*&order=created_at.desc`, { headers: NGL_API.headers }); return await res.json(); } catch(e) { return null; }
+            },
+            patch: async (id, data) => {
+                try { const res = await fetch(`${NGL_CFG.API}?id=eq.${id}`, { method: "PATCH", headers: NGL_API.headers, body: JSON.stringify(data) }); return res.ok; } catch(e) { return false; }
+            },
+            delete: async (id) => {
+                try { const res = await fetch(`${NGL_CFG.API}?id=eq.${id}`, { method: "DELETE", headers: NGL_API.headers }); return res.ok; } catch(e) { return false; }
+            }
+        };
+
+        async function fetchNGLData(silent = false) {
+            const data = await NGL_API.get();
+            if(data) {
+                NGL_DB.data = data;
+                const ids = NGL_DB.data.map(m=>m.id);
+                for(let id of NGL_DB.selected) if(!ids.includes(id)) NGL_DB.selected.delete(id);
+
+                let unread = NGL_DB.data.filter(m => !m.rep || m.rep.trim() === '').length;
+                const badge = document.getElementById('global-unread-badge');
+                if (unread > 0) { badge.innerText = unread; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
+
+                if(!silent && currentCategory === 'ngl') { renderNGLList(); showToast('NGL Sync Successful', 'success'); } 
+                else if(currentCategory === 'ngl') renderNGLList();
+                if(currentCategory === 'home') renderDashboardHome();
+            } else if(!silent) showToast("NGL Sync failed.", "error");
+        }
+
+        function formatDualTime(isoString) {
+            if (!isoString) return 'Unknown Date';
+            if (!isoString.includes('Z') && !isoString.includes('+')) isoString += 'Z';
+            const date = new Date(isoString);
+
+            const gmtH = date.getUTCHours().toString().padStart(2,'0');
+            const gmtM = date.getUTCMinutes().toString().padStart(2,'0');
+            const gmtDate = date.toLocaleDateString('en-GB', {timeZone: 'UTC', day:'2-digit', month:'short'});
+            const gmtStr = `${gmtDate} ${gmtH}:${gmtM} GMT+0`;
+
+            const lh = date.getHours().toString().padStart(2,'0');
+            const lm = date.getMinutes().toString().padStart(2,'0');
+            const lDate = date.toLocaleDateString('en-GB', {day:'2-digit', month:'short'});
+            const offset = -(date.getTimezoneOffset() / 60);
+            const offsetStr = offset > 0 ? '+' + offset : (offset === 0 ? '' : offset);
+            const localStr = `${lDate} ${lh}:${lm} GMT${offsetStr}`;
+
+            return `
+                <div class="flex flex-col gap-1 mt-1">
+                    <span class="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded inline-block w-max" title="Original Time">🌐 ${gmtStr}</span>
+                    <span class="text-[12px] font-bold text-brand-600 dark:text-brand-400 bg-brand-500/10 px-1.5 py-0.5 rounded inline-block w-max" title="Local Time">📍 ${localStr}</span>
+                </div>
+            `;
+        }
+
+        function toggleNGLSelect(e, id) {
+            e.stopPropagation();
+            if(NGL_DB.selected.has(id)) { NGL_DB.selected.delete(id); } 
+            else {
+                if(NGL_DB.selected.size >= NGL_CFG.MAX_EXPORT) return showToast(`Maximum ${NGL_CFG.MAX_EXPORT} exports allowed at once.`, "error");
+                NGL_DB.selected.add(id);
+            }
+            renderNGLList();
+        }
+
+        async function deleteNGLMessage(id) {
+            if(sessionStorage.getItem('auth_session') !== 'active') return showToast('Read-Only Mode', 'error');
+            if(confirm("Are you sure you want to PERMANENTLY delete this message?")) {
+                const ok = await NGL_API.delete(id);
+                if(ok) {
+                    showToast("Message deleted", "success");
+                    NGL_DB.selected.delete(id);
+                    fetchNGLData(true);
+                } else showToast("Failed to delete", "error");
+            }
+        }
+
+        function toggleInlineReply(id) {
+            const box = document.getElementById(`reply-container-${id}`);
+            if(box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                document.getElementById(`reply-input-${id}`).focus();
+            } else { box.classList.add('hidden'); }
+        }
+
+        async function saveInlineReply(id) {
+            if(sessionStorage.getItem('auth_session') !== 'active') return showToast('Read-Only Mode', 'error');
+            const btn = document.getElementById(`btn-save-${id}`);
+            btn.innerHTML = `<div class="spinner w-4 h-4 border-2 mr-1"></div>`;
+            const val = document.getElementById(`reply-input-${id}`).value;
+            const ok = await NGL_API.patch(id, { rep: val });
+            if(ok) {
+                showToast("Reply Updated", "success");
+                await fetchNGLData(true);
+            } else {
+                showToast("Update Failed", "error");
+                btn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i> Save`;
+                lucide.createIcons();
+            }
+        }
+
+        let activeReactionId = null;
+        function openReactionSelector(id) {
+            if(sessionStorage.getItem('auth_session') !== 'active') return showToast('Read-Only Mode', 'error');
+            activeReactionId = id;
+            const grid = document.getElementById('reaction-grid');
+            grid.innerHTML = Object.entries(REACTIONS).map(([code, emoji]) => `
+                <button onclick="selectReaction(${code})" class="text-3xl sm:text-4xl hover:scale-125 transition-transform bg-slate-50 dark:bg-slate-900 p-2 sm:p-3 rounded-2xl border border-transparent hover:border-brand-500 hover:shadow-lg focus:outline-none font-sans">
+                    ${emoji}
+                </button>
+            `).join('');
+
+            const overlay = document.getElementById('reaction-modal-overlay');
+            const modal = document.getElementById('reaction-modal');
+            overlay.classList.remove('hidden-safely');
+            requestAnimationFrame(() => {
+                overlay.classList.remove('opacity-0');
+                modal.classList.remove('scale-95');
+            });
+        }
+        function closeReactionModal() {
+            const overlay = document.getElementById('reaction-modal-overlay');
+            const modal = document.getElementById('reaction-modal');
+            overlay.classList.add('opacity-0'); modal.classList.add('scale-95');
+            setTimeout(() => overlay.classList.add('hidden-safely'), 300);
+        }
+        async function selectReaction(code) {
+            closeReactionModal();
+            const ok = await NGL_API.patch(activeReactionId, { roq: code });
+            if(ok) { showToast("Reaction saved", "success"); fetchNGLData(true); } 
+            else showToast("Error saving reaction", "error");
+        }
+
+        let rawJsonCache = "";
+        function openNGLDataModal(id) {
+            const m = NGL_DB.data.find(x => x.id === id);
+            if(!m) return;
+
+            rawJsonCache = JSON.stringify(m, null, 4);
+            const grid = document.getElementById('ngl-data-grid');
+            grid.innerHTML = Object.entries(m).map(([key, val]) => `
+                <div class="bg-white dark:bg-slate-800/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 flex flex-col gap-1 overflow-hidden">
+                    <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">${key}</span>
+                    <span class="text-sm font-code text-slate-700 dark:text-slate-200 break-words">${val !== null && val !== "" ? escapeHtml(val) : '<span class="text-slate-400 italic">null</span>'}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('copy-ngl-data-btn').onclick = () => {
+                navigator.clipboard.writeText(rawJsonCache).then(() => showToast("Copied Data to Clipboard", "success"));
+            };
+
+            document.getElementById('copy-link-btn').onclick = () => {
+                const link = `https://istiack-29.github.io/ngl.html?reply=${m.id}`;
+                navigator.clipboard.writeText(link).then(() => showToast("Copied Link to Clipboard", "success")).catch(() => {
+                    const tempInput = document.createElement("input");
+                    tempInput.value = link;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(tempInput);
+                    showToast("Copied Link to Clipboard", "success");
+                });
+            };
+
+            const ipBtn = document.getElementById('view-ip-btn');
+            if (m.ip) {
+                ipBtn.classList.remove('hidden');
+                ipBtn.classList.add('flex');
+                ipBtn.onclick = () => window.open(`https://iplocation.io/ip/${m.ip}`, '_blank');
+            } else {
+                ipBtn.classList.add('hidden');
+                ipBtn.classList.remove('flex');
+            }
+
+            const overlay = document.getElementById('ngl-data-modal-overlay');
+            const modal = document.getElementById('ngl-data-modal');
+            overlay.classList.remove('hidden-safely');
+            requestAnimationFrame(() => {
+                overlay.classList.remove('opacity-0'); modal.classList.remove('scale-95');
+            });
+        }
+        function closeNGLDataModal() {
+            const overlay = document.getElementById('ngl-data-modal-overlay');
+            const modal = document.getElementById('ngl-data-modal');
+            overlay.classList.add('opacity-0'); modal.classList.add('scale-95');
+            setTimeout(() => overlay.classList.add('hidden-safely'), 300);
+        }
+
+        function renderNGLList() {
+            const list = document.getElementById('ngl-list');
+            list.innerHTML = '';
+            let unreadCount = 0;
+            const isAdmin = sessionStorage.getItem('auth_session') === 'active';
+
+            NGL_DB.data.forEach(m => {
+                const isSel = NGL_DB.selected.has(m.id);
+                const isUnread = !m.rep || m.rep.trim() === '';
+                if(isUnread) unreadCount++;
+
+                const dtHtml = formatDualTime(m.created_at);
+                const statusIndicator = isUnread 
+                    ? `<div class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)] animate-pulse" title="Unread"></div>` 
+                    : `<div class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-blue-500/80 shadow-[0_0_5px_rgba(59,130,246,0.4)]" title="Replied"></div>`;
+
+                const adminActions = isAdmin ? `
+                    <div class="flex sm:flex-col items-center gap-2 flex-shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200/50 dark:border-white/10 pt-3 sm:pt-0 sm:pl-4 justify-center sm:justify-start">
+                        <button onclick="deleteNGLMessage('${m.id}')" class="p-2.5 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500 dark:hover:text-white transition-all shadow-sm group" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
+                        </button>
+                        <button onclick="toggleInlineReply('${m.id}')" class="p-2.5 rounded-xl bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500 dark:hover:text-white transition-all shadow-sm group" title="Reply/Edit">
+                            <i data-lucide="edit-3" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
+                        </button>
+                        <button onclick="openNGLDataModal('${m.id}')" class="p-2.5 rounded-xl bg-indigo-50 text-indigo-500 hover:bg-indigo-500 hover:text-white dark:bg-indigo-500/10 dark:text-indigo-400 dark:hover:bg-indigo-500 dark:hover:text-white transition-all shadow-sm group" title="Raw Data Info">
+                            <i data-lucide="info" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
+                        </button>
+                        <button onclick="NGLExport.singleNGLStory('${m.id}')" class="p-2.5 rounded-xl bg-pink-50 text-pink-500 hover:bg-pink-500 hover:text-white dark:bg-pink-500/10 dark:text-pink-400 dark:hover:bg-pink-500 dark:hover:text-white transition-all shadow-sm group" title="Export Single Story">
+                            <i data-lucide="camera" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
+                        </button>
+                    </div>
+                ` : '';
+
+                const div = document.createElement('div');
+                div.className = `glass-card p-4 rounded-xl transition-all duration-300 border ${isSel ? 'border-pink-500 ring-1 ring-pink-500/30 bg-pink-50/30 dark:bg-pink-900/10' : 'border-slate-200/60 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/10'} group relative`;
+
+                div.innerHTML = `
+                    <div class="flex flex-col sm:flex-row gap-4 w-full">
+                        <div class="flex flex-col sm:w-[180px] flex-shrink-0 border-b sm:border-b-0 sm:border-r border-slate-200/50 dark:border-white/10 pb-3 sm:pb-0 sm:pr-4">
+                            <div class="flex items-center gap-3 mb-2">
+                                ${isAdmin ? `<div class="flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors cursor-pointer ${isSel ? 'bg-pink-500 border-pink-500' : 'border-slate-300 dark:border-slate-600 hover:border-pink-400'}" onclick="toggleNGLSelect(event, '${m.id}')">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 text-white ${isSel ? 'block' : 'hidden'}"></i>
+                                </div>` : ''}
+                                ${statusIndicator}
+                                <span class="text-xs font-bold text-slate-500 uppercase font-code">#${m.id.split('-')[0]}</span>
+                            </div>
+                            ${dtHtml}
+                        </div>
+
+                        <div class="flex-1 min-w-0 flex flex-col justify-center">
+                            <div class="flex items-start gap-3">
+                                <button onclick="openReactionSelector('${m.id}')" class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-xl hover:scale-110 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm font-sans" title="Add Reaction">
+                                    ${m.roq ? REACTIONS[m.roq] : '🤍'}
+                                </button>
+                                <p class="text-slate-800 dark:text-slate-200 font-medium text-base sm:text-lg leading-relaxed break-words w-full">
+                                    ${escapeHtml(m.message)}
+                                </p>
+                            </div>
+                            
+                            <div id="reply-container-${m.id}" class="hidden w-full mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10 transition-all">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block flex items-center gap-1"><i data-lucide="edit-2" class="w-3 h-3"></i> Inline Reply Editor</label>
+                                <textarea id="reply-input-${m.id}" class="w-full bg-white dark:bg-black/20 rounded-xl p-3 text-sm sm:text-base border border-slate-200 dark:border-slate-700 focus:border-brand-500 outline-none resize-y min-h-[80px]" placeholder="Type your reply here...">${escapeHtml(m.rep || '')}</textarea>
+                                <div class="flex justify-end gap-2 mt-2">
+                                    <button onclick="toggleInlineReply('${m.id}')" class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">Cancel</button>
+                                    <button onclick="saveInlineReply('${m.id}')" id="btn-save-${m.id}" class="px-4 py-2 rounded-lg bg-brand-500 text-white text-sm font-bold flex items-center gap-2 hover:bg-brand-600 transition-colors shadow-md shadow-brand-500/20"><i data-lucide="send" class="w-4 h-4"></i> Update</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${adminActions}
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+
+            document.getElementById('ngl-unread-count').innerText = `Unread: ${unreadCount}`;
+            const badge = document.getElementById('ngl-sel-counter');
+            const c = NGL_DB.selected.size;
+            badge.innerText = `${c} Selected`;
+            if(c > 0 && isAdmin) badge.classList.remove('hidden'); else badge.classList.add('hidden');
+            lucide.createIcons();
+        }
+
+        const NGLExport = {
+            buildExportHTML: (messages) => {
+                let cardsHtml = messages.map(m => `
+                    <div class="editorial-card">
+                        <div class="editorial-q">Q. ${escapeHtml(m.message)}</div>
+                        <div class="editorial-a">${escapeHtml(m.rep) || ''}</div>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="editorial-export" id="export-target">
+                        <div class="editorial-header">
+                            E D I T O R I A L &nbsp;&nbsp;Q & A
+                            <div class="editorial-header-line"></div>
+                        </div>
+                        <div class="editorial-cards-container">
+                            ${cardsHtml}
+                        </div>
+                    </div>
+                `;
+            },
+            singleNGLStory: async (id) => {
+                const m = NGL_DB.data.find(x => x.id === id);
+                if(!m) return;
+                await NGLExport.processExport([m], `NGL_Export_${m.id.substring(0,6)}.jpg`);
+            },
+            bulk: async () => {
+                const items = NGL_DB.data.filter(m => NGL_DB.selected.has(m.id));
+                if(items.length === 0) return showToast("Select messages to export.", "error");
+                if(items.length > NGL_CFG.MAX_EXPORT) return showToast(`Maximum ${NGL_CFG.MAX_EXPORT} exports allowed at once.`, "error");
+                await NGLExport.processExport(items, `NGL_Batch_Export_${new Date().getTime()}.jpg`);
+                NGL_DB.selected.clear();
+                renderNGLList();
+            },
+            processExport: async (messages, filename) => {
+                showToast("Generating Story Image...", "info");
+                const portal = document.getElementById('export-studio');
+                portal.innerHTML = NGLExport.buildExportHTML(messages);
+                try {
+                    const target = document.getElementById('export-target');
+                    await new Promise(r => setTimeout(r, 300));
+                    const canvas = await html2canvas(target, { scale: 2, useCORS: true, backgroundColor: "#F4EFE9", width: 1080, height: Math.max(1920, target.scrollHeight), windowWidth: 1080, windowHeight: Math.max(1920, target.scrollHeight) });
+                    const link = document.createElement('a'); link.download = filename; link.href = canvas.toDataURL("image/jpeg", 0.95); link.click();
+                    showToast("Export Successful!", "success");
+                } catch(e) { showToast("Export failed.", "error"); }
+                portal.innerHTML = '';
+            }
+        };
+
+        /* -------------------------------------------------------------------------- */
+        /* CRUD OPERATIONS VIA SUPABASE                                               */
+        /* -------------------------------------------------------------------------- */
+        function getCategoryDataArray() {
+            switch(currentCategory) {
+                case 'notices': return SYSTEM_DATA.notices;
+                case 'projects': return SYSTEM_DATA.projects; 
+                case 'debate_exp': return SYSTEM_DATA.debate.experience; 
+                case 'debate_ach': return SYSTEM_DATA.debate.achievements;
+                case 'pol_pos': return SYSTEM_DATA.politics; 
+                case 'academic': return SYSTEM_DATA.academic;
+                default: return [];
+            }
+        }
+
+        function getTableName(cat) {
+            if(cat === 'notices') return 'notice';
+            if(cat === 'projects') return 'projects';
+            if(cat === 'debate_exp' || cat === 'debate_ach') return 'debate_records';
+            if(cat === 'pol_pos') return 'politics_records';
+            if(cat === 'academic') return 'academic_records';
+            return '';
+        }
+
+        function preparePayload(cat, data) {
+            let p = {};
+            if(cat === 'notices') p = { img: data.img || null, st: data.st ? data.st : null, ct: data.ct ? data.ct : null, ip: !!data.ip, iey: !!data.iey };
+            if(cat === 'projects') p = { work: data.work, description: data.desc, st: data.st, en: data.en, pc: data.pc, link: data.link || null };
+            if(cat === 'debate_exp') p = { category: 'experience', title: data.post, org: data.cl, st: data.st, en: data.en };
+            if(cat === 'debate_ach') p = { category: 'achievement', title: data.ach, org: data.tn, st: data.date };
+            if(cat === 'pol_pos') p = { post: data.post, org: data.org, st: data.st, en: data.en };
+            
+            if(cat === 'academic') p = {
+                level: data.level,
+                institution_name: data.institution_name,
+                department: data.department,
+                board: data.board || 'Jessore Board',
+                exam_year: data.exam_year ? parseInt(data.exam_year) : null,
+                result_type: data.result_type,
+                result_value: data.result_value ? parseFloat(data.result_value) : null,
+                performance: data.performance,
+                is_current: data.is_current
+            };
+            return p;
+        }
+
+        function renderDataList() {
+            const dataArr = getCategoryDataArray(); const container = document.getElementById('data-list'); const emptyState = document.getElementById('empty-state');
+            const safeDataArr = Array.isArray(dataArr) ? dataArr : []; document.getElementById('item-count').innerText = `Total ${safeDataArr.length} Records`;
+            if (safeDataArr.length === 0) { container.innerHTML = ''; emptyState.classList.remove('hidden-safely'); return; }
+            emptyState.classList.add('hidden-safely');
+            const isAdmin = sessionStorage.getItem('auth_session') === 'active';
+
+            container.innerHTML = safeDataArr.map((item, index) => {
+                let title = item.title || item.work || item.post || item.ach || item.institution_name || 'Untitled Record';
+                if(title.length > 50) title = title.substring(0, 50) + '...';
+                
+                let st = item.st || item.date || item.exam_year || '';
+                let en = item.en || item.ct || ''; 
+                
+                if(currentCategory === 'academic' && item.is_current) {
+                    en = 'Present';
+                }
+
+                let dateHtml = '';
+                const presentBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-bold border border-brand-500/20"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span> Present</span>`;
+                
+                if(currentCategory === 'notices') {
+                    let tags = [];
+                    if(item.ip) tags.push('Permanent');
+                    if(item.iey) tags.push('Every Year');
+                    let tagStr = tags.length ? `<span class="text-[10px] bg-brand-500/20 text-brand-600 dark:text-brand-400 font-bold px-2 py-0.5 rounded ml-2 uppercase tracking-wider">${tags.join(', ')}</span>` : '';
+                    dateHtml = (st ? escapeHtml(st.replace('T', ' ')) : 'N/A') + ' <i data-lucide="arrow-right" class="w-3 h-3 inline mx-1"></i> ' + (en ? escapeHtml(en.replace('T', ' ')) : 'N/A') + tagStr;
+                }
+                else if(st && en) {
+                    dateHtml = `${escapeHtml(st)} &nbsp;<i data-lucide="arrow-right" class="w-3 h-3 inline"></i>&nbsp; ${en === 'Present' || en === 'বর্তমান' ? presentBadge : escapeHtml(en)}`;
+                }
+                else if (st) dateHtml = escapeHtml(st); 
+                else if (en) dateHtml = en === 'Present' || en === 'বর্তমান' ? presentBadge : escapeHtml(en); 
+                else dateHtml = 'Date not specified';
+                
+                if (currentCategory === 'academic') {
+                    const extra = [item.level, item.department].filter(Boolean).join(' • ');
+                    if (extra) dateHtml = `<span class="text-brand-500 font-bold">${escapeHtml(extra)}</span> <br/> ` + dateHtml;
+                }
+
+                const actionsHtml = isAdmin ? `
+                    <div class="mt-6 pt-5 border-t border-slate-200/50 dark:border-white/5 flex gap-3 relative z-10">
+                        <button onclick="editItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-500/20 dark:hover:text-brand-400 text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all"><i data-lucide="edit-3" class="w-4 h-4"></i> Edit</button>
+                        <button onclick="deleteItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/20 dark:hover:text-red-400 text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all"><i data-lucide="trash-2" class="w-4 h-4"></i> Delete</button>
+                    </div>` : '';
+
+                return `
+                    <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group list-item-enter relative overflow-hidden" style="animation-delay: ${index * 0.05}s">
+                        <div>
+                            <div class="flex items-start justify-between gap-4 mb-3">
+                                <h4 class="font-bold text-slate-800 dark:text-white text-lg leading-snug heading-text">${escapeHtml(title)}</h4>
+                                <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 text-brand-500"><i data-lucide="${SCHEMAS[currentCategory][0].icon}" class="w-4 h-4"></i></div>
+                            </div>
+                            <div class="text-sm text-slate-500 dark:text-slate-400 font-code flex items-start flex-wrap gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5 mt-1"></i> <div>${dateHtml}</div></div>
+                        </div>
+                        ${actionsHtml}
+                    </div>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function togglePresent(key) { const cb = document.getElementById(`checkbox_${key}_present`); const input = document.getElementById(`input_${key}`); if(cb && input) { if(cb.checked) { input.value = ""; input.disabled = true; } else { input.disabled = false; } } }
+
+        function openFormModal(index = -1) {
+            editingIndex = index; const schema = SCHEMAS[currentCategory]; const dataArr = getCategoryDataArray();
+            let existingData = index >= 0 ? { ...dataArr[index] } : {};
+            document.getElementById('modal-title-text').innerText = index >= 0 ? 'Edit Record' : 'Add New Record';
+
+            document.getElementById('dynamic-form').innerHTML = schema.map(field => {
+                let val = existingData[field.key];
+                if (val === undefined || val === null) val = '';
+                
+                let escapedVal = escapeHtml(val); let inputHtml = '';
+                if (field.type === 'textarea') inputHtml = `<textarea id="input_${field.key}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all min-h-[120px] text-slate-800 dark:text-slate-100 font-medium" placeholder="Enter details...">${escapedVal}</textarea>`;
+                else if (field.type === 'date' || field.type === 'datetime-local') inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold">`;
+                else if (field.type === 'date-present') { const isPresent = val === 'Present' || val === 'বর্তমান'; inputHtml = `<div class="flex flex-col sm:flex-row gap-3 items-center w-full"><input type="date" id="input_${field.key}" value="${!isPresent ? escapedVal : ''}" class="w-full sm:flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold disabled:opacity-50 disabled:cursor-not-allowed" ${isPresent ? 'disabled' : ''}><label class="w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-6 py-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors select-none"><input type="checkbox" id="checkbox_${field.key}_present" class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600" ${isPresent ? 'checked' : ''} onchange="togglePresent('${field.key}')"><span class="font-bold text-slate-700 dark:text-slate-200">Present</span></label></div>`; }
+                else if (field.type === 'checkbox') { inputHtml = `<div class="flex items-center gap-3 mt-2"><input type="checkbox" id="input_${field.key}" ${escapedVal === 'true' || escapedVal === '1' || val === true ? 'checked' : ''} class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 cursor-pointer"><label class="font-bold text-slate-700 dark:text-slate-300 cursor-pointer" for="input_${field.key}">Yes</label></div>`; }
+                else inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400" placeholder="Type here...">`;
+                return `<div class="mb-2"><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2 heading-text"><i data-lucide="${field.icon}" class="w-4 h-4 text-brand-500"></i> ${field.label}</label>${inputHtml}</div>`;
+            }).join('');
+
+            lucide.createIcons(); const overlay = document.getElementById('form-modal-overlay'); const modal = document.getElementById('form-modal'); overlay.classList.remove('hidden-safely'); requestAnimationFrame(() => { overlay.classList.remove('opacity-0'); modal.classList.remove('scale-95'); });
+        }
+
+        function closeFormModal() { const overlay = document.getElementById('form-modal-overlay'); const modal = document.getElementById('form-modal'); overlay.classList.add('opacity-0'); modal.classList.add('scale-95'); setTimeout(() => { overlay.classList.add('hidden-safely'); }, 300); }
+        
+        async function saveFormData() {
+            const schema = SCHEMAS[currentCategory]; const dataArr = getCategoryDataArray(); const newData = editingIndex >= 0 ? { ...dataArr[editingIndex] } : {};
+            
+            schema.forEach(field => { 
+                let val = ''; 
+                if(field.type === 'date-present') { 
+                    const cb = document.getElementById(`checkbox_${field.key}_present`); 
+                    if(cb && cb.checked) val = "Present"; else val = document.getElementById(`input_${field.key}`).value.trim(); 
+                } 
+                else if (field.type === 'checkbox') {
+                    val = document.getElementById(`input_${field.key}`).checked;
+                }
+                else {
+                    val = document.getElementById(`input_${field.key}`).value.trim(); 
+                }
+                
+                newData[field.key] = val; 
+            });
+            
+            const payload = preparePayload(currentCategory, newData);
+            const table = getTableName(currentCategory);
+
+            try {
+                if (editingIndex >= 0) {
+                    const id = dataArr[editingIndex].id;
+                    const { error } = await sbClient.from(table).update(payload).eq('id', id);
+                    if (error) throw error;
+                    showToast('Data updated successfully!', 'success');
+                } else {
+                    if (currentCategory === 'academic') {
+                        const { data: authData } = await sbClient.auth.getSession();
+                        if (authData?.session?.user?.id) {
+                            payload.user_id = authData.session.user.id;
+                        }
+                    }
+
+                    const { error } = await sbClient.from(table).insert([payload]);
+                    if (error) throw error;
+                    showToast('New record added successfully!', 'success');
+                }
+                closeFormModal();
+                await fetchAllData();
+            } catch(e) {
+                showToast('Error saving to database', 'error');
+                console.error(e);
+            }
+        }
+
+        function editItem(index) { openFormModal(index); }
+        
+        async function deleteItem(index) { 
+            if(confirm('Warning: Are you sure you want to permanently delete this record?')) { 
+                const id = getCategoryDataArray()[index].id;
+                const table = getTableName(currentCategory);
+                try {
+                    const { error } = await sbClient.from(table).delete().eq('id', id);
+                    if (error) throw error;
+                    showToast('Record deleted permanently.', 'success');
+                    await fetchAllData();
+                } catch(e) {
+                    showToast('Error deleting data', 'error');
+                    console.error(e);
+                }
+            } 
+        }
+
+        async function updateVitals(clearCSFlag = false) { 
+            if(sessionStorage.getItem('auth_session') !== 'active') return showToast('Read-Only mode', 'error');
+            
+            const hl = document.getElementById('vital_hl').value;
+            const ld = document.getElementById('vital_ld').value;
+            const td = document.getElementById('vital_td').value;
+            let cs = document.getElementById('vital_cs').value;
+
+            if (clearCSFlag) {
+                cs = null;
+                document.getElementById('vital_cs').value = '';
+            }
+
+            try {
+                const { error } = await sbClient
+                    .from('user_vitals')
+                    .update({ 
+                        hl: hl ? parseFloat(hl) : null, 
+                        ld: ld || null, 
+                        cs: cs || null, 
+                        td: td ? parseInt(td) : 8,
+                        updated_at: new Date() 
+                    })
+                    .eq('id', 1);
+
+                if (error) throw error;
+
+                SYSTEM_DATA.hl = hl;
+                SYSTEM_DATA.ld = ld;
+                SYSTEM_DATA.cs = cs;
+                SYSTEM_DATA.td = td;
+                showToast('Health & Vitals updated successfully!', 'success');
+            } catch(e) {
+                console.error('Update Error:', e);
+                showToast('Error: ' + (e.message || 'Could not update data'), 'error');
+            }
+        }
+
+        function clearCS() {
+            if(confirm('Are you sure you want to clear your current study/work record?')) {
+                updateVitals(true);
+            }
+        }
+
+    </script>
+</body>
+</html>
+
+
+```
