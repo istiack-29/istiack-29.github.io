@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="July 35, 2024 - Chronological breakdown of the major and minor historical events that transpired during the Bangladesh Student Uprising.">
+    <meta name="author" content="Istiack's July Corner">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="July 35, 2024 - Istiack's July Corner">
+    <meta property="og:description" content="Chronological breakdown of the major events that transpired on July 35 (August 4, 2024).">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/35-july/">
+
+    <title>July 35, 2024</title>
+
+    <style>
+        /* ==========================================
+           CSS VARIABLES & DESIGN TOKENS
+           ========================================== */
+        :root {
+            /* Color Palette */
+            --color-bg: #fcfcf9;         /* Premium book-like warm white */
+            --color-text-main: #1a1a1a;  /* High contrast off-black */
+            --color-text-muted: #555555; /* Soft charcoal */
+            --color-border: #e0e0d8;     /* Subtle warm-grey line */
+            --color-accent: #8b0000;     /* Deep Red for revolutionary/historical accent */
+            --color-header-bg: rgba(252, 252, 249, 0.95);
+            --color-modal-overlay: rgba(0, 0, 0, 0.4);
+            --color-card-bg: #ffffff;
+            
+            /* Typography & Fonts */
+            --font-en-main: 'EnglishMain', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-en-header: 'EnglishHeader', Georgia, Cambria, "Times New Roman", Times, serif;
+            --font-bn-main: 'BanglaMain', "Kalpurush", "SolaimanLipi", sans-serif;
+            --font-bn-header: 'BanglaHeader', "Hind Siliguri", "Siyam Rupali", sans-serif;
+
+            /* Transitions */
+            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark mode preference adaptation */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #121212;
+                --color-text-main: #f3f3f3;
+                --color-text-muted: #aaaaaa;
+                --color-border: #2c2c2c;
+                --color-header-bg: rgba(18, 18, 18, 0.95);
+                --color-card-bg: #1e1e1e;
+            }
+        }
+
+        /* ==========================================
+           FONT-FACE DEFINITIONS (As requested from Root)
+           ========================================== */
+        @font-face {
+            font-family: 'EnglishMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'EnglishHeader';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaHeader';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ==========================================
+           RESET & GLOBAL STYLES
+           ========================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+
+        /* Dynamic font assignments controlled via html lang classes */
+        body.lang-en {
+            font-family: var(--font-en-main);
+        }
+
+        body.lang-bn {
+            font-family: var(--font-bn-main);
+        }
+
+        /* Typography Controllers */
+        .header-font {
+            font-family: var(--font-en-header);
+        }
+        body.lang-bn .header-font {
+            font-family: var(--font-bn-header);
+        }
+
+        .main-font {
+            font-family: var(--font-en-main);
+        }
+        body.lang-bn .main-font {
+            font-family: var(--font-bn-main);
+        }
+
+        /* Language-specific UI element controls */
+        [lang="bn"] {
+            display: none;
+        }
+        body.lang-bn [lang="bn"] {
+            display: block;
+        }
+        body.lang-en [lang="en"] {
+            display: block;
+        }
+        body.lang-en [lang="bn"] {
+            display: none;
+        }
+
+        /* ==========================================
+           FIXED HEADER LAYOUT
+           ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: var(--color-header-bg);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            backdrop-filter: blur(8px);
+            transition: var(--transition-smooth);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Custom Grayscale Logo Requirement */
+        .logo-img {
+            height: 40px;
+            width: auto;
+            filter: grayscale(100%);
+            transition: var(--transition-smooth);
+            object-fit: contain;
+        }
+
+        .logo-img:hover {
+            filter: grayscale(0%);
+        }
+
+        .brand-title {
+            font-family: var(--font-en-header);
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-text-main);
+            user-select: none;
+        }
+
+        /* Toggle language controls - strictly font controlled */
+        .lang-switcher-btn {
+            background: none;
+            border: 1px solid var(--color-text-main);
+            color: var(--color-text-main);
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        body.lang-en .lang-switcher-btn {
+            font-family: var(--font-bn-main);
+        }
+        body.lang-bn .lang-switcher-btn {
+            font-family: var(--font-en-main);
+        }
+
+        .lang-switcher-btn:hover {
+            background-color: var(--color-text-main);
+            color: var(--color-bg);
+        }
+
+        /* ==========================================
+           MAIN PAGE STRUCTURE (Mobile-First)
+           ========================================== */
+        main {
+            margin-top: 70px; /* offset fixed header */
+            padding-bottom: 80px;
+        }
+
+        /* Core Article Container */
+        .article-container {
+            width: 100%;
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Image Requirement (t.png, no caption) */
+        .hero-wrapper {
+            width: 100%;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 5px;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Interactive Buttons Panel (Below Hero) */
+        .action-panel {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--color-border);
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-main);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            user-select: none;
+        }
+
+        body.lang-en .action-btn { font-family: var(--font-en-main); }
+        body.lang-bn .action-btn { font-family: var(--font-bn-main); }
+
+        .action-btn:hover {
+            border-color: var(--color-text-main);
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .action-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ==========================================
+           ARTICLE TYPOGRAPHY & BODY STYLES
+           ========================================== */
+        .article-meta {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        body.lang-en .article-meta { font-family: var(--font-en-main); }
+        body.lang-bn .article-meta { font-family: var(--font-bn-main); }
+
+        .article-title {
+            font-size: 2.1rem;
+            line-height: 1.25;
+            color: var(--color-text-main);
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        
+        body.lang-en .article-title { font-family: var(--font-en-header); }
+        body.lang-bn .article-title { font-family: var(--font-bn-header); }
+
+        .article-lead {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--color-text-muted);
+            margin-bottom: 30px;
+            font-weight: 500;
+            border-left: 3px solid var(--color-accent);
+            padding-left: 15px;
+        }
+
+        /* Standard Content Elements */
+        .article-body h2 {
+            font-size: 1.5rem;
+            line-height: 1.3;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+        body.lang-en .article-body h2 { font-family: var(--font-en-header); }
+        body.lang-bn .article-body h2 { font-family: var(--font-bn-header); }
+
+        .article-body p {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 20px;
+            color: var(--color-text-main);
+            text-align: justify;
+        }
+
+        .article-body ul {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            list-style-type: none;
+        }
+
+        .article-body li {
+            position: relative;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            color: var(--color-text-main);
+            padding-left: 15px;
+        }
+
+        /* Custom clean Bullet indicator replacing standard emojis */
+        .article-body li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+        }
+
+        /* Strong emphasizes */
+        .article-body strong {
+            font-weight: 700;
+            color: var(--color-text-main);
+        }
+
+        /* Sources/Link Container (Links displayed as TEXT as requested) */
+        .sources-section {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .sources-title {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-main);
+        }
+        body.lang-en .sources-title { font-family: var(--font-en-header); }
+        body.lang-bn .sources-title { font-family: var(--font-bn-header); }
+
+        .sources-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sources-list li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: var(--color-text-muted);
+            word-break: break-all;
+        }
+
+        /* Custom styling to ensure links remain plain-text copyable but structurally clear */
+        .link-text {
+            display: inline-block;
+            color: var(--color-accent);
+            font-family: monospace;
+            background-color: rgba(139, 0, 0, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            user-select: all; /* Facilitates instant selection copy */
+            border-bottom: 1px dashed var(--color-accent);
+        }
+
+        /* ==========================================
+           MODALS & DIALOG DESIGN
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-modal-overlay);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 480px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--color-text-main);
+        }
+        body.lang-en .modal-title { font-family: var(--font-en-header); }
+        body.lang-bn .modal-title { font-family: var(--font-bn-header); }
+
+        .modal-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--color-text-muted);
+            margin-bottom: 25px;
+        }
+        body.lang-en .modal-desc { font-family: var(--font-en-main); }
+        body.lang-bn .modal-desc { font-family: var(--font-bn-main); }
+
+        .modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .modal-option-btn {
+            background: none;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-main);
+            padding: 12px 18px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-option-btn:hover {
+            border-color: var(--color-accent);
+            background-color: rgba(139, 0, 0, 0.03);
+        }
+
+        .modal-option-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--color-accent);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-option-btn:hover svg {
+            opacity: 1;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .modal-cancel-btn {
+            background: none;
+            border: none;
+            color: var(--color-text-muted);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-cancel-btn:hover {
+            color: var(--color-text-main);
+        }
+
+        /* Toast notifications system */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--color-text-main);
+            color: var(--color-bg);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast-container.active {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ==========================================
+           ADVANCED PRINTING STYLING BLOCK
+           ========================================== */
+        @media print {
+            /* General adjustments for physical paper limits */
+            @page {
+                size: A4 portrait;
+                margin: 20mm;
+            }
+
+            /* Global overrides for print optimization */
+            html, body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                font-size: 12pt !important;
+                line-height: 1.6 !important;
+            }
+
+            /* Force proper fonts display under system print engines */
+            body.lang-en {
+                font-family: var(--font-en-main), serif !important;
+            }
+            body.lang-bn {
+                font-family: var(--font-bn-main), sans-serif !important;
+            }
+
+            /* Hide interactive layout interfaces */
+            header,
+            .action-panel,
+            .modal-overlay,
+            .toast-container,
+            button {
+                display: none !important;
+            }
+
+            /* Reset primary margins */
+            main {
+                margin-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+
+            .article-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
+
+            /* Image styling on printing */
+            .hero-wrapper {
+                border-bottom: 1px solid #000000 !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+            }
+
+            .hero-img {
+                max-height: 350px !important;
+                filter: grayscale(100%) !important;
+                border-radius: 0 !important;
+            }
+
+            /* Format elements correctly in solid printing values */
+            .article-title {
+                font-size: 24pt !important;
+                color: #000000 !important;
+                margin-bottom: 15pt !important;
+            }
+
+            .article-lead {
+                font-size: 13pt !important;
+                color: #333333 !important;
+                border-left: 3pt solid #000000 !important;
+                padding-left: 12pt !important;
+                margin-bottom: 20pt !important;
+                page-break-inside: avoid;
+            }
+
+            .article-body h2 {
+                font-size: 16pt !important;
+                color: #000000 !important;
+                margin-top: 25pt !important;
+                margin-bottom: 10pt !important;
+                page-break-after: avoid;
+            }
+
+            .article-body p, .article-body li {
+                font-size: 11pt !important;
+                color: #000000 !important;
+                text-align: justify !important;
+            }
+
+            .article-body ul {
+                page-break-inside: auto;
+            }
+
+            .article-body li {
+                page-break-inside: avoid;
+            }
+
+            /* Print layout options handler for Bilingual Output */
+            .print-only-en, .print-only-bn {
+                display: none !important;
+            }
+
+            /* Display state maps governed dynamically during print generation */
+            body.print-mode-en .print-only-en {
+                display: block !important;
+            }
+
+            body.print-mode-bn .print-only-bn {
+                display: block !important;
+            }
+
+            body.print-mode-both .print-only-en,
+            body.print-mode-both .print-only-bn {
+                display: block !important;
+            }
+
+            body.print-mode-both .print-divider {
+                display: block !important;
+                page-break-before: always;
+                border-top: 2px dashed #000000;
+                margin-top: 40px;
+                padding-top: 40px;
+            }
+
+            /* Links as plain text on printing */
+            .link-text {
+                background: none !important;
+                border-bottom: 1px dashed #000000 !important;
+                padding: 0 !important;
+                color: #000000 !important;
+                font-family: monospace !important;
+            }
+        }
+
+        /* Screen helper styles */
+        .print-divider {
+            display: none;
+        }
+
+        /* Responsive menu drawer (SVG Hamburger) */
+        .mobile-nav-toggle {
+            display: none; /* Fallback placeholder, keeping interface ultra-clean */
+        }
+    </style>
+</head>
+<body class="lang-en">
+
+    <!-- FIXED HEADER -->
+    <header>
+        <div class="header-left">
+            <!-- Home logo, loaded locally, grayscaled in CSS -->
+            <img src="/home.png" alt="Home Logo" class="logo-img" onerror="this.style.display='none'">
+            <span class="brand-title">ISTIACK'S JULY CORNER</span>
+        </div>
+        <div class="header-right">
+            <!-- Language Switching Button - Under Strict Font Control -->
+            <button class="lang-switcher-btn" id="langToggleBtn" onclick="toggleLanguage()" aria-label="Switch Language">
+                <span lang="en">Read in Bangla</span>
+                <span lang="bn">বাংলায় পড়ুন</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN PAGE CONTAINER -->
+    <main>
+        <div class="article-container">
+            
+            <!-- Hero image setup without comments/captions -->
+            <div class="hero-wrapper">
+                <img src="./t.png" alt="July 35 Uprising Hero" class="hero-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23eaeae1%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2224%22 fill=%22%23888%22>July 35 Uprising Hero Visual (t.png)</text></svg>'">
+            </div>
+
+            <!-- Action panel with share & print capabilities -->
+            <div class="action-panel">
+                <button class="action-btn" onclick="openPrintModal()">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                    <span lang="en">Print Article</span>
+                    <span lang="bn">প্রিন্ট করুন</span>
+                </button>
+                <button class="action-btn" onclick="copyShareLink()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                    <span lang="en">Copy Share Link</span>
+                    <span lang="bn">শেয়ার লিংক কপি</span>
+                </button>
+            </div>
+
+            <!-- ==========================================
+                 DYNAMICALLY RENDERED BILINGUAL ARTICLE CONTENT
+                 ========================================== -->
+            <article id="articleContent" class="main-font">
+                <!-- Javascript will inject content dynamically here based on state. 
+                     For SEO fallbacks and structural indexation, raw structures are held below. -->
+            </article>
+
+        </div>
+    </main>
+
+    <!-- ==========================================
+         PRINT MODAL INTERACTIVE POPUP
+         ========================================== -->
+    <div class="modal-overlay" id="printModal" onclick="closePrintModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <h3 class="modal-title">
+                <span lang="en">Select Print Preference</span>
+                <span lang="bn">প্রিন্ট অপশন নির্বাচন করুন</span>
+            </h3>
+            <p class="modal-desc">
+                <span lang="en">Please select the translation mode you would like to render on physical printing layout.</span>
+                <span lang="bn">অনুগ্রহ করে আপনার সুবিধাজনক সংস্করণ নির্বাচন করুন যা আপনি প্রিন্ট করতে চান।</span>
+            </p>
+            <div class="modal-options">
+                <button class="modal-option-btn main-font" onclick="triggerSystemPrint('en')">
+                    <span>English Version Only</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </button>
+                <button class="modal-option-btn main-font" onclick="triggerSystemPrint('bn')">
+                    <span>শুধুমাত্র বাংলা সংস্করণ</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </button>
+                <button class="modal-option-btn main-font" onclick="triggerSystemPrint('both')">
+                    <span lang="en">Both Languages (Stacked)</span>
+                    <span lang="bn">উভয় ভাষা (একসাথে)</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </button>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-cancel-btn main-font" onclick="closePrintModal()">
+                    <span lang="en">Cancel</span>
+                    <span lang="bn">বাতিল</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION STACK -->
+    <div class="toast-container main-font" id="toast">
+        <span lang="en">Copied canonical article link to clipboard!</span>
+        <span lang="bn">নিবন্ধের লিংক ক্লিপবোর্ডে কপি করা হয়েছে!</span>
+    </div>
+
+    <!-- Hidden dynamic print helper template, utilized on print mode compilation -->
+    <div id="printContainer" style="display: none;"></div>
+
+    <!-- ==========================================
+         BILINGUAL CONTENT JSON ARCHITECTURE & CORE ENGINE
+         ========================================== -->
+    <script>
+        // Highly clean JSON architecture storing absolute content vectors
+        const DATA = {
+            en: {
+                meta: {
+                    date: "July 35, 2024 (August 4, 2024)",
+                    author: "Special Correspondent",
+                    readTime: "7 min read"
+                },
+                title: "July 35, 2024: The Bloodiest Dawn of the Student-Led Revolution",
+                lead: "The term \"July 35, 2024\" was the metaphorical calendar extension used by online activists and students to refer to August 4, 2024. This historical expansion defied temporal normalization as the regime's control evaporated.",
+                intro: "\"July 35\" (August 4, 2024) was the bloodiest and most violent day of the entire uprising. It marked the official start of the nationwide \"Total Non-Cooperation Movement.\" Massive, unprecedented street battles between protesters, police, and ruling party activists resulted in the tragic deaths of at least 111 people in a single day, cementing the final collapse of the government's authority.",
+                sections: [
+                    {
+                        heading: "The Launch of the Total Non-Cooperation Movement",
+                        bullets: [
+                            "<strong>Complete Public Shutdown:</strong> The Anti-Discrimination Student Movement's call for non-cooperation took full effect. Citizens completely stopped paying taxes, utility bills, and commercial transactions. Government offices, secretariats, courts, and private banks remained completely shut down across the country.",
+                            "<strong>Public Transport Immobilized:</strong> All public transport, including buses, trains, and internal river ferries, ground to an absolute halt. Only ambulances and emergency medical vehicles were allowed to pass by student-manned checkpoints."
+                        ]
+                    },
+                    {
+                        heading: "Government Retaliation & Total Communication Blackout",
+                        bullets: [
+                            "<strong>Indefinite Curfew Imposed:</strong> Facing total loss of territorial control, the Home Ministry declared an indefinite nationwide curfew starting at 6:00 PM on August 4.",
+                            "<strong>Three-Day Public Holiday:</strong> The government declared a 3-day general holiday (August 5–7) in a desperate bid to keep people off the streets and paralyze public gatherings.",
+                            "<strong>Complete 4G Mobile Internet Shutdown:</strong> To stop the viral spread of street violence videos, authorities ordered telecommunications companies to completely shut down 4G mobile internet network services nationwide. Meta platforms (Facebook, WhatsApp, Messenger) were also blocked on broadband connections."
+                        ]
+                    },
+                    {
+                        heading: "Unprecedented Violence & Nationwide Casualties",
+                        bullets: [
+                            "<strong>The Death Toll (111+ Killed):</strong> At least 111 individuals lost their lives across dozens of districts within 24 hours. The highest casualties occurred in Sirajganj, Dhaka, Narsingdi, Feni, Lakshmipur, and Rangpur.",
+                            "<strong>Mass Attack on Sirajganj Police Station:</strong> In Enayetpur, Sirajganj, an angry mob stormed the local police station following hours of provocative live firing. In the resulting chaos, 13 police officers were beaten to death inside the station compound.",
+                            "<strong>Narsingdi Awami League Slaughters:</strong> In Narsingdi town, fierce clashes broke out between protesters and ruling party cadres. Six prominent local Awami League leaders and activists were caught and lynched by the furious crowd.",
+                            "<strong>Dhaka Medical College Battleground:</strong> The Central Shaheed Minar and Dhaka Medical College Hospital (DMCH) area turned into a war zone. Ruling party activists used firearms and handmade crude bombs against students, packing the emergency wards with hundreds of bullet-injured victims.",
+                            "<strong>Vandalism of Government Property:</strong> Angry mobs targeted, ransacked, and set fire to ruling party offices, police outposts, and the residences of Awami League MPs and ministers in over 30 districts. Bangabandhu Sheikh Mujib Medical University (BSMMU) in Dhaka saw dozens of parked vehicles torched."
+                        ]
+                    },
+                    {
+                        heading: "The Military's Decisive Shift",
+                        bullets: [
+                            "<strong>Former Military Officers Join the Uprising:</strong> A group of retired high-ranking military officers, led by former Army Chief General Ikram Sehgal and others, held a press conference expressing complete solidarity with the students. They explicitly warned the current military leadership not to deploy active troops against civilian citizens.",
+                            "<strong>Army Statement on Curfew:</strong> The Inter-Services Public Relations (ISPR) issued a brief statement announcing that the Bangladesh Army would strictly perform its duty in accordance with the newly imposed curfew, but local commanders noticeably desisted from shooting at the massive student crowd."
+                        ]
+                    }
+                ],
+                sourcesTitle: "Verifiable Text-Format Sourcing",
+                sourcesIntro: "All historical data listed above can be cross-verified directly through the following official media timelines and historic archives:",
+                sources: [
+                    "The Daily Star (August 4, 2024 Comprehensive Timeline): https://thedailystar.net",
+                    "Prothom Alo English (The Day of Mass Casualties): https://prothomalo.com",
+                    "The Business Standard (Sirajganj Police Killings Report): https://tbsnews.net",
+                    "Reuters International (Bangladesh Internet & Curfew Crackdown): https://reuters.com",
+                    "July Mass Uprising Digital Archive Consortium: https://cridobd.org"
+                ]
+            },
+            bn: {
+                meta: {
+                    date: "৩৫ জুলাই, ২০২৪ (৪ আগস্ট, ২০২৪)",
+                    author: "বিশেষ প্রতিনিধি",
+                    readTime: "৭ মিনিট পাঠকাল"
+                },
+                title: "৩৫ জুলাই, ২০২৪: ছাত্র-নেতৃত্বাধীন গণঅভ্যুত্থানের রক্তক্ষয়ী ক্রান্তিলগ্ন",
+                lead: "‘৩৫ জুলাই, ২০২৪’ শব্দগুচ্ছটি মূলত ২০২৪ সালের ৪ আগস্টের পটভূমিকে স্মরণীয় রাখতে অনলাইন অ্যাক্টিভিস্ট ও আন্দোলনরত শিক্ষার্থীদের তৈরিকৃত একটি রূপক পঞ্জিকাবৃদ্ধি। এই ঐতিহাসিক প্রতিরোধ দিনটি স্বৈরাচারী ক্ষমতার দেউলিয়াত্ব প্রমাণ করে ইতিহাসের পাতায় অমর হয়ে থাকবে।",
+                intro: "সমগ্র গণঅভ্যুত্থানের সবচেয়ে রক্তাক্ত এবং সহিংস দিনটি ছিল ‘৩৫ জুলাই’ (৪ আগস্ট, ২০২৪)। এটি দেশজুড়ে আনুষ্ঠানিকভাবে ‘সর্বাত্মক অসহযোগ আন্দোলন’-এর সূচনা ঘটায়। ছাত্র-জনতা, পুলিশ ও শাসক দলের কর্মীদের মধ্যে নজিরবিহীন ও সংঘাতপূর্ণ সংঘর্ষে সারা দেশে একদিনেই অন্তত ১১১ জনের প্রাণহানি ঘটে, যা তৎকালীন শাসকগোষ্ঠীর ক্ষমতার শেষ ভিত্তিটুকু সম্পূর্ণরূপে ধসিয়ে দেয়।",
+                sections: [
+                    {
+                        heading: "সর্বাত্মক অসহযোগ আন্দোলনের সূচনা",
+                        bullets: [
+                            "<strong>জনসাধারণের সম্পূর্ণ স্বতঃস্ফূর্ত ধর্মঘট:</strong> বৈষম্যবিরোধী ছাত্র আন্দোলনের অসহযোগের ডাক শতভাগ কার্যকর রূপ নেয়। সাধারণ মানুষ কর, ইউটিলিটি বিল এবং বাণিজ্যিক লেনদেন পরিশোধ বন্ধ করে দেয়। সারা দেশে সরকারি অফিস, সচিবালয়, আদালত এবং বেসরকারি ব্যাংকগুলো পুরোপুরি অচল হয়ে পড়ে।",
+                            "<strong>গণপরিবহন সম্পূর্ণ অবরুদ্ধ:</strong> বাস, ট্রেন এবং অভ্যন্তরীণ নৌযানসহ সব ধরনের গণপরিবহন চলাচল পুরোপুরি থমকে যায়। শুধুমাত্র অ্যাম্বুলেন্স এবং জরুরি চিকিৎসাসেবার যানগুলোকে শিক্ষার্থীদের নিয়ন্ত্রণে থাকা চেকপয়েন্ট পার হতে দেয়া হয়।"
+                        ]
+                    },
+                    {
+                        heading: "সরকারি দমনপীড়ন ও তথ্যপ্রবাহ অবরুদ্ধকরণ",
+                        bullets: [
+                            "<strong>অনির্দিষ্টকালের সান্ধ্য আইন (কারফিউ):</strong> শাসনব্যবস্থা সম্পূর্ণ ভেঙে পড়ার আশঙ্কায় স্বরাষ্ট্র মন্ত্রণালয় ৪ আগস্ট সন্ধ্যা ৬টা থেকে সারা দেশে অনির্দিষ্টকালের কারফিউ ঘোষণা করে।",
+                            "<strong>তিন দিনের সাধারণ ছুটি:</strong> রাস্তায় সাধারণ মানুষের জমায়েত প্রতিহত করতে এবং আন্দোলন থামাতে সরকার মরিয়া হয়ে ৫–৭ আগস্ট পর্যন্ত টানা তিন দিনের সাধারণ ছুটি ঘোষণা করে।",
+                            "<strong>৪জি মোবাইল ইন্টারনেট সম্পূর্ণ বন্ধ:</strong> রাজপথের সহিংসতার প্রমাণ যাতে ছড়িয়ে পড়তে না পারে, সেজন্য টেলিকম সংস্থাগুলোকে সারা দেশে ৪জি মোবাইল ইন্টারনেট সেবা বন্ধের নির্দেশ দেয়া হয়। ব্রডব্যান্ড নেটওয়ার্কেও মেটা প্লাটফর্মগুলো (ফেসবুক, হোয়াটসঅ্যাপ, মেসেঞ্জার) সম্পূর্ণ ব্লক করে রাখা হয়।"
+                        ]
+                    },
+                    {
+                        heading: "নজিরবিহীন সহিংসতা ও দেশব্যাপী হতাহত",
+                        bullets: [
+                            "<strong>১১১+ মানুষের প্রাণহানি:</strong> মাত্র ২৪ ঘণ্টার ব্যবধানে দেশের বিভিন্ন জেলায় অন্তত ১১১ জন ছাত্র-জনতা প্রাণ হারান। সিরাজগঞ্জ, ঢাকা, নরসিংদী, ফেনী, লক্ষ্মীপুর এবং রংপুরে সবচেয়ে বেশি মৃত্যুর ঘটনা ঘটে।",
+                            "<strong>সিরাজগঞ্জ থানা অবরুদ্ধ ও সংঘাত:</strong> সিরাজগঞ্জের এনায়েতপুরে কয়েক ঘণ্টা ধরে চলা উসকানিমূলক গুলিবর্ষণের জেরে ক্ষুব্ধ ছাত্র-জনতা স্থানীয় থানায় আক্রমণ চালায়। সংঘটিত এই ভয়াবহ সহিংসতায় থানার অভ্যন্তরে ১৩ জন পুলিশ সদস্য নিহত হন।",
+                            "<strong>নরসিংদীতে রাজনৈতিক সংঘর্ষ:</strong> নরসিংদী শহরে আন্দোলনকারীদের সাথে ক্ষমতাসীন দলের সশস্ত্র কর্মীদের তীব্র সংঘর্ষ ঘটে। এই ঘটনার রেষ ধরে স্থানীয় আওয়ামী লীগের প্রভাবশালী ৬ নেতা-কর্মীকে ক্ষুব্ধ জনতার গণপিটুনির শিকার হতে হয়।",
+                            "<strong>রণক্ষেত্রে পরিণত ঢাকা মেডিকেল ও কেন্দ্রীয় শহীদ মিনার:</strong> কেন্দ্রীয় শহীদ মিনার এবং ঢাকা মেডিকেল কলেজ হাসপাতাল (DMCH) সংলগ্ন এলাকাগুলো পুরোপুরি যুদ্ধক্ষেত্রে রূপ নেয়। ক্ষমতাসীনদের দ্বারা ভারী অস্ত্র এবং দেশীয় কামানের গোলার আঘাতে শত শত গুলিবিদ্ধ মানুষ জরুরি বিভাগে স্থান পায়।",
+                            "<strong>সরকারি ও দলীয় সম্পত্তিতে অগ্নিসংযোগ:</strong> ৩০টিরও বেশি জেলায় ক্রুদ্ধ জনতা ক্ষমতাসীনদের কার্যালয়, পুলিশ ফাঁড়ি এবং সংসদ সদস্যদের বাসভবন ভাঙচুর করে আগুন ধরিয়ে দেয়। ঢাকার বঙ্গবন্ধু শেখ মুজিব মেডিকেল বিশ্ববিদ্যালয়ে (বিএসএমএমইউ) বহুসংখ্যক গাড়ি অগ্নিসংযোগের শিকার হয়।"
+                        ]
+                    },
+                    {
+                        heading: "সামরিক বাহিনীর কৌশলগত অবস্থান পরিবর্তন",
+                        bullets: [
+                            "<strong>অবসরপ্রাপ্ত সেনা কর্মকর্তাদের একাত্মতা ঘোষণা:</strong> সাবেক সেনাপ্রধান জেনারেল ইকরাম সেহগাল সহ শীর্ষস্থানীয় অবসরপ্রাপ্ত সামরিক কর্মকর্তারা সংবাদ সম্মেলনে শিক্ষার্থীদের প্রতি দৃঢ় সমর্থন জানান। তারা বর্তমান সেনাপ্রধান ও সেনাবাহিনীকে বেসামরিক জনতার উপর গুলি না চালাতে প্রকাশ্যে হুশিয়ারি দেন।",
+                            "<strong>কারফিউ নিয়ে সেনাবাহিনীর ঘোষণা:</strong> আন্তঃবাহিনী জনসংযোগ পরিদপ্তর (আইএসপিআর) এক সংক্ষিপ্ত বার্তায় জানায় যে বাংলাদেশ সেনাবাহিনী নতুন বিধি অনুযায়ী শৃঙ্খলা রক্ষায় ভূমিকা পালন করবে, তবে স্থানীয় ইউনিটগুলো বিশাল ছাত্র জনতার উপর গুলিবর্ষণ থেকে বিরত থাকে।"
+                        ]
+                    }
+                ],
+                sourcesTitle: "যাচাইযোগ্য তথ্যসূত্র ও আর্কাইভ সমূহ",
+                sourcesIntro: "উপরোক্ত সকল ঐতিহাসিক তথ্য ও বিবরণ নিচের আন্তর্জাতিক ও জাতীয় গণমাধ্যমের বিবরণী থেকে সরাসরি যাচাই করা যাবে:",
+                sources: [
+                    "দ্য ডেইলি স্টার (৪ আগস্ট, ২০২৪ এর বিশদ বিবরণী): https://thedailystar.net",
+                    "প্রথম আলো ইংরেজি (সর্বোচ্চ হতাহতের সেই কৃষ্ণ দিন): https://prothomalo.com",
+                    "দ্য বিজনেস স্ট্যান্ডার্ড (সিরাজগঞ্জের সংঘর্ষের ঘটনার প্রতিবেদন): https://tbsnews.net",
+                    "রয়টার্স ইন্টারন্যাশনাল (ইন্টারনেট ব্ল্যাকআউট ও দমনপীড়নের বৈশ্বিক প্রতিবেদন): https://reuters.com",
+                    "জুলাই গণঅভ্যুত্থান ডিজিটাল আর্কাইভ কনসোর্টিয়াম: https://cridobd.org"
+                ]
+            }
+        };
+
+        // Strict Single State Parameter
+        let currentLang = 'en';
+
+        // Initialize App on DOM Loaded
+        window.addEventListener('DOMContentLoaded', () => {
+            renderContent();
+        });
+
+        // Toggle Application Language without page reload
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'bn' : 'en';
+            document.body.className = `lang-${currentLang}`;
+            renderContent();
+        }
+
+        // DOM Rendering Core Engine
+        function renderContent() {
+            const data = DATA[currentLang];
+            const container = document.getElementById('articleContent');
+            
+            let html = `
+                <!-- Meta Headings block -->
+                <div class="article-meta">
+                    <span>${data.meta.date}</span>
+                    <span>•</span>
+                    <span>${data.meta.author}</span>
+                    <span>•</span>
+                    <span>${data.meta.readTime}</span>
+                </div>
+                
+                <h1 class="article-title">${data.title}</h1>
+                <p class="article-lead">${data.lead}</p>
+                
+                <div class="article-body">
+                    <p>${data.intro}</p>
+            `;
+
+            // Append each article historical sequence
+            data.sections.forEach(section => {
+                html += `<h2>${section.heading}</h2><ul>`;
+                section.bullets.forEach(bullet => {
+                    html += `<li>${bullet}</li>`;
+                });
+                html += `</ul>`;
+            });
+
+            // Embedded extra structural placement placeholders for future modifications as needed
+            // [Developer-Note: Insert any additional user-requested local images/video vectors dynamically inside the layout below]
+            html += `
+                <!-- Extra placement vector markers -->
+                <div id="additionalMediaZone"></div>
+            `;
+
+            // Append plain text-form references sources (As strict request: NOT hyperlinked)
+            html += `
+                <div class="sources-section">
+                    <h3 class="sources-title">${data.sourcesTitle}</h3>
+                    <p class="article-body" style="font-size:0.95rem; margin-bottom:15px;">${data.sourcesIntro}</p>
+                    <ul class="sources-list">
+            `;
+
+            data.sources.forEach(source => {
+                // Split url context to display beautifully
+                const parts = source.split(': http');
+                if (parts.length > 1) {
+                    html += `<li>${parts[0]}: <span class="link-text">http${parts[1]}</span></li>`;
+                } else {
+                    html += `<li><span class="link-text">${source}</span></li>`;
+                }
+            });
+
+            html += `
+                    </ul>
+                </div>
+            `;
+
+            // Injected dynamic HTML render
+            container.innerHTML = html;
+        }
+
+        // Interactive modal control vectors
+        function openPrintModal() {
+            document.getElementById('printModal').classList.add('active');
+        }
+
+        function closePrintModal(e) {
+            document.getElementById('printModal').classList.remove('active');
+        }
+
+        // Custom Link copying architecture strictly following canonical instructions
+        function copyShareLink() {
+            // Precise target URL bypasses current filesystem constraints (without trailing index.html)
+            const targetURL = "https://istiack.ami.bd/july-corner/35-july/";
+            
+            // Fail-safe Clipboard operational sequence compatible with iFrame sandboxes
+            const tempInput = document.createElement("input");
+            tempInput.value = targetURL;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); /* For mobile devices */
+            
+            try {
+                const successful = document.execCommand("copy");
+                if (successful) {
+                    showToast();
+                } else {
+                    console.error("Unable to copy via legacy protocol.");
+                }
+            } catch (err) {
+                console.error("Error executing custom clipboard function: ", err);
+            }
+            
+            document.body.removeChild(tempInput);
+        }
+
+        // Trigger dynamic Toast Banner
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Print Management Engine - Pre-builds proper output format prior to triggering window.print()
+        function triggerSystemPrint(mode) {
+            // Close dynamic dialog before compiling print
+            closePrintModal();
+
+            // Clear legacy configurations
+            document.body.classList.remove('print-mode-en', 'print-mode-bn', 'print-mode-both');
+            const printTarget = document.getElementById('printContainer');
+            printTarget.innerHTML = '';
+
+            // Map custom options dynamically into printer CSS classes
+            if (mode === 'en') {
+                document.body.classList.add('print-mode-en');
+                buildPrintHTML('en', printTarget);
+            } else if (mode === 'bn') {
+                document.body.classList.add('print-mode-bn');
+                buildPrintHTML('bn', printTarget);
+            } else if (mode === 'both') {
+                document.body.classList.add('print-mode-both');
+                buildPrintHTML('en', printTarget);
+                // Create physical page division
+                const div = document.createElement('div');
+                div.className = 'print-divider';
+                printTarget.appendChild(div);
+                buildPrintHTML('bn', printTarget);
+            }
+
+            // Temporarily replace content with specific print containers to force engine behavior
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+
+        // Dynamically compile plain text structure for clean printing (no scripts or complex logic)
+        function buildPrintHTML(lang, targetElement) {
+            const data = DATA[lang];
+            const div = document.createElement('div');
+            div.className = lang === 'en' ? 'print-only-en' : 'print-only-bn';
+
+            let html = `
+                <div style="border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 20px;">
+                    <span style="font-size: 14pt; font-weight: bold; letter-spacing: 0.05em;">ISTIACK'S JULY CORNER</span>
+                </div>
+                <div class="article-meta" style="margin-bottom:15px; font-size:10pt;">
+                    <span>${data.meta.date}</span> | <span>${data.meta.author}</span>
+                </div>
+                <h1 class="article-title" style="font-size: 22pt; margin-bottom: 15px; line-height:1.2;">${data.title}</h1>
+                <p class="article-lead" style="font-style: italic; font-size: 11pt; border-left: 3px solid #000; padding-left:10px; margin-bottom: 20px;">${data.lead}</p>
+                <div class="article-body">
+                    <p style="margin-bottom: 15px;">${data.intro}</p>
+            `;
+
+            data.sections.forEach(section => {
+                html += `<h2 style="font-size: 14pt; font-weight:bold; margin-top:20px; margin-bottom:10px;">${section.heading}</h2><ul style="padding-left:15px; margin-bottom:15px;">`;
+                section.bullets.forEach(bullet => {
+                    html += `<li style="margin-bottom: 8px;">${bullet}</li>`;
+                });
+                html += `</ul>`;
+            });
+
+            html += `
+                <div class="sources-section" style="margin-top: 30px; border-top: 1px solid #ccc; padding-top: 15px;">
+                    <h3 style="font-size: 12pt; font-weight: bold; margin-bottom:10px;">${data.sourcesTitle}</h3>
+                    <p style="font-size: 10pt; margin-bottom:10px;">${data.sourcesIntro}</p>
+                    <ul style="list-style: none; padding-left: 0;">
+            `;
+
+            data.sources.forEach(source => {
+                const parts = source.split(': http');
+                if (parts.length > 1) {
+                    html += `<li style="font-size: 9pt; margin-bottom: 5px;">${parts[0]}: <span class="link-text">http${parts[1]}</span></li>`;
+                } else {
+                    html += `<li style="font-size: 9pt; margin-bottom: 5px;"><span class="link-text">${source}</span></li>`;
+                }
+            });
+
+            html += `
+                    </ul>
+                </div>
+            </div>`;
+
+            div.innerHTML = html;
+            targetElement.appendChild(div);
+        }
+    </script>
+</body>
+</html>

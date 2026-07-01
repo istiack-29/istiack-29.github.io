@@ -1738,14 +1738,13 @@
     }
 
     .project-card-img {
-      width: 100%; height: 148px;
-      object-fit: cover;
+      width: 100%; height: auto;
       display: block;
       pointer-events: none;
     }
 
     .project-card-img-placeholder {
-      width: 100%; height: 148px;
+      width: 100%; height: auto; min-height: 90px;
       background: linear-gradient(135deg, rgba(20,184,166,0.08), rgba(20,184,166,0.04));
       display: flex;
       align-items: center;
@@ -2682,10 +2681,12 @@
 
     .modal-img {
       width: 100%;
-      height: 240px;
-      object-fit: cover;
+      height: auto;
+      max-height: 60vh;
+      object-fit: contain;
       border-radius: var(--radius-xl) var(--radius-xl) 0 0;
       pointer-events: none;
+      background: #f8fafc;
     }
 
     .modal-body { padding: 26px 30px 30px; }
@@ -2781,7 +2782,8 @@
 
     #notice-img {
       width: 100%;
-      max-height: 420px;
+      height: auto;
+      max-height: 80vh;
       object-fit: contain;
       display: block;
       pointer-events: none;
@@ -3185,21 +3187,26 @@
       .home-study-row { justify-content: center; }
 
       .home-actions {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         max-width: 100%;
-        justify-items: center;
+        justify-items: stretch;
+        gap: 6px;
       }
 
-      .btn { font-size: 0.66rem; padding: 11px 10px 12px; }
-      .btn-full { grid-column: span 2; }
+      .home-actions .btn { font-size: 0.58rem; padding: 9px 4px 10px; letter-spacing: 0.06em; }
 
       /* Vitals */
       .vitals-inner { grid-template-columns: 1fr; align-content: center; padding: 20px; }
-      .vitals-text-col { order: 2; }
-      .vitals-photo-col { order: 1; height: 180px; }
-      .vitals-photo-img { width: 160px; }
-      .vitals-stats { grid-template-columns: repeat(3, 1fr); }
-      .vstat-val { font-size: 1.4rem; }
+      .vitals-text-col { order: 2; display: flex; flex-direction: column; align-items: center; padding-top: 8px; }
+      .vitals-photo-col { order: 1; height: 280px; }
+      .vitals-photo-img { width: 220px; }
+      /* Mobile: show only photo + chips + eligibility badge */
+      .vitals-stats { display: none !important; }
+      .vitals-text-col .section-title-xl { display: none !important; }
+      .vitals-text-col .ecg-line { display: none !important; }
+      .vitals-text-col .ds-title { display: none !important; }
+      .vitals-text-col .ds-body { display: none !important; }
+      #days-progress-wrap { display: none !important; }
 
       /* Debate */
       .debate-inner {
@@ -3243,11 +3250,16 @@
         grid-template-columns: 1fr;
         overflow-y: auto;
         align-content: flex-start;
-        padding: 20px;
-        gap: 14px;
+        padding: 12px 14px;
+        gap: 10px;
       }
 
-      .donate-card { max-height: none; }
+      .donate-card { max-height: none; padding: 14px !important; }
+      .donate-inner .section-title-xl { font-size: 1.3rem !important; margin-bottom: 8px !important; }
+      .donate-inner .section-desc { font-size: 0.80rem !important; margin-bottom: 12px !important; }
+      .donate-card-title { font-size: 0.78rem !important; margin-bottom: 10px !important; }
+      .mfs-row { padding: 7px 0 !important; }
+      .bank-row { padding: 5px 0 !important; font-size: 0.80rem; }
 
       /* Contact */
       .contact-inner {
@@ -3268,15 +3280,188 @@
     }
 
     @media (max-width: 500px) {
-      .home-actions { grid-template-columns: 1fr; }
-      .home-actions .btn { grid-column: span 1; }
-      .btn-full { grid-column: span 1; }
+      .home-actions { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+      .home-actions .btn { font-size: 0.50rem; padding: 7px 3px 8px; }
       .service-options { grid-template-columns: 1fr; }
-      .vitals-stats { grid-template-columns: 1fr 1fr; }
+      /* vitals-stats already hidden on mobile */
       .social-links-row { grid-template-columns: repeat(2, 1fr); }
       .hire-actions { flex-direction: column; align-items: stretch; }
       .btn-hire-primary, .btn-hire-outline { text-align: center; }
     }
+
+
+    /* ══════════════════════════════════════════════════════════════════
+       FLOATING ANONYMOUS MESSAGE BUTTON
+    ══════════════════════════════════════════════════════════════════ */
+    #floating-ngl-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 12px 20px 13px 16px;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(109,40,217,0.40);
+      transition: all 0.25s var(--bounce);
+      white-space: nowrap;
+    }
+
+    #floating-ngl-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(109,40,217,0.50);
+    }
+
+    #floating-ngl-btn:active { transform: translateY(0px); }
+
+    #floating-ngl-btn svg { flex-shrink: 0; }
+
+    @media (max-width: 500px) {
+      #floating-ngl-btn {
+        bottom: 18px;
+        right: 14px;
+        padding: 10px 14px 11px 11px;
+        font-size: 0.65rem;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       CONTACT SOLO (form-only, centered)
+    ══════════════════════════════════════════════════════════════════ */
+    .contact-inner-solo {
+      grid-template-columns: 1fr !important;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .contact-inner-solo .contact-form-col {
+      max-width: 540px;
+      width: 100%;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       GET IN TOUCH — 2-COLUMN LAYOUT
+    ══════════════════════════════════════════════════════════════════ */
+    .git-inner-2col {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+      padding: 28px 60px;
+      overflow-y: auto;
+    }
+
+    .git-connect-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .git-connect-col .contact-link-card {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 960px) {
+      .contact-inner-solo { padding: 20px; align-items: flex-start; overflow-y: auto; }
+
+      .git-inner-2col {
+        grid-template-columns: 1fr;
+        padding: 16px 16px 24px;
+        align-content: flex-start;
+        gap: 20px;
+      }
+
+      .git-inner-2col .proposal-card {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .git-inner-2col { padding: 14px 14px 20px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       HIRE-ME MANDATORY NOTICE OVERLAY
+    ══════════════════════════════════════════════════════════════════ */
+    #hire-notice-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 22000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(15,23,42,0.75);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    #hire-notice-overlay.show { opacity: 1; pointer-events: auto; }
+    #hire-notice-box {
+      position: relative;
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: 38px 32px 32px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.28);
+      text-align: center;
+      animation: modalIn 0.4s var(--bounce) both;
+      border-top: 4px solid var(--primary);
+    }
+    .hire-notice-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20,184,166,0.10);
+      border: 1.5px solid rgba(20,184,166,0.25);
+    }
+    .hire-notice-title {
+      font-family: var(--font-display);
+      font-size: 1.30rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .hire-notice-body {
+      font-family: var(--font-main);
+      font-size: 0.90rem;
+      color: var(--text3);
+      line-height: 1.68;
+      margin-bottom: 24px;
+    }
+    .hire-notice-body strong { color: var(--primary-dark); font-weight: 700; }
+    .hire-notice-ok {
+      font-family: var(--font-display);
+      font-size: 0.80rem;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 13px 32px 14px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      background: var(--grad-primary);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(20,184,166,0.30);
+      transition: all var(--t-fast);
+    }
+    .hire-notice-ok:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(20,184,166,0.40); }
 
   </style>
 </head>
@@ -3319,7 +3504,7 @@
 <!-- ═══════════════════════════════════ FIXED HEADER ═══════════════════════════════════ -->
 <header id="site-header" role="banner">
 
-  <div class="header-brand" onclick="scrollToSection(0)">
+  <div class="header-brand" onclick="scrollToSectionId('sec-home')">
     <div class="header-brand-avatar">
       <img src="profile.png" alt="ISTIACK" />
       <div class="brand-pulse"></div>
@@ -3331,15 +3516,15 @@
   </div>
 
   <nav class="header-nav" aria-label="Main navigation">
-    <button onclick="scrollToSection(0)">Home</button>
-    <button onclick="scrollToSection(1)">Vitals</button>
-    <button onclick="scrollToSection(2)" id="nav-debate-btn">Debate</button>
-    <button onclick="scrollToSection(3)" id="nav-politics-btn" class="hidden">Politics</button>
-    <button onclick="scrollToSection(4)" id="nav-projects-btn">Projects</button>
-    <button onclick="scrollToSection(5)">Hire Me</button>
-    <button onclick="scrollToSection(6)">Donate</button>
-    <button onclick="scrollToSection(7)">Contact</button>
-    <button onclick="scrollToSection(8)">Get In Touch</button>
+    <button onclick="scrollToSectionId('sec-home')">Home</button>
+    <button onclick="scrollToSectionId('sec-vitals')">Vitals</button>
+    <button onclick="scrollToSectionId('sec-debate')" id="nav-debate-btn">Debate</button>
+    <button onclick="scrollToSectionId('sec-politics')" id="nav-politics-btn" class="hidden">Politics</button>
+    <button onclick="scrollToSectionId('sec-projects')" id="nav-projects-btn">Projects</button>
+    <button onclick="scrollToSectionId('sec-donate')">Donate</button>
+    <button onclick="scrollToSectionId('sec-contact')">Contact</button>
+    <button onclick="scrollToSectionId('sec-gettintouch')">Get In Touch</button>
+    <button onclick="showHireMeNotice();scrollToSectionId('sec-hire')">Hire Me</button>
     <a href="/july-corner" class="page-link">July Corner</a>
     <a href="/academic-status" class="page-link">Academic</a>
     <a href="/tools" class="page-link">Tools</a>
@@ -3368,15 +3553,15 @@
 <!-- ═══════════════════════════════════ MOBILE DRAWER ═══════════════════════════════════ -->
 <nav id="mobile-drawer" aria-label="Mobile navigation">
   <div class="drawer-section-label">Navigation</div>
-  <button onclick="scrollToSectionMob(0)">Home</button>
-  <button onclick="scrollToSectionMob(1)">Vitals</button>
-  <button onclick="scrollToSectionMob(2)" id="mob-debate-btn">Debate</button>
-  <button onclick="scrollToSectionMob(3)" id="mob-politics-btn" class="hidden">Politics</button>
-  <button onclick="scrollToSectionMob(4)" id="mob-projects-btn">Projects</button>
-  <button onclick="scrollToSectionMob(5)">Hire Me</button>
-  <button onclick="scrollToSectionMob(6)">Donate</button>
-  <button onclick="scrollToSectionMob(7)">Contact</button>
-  <button onclick="scrollToSectionMob(8)">Get In Touch</button>
+  <button onclick="scrollToSectionId('sec-home')">Home</button>
+  <button onclick="scrollToSectionId('sec-vitals')">Vitals</button>
+  <button onclick="scrollToSectionId('sec-debate')" id="mob-debate-btn">Debate</button>
+  <button onclick="scrollToSectionId('sec-politics')" id="mob-politics-btn" class="hidden">Politics</button>
+  <button onclick="scrollToSectionId('sec-projects')" id="mob-projects-btn">Projects</button>
+  <button onclick="scrollToSectionId('sec-donate')">Donate</button>
+  <button onclick="scrollToSectionId('sec-contact')">Contact</button>
+  <button onclick="scrollToSectionId('sec-gettintouch')">Get In Touch</button>
+  <button onclick="showHireMeNotice();scrollToSectionId('sec-hire')">Hire Me</button>
   <div class="drawer-divider"></div>
   <div class="drawer-section-label">Pages</div>
   <div class="drawer-page-links">
@@ -3447,10 +3632,7 @@
           <a href="/academic-status" class="btn btn-outline"><span>Academic Status</span></a>
           <a href="/tools" class="btn btn-outline"><span>Tools</span></a>
           <a href="/posts" class="btn btn-outline"><span>Posts</span></a>
-          <button class="btn btn-primary btn-full" onclick="scrollToSection(1)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-            Explore More
-          </button>
+
         </div>
       </div>
 
@@ -3476,7 +3658,7 @@
     </div>
 
     <!-- Scroll hint -->
-    <div class="scroll-hint" onclick="scrollToSection(1)" aria-hidden="true">
+    <div class="scroll-hint" onclick="scrollToSectionId('sec-vitals')" aria-hidden="true">
       <span class="scroll-hint-label">Scroll</span>
       <div class="scroll-hint-arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -3538,7 +3720,7 @@
               <div class="d-sub"   id="d-sub-main"></div>
             </div>
           </div>
-          <button class="btn btn-primary" id="contact-now-btn" style="display:none; max-width:200px; margin-top:4px;" onclick="scrollToSection(7)">
+          <button class="btn btn-primary" id="contact-now-btn" style="display:none; max-width:200px; margin-top:4px;" onclick="scrollToSectionId('sec-contact')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-.74a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             Contact Now
           </button>
@@ -3638,48 +3820,7 @@
   </section>
 
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       SECTION 6 — HIRE ME (first in footer)
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-  <section class="section" id="sec-hire" data-section="hire" aria-label="Hire Me">
-    <div class="hire-bg-grid" aria-hidden="true"></div>
-    <div class="hire-bg-glow" aria-hidden="true"></div>
-    <div class="hire-stars" id="hire-stars" aria-hidden="true"></div>
-
-    <div class="hire-inner">
-      <div class="hire-eyebrow">Available for Hire</div>
-
-      <h2 class="hire-title">
-        LET'S BUILD<br>
-        <span class="hire-accent">SOMETHING GREAT</span>
-      </h2>
-
-      <p class="hire-subtitle">
-        Whether you need expert tabulation, a stunning website, or strategic consulting — I deliver precision, quality, and results.
-      </p>
-
-      <div class="hire-services-row">
-        <div class="hire-service-chip">⚡ Tabulation</div>
-        <div class="hire-service-chip">🌐 Web Development</div>
-        <div class="hire-service-chip">📊 Stock Analysis</div>
-        <div class="hire-service-chip">🗣️ Debate Coaching</div>
-        <div class="hire-service-chip">🎯 Student Leadership</div>
-      </div>
-
-      <div class="hire-actions">
-        <button class="btn btn-hire-primary" onclick="scrollToSection(8)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"/><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"/></svg>
-          Submit a Proposal
-        </button>
-        <button class="btn btn-hire-outline" onclick="scrollToSection(7)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Send a Message
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       SECTION 7 — DONATE & SUPPORT (ultra-compact)
+       SECTION 6 — DONATE & SUPPORT (ultra-compact)
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
   <section class="section" id="sec-donate" data-section="donate" aria-label="Donate">
     <div class="donate-inner">
@@ -3762,57 +3903,17 @@
   </section>
 
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       SECTION 8 — CONTACT (second in footer)
+       SECTION 8 — CONTACT (Connect With Me)
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
   <section class="section" id="sec-contact" data-section="contact" aria-label="Contact">
-    <div class="contact-inner">
+    <div class="git-inner" style="max-width:540px;margin:0 auto;">
 
-      <!-- Left: Form -->
-      <div class="contact-form-col">
-        <div class="section-eyebrow">Send a Message</div>
-        <h2 class="section-title-xl" style="font-size:clamp(1.4rem,3vw,2.2rem);margin-bottom:18px;">
-          GET IN<br><span class="teal">CONTACT</span>
+      <div class="git-connect-col" style="width:100%;">
+        <div class="section-eyebrow" style="margin-bottom:14px;">Connect With Me</div>
+        <h2 class="section-title-xl" style="font-size:clamp(1.4rem,3vw,2.2rem);margin-bottom:16px;">
+          CONNECT &amp;<br><span class="teal">REACH OUT</span>
         </h2>
 
-        <div class="cform">
-          <form id="contact-form" onsubmit="submitContactForm(event)" novalidate>
-            <div class="form-group">
-              <label class="form-label" for="cf-name">Your Name</label>
-              <input class="form-input" id="cf-name" type="text" placeholder="Full name" autocomplete="name" />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="cf-email">Email Address</label>
-              <input class="form-input" id="cf-email" type="email" placeholder="your@email.com" autocomplete="email" />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="cf-mobile">Mobile Number</label>
-              <input class="form-input" id="cf-mobile" type="tel" placeholder="+880 1XXX XXXXXX" autocomplete="tel" />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="cf-message">Message</label>
-              <textarea class="form-input" id="cf-message" placeholder="Your message..." rows="3"></textarea>
-            </div>
-            <button type="submit" class="submit-btn" id="cf-submit-btn">
-              <span id="cf-btn-text">SEND MESSAGE</span>
-              <div class="btn-spinner hidden" id="cf-spinner"></div>
-            </button>
-          </form>
-
-          <!-- Anonymous Message Button — Highly Visible -->
-          <button class="anon-btn" onclick="openNglModal()" style="margin-top:10px;">
-            <svg class="anon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-            🎭 Send Anonymous Message
-          </button>
-        </div>
-      </div>
-
-      <!-- Right: Social & Contact Links -->
-      <div class="contact-links-col">
-        <div class="section-eyebrow" style="margin-bottom:14px;">Connect With Me</div>
-
-        <!-- Email copy cards -->
         <div class="contact-link-card" onclick="copyText('debater.istiack@gmail.com', null)" style="cursor:pointer;">
           <div class="contact-link-icon" style="background:rgba(20,184,166,0.10);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -3853,8 +3954,7 @@
           </div>
         </a>
 
-        <!-- Social Row Grid -->
-        <div class="social-links-row">
+        <div class="social-links-row" style="margin-top:6px;">
           <a href="https://github.com/istiack-29" target="_blank" rel="noopener noreferrer" class="social-card">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#24292f" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             <span class="social-card-label">GitHub</span>
@@ -3878,14 +3978,61 @@
   </section>
 
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       SECTION 9 — GET IN TOUCH / PROPOSAL (third in footer)
+       SECTION 9 — GET IN TOUCH (Send a Message)
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
   <section class="section" id="sec-gettintouch" data-section="gettintouch" aria-label="Get In Touch">
-    <div class="git-inner">
+    <div class="contact-inner contact-inner-solo">
+
+      <!-- Form only -->
+      <div class="contact-form-col">
+        <div class="section-eyebrow">Send a Message</div>
+        <h2 class="section-title-xl" style="font-size:clamp(1.4rem,3vw,2.2rem);margin-bottom:18px;">
+          GET IN<br><span class="teal">TOUCH</span>
+        </h2>
+
+        <div class="cform">
+          <form id="contact-form" onsubmit="submitContactForm(event)" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="cf-name">Your Name</label>
+              <input class="form-input" id="cf-name" type="text" placeholder="Full name" autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-email">Email Address</label>
+              <input class="form-input" id="cf-email" type="email" placeholder="your@email.com" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-mobile">Mobile Number</label>
+              <input class="form-input" id="cf-mobile" type="tel" placeholder="+880 1XXX XXXXXX" autocomplete="tel" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-message">Message</label>
+              <textarea class="form-input" id="cf-message" placeholder="Your message..." rows="3"></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="cf-submit-btn">
+              <span id="cf-btn-text">SEND MESSAGE</span>
+              <div class="btn-spinner hidden" id="cf-spinner"></div>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SECTION 10 — HIRE ME (Proposal)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <section class="section" id="sec-hire" data-section="hire" aria-label="Hire Me">
+    <div id="hire-stars" aria-hidden="true"></div>
+    <div class="hire-bg-grid" aria-hidden="true"></div>
+    <div class="hire-bg-glow" aria-hidden="true"></div>
+
+    <div class="git-inner" style="position:relative;z-index:1;justify-content:center;">
+
       <div class="proposal-card">
-        <div class="section-eyebrow" style="margin-bottom:6px;">Proposal</div>
+        <div class="section-eyebrow" style="margin-bottom:6px;">Hire Me</div>
         <h2 style="font-family:var(--font-display);font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:800;color:var(--text);margin-bottom:20px;line-height:1.2;letter-spacing:-0.02em;">
-          GET IN <span style="background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">TOUCH</span>
+          SUBMIT A <span style="background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PROPOSAL</span>
         </h2>
 
         <!-- Progress bar -->
@@ -4046,6 +4193,7 @@
 <div id="project-modal" role="dialog" aria-modal="true" aria-label="Project Details" aria-hidden="true">
   <div class="modal-overlay" onclick="closeProjectModal()"></div>
   <div class="modal-box">
+    <div class="skeleton" id="modal-img-skeleton" style="display:none;width:100%;height:200px;border-radius:24px 24px 0 0;flex-shrink:0;"></div>
     <img class="modal-img" id="modal-img" src="" alt="" />
     <div class="modal-body">
       <div class="modal-period" id="modal-period"></div>
@@ -4073,8 +4221,9 @@
 <!-- ═══════════════════════════════════ NOTICE MODAL ═══════════════════════════════════ -->
 <div id="notice-overlay" role="dialog" aria-modal="true" aria-label="Notice" aria-hidden="true">
   <div id="notice-box">
-    <img id="notice-img" src="" alt="Notice" />
-    <button class="notice-close" onclick="closeNotice()" aria-label="Close notice">
+    <div id="notice-img-skeleton" class="skeleton" style="display:none;min-width:280px;min-height:200px;border-radius:16px;"></div>
+    <img id="notice-img" src="" alt="Notice" style="display:none;" />
+    <button class="notice-close" id="notice-close-btn" onclick="closeNotice()" aria-label="Close notice" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
@@ -4106,6 +4255,29 @@
       <a href="/ngl" target="_blank" rel="noopener noreferrer" class="p-nav-btn next" style="text-decoration:none;">🎭 Open Anonymous Link</a>
       <button class="p-nav-btn back" onclick="closeNglModal()">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ HIRE-ME MANDATORY NOTICE ═══════════════════════════════════ -->
+<div id="hire-notice-overlay" role="dialog" aria-modal="true" aria-label="Hire Me — Important Notice" aria-hidden="true">
+  <div id="hire-notice-box">
+    <div class="hire-notice-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </div>
+    <div class="hire-notice-title">Before You Proceed — Read This</div>
+    <div class="hire-notice-body">
+      By submitting a proposal, you acknowledge that:<br><br>
+      <strong>① No free work.</strong> All services are billable as per the displayed budget.<br>
+      <strong>② Response time</strong> is 24–72 hours. Urgency does not override this.<br>
+      <strong>③ Payment first.</strong> Work begins only after confirmed payment.<br>
+      <strong>④ Scope changes</strong> after agreement will be treated as a new request.<br><br>
+      Proceeding means you have read and accepted these terms. <strong>কোনো মাফ নেই।</strong>
+    </div>
+    <button class="hire-notice-ok" onclick="closeHireMeNotice()">I Understand — Proceed</button>
   </div>
 </div>
 
@@ -4234,8 +4406,8 @@ function maybeResync() {
 ══════════════════════════════════════════════════════════════════ */
 const sectionIds = [
   'sec-home', 'sec-vitals', 'sec-debate',
-  'sec-politics', 'sec-projects', 'sec-hire',
-  'sec-donate', 'sec-contact', 'sec-gettintouch'
+  'sec-politics', 'sec-projects',
+  'sec-donate', 'sec-contact', 'sec-gettintouch', 'sec-hire'
 ];
 
 let hasPoliticsData = false;
@@ -4270,6 +4442,16 @@ function scrollToSection(idx) {
 }
 
 function scrollToSectionMob(idx) { scrollToSection(idx); }
+
+function scrollToSectionId(sectionId) {
+  const sections = getVisibleSections();
+  const idx = sections.findIndex(s => s.id === sectionId);
+  if (idx === -1) return;
+  sections[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  currentSectionIdx = idx;
+  updateNavDots(idx);
+  closeDrawer();
+}
 
 const scrollContainer = document.getElementById('scroll-container');
 
@@ -4464,9 +4646,32 @@ async function copyText(text, btn) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   HASH NAVIGATION
+══════════════════════════════════════════════════════════════════ */
+let pendingHashScroll = null;
+
+function handleHashNavigation() {
+  const hash = window.location.hash.toLowerCase();
+  if (hash === '#donate')        pendingHashScroll = 'sec-donate';
+  else if (hash === '#contact')  pendingHashScroll = 'sec-contact';
+  else if (hash === '#hire-me')  { pendingHashScroll = 'sec-hire'; showHireMeNotice(); }
+}
+
+function afterNoticeClosed() {
+  if (pendingHashScroll) {
+    const target = pendingHashScroll;
+    pendingHashScroll = null;
+    setTimeout(() => scrollToSectionId(target), 350);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
    NOTICE SYSTEM
 ══════════════════════════════════════════════════════════════════ */
+let noticeImageLoaded = false;
+
 async function checkAndShowNotice() {
+  let noticeShown = false;
   try {
     const notices = await sbSelect('notice', 'order=id.desc&limit=20');
     const now     = getCurrentServerTime() || new Date();
@@ -4491,21 +4696,50 @@ async function checkAndShowNotice() {
         else if (ct)  shouldShow = now <= ct;
       }
       if (shouldShow && n.img) {
+        noticeShown = true;
+        noticeImageLoaded = false;
         const imgEl   = document.getElementById('notice-img');
+        const skelEl  = document.getElementById('notice-img-skeleton');
+        const closeBtn = document.getElementById('notice-close-btn');
         const overlay = document.getElementById('notice-overlay');
-        imgEl.src = n.img; imgEl.alt = 'Notice';
+
+        imgEl.style.display = 'none';
+        imgEl.src = '';
+        skelEl.style.display = 'block';
+        closeBtn.style.display = 'none';
+
+        imgEl.onload = () => {
+          noticeImageLoaded = true;
+          skelEl.style.display = 'none';
+          imgEl.style.display = 'block';
+          closeBtn.style.display = '';
+        };
+        imgEl.onerror = () => {
+          noticeImageLoaded = true;
+          skelEl.style.display = 'none';
+          closeBtn.style.display = '';
+        };
+
+        imgEl.alt = 'Notice';
+        imgEl.src = n.img;
         overlay.classList.add('show');
         overlay.setAttribute('aria-hidden', 'false');
         break;
       }
     }
   } catch {}
+
+  if (!noticeShown) {
+    afterNoticeClosed();
+  }
 }
 
 function closeNotice() {
+  if (!noticeImageLoaded) return;
   const overlay = document.getElementById('notice-overlay');
   overlay.classList.remove('show');
   overlay.setAttribute('aria-hidden', 'true');
+  afterNoticeClosed();
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -4822,7 +5056,10 @@ function renderProjects() {
     card.className = 'project-card';
     card.onclick   = () => openProjectModal(i);
     const imgHtml  = proj.pc
-      ? `<img class="project-card-img" src="${proj.pc}" alt="${proj.work || 'Project'}" />`
+      ? `<div style="position:relative;overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0;min-height:90px;">
+           <div class="skeleton" style="position:absolute;inset:0;border-radius:0;"></div>
+           <img class="project-card-img" src="${proj.pc}" alt="${proj.work || 'Project'}" style="position:relative;z-index:1;opacity:0;transition:opacity 0.35s;" onload="this.style.opacity='1';this.parentElement.querySelector('.skeleton').style.display='none';" onerror="this.style.display='none';this.parentElement.querySelector('.skeleton').style.display='none';" />
+         </div>`
       : `<div class="project-card-img-placeholder"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(20,184,166,0.25)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
     card.innerHTML = `
       ${imgHtml}
@@ -4848,8 +5085,20 @@ function openProjectModal(idx) {
   const titleEl  = document.getElementById('modal-title');
   const descEl   = document.getElementById('modal-desc');
   const linkBtn  = document.getElementById('modal-link-btn');
-  if (proj.pc) { imgEl.src = proj.pc; imgEl.alt = proj.work || 'Project'; imgEl.style.display = 'block'; }
-  else           { imgEl.style.display = 'none'; }
+  const skelEl = document.getElementById('modal-img-skeleton');
+  if (proj.pc) {
+    imgEl.style.opacity = '0';
+    imgEl.style.display = 'block';
+    imgEl.src = '';
+    if (skelEl) skelEl.style.display = 'block';
+    imgEl.onload = () => { imgEl.style.opacity = '1'; if (skelEl) skelEl.style.display = 'none'; };
+    imgEl.onerror = () => { imgEl.style.display = 'none'; if (skelEl) skelEl.style.display = 'none'; };
+    imgEl.alt = proj.work || 'Project';
+    imgEl.src = proj.pc;
+  } else {
+    imgEl.style.display = 'none';
+    if (skelEl) skelEl.style.display = 'none';
+  }
   periodEl.textContent = [proj.st, proj.en].filter(Boolean).join(' — ');
   titleEl.textContent  = proj.work || 'Untitled Project';
   descEl.textContent   = proj.description || 'No description available.';
@@ -4882,6 +5131,23 @@ function printProject() {
   w.document.write(`<html><head><title>${currentProjectData.work || 'Project'}</title><style>body{font-family:sans-serif;padding:40px;max-width:600px;margin:0 auto;}h1{font-size:1.8rem;margin-bottom:8px;}p{line-height:1.6;color:#334155;}</style></head><body><h1>${currentProjectData.work || 'Project'}</h1><p><strong>Period:</strong> ${[currentProjectData.st, currentProjectData.en].filter(Boolean).join(' — ')}</p><p>${currentProjectData.description || ''}</p>${currentProjectData.link ? `<p><strong>Link:</strong> <a href="${currentProjectData.link}">${currentProjectData.link}</a></p>` : ''}</body></html>`);
   w.document.close();
   w.print();
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HIRE-ME MANDATORY NOTICE
+══════════════════════════════════════════════════════════════════ */
+function showHireMeNotice() {
+  const overlay = document.getElementById('hire-notice-overlay');
+  if (!overlay) return;
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden', 'false');
+}
+
+function closeHireMeNotice() {
+  const overlay = document.getElementById('hire-notice-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden', 'true');
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -5200,6 +5466,7 @@ function dismissLoader() {
   buildVisibleSections();
   buildNavDots();
   buildHireStars();
+  handleHashNavigation();
 
   await fetchServerTime();
   lastSyncPerfNow = performance.now();
@@ -5226,11 +5493,24 @@ document.addEventListener('keydown', e => {
   if (['ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); scrollToSection(currentSectionIdx + 1); }
   if (['ArrowUp',   'PageUp'  ].includes(e.key)) { e.preventDefault(); scrollToSection(currentSectionIdx - 1); }
   if (e.key === 'Escape') {
-    closeProjectModal(); closeNotice(); closeAlert(); closeNglModal(); closeDrawer();
+    closeProjectModal(); closeAlert(); closeNglModal(); closeDrawer();
+    const noticeOverlay = document.getElementById('notice-overlay');
+    if (noticeOverlay && noticeOverlay.classList.contains('show') && noticeImageLoaded) {
+      closeNotice();
+    }
+    closeHireMeNotice();
   }
 });
 
 </script>
+
+<!-- ═══════════════════════════════════ FLOATING ANONYMOUS MESSAGE BUTTON ═══════════════════════════════════ -->
+<button id="floating-ngl-btn" onclick="openNglModal()" aria-label="Send Anonymous Message">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+  🎭 Anonymous
+</button>
 
 </body>
 </html>

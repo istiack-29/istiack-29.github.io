@@ -1,0 +1,1200 @@
+
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>July 32, 2024</title>
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="July 32, 2024: The Fictional Date of Resistance">
+    <meta property="og:description" content="A detailed chronicle of August 1, 2024—metaphorically dubbed July 32 by student rebels and citizens of Bangladesh.">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/32-july/">
+    <meta property="og:type" content="article">
+
+    <style>
+        /* ==========================================
+         * 1. DESIGN TOKENS & FONT ARCHITECTURE (STRICT)
+         * ==========================================
+         */
+        @font-face {
+            font-family: 'EnglishMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'EnglishHeader';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaHeader';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            /* Colors */
+            --color-bg: #fdfdfd;
+            --color-surface: #ffffff;
+            --color-text-main: #111111;
+            --color-text-muted: #4a4a4a;
+            --color-border: #dcdcdc;
+            --color-accent: #000000;
+            --color-warning-bg: #fffbf0;
+            --color-warning-border: #ffd37f;
+            --color-warning-text: #8c5d00;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+
+            /* Typography */
+            --font-main: 'EnglishMain', -apple-system, sans-serif;
+            --font-header: 'EnglishHeader', Georgia, serif;
+            
+            /* Layout & Spacing */
+            --header-height: 72px;
+            --max-width: 760px;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+        }
+
+        /* Direct language selector style shifts to guarantee compliance */
+        html[lang="bn"] {
+            --font-main: 'BanglaMain', system-ui, sans-serif;
+            --font-header: 'BanglaHeader', serif;
+        }
+
+        /* ==========================================
+         * 2. RESET & INHERITANCE RULES
+         * ==========================================
+         */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: inherit; /* Forces child elements to inherit our strict variables */
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: var(--font-main);
+            line-height: 1.75;
+            font-size: 17px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Ensure heading fonts are fully controlled */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-header);
+            color: var(--color-accent);
+            line-height: 1.25;
+            font-weight: bold;
+        }
+
+        button, input, select, textarea {
+            font-family: var(--font-main);
+        }
+
+        /* ==========================================
+         * 3. LAYOUT COMPONENTS
+         * ==========================================
+         */
+        
+        /* Fixed Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            text-decoration: none;
+            color: var(--color-accent);
+        }
+
+        /* Home Logo (Black and White Rule) */
+        .logo-img {
+            height: 40px;
+            width: 40px;
+            filter: grayscale(100%) contrast(120%);
+            object-fit: contain;
+            transition: filter 0.3s ease;
+        }
+
+        .newspaper-name {
+            font-family: var(--font-header);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block; /* Visible by default, adapts to mobile-first */
+            font-weight: 800;
+            border-left: 2px solid var(--color-accent);
+            padding-left: var(--space-xs);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        /* Language Toggle Button (Direct Custom Controls) */
+        .lang-btn {
+            background-color: var(--color-accent);
+            color: var(--color-surface);
+            border: 1px solid var(--color-accent);
+            padding: 0.45rem 0.9rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: bold;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lang-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Hamburger Navigation */
+        .menu-trigger {
+            background: none;
+            border: 1px solid var(--color-border);
+            padding: 0.45rem;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-main);
+        }
+
+        .menu-dropdown {
+            position: absolute;
+            top: var(--header-height);
+            right: var(--space-md);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-sm);
+            width: 200px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1001;
+        }
+
+        .menu-dropdown.active {
+            display: flex;
+        }
+
+        /* Primary Content Area */
+        main {
+            margin-top: var(--header-height);
+            min-height: 100vh;
+        }
+
+        /* Hero Image Container (t.png, no caption) */
+        .hero-banner {
+            width: 100%;
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Article Wrapper */
+        .article-viewport {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-sm) var(--space-xl) var(--space-sm);
+        }
+
+        /* Action bar for sharing and printing */
+        .action-tray {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .btn-action {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-main);
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            background-color: #f5f5f5;
+            border-color: #b5b5b5;
+        }
+
+        /* Minimalist Article Styling */
+        .title-block {
+            margin-bottom: var(--space-lg);
+        }
+
+        .article-heading {
+            font-size: 2.25rem;
+            line-height: 1.2;
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.5px;
+        }
+
+        .article-byline {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            border-left: 3px solid var(--color-accent);
+            padding-left: 10px;
+        }
+
+        .article-body p {
+            margin-bottom: var(--space-md);
+            text-align: justify;
+        }
+
+        .article-body h2 {
+            font-size: 1.6rem;
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 4px;
+        }
+
+        .article-body ul {
+            list-style: none;
+            margin-bottom: var(--space-md);
+            padding-left: 0;
+        }
+
+        .article-body li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: var(--space-sm);
+            text-align: justify;
+        }
+
+        .article-body li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        /* Strict Link rule: Pure text styling */
+        .text-reference {
+            font-family: monospace;
+            background: #f0f0f0;
+            color: #333333;
+            padding: 1px 4px;
+            border-radius: 2px;
+            word-break: break-all;
+            font-size: 0.85em;
+        }
+
+        /* Extra Inline Images (Embedded nicely, no caption) */
+        .inline-image-box {
+            margin: var(--space-md) 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        .inline-image-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Media Warning & Player Mechanics */
+        .media-shield {
+            margin: var(--space-lg) 0;
+            background-color: #000000;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .media-barrier {
+            position: absolute;
+            inset: 0;
+            background-color: #121212;
+            color: #ffffff;
+            z-index: 10;
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .barrier-icon {
+            fill: #ff3b30;
+            width: 44px;
+            height: 44px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .barrier-heading {
+            font-family: var(--font-header);
+            font-size: 1.15rem;
+            color: #ff3b30;
+            margin-bottom: var(--space-xs);
+        }
+
+        .barrier-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            max-width: 440px;
+            margin-bottom: var(--space-md);
+        }
+
+        .btn-reveal {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .btn-reveal:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.02);
+        }
+
+        .shield-video {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        /* References / Sources List */
+        .source-footer {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-md);
+            border-top: 1px dashed var(--color-border);
+        }
+
+        .source-footer h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .source-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .source-list li {
+            margin-bottom: var(--space-xs);
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+            word-break: break-all;
+        }
+
+        /* ==========================================
+         * 4. OVERLAYS & MODALS
+         * ==========================================
+         */
+        
+        /* Modal Backdrop */
+        .modal-shade {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            padding: var(--space-sm);
+        }
+
+        .modal-shade.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Modal Card */
+        .modal-card {
+            background-color: var(--color-surface);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            width: 100%;
+            max-width: 420px;
+            box-shadow: var(--shadow-md);
+            transform: scale(0.95);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-shade.is-open .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-title-custom {
+            font-size: 1.15rem;
+            margin-bottom: var(--space-md);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .print-options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .print-opt-btn {
+            width: 100%;
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            background: var(--color-surface);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .print-opt-btn:hover {
+            background-color: #f9f9f9;
+            border-color: var(--color-accent);
+        }
+
+        .print-opt-title {
+            font-weight: bold;
+            display: block;
+        }
+
+        .print-opt-sub {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* Elegant custom notifications toast */
+        .toast-bubble {
+            position: fixed;
+            bottom: var(--space-md);
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--color-accent);
+            color: var(--color-surface);
+            padding: 0.8rem 1.6rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-family: var(--font-header);
+            z-index: 3000;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-bubble.is-visible {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* SVG Sizing */
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ==========================================
+         * 5. RESPONSIVE MEDIA ADAPTATION
+         * ==========================================
+         */
+        @media (max-width: 480px) {
+            .newspaper-name {
+                display: none; /* Auto-collapse brand text on smallest viewport */
+            }
+            .article-heading {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .article-viewport {
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+            .newspaper-name {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* ==========================================
+         * 6. ADVANCED PRINT IMPLEMENTATION
+         * ==========================================
+         */
+        #print-viewframe {
+            display: none;
+        }
+
+        @media print {
+            /* Block all UI layers */
+            header, .action-tray, .media-shield, .modal-shade, .toast-bubble {
+                display: none !important;
+            }
+
+            body, html {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-family: inherit !important;
+            }
+
+            main {
+                margin-top: 0 !important;
+            }
+
+            /* Make sure extra graphics exist on the printed page */
+            .inline-image-box {
+                page-break-inside: avoid;
+                margin: 15px 0;
+            }
+
+            .inline-image-box img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                color: #000000 !important;
+                page-break-after: avoid;
+            }
+
+            p, li {
+                orphans: 3;
+                widows: 3;
+                page-break-inside: avoid;
+            }
+
+            /* Intercept and swap body structure for targeted language execution */
+            body.print-active #app-root {
+                display: none !important;
+            }
+
+            body.print-active #print-viewframe {
+                display: block !important;
+                width: 100% !important;
+            }
+
+            @page {
+                size: portrait;
+                margin: 20mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRIMARY ACTIVE SITE CONTAINER -->
+    <div id="app-root">
+        <!-- FIXED NAVIGATION BAR -->
+        <header>
+            <a href="/" class="header-brand" onclick="event.preventDefault();">
+                <!-- Fallback to inline SVG if local file path home.png fails -->
+                <img src="./home.png" alt="Home" class="logo-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwMCI+PHBhdGggZD0iTTEwIDIwdjZoNHYtNmgydi02aC04djZ6Ii8+PHBhdGggZD0iTTEyIDJMMiAxMmgzaDh2MTBoNHYtMTBoM3oiLz48L3N2Zz4=';">
+                <span class="newspaper-name font-header">ISTIACK'S JULY CORNER</span>
+            </a>
+            
+            <div class="header-actions">
+                <!-- Strict Language Switcher Button -->
+                <button id="lang-toggle-btn" class="lang-btn" onclick="toggleDisplayLanguage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75l1.13 3h2l-5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+                    <span id="lang-btn-label">বাংলায় পড়ুন</span>
+                </button>
+
+                <!-- Hamburger Trigger -->
+                <button class="menu-trigger" onclick="toggleMenu()" aria-label="Toggle navigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                </button>
+            </div>
+
+            <!-- Hamburger Drops -->
+            <div class="menu-dropdown" id="navigation-dropdown">
+                <button class="print-opt-btn" onclick="toggleDisplayLanguage(); toggleMenu();" style="border:none; padding: 4px;">
+                    <span class="print-opt-title" id="menu-lang-opt">বাংলায় পড়ুন</span>
+                </button>
+                <button class="print-opt-btn" onclick="openPrintWizard(); toggleMenu();" style="border:none; padding: 4px;">
+                    <span class="print-opt-title" id="menu-print-opt">Print Page</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero banner set to strict asset path: ./t.png -->
+            <section class="hero-banner">
+                <img src="./t.png" alt="July 32 events and details" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjUwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2FhYSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjMwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TGlua2VkIEhlcm8gSW1hZ2UgKC4vdC5wbmcpPC90ZXh0Pjwvc3ZnPg==';">
+            </section>
+
+            <article class="article-viewport">
+                <!-- Share & Download actions right under the hero banner -->
+                <div class="action-tray">
+                    <button class="btn-action" onclick="copyCanonicalLink()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+                        <span id="label-share">Share Link</span>
+                    </button>
+                    <button class="btn-action" onclick="openPrintWizard()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                        <span id="label-download">Download / Print</span>
+                    </button>
+                </div>
+
+                <!-- Dynamic Page content container injected via script -->
+                <div id="active-article-content"></div>
+            </article>
+        </main>
+    </div>
+
+    <!-- PRINT VIEW ISOLATION BUFFER -->
+    <div id="print-viewframe"></div>
+
+    <!-- MULTI-PRINT SELECTION POPUP -->
+    <div class="modal-shade" id="print-selector-modal" onclick="closePrintWizard()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <h3 class="modal-title-custom font-header" id="modal-prompt-label">
+                Select Print Configuration / প্রিন্ট কনফিগারেশন নির্বাচন করুন
+            </h3>
+            <div class="print-options-grid">
+                <button class="print-opt-btn" onclick="dispatchPrintJob('en')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                    <div>
+                        <span class="print-opt-title" style="font-family: 'EnglishHeader', sans-serif;">Print in English</span>
+                        <span class="print-opt-sub">Outputs the English version of this article</span>
+                    </div>
+                </button>
+
+                <button class="print-opt-btn" onclick="dispatchPrintJob('bn')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                    <div>
+                        <span class="print-opt-title" style="font-family: 'BanglaHeader', sans-serif;">বাংলায় প্রিন্ট করুন</span>
+                        <span class="print-opt-sub">নিবন্ধটির বাংলা সংস্করণ প্রিন্ট করুন</span>
+                    </div>
+                </button>
+
+                <button class="print-opt-btn" onclick="dispatchPrintJob('both')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                    <div>
+                        <span class="print-opt-title">Print Both Languages / উভয়ই প্রিন্ট করুন</span>
+                        <span class="print-opt-sub">Appends both layouts sequentially for paper output</span>
+                    </div>
+                </button>
+
+                <button class="btn-action" onclick="closePrintWizard()" style="margin-top: 10px; justify-content: center; border-color: transparent;">
+                    Cancel / বাতিল
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COPIED POPUP MESSAGE BUBBLE -->
+    <div class="toast-bubble" id="action-toast">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span id="toast-text-area">Link successfully copied to clipboard.</span>
+    </div>
+
+    <!-- ==========================================
+     * 7. STATE CONTROLLER AND ARCHITECTURAL SCRIPT
+     * ==========================================
+     */ -->
+    <script>
+        /* * Strict Content Store Structuring.
+         * Commented locations provided for quick injection/editing of subsequent paragraphs.
+         */
+        const textContentDB = {
+            en: {
+                langButtonText: "বাংলায় পড়ুন", // (Will render as Bangla script to facilitate translation)
+                langButtonTextActual: "বাংলায় পড়ুন",
+                shareLabel: "Share Link",
+                downloadLabel: "Download / Print",
+                notificationText: "Link copied to clipboard!",
+                title: "July 32, 2024",
+                byline: "Published on August 1, 2024 • Authored for ISTIACK'S JULY CORNER",
+                leadParagraph: "The term \"July 32, 2024\" was a fictional date used metaphorically by online activists, students, and citizens to represent August 1, 2024. [1, 2]",
+                contextParagraph: "Protesters refused to transition their calendar into August because August was historically used by the ruling Awami League party as a month of mourning. Protesters chose to keep counting upwards within July (July 32, July 33, etc.) to ensure that the memory of the \"July Massacre\"—the hundreds of students killed by state forces—remained the sole focus of the nation. [1, 3] A chronological breakdown of the major and minor historical events that transpired on \"July 32\" (August 1, 2024) details the following developments:",
+                
+                // INJECT ADDITIONAL TRANSLATED SECTIONS OR EDIT ENGLISH CONTENT BELOW
+                sections: [
+                    {
+                        heading: "Major National Events & Political Shifts",
+                        bullets: [
+                            "<strong>Release of the 6 Coordinators:</strong> In the late afternoon, the Detective Branch (DB) office released the six primary coordinators of the Anti-Discrimination Student Movement—Nahid Islam, Asif Mahmud, Abu Baker Mojumder, Hasnat Abdullah, Sarjis Alam, and Nusrat Tabassum. They had been forcibly detained under the guise of \"custody for their own security\" since late July. [2]",
+                            "<strong>Ban on Jamaat-e-Islami:</strong> The Home Ministry issued an official gazette notification explicitly banning the political party Jamaat-e-Islami and its student wing, Islami Chhatra Shibir, under anti-terrorism laws. The government publicly blamed them for orchestrating the violence during the quota protests. [4, 5, 6]",
+                            "<strong>HSC Exam Boycott:</strong> Responding to the widespread trauma and mass detentions, students nationwide collectively announced that they would refuse to sit for the remaining Higher Secondary Certificate (HSC) exams. [7, 8]"
+                        ]
+                    },
+                    {
+                        heading: "Street Demonstrations & Crackdowns",
+                        bullets: [
+                            "<strong>\"Remembering Our Heroes\" Program:</strong> The Anti-Discrimination Student Movement launched nationwide memorial rallies. Law enforcement agencies deployed massive teams to obstruct protesters, causing heavy clashes in several major cities. [1, 2, 9]",
+                            "<strong>Teachers' Protest at Raju Bhaskarja:</strong> University teachers gathered at the base of the Raju Memorial Sculpture at Dhaka University under the banner \"Teachers Against Repression\". They publicly demanded the immediate release of all detained students, an end to arbitrary block raids, and criminal justice for the slain students. [5]",
+                            "<strong>Mass Arrests and Detentions:</strong> Despite international scrutiny, mass raids continued. In Barisal, law enforcement arrested 12 coordinators and student leaders (including Barisal University coordinator Shuvo). In Khulna, police detained 22 students during a \"March for Justice,\" though they were later released after intense public pressure. [7, 10, 11]",
+                            "<strong>Abu Sayeed Case Updates:</strong> The Rangpur court granted bail to a minor boy who had been controversially arrested in connection with the state-backed killing of student icon Abu Sayeed. [7]"
+                        ]
+                    }
+                ],
+
+                mediaHeader: "Visual Media Archives & Records",
+                imageSectionTitle: "Archived Documentaries & Photographs",
+                videoSectionTitle: "Disturbing Media Recordings",
+                
+                videoWarningHeader: "Graphic Content Advisory",
+                videoWarningText: "The following video depicts actual footage of structural violence during the Student Movement which some viewers may find highly distressing.",
+                revealVideoBtn: "View Video",
+
+                sourceTitle: "Sourcing Records & Verification Timelines",
+                referenceTitle: "Verifiable Sourced Bibliographies",
+                sourcesList: [
+                    "The Daily Star (August 1, 2024 Timeline): https://www.thedailystar.net/news/bangladesh/news/august-1-2024-jamaat-banned-protests-surge-death-toll-mounts-3952826",
+                    "Dhaka Tribune (Monsoon Revolution Retrospective): https://www.dhakatribune.com/bangladesh/387894/july-32-coordinators-released-jamat-banned",
+                    "Bangladesh Sangbad Sangstha (BSS National Archive): https://www.bssnews.net/july-uprising/297535",
+                    "July Mass Uprising Archive: https://julyarchive.cridobd.org/2024/12/07/july-32-34/"
+                ],
+                referencesList: [
+                    "[1] https://www.bssnews.net/july-uprising/297535",
+                    "[2] https://www.dhakatribune.com/bangladesh/387894/july-32-coordinators-released-jamat-banned",
+                    "[3] https://viewsbangladesh.com/july-36-the-chronicle-of-an-unprecedented-mass-uprising/",
+                    "[4] https://www.facebook.com/DailyStarNews/posts/the-government-has-issued-the-july-mass-uprising-protection-and-liability-determ/1234903158790961/",
+                    "[5] https://www.thedailystar.net/news/bangladesh/news/august-1-2024-jamaat-banned-protests-surge-death-toll-mounts-3952826",
+                    "[6] https://monitor.civicus.org/explore/bangladesh-brutal-crackdown-on-quota-reform-protesters-by-security-forces-and-ruling-party-youth-wing/",
+                    "[7] https://julyarchive.cridobd.org/2024/12/07/july-32-34/",
+                    "[8] https://en.prothomalo.com/bangladesh/5jvl0xye5l",
+                    "[9] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                    "[10] https://viewsbangladesh.com/july-36-the-chronicle-of-an-unprecedented-mass-uprising/",
+                    "[11] https://www.facebook.com/DailyStarNews/posts/the-government-has-issued-the-july-mass-uprising-protection-and-liability-determ/1234903158790961/",
+                    "[12] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                    "[13] https://www.dhakatribune.com/bangladesh/387894/july-32-coordinators-released-jamat-banned",
+                    "[14] https://www.amnistia.org/en/news/2024/07/27007/what-is-happening-at-the-quota-reform-protests-in-bangladesh"
+                ]
+            },
+            bn: {
+                langButtonText: "Read in English",
+                langButtonTextActual: "Read in English",
+                shareLabel: "লিংক শেয়ার করুন",
+                downloadLabel: "ডাউনলোড / প্রিন্ট করুন",
+                notificationText: "লিংক সফলভাবে কপি করা হয়েছে!",
+                title: "৩২ জুলাই, ২০২৪: প্রতিরোধের কাল্পনিক তারিখ",
+                byline: "প্রকাশিত: ১ আগস্ট, ২০২৪ • ISTIACK'S JULY CORNER-এর জন্য সংগৃহীত",
+                leadParagraph: "\"৩২ জুলাই, ২০২৪\" ছিল অনলাইন কর্মী, শিক্ষার্থী এবং সাধারণ নাগরিকদের দ্বারা ১ আগস্ট, ২০২৪ তারিখকে প্রতীকীভাবে নির্দেশ করার জন্য ব্যবহৃত একটি কাল্পনিক তারিখ। [১, ২]",
+                contextParagraph: "বিক্ষোভকারীরা তাদের ক্যালেন্ডার আগস্টে পরিবর্তন করতে অস্বীকৃতি জানান, কারণ ঐতিহাসিকভাবে ক্ষমতাসীন আওয়ামী লীগ দল আগস্ট মাসকে শোকের মাস হিসেবে পালন করত। বিক্ষোভকারীরা জুলাইয়ের গণনা অব্যাহত রাখার সিদ্ধান্ত নেন (৩২ জুলাই, ৩৩ জুলাই, ইত্যাদি) যাতে রাষ্ট্রীয় বাহিনীর হাতে শত শত ছাত্র নিহতের ঘটনা—\"জুলাই হত্যাকাণ্ড\"-এর স্মৃতিই জাতির একমাত্র মনোযোগের কেন্দ্রবিন্দু থাকে। [১, ৩] \"৩২ জুলাই\" (১ আগস্ট, ২০২৪)-এ ঘটে যাওয়া প্রধান প্রধান জাতীয় ও রাজনৈতিক ঘটনাবলির একটি কালানুক্রমিক বিবরণ নিচে তুলে ধরা হলো:",
+                
+                // INJECT ADDITIONAL TRANSLATED SECTIONS OR EDIT BANGLA CONTENT BELOW
+                sections: [
+                    {
+                        heading: "প্রধান জাতীয় ঘটনা ও রাজনৈতিক পটপরিবর্তন",
+                        bullets: [
+                            "<strong>৬ সমন্বয়কের মুক্তি:</strong> শেষ বিকেলে, গোয়েন্দা শাখা (ডিবি) কার্যালয় বৈষম্যবিরোধী ছাত্র আন্দোলনের প্রধান ছয় সমন্বয়ক—নাহিদ ইসলাম, আসিফ মাহমুদ, আবু বাকের মজুমদার, হাসনাত আব্দুল্লাহ, সারজিস আলম এবং নুসরাত তাবাসসুমকে মুক্তি দেয়। জুলাইয়ের শেষ দিক থেকে তাদের \"নিরাপত্তার স্বার্থে হেফাজত\"-এর অজুহাতে জোরপূর্বক ডিবি কার্যালয়ে আটকে রাখা হয়েছিল। [২]",
+                            "<strong>জামায়াতে ইসলামীর ওপর নিষেধাজ্ঞা:</strong> স্বরাষ্ট্র মন্ত্রণালয় সন্ত্রাসবিরোধী আইনের আওতায় রাজনৈতিক দল জামায়াতে ইসলামী এবং এর ছাত্র সংগঠন ইসলামী ছাত্র শিবিরকে নিষিদ্ধ ঘোষণা করে সরকারি গেজেট প্রজ্ঞাপন জারি করে। কোটা আন্দোলনের সময় সহিংসতা ছড়ানোর পেছনে সরকার তাদের প্রকাশ্যে দায়ী করে। [৪, ৫, ৬]",
+                            "<strong>এইচএসসি পরীক্ষা বর্জন:</strong> দেশব্যাপী সহিংস ট্রমা এবং গণগ্রেপ্তারের প্রতিক্রিয়ায়, দেশজুড়ে শিক্ষার্থীরা সম্মিলিতভাবে ঘোষণা করে যে তারা অবশিষ্ট উচ্চ মাধ্যমিক (এইচএসসি) পরীক্ষায় বসতে অস্বীকৃতি জানাবে। [৭, ৮]"
+                        ]
+                    },
+                    {
+                        heading: "রাস্তায় বিক্ষোভ ও দমন-পীড়ন",
+                        bullets: [
+                            "<strong>\"রিমেম্বারিং আওয়ার হিরোজ\" কর্মসূচি:</strong> বৈষম্যবিরোধী ছাত্র আন্দোলন দেশব্যাপী স্মরণ সমাবেশ শুরু করে। আইন প্রয়োগকারী সংস্থা আন্দোলনকারীদের বাধা দেওয়ার জন্য বিশাল পুলিশ বহর মোতায়েন করে, যার ফলে বেশ কয়েকটি প্রধান শহরে তীব্র সংঘর্ষ হয়। [১, ২, ৯]",
+                            "<strong>রাজু ভাস্কর্যে শিক্ষকদের প্রতিবাদ:</strong> \"নিপীড়নের বিরুদ্ধে শিক্ষক\" ব্যানারে ঢাকা বিশ্ববিদ্যালয়ের রাজু মেমোরিয়াল ভাস্কর্যের পাদদেশে বিশ্ববিদ্যালয় শিক্ষকেরা জড়ো হন। তারা আটক সকল শিক্ষার্থীর অবিলম্বে মুক্তি, নির্বিচারে ব্লক রেইড বন্ধ করা এবং নিহত শিক্ষার্থীদের হত্যার বিচার দাবি করেন। [৫]",
+                            "<strong>গণগ্রেপ্তার ও আটক প্রক্রিয়া:</strong> আন্তর্জাতিক মহলের নজরদারি থাকা সত্ত্বেও গণগ্রেপ্তার অব্যাহত থাকে। বরিশালে আইন প্রয়োগকারী সংস্থা বরিশাল বিশ্ববিদ্যালয়ের সমন্বয়ক শুভসহ ১২ জন সমন্বয়ক ও ছাত্রনেতাকে গ্রেপ্তার করে। খুলনায় \"মার্চ ফর জাস্টিস\" চলাকালে পুলিশ ২২ জন ছাত্রকে আটক করে, যদিও তীব্র জনরোষ ও চাপের মুখে পরবর্তীতে তাদের ছেড়ে দেওয়া হয়। [৭, ১০, ১১]",
+                            "<strong>আবু সাঈদ হত্যা মামলার আপডেট:</strong> রংপুর আদালত ছাত্র আন্দোলনের আইকন আবু সাঈদ হত্যাকাণ্ডের ঘটনায় ভুলবশত গ্রেপ্তার হওয়া এক নাবালককে জামিন প্রদান করে। [৭]"
+                        ]
+                    }
+                ],
+
+                mediaHeader: "ভিজ্যুয়াল মিডিয়া রেকর্ড ও আর্কাইভ",
+                imageSectionTitle: "আর্কাইভকৃত নথিপত্র ও আলোকচিত্র",
+                videoSectionTitle: "সংবেদনশীল ভিডিও ফুটেজ",
+                
+                videoWarningHeader: "সতর্কতা: সংবেদনশীল দৃশ্য",
+                videoWarningText: "নিচের ভিডিওটিতে ছাত্র আন্দোলন চলাকালীন সহিংসতার বাস্তব দৃশ্য রয়েছে যা কিছু দর্শকের জন্য মারাত্মক মানসিক কষ্টের কারণ হতে পারে।",
+                revealVideoBtn: "ভিডিওটি দেখুন",
+
+                sourceTitle: "যাচাইযোগ্য সংবাদ উৎস ও বিবরণী",
+                referenceTitle: "সহায়ক তথ্যসূত্র তালিকা",
+                sourcesList: [
+                    "The Daily Star (August 1, 2024 Timeline): https://www.thedailystar.net/news/bangladesh/news/august-1-2024-jamaat-banned-protests-surge-death-toll-mounts-3952826",
+                    "Dhaka Tribune (Monsoon Revolution Retrospective): https://www.dhakatribune.com/bangladesh/387894/july-32-coordinators-released-jamat-banned",
+                    "Bangladesh Sangbad Sangstha (BSS National Archive): https://www.bssnews.net/july-uprising/297535",
+                    "July Mass Uprising Archive: https://julyarchive.cridobd.org/2024/12/07/july-32-34/"
+                ],
+                referencesList: [
+                    "[১] https://www.bssnews.net/july-uprising/297535",
+                    "[২] https://www.dhakatribune.com/bangladesh/387894/july-32-coordinators-released-jamat-banned",
+                    "[৩] https://viewsbangladesh.com/july-36-the-chronicle-of-an-unprecedented-mass-uprising/",
+                    "[৪] https://www.facebook.com/DailyStarNews/posts/the-government-has-issued-the-july-mass-uprising-protection-and-liability-determ/1234903158790961/",
+                    "[৫] https://www.thedailystar.net/news/bangladesh/news/august-1-2024-jamaat-banned-protests-surge-death-toll-mounts-3952826",
+                    "[৬] https://monitor.civicus.org/explore/bangladesh-brutal-crackdown-on-quota-reform-protesters-by-security-forces-and-ruling-party-youth-wing/",
+                    "[৭] https://julyarchive.cridobd.org/2024/12/07/july-32-34/",
+                    "[৮] https://en.prothomalo.com/bangladesh/5jvl0xye5l",
+                    "[৯] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                    "[১০] https://viewsbangladesh.com/july-36-the-chronicle-of-an-unprecedented-mass-uprising/",
+                    "[১১] https://www.facebook.com/DailyStarNews/posts/the-government-has-issued-the-july-mass-uprising-protection-and-liability-determ/1234903158790961/",
+                    "[১২] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                    "[1৩] https://www.dhakatribune.com/bangladesh/387894/july-32-coordinators-released-jamat-banned",
+                    "[১৪] https://www.amnistia.org/en/news/2024/07/27007/what-is-happening-at-the-quota-reform-protests-in-bangladesh"
+                ]
+            }
+        };
+
+        // Track standard site global configuration states
+        let siteLang = 'en';
+
+        // Load document dynamic modules on ready
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContent(siteLang);
+        });
+
+        /* ==========================================
+         * DOM RENDER CONTROLLERS
+         * ==========================================
+         */
+        
+        function renderContent(lang) {
+            const data = textContentDB[lang];
+            
+            // Toggle HTML language state to coordinate root font structures
+            document.getElementById('html-root').setAttribute('lang', lang);
+            
+            // Force strict manual fonts on controls based on content language rule
+            const langBtn = document.getElementById('lang-toggle-btn');
+            const menuLangOpt = document.getElementById('menu-lang-opt');
+            
+            if(lang === 'en') {
+                // If language is English, translation buttons must render the target Bangla script and apply Bangla fonts.
+                langBtn.style.fontFamily = "var(--font-bn-header, 'BanglaHeader')";
+                langBtn.querySelector('span').innerText = data.langButtonText;
+                menuLangOpt.innerText = data.langButtonText;
+                menuLangOpt.style.fontFamily = "var(--font-bn-header, 'BanglaHeader')";
+            } else {
+                // If language is Bangla, translation buttons must render English text and apply English fonts.
+                langBtn.style.fontFamily = "var(--font-en-header, 'EnglishHeader')";
+                langBtn.querySelector('span').innerText = data.langButtonTextActual;
+                menuLangOpt.innerText = data.langButtonTextActual;
+                menuLangOpt.style.fontFamily = "var(--font-en-header, 'EnglishHeader')";
+            }
+
+            // Sync Header interface texts
+            document.getElementById('label-share').innerText = data.shareLabel;
+            document.getElementById('label-download').innerText = data.downloadLabel;
+            document.getElementById('menu-print-opt').innerText = data.downloadLabel;
+            
+            // Set dynamic title metadata
+            document.title = data.title;
+
+            // Render dynamic content blocks into layout
+            const contentContainer = document.getElementById('active-article-content');
+            contentContainer.innerHTML = composeArticleLayout(lang);
+        }
+
+        function toggleDisplayLanguage() {
+            siteLang = siteLang === 'en' ? 'bn' : 'en';
+            renderContent(siteLang);
+        }
+
+        /* ==========================================
+         * LAYOUT COMPOSER COMPONENT
+         * ==========================================
+         */
+        function composeArticleLayout(lang) {
+            const data = textContentDB[lang];
+            
+            let html = `
+                <div class="title-block">
+                    <h1 class="article-heading font-header">${data.title}</h1>
+                    <div class="article-byline">${data.byline}</div>
+                </div>
+
+                <div class="article-body">
+                    <p>${data.leadParagraph}</p>
+                    <p>${data.contextParagraph}</p>
+            `;
+
+            // Loop through Content Sections
+            data.sections.forEach((section, index) => {
+                html += `
+                    <h2 class="font-header">${section.heading}</h2>
+                    <ul>
+                        ${section.bullets.map(bullet => `<li>${bullet}</li>`).join('')}
+                    </ul>
+                `;
+            });
+
+            // Embedded Extra Graphics Section (Absolute control under fonts, printed, no captions)
+            html += `
+                <h2 class="font-header">${data.mediaHeader}</h2>
+                <h3 class="font-header" style="font-size: 1.15rem; margin-top: 20px;">${data.imageSectionTitle}</h3>
+                
+                <div class="inline-image-box">
+                    <img src="./i.jpg" alt="Iconic rickshaw salute record" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIj48cmVjdCB3aWR0aD0iMTAwJSIgY29sb3I9IiNjY2MiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YyZjJmMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjNzciIGZvbnQtc2l6ZT0iMTgiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5SaWNrc2hhdyBTYWx1dGUgSW1hZ2UgKC4vaS5qcGcpPC90ZXh0Pjwvc3ZnPg==';">
+                </div>
+
+                <div class="inline-image-box">
+                    <img src="/july-corner/26-july/6.jpg" alt="Release of student coordinators documentation" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAlIiBoZWlnaHQ9IjQ1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YyZjJmMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjNzciIGZvbnQtc2l6ZT0iMTgiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Db29yZGluYXRvcnMgUmVsZWFzZSAoL2p1bHktY29ybmVyLzI2LWp1bHkvNi5qcGcpPC90ZXh0Pjwvc3ZnPg==';">
+                </div>
+            `;
+
+            // Embedded Warnings and Media Player (Videos removed automatically inside advanced printing)
+            html += `
+                <h3 class="font-header" style="font-size: 1.15rem; margin-top: 25px;">${data.videoSectionTitle}</h3>
+                <div class="media-shield" id="media-shield-${lang}">
+                    <div class="media-barrier" id="barrier-${lang}">
+                        <svg class="barrier-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        <h4 class="barrier-heading">${data.videoWarningHeader}</h4>
+                        <p class="barrier-desc">${data.videoWarningText}</p>
+                        <button class="btn-reveal" onclick="disarmMediaShield('${lang}')">${data.revealVideoBtn}</button>
+                    </div>
+                    <video class="shield-video" id="video-${lang}" controls preload="metadata" src="./f.mp4"></video>
+                </div>
+            `;
+
+            // Chronology Source Timeline Links (Strict Plain-text rules, non-hyperlinked)
+            html += `
+                <div class="source-footer">
+                    <h3 class="font-header">${data.sourceTitle}</h3>
+                    <ul class="source-list">
+                        ${data.sourcesList.map(source => `<li><span class="text-reference">${source}</span></li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            // Verified Bibliography List
+            html += `
+                <div class="source-footer" style="margin-top: 20px; border-top: none;">
+                    <h3 class="font-header">${data.referenceTitle}</h3>
+                    <ul class="source-list" style="font-family: monospace;">
+                        ${data.referencesList.map(ref => `<li><span class="text-reference">${ref}</span></li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            html += `</div>`; // Close article-body div
+            return html;
+        }
+
+        /* ==========================================
+         * MEDIA CONTROLS
+         * ==========================================
+         */
+        function disarmMediaShield(lang) {
+            document.getElementById(`barrier-${lang}`).style.display = 'none';
+            const videoEl = document.getElementById(`video-${lang}`);
+            videoEl.style.display = 'block';
+            videoEl.play();
+        }
+
+        /* ==========================================
+         * POPUPS, MENUS & TOAST SYSTEM
+         * ==========================================
+         */
+        function toggleMenu() {
+            const menu = document.getElementById('navigation-dropdown');
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            } else {
+                menu.classList.add('active');
+            }
+        }
+
+        // Close menu if user clicks elsewhere
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.menu-trigger') && !e.target.closest('.menu-dropdown')) {
+                document.getElementById('navigation-dropdown').classList.remove('active');
+            }
+        });
+
+        function copyCanonicalLink() {
+            // Strict requirement: User can only copy the exact canonical subfolder path, excluding "index.html"
+            const canonicalURL = "https://istiack.ami.bd/july-corner/32-july/";
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(canonicalURL)
+                    .then(() => triggerToast(textContentDB[siteLang].notificationText))
+                    .catch(() => fallbackCopyImplementation(canonicalURL));
+            } else {
+                fallbackCopyImplementation(canonicalURL);
+            }
+        }
+
+        function fallbackCopyImplementation(text) {
+            const input = document.createElement('textarea');
+            input.value = text;
+            input.style.position = 'fixed';
+            input.style.left = '-9999px';
+            input.style.top = '-9999px';
+            document.body.appendChild(input);
+            input.focus();
+            input.select();
+            
+            try {
+                document.execCommand('copy');
+                triggerToast(textContentDB[siteLang].notificationText);
+            } catch (err) {
+                console.error("Failed to execute clipboard copy command:", err);
+            }
+            document.body.removeChild(input);
+        }
+
+        function triggerToast(msgText) {
+            const toast = document.getElementById('action-toast');
+            document.getElementById('toast-text-area').innerText = msgText;
+            toast.classList.add('is-visible');
+            setTimeout(() => {
+                toast.classList.remove('is-visible');
+            }, 2500);
+        }
+
+        /* ==========================================
+         * DYNAMIC PRINT ROUTING ENGINE
+         * ==========================================
+         */
+        function openPrintWizard() {
+            document.getElementById('print-selector-modal').classList.add('is-open');
+        }
+
+        function closePrintWizard() {
+            document.getElementById('print-selector-modal').classList.remove('is-open');
+        }
+
+        function dispatchPrintJob(mode) {
+            closePrintWizard();
+            const buffer = document.getElementById('print-viewframe');
+            
+            // Wipe clean
+            buffer.innerHTML = '';
+            
+            // Set dynamic language state parameters on container to guarantee correct layout rendering
+            document.body.classList.add('print-active');
+
+            if (mode === 'en') {
+                buffer.setAttribute('lang', 'en');
+                buffer.style.fontFamily = "var(--font-en-main, 'EnglishMain')";
+                buffer.innerHTML = `
+                    <div class="article-viewport" style="font-family: 'EnglishMain', sans-serif;">
+                        <h4 style="text-align: right; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 25px;">English Layout Output</h4>
+                        ${composeArticleLayout('en')}
+                    </div>
+                `;
+            } else if (mode === 'bn') {
+                buffer.setAttribute('lang', 'bn');
+                buffer.style.fontFamily = "var(--font-bn-main, 'BanglaMain')";
+                buffer.innerHTML = `
+                    <div class="article-viewport" style="font-family: 'BanglaMain', sans-serif;">
+                        <h4 style="text-align: right; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 25px;">বাংলা সংস্করণ লেআউট</h4>
+                        ${composeArticleLayout('bn')}
+                    </div>
+                `;
+            } else if (mode === 'both') {
+                buffer.removeAttribute('lang');
+                buffer.innerHTML = `
+                    <div class="article-viewport" lang="en" style="font-family: 'EnglishMain', sans-serif; page-break-after: always;">
+                        <h4 style="text-align: right; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 25px;">English Version</h4>
+                        ${composeArticleLayout('en')}
+                    </div>
+                    <div class="article-viewport" lang="bn" style="font-family: 'BanglaMain', sans-serif; padding-top: 40px;">
+                        <h4 style="text-align: right; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 25px;">বাংলা সংস্করণ</h4>
+                        ${composeArticleLayout('bn')}
+                    </div>
+                `;
+            }
+
+            // Short execution gap to yield thread for rendering updates
+            setTimeout(() => {
+                window.print();
+                // Tear down printable frame once interface modal resolves
+                document.body.classList.remove('print-active');
+                buffer.innerHTML = '';
+            }, 350);
+        }
+
+        // Catch printer termination to safeguard main frame visibility
+        window.onafterprint = function() {
+            document.body.classList.remove('print-active');
+            document.getElementById('print-viewframe').innerHTML = '';
+        };
+
+    </script>
+</body>
+</html>

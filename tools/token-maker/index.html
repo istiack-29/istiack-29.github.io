@@ -1,0 +1,841 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Token Generator • Istiack">
+    <meta property="og:description" content="Free Token Generator Tool by Istiack">
+    <meta property="og:image" content="t.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Token Generator • Istiack">
+    <meta name="twitter:description" content="Free Token Generator Tool by Istiack">
+    <meta name="twitter:image" content="t.png">
+
+    <title>Token Generator • Istiack</title>
+
+    <style>
+        /* =========================================
+           ১. কাস্টম ফন্ট ও গ্লোবাল ভেরিয়েবল
+           ========================================= */
+        
+        @font-face {
+            font-family: 'UniversalFont';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'PrintFont';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            /* কালার প্যালেট - ডার্ক থিম */
+            --bg-base: #030305;
+            --bg-glass: rgba(15, 15, 20, 0.65);
+            --bg-glass-hover: rgba(25, 25, 35, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --border-glass-light: rgba(255, 255, 255, 0.2);
+            --accent-primary: #8a2be2; 
+            --accent-secondary: #4169e1; 
+            
+            --text-main: #ffffff;
+            --text-muted: #9ba1a6;
+            --danger: #ff4757;
+
+            /* প্রিন্ট কালার (সম্পূর্ণ সাদাকালো) */
+            --print-black: #000000;
+            --print-white: #ffffff;
+            --print-gray: #333333;
+
+            /* টাইপোগ্রাফি */
+            --font-universal: 'UniversalFont', sans-serif;
+            --font-print: 'PrintFont', sans-serif;
+
+            /* ইউআই প্রপার্টি */
+            --radius-xl: 20px;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-smooth: all 0.3s ease;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden; 
+        }
+
+        body {
+            font-family: var(--font-universal);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* =========================================
+           ২. ব্যাকগ্রাউন্ড ক্যানভাস এবং অ্যানিমেশন
+           ========================================= */
+        #bg-canvas { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; 
+            background: radial-gradient(circle at 50% 0%, #1a102c 0%, var(--bg-base) 60%); 
+        }
+        
+        .blob { 
+            position: fixed; border-radius: 50%; filter: blur(140px); z-index: -1; opacity: 0.4; 
+            animation: floatBlob 25s infinite alternate ease-in-out; 
+            pointer-events: none;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 55vw; height: 55vw; background: var(--accent-primary); }
+        .blob-2 { bottom: -20%; right: -10%; width: 45vw; height: 45vw; background: var(--accent-secondary); animation-delay: -7s; }
+
+        @keyframes floatBlob { 
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); } 
+            100% { transform: translate(10%, 10%) scale(1.1) rotate(15deg); } 
+        }
+
+        /* প্রি-লোডার */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base);
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; transition: opacity 0.6s ease;
+        }
+        .loader-ring { 
+            width: 50px; height: 50px; border: 3px solid var(--border-glass); 
+            border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite; 
+        }
+        .loader-text { font-family: var(--font-universal); font-weight: 600; letter-spacing: 2px; color: var(--text-muted); }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* =========================================
+           ৩. কাস্টম অ্যালার্ট পপআপ
+           ========================================= */
+        #custom-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+            z-index: 10000; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: var(--transition-smooth);
+        }
+        #custom-modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .custom-modal {
+            background: var(--bg-glass); border: 1px solid var(--border-glass-light);
+            border-radius: var(--radius-xl); padding: 30px; width: 90%; max-width: 380px;
+            text-align: center; transform: scale(0.8) translateY(20px); opacity: 0; transition: var(--transition-bounce);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        #custom-modal-overlay.active .custom-modal { transform: scale(1) translateY(0); opacity: 1; }
+
+        .modal-icon {
+            width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 71, 87, 0.1);
+            color: var(--danger); display: flex; justify-content: center; align-items: center; margin: 0 auto 15px;
+        }
+        .modal-icon svg { width: 24px; height: 24px; }
+        .modal-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        .modal-message { font-size: 1rem; color: var(--text-muted); margin-bottom: 25px; line-height: 1.4; }
+        .modal-btn {
+            background: var(--text-main); color: var(--bg-base); border: none; width: 100%; padding: 12px;
+            border-radius: var(--radius-md); font-family: var(--font-universal); font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: var(--transition-smooth);
+        }
+        .modal-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
+
+        /* =========================================
+           ৪. লেআউট এবং হিরো সেকশন
+           ========================================= */
+        .app-container { display: flex; flex-direction: column; min-height: 100vh; width: 100%; overflow: hidden; align-items: center;}
+        
+        .main-content { flex: 1; padding: 2rem 5%; width: 100%; max-width: 1000px; position: relative; overflow-x: hidden; }
+
+        .hero-section { text-align: center; margin-bottom: 1.5rem; }
+        .hero-badge { display: inline-block; padding: 4px 12px; background: rgba(138, 43, 226, 0.1); border: 1px solid rgba(138, 43, 226, 0.3); border-radius: 20px; color: #d8b4fe; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.8rem; }
+        .hero-title { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; background: linear-gradient(to right, #ffffff, #a0a0ab); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; line-height: 1.2;}
+
+        /* =========================================
+           ৫. জেনারেটর প্যানেল (কম্প্যাক্ট স্পেসিং)
+           ========================================= */
+        .control-panel {
+            background: var(--bg-glass); backdrop-filter: blur(30px); border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl); padding: 25px; margin-bottom: 30px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+        .input-group label { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); display: flex; align-items: center; gap: 6px;}
+        .input-group label svg { width: 16px; height: 16px; color: var(--accent-primary);}
+        
+        .glass-input {
+            background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-glass); color: var(--text-main);
+            padding: 10px 14px; border-radius: var(--radius-md); font-family: var(--font-universal); font-size: 1rem;
+            outline: none; transition: var(--transition-smooth); -webkit-user-select: auto; user-select: auto;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); width: 100%;
+        }
+        .glass-input:focus { border-color: var(--accent-primary); background: rgba(0,0,0,0.6); box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15);}
+        .glass-input::placeholder { color: rgba(255,255,255,0.2); }
+
+        /* লেআউট সিলেকশন কার্ডস */
+        .layout-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+        .layout-card { position: relative; cursor: pointer; }
+        .layout-card input { position: absolute; opacity: 0; }
+        .layout-card-inner {
+            background: rgba(0, 0, 0, 0.3); border: 2px solid var(--border-glass); border-radius: var(--radius-lg);
+            padding: 12px 10px; text-align: center; transition: var(--transition-bounce); display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%;
+        }
+        .layout-card:hover .layout-card-inner { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
+        .layout-card input:checked + .layout-card-inner {
+            border-color: var(--accent-primary); background: rgba(138, 43, 226, 0.1);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2), inset 0 0 0 1px var(--accent-primary);
+        }
+        .l-icon {
+            width: 36px; height: 36px; background: rgba(0,0,0,0.5); border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; font-weight: 800; font-family: var(--font-universal); color: var(--text-muted); border: 1px solid var(--border-glass); transition: 0.3s;
+        }
+        .layout-card input:checked + .layout-card-inner .l-icon { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
+        .l-text { font-size: 0.95rem; font-weight: 600; color: var(--text-main); line-height: 1.2;}
+        .l-text small { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
+
+        /* চেকবক্স ডিজাইন */
+        .options-card { background: rgba(0,0,0,0.3); padding: 15px; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); height: 100%;}
+        .checkbox-wrapper { display: flex; flex-direction: column; gap: 12px; }
+        .check-item { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; color: var(--text-main); font-weight: 500;}
+        .check-item input { display: none; }
+        .checkmark { 
+            width: 20px; height: 20px; border: 2px solid var(--border-glass-light); border-radius: 6px; 
+            display: flex; align-items: center; justify-content: center; transition: var(--transition-bounce); 
+            background: rgba(0,0,0,0.5); flex-shrink: 0;
+        }
+        .check-item input:checked + .checkmark { background: var(--accent-primary); border-color: var(--accent-primary); transform: scale(1.05);}
+        .check-item input:checked + .checkmark::after { content: ''; width: 4px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-bottom: 2px;}
+
+        /* ফাইল আপলোড (লোগো) */
+        .file-upload-container { position: relative; width: 100%; }
+        .file-upload-input { position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; width: 100%; z-index: 10;}
+        .file-upload-btn { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; 
+            background: rgba(0,0,0,0.3); border: 2px dashed rgba(255,255,255,0.15); padding: 15px; 
+            border-radius: var(--radius-md); color: var(--text-muted); font-family: var(--font-universal); font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+        .file-upload-container:hover .file-upload-btn { border-color: var(--accent-primary); background: rgba(138, 43, 226, 0.05); color: var(--text-main);}
+        .file-upload-btn svg { width: 24px; height: 24px; color: var(--accent-primary); }
+        #file-name-display { font-size: 0.85rem; color: #a855f7; margin-top: 6px; display: block; text-align: center; font-weight: 500;}
+
+        /* বাটন গ্রুপ */
+        .btn-full { grid-column: span 2; display: flex; gap: 15px;}
+        .action-btn {
+            flex: 1; padding: 12px 20px; border-radius: var(--radius-md); font-weight: 700; font-size: 1.1rem;
+            font-family: var(--font-universal); text-align: center; border: none; cursor: pointer; transition: var(--transition-bounce);
+            display: flex; justify-content: center; align-items: center; gap: 8px; position: relative; overflow: hidden;
+        }
+        #btn-generate { 
+            background: linear-gradient(135deg, var(--accent-primary), #6d28d9); color: var(--text-main); 
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+        #btn-generate:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4); }
+        #btn-generate::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: 0.5s; }
+        #btn-generate:hover::after { left: 100%; }
+
+        #btn-print { 
+            background: var(--text-main); color: var(--bg-base); display: none;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        #btn-print:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2); }
+
+        /* =========================================
+           ৬. প্রিভিউ এরিয়া
+           ========================================= */
+        #preview-section { 
+            display: none; 
+            width: 100%; 
+            padding-top: 15px; 
+            padding-bottom: 40px;
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
+        }
+        .preview-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; justify-content: center; min-width: 300px;}
+        .preview-header h3 { font-size: 1.3rem; color: var(--text-main); font-weight: 700; white-space: nowrap;}
+        .preview-header .line { height: 1px; background: var(--border-glass-light); flex: 1; max-width: 200px;}
+
+        /* প্রিন্ট এরিয়া কন্টেইনার */
+        #print-area { 
+            display: flex; flex-direction: column; align-items: center; gap: 30px; 
+            background: transparent;
+            min-width: max-content; 
+            padding: 10px;
+        }
+
+        /* =========================================
+           ৭. প্রিন্ট লেআউট (চূড়ান্ত প্রোডাকশন রেডি)
+           ========================================= */
+        .page, .page * {
+            font-family: var(--font-print) !important;
+        }
+
+        .page {
+            width: 210mm; height: 296mm;
+            background-color: var(--print-white);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            color: var(--print-black);
+            flex-shrink: 0;
+            display: grid;
+            border-top: 1px dashed var(--print-gray);
+            border-left: 1px dashed var(--print-gray);
+            box-sizing: border-box;
+            position: relative;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        .page:last-of-type {
+            page-break-after: auto !important;
+        }
+
+        /* --- Layout: 20 Tokens (Top/Bottom) --- */
+        .page.layout-20 {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+        }
+        
+        .token {
+            display: flex; flex-direction: column;
+            border-right: 1px dashed var(--print-gray);
+            border-bottom: 1px dashed var(--print-gray);
+            box-sizing: border-box;
+            background: var(--print-white);
+            overflow: hidden;
+            position: relative;
+        }
+        .token.empty { opacity: 0; }
+
+        .token-top {
+            flex: 1.6; border-bottom: 1px dashed var(--print-gray);
+            padding: 5px 6px; display: flex; flex-direction: column; position: relative;
+        }
+        
+        .t-header { 
+            display: flex; align-items: center; justify-content: center; gap: 5px; 
+            margin-bottom: 4px; min-height: 22px; padding-top: 2px;
+        }
+        .t-logo { height: 16px; width: auto; max-width: 30px; object-fit: contain; }
+        .t-org-name { 
+            font-size: 8px; font-weight: 700; text-align: center; text-transform: uppercase;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; 
+            overflow: hidden; line-height: 1.4; color: var(--print-black);
+            padding-top: 3px; 
+        }
+
+        .t-meta { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1.2px solid var(--print-black); padding-bottom: 2px; margin-bottom: 4px; }
+        .t-badge { font-size: 6.5px; font-weight: 700; background: var(--print-black); color: var(--print-white); padding: 1.5px 4px; border-radius: 2px; letter-spacing: 0.5px; }
+        .t-sn { font-size: 14px; font-weight: 900; letter-spacing: 0.5px; line-height: 1;}
+
+        .t-fields { display: flex; flex-direction: column; gap: 6px; margin-top: auto; flex: 1; justify-content: flex-end; padding-bottom: 2px;}
+        .t-field { display: flex; align-items: flex-end; font-size: 8px; font-weight: 600; line-height: 1; }
+        .t-field span { margin-right: 4px; }
+        .t-field .line { flex: 1; border-bottom: 1px dotted var(--print-black); height: 8px; }
+
+        .token-top.is-empty { align-items: center; justify-content: center; }
+        .token-top.is-empty .t-meta { border: none; flex-direction: column; align-items: center; justify-content: center; flex: 1; width: 100%; margin: 0;}
+        .token-top.is-empty .t-meta .t-badge { margin-bottom: 5px; font-size: 8px;}
+        .token-top.is-empty .t-meta .t-sn { font-size: 26px; text-align: center; margin: 0;}
+
+        .token-bottom {
+            flex: 1; padding: 4px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; position: relative; text-align: center;
+        }
+        .b-header { margin-bottom: 2px; }
+        .b-badge { font-size: 6.5px; font-weight: 700; border-bottom: 1.2px solid var(--print-black); padding-bottom: 1px; margin-bottom: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .b-sn { font-size: 22px; font-weight: 900; margin: auto 0; line-height: 1; letter-spacing: 1px;}
+        .b-footer-note { font-size: 5px; font-weight: 600; opacity: 0.8; letter-spacing: 0.2px; text-transform: uppercase;}
+
+
+        /* --- Layout: 10 Tokens (Side-by-Side) --- */
+        .page.layout-10 {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+        }
+        
+        .token-h {
+            display: grid;
+            grid-template-columns: 72% 28%; 
+            border-right: 1px dashed var(--print-gray);
+            border-bottom: 1px dashed var(--print-gray);
+            box-sizing: border-box;
+            background: var(--print-white);
+            position: relative;
+        }
+        .token-h.empty { opacity: 0; }
+
+        .token-left {
+            border-right: 1px dashed var(--print-gray);
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .token-right {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .t-meta-h { display: flex; flex-direction: column; width: 100%; margin-bottom: 8px;}
+        .t-meta-h-inner { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1.5px solid var(--print-black); padding-bottom: 4px; margin-bottom: 4px;}
+        .t-badge-h { font-size: 8px; font-weight: 700; background: var(--print-black); color: var(--print-white); padding: 2.5px 6px; border-radius: 2px; letter-spacing: 0.5px; }
+        .t-sn-h { font-size: 18px; font-weight: 900; line-height: 1; }
+        
+        .t-fields-h { display: flex; flex-direction: column; gap: 12px; margin-top: auto; flex: 1; justify-content: flex-end; padding-bottom: 2px;}
+        .t-field-h { display: flex; align-items: flex-end; font-size: 11px; font-weight: 600; line-height: 1; }
+        .t-field-h span { margin-right: 6px; }
+        .t-field-h .line { flex: 1; border-bottom: 1.5px dotted var(--print-black); height: 12px; }
+
+        .token-left.is-empty { justify-content: center; align-items: center; }
+        .token-left.is-empty .t-meta-h { border: none; align-items: center; justify-content: center; margin: 0; flex: 1;}
+        .token-left.is-empty .t-meta-h-inner { border: none; flex-direction: column; align-items: center; gap: 10px;}
+        .token-left.is-empty .t-badge-h { font-size: 10px; padding: 4px 10px;}
+        .token-left.is-empty .t-sn-h { font-size: 38px; }
+
+        .b-badge-h { font-size: 8px; font-weight: 700; border-bottom: 1.2px solid var(--print-black); padding-bottom: 2px; margin-bottom: 5px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .b-sn-h { font-size: 26px; font-weight: 900; margin: auto 0; line-height: 1; letter-spacing: 1px;}
+        .b-footer-note-h { font-size: 6px; font-weight: 600; opacity: 0.8; letter-spacing: 0.2px; text-transform: uppercase;}
+
+
+        /* =========================================
+           ৮. প্রিন্ট মিডিয়া কোয়েরি
+           ========================================= */
+        @media print {
+            @page { size: A4 portrait; margin: 0; }
+            html, body { 
+                margin: 0; padding: 0; 
+                background: var(--print-white); 
+                height: auto; 
+                width: 100%;
+                overflow: visible !important; 
+            }
+            
+            .hero-section, .control-panel, #bg-canvas, .blob, 
+            .preview-header, #btn-print, #loader, #custom-modal-overlay { 
+                display: none !important; 
+            }
+            
+            .app-container, .main-content { 
+                display: block; width: 100%; padding: 0; margin: 0; overflow: visible !important; max-width: none;
+            }
+
+            #preview-section { 
+                display: block !important; padding: 0; overflow: visible !important; background: none; width: 100%;
+            }
+            
+            #print-area { 
+                display: block; gap: 0; padding: 0; width: 100%; min-width: 0; margin: 0;
+            }
+            
+            .page { 
+                margin: 0; box-shadow: none; border-radius: 0; border: none;
+                border-top: 1px dashed var(--print-gray);
+                border-left: 1px dashed var(--print-gray);
+                width: 210mm; height: 296mm; 
+            }
+            .page:last-of-type { page-break-after: auto !important; }
+        }
+
+        /* রেস্পন্সিভ ব্রেকপয়েন্ট */
+        @media (max-width: 1024px) {
+            .control-panel { grid-template-columns: 1fr; gap: 20px; }
+            .btn-full { grid-column: span 1; flex-direction: column; }
+        }
+        @media (max-width: 768px) {
+            .main-content { padding: 1.5rem 1rem 3rem 1rem; }
+            .layout-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- লোডার -->
+    <div id="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">INITIALIZING...</div>
+    </div>
+
+    <!-- কাস্টম অ্যালার্ট মোডাল -->
+    <div id="custom-modal-overlay">
+        <div class="custom-modal">
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            </div>
+            <h3 class="modal-title" id="modal-title">সতর্কতা</h3>
+            <p class="modal-message" id="modal-message">কিছু একটা ভুল হয়েছে!</p>
+            <button class="modal-btn" onclick="CustomAlert.hide()">ঠিক আছে, বুঝলাম</button>
+        </div>
+    </div>
+
+    <!-- ব্যাকগ্রাউন্ড ক্যানভাস -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="app-container">
+        <!-- মেইন কনটেন্ট (সাইডবার ও হেডার বাদ দেওয়া হয়েছে) -->
+        <main class="main-content">
+            <section class="hero-section">
+                <div class="hero-badge">Free Tool From ISTIACK</div>
+                <h1 class="hero-title">টোকেন জেনারেটর</h1>
+            </section>
+
+            <!-- জেনারেটর কন্ট্রোল প্যানেল (কম্প্যাক্ট স্পেস) -->
+            <div class="control-panel">
+                <!-- বাম কলাম -->
+                <div>
+                    <div class="input-group">
+                        <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> মোট টোকেন সংখ্যা</label>
+                        <input type="number" id="input-tokens" class="glass-input" min="1" max="5000" placeholder="উদাহরণ: ১৫০">
+                    </div>
+
+                    <div class="input-group">
+                        <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> লেআউট ডিজাইন</label>
+                        <div class="layout-options">
+                            <label class="layout-card">
+                                <input type="radio" name="layout-mode" value="20" checked>
+                                <div class="layout-card-inner">
+                                    <div class="l-icon">20</div>
+                                    <div class="l-text">২০ টোকেন/পেজ<br><small>উপর-নিচ (ডেস্ক/ইউজার)</small></div>
+                                </div>
+                            </label>
+                            <label class="layout-card">
+                                <input type="radio" name="layout-mode" value="10">
+                                <div class="layout-card-inner">
+                                    <div class="l-icon">10</div>
+                                    <div class="l-text">১০ টোকেন/পেজ<br><small>পাশাপাশি (ডেস্ক | ইউজার)</small></div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" style="margin-top: 15px;">
+                        <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> প্রতিষ্ঠানের নাম (ঐচ্ছিক)</label>
+                        <input type="text" id="input-org" class="glass-input" placeholder="যেকোনো নাম লিখুন...">
+                    </div>
+                </div>
+
+                <!-- ডান কলাম -->
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="input-group">
+                        <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> লোগো আপলোড (PNG)</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="input-logo" class="file-upload-input" accept="image/png">
+                            <div class="file-upload-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                                <span>ক্লিক বা ড্র্যাগ করুন</span>
+                            </div>
+                        </div>
+                        <span id="file-name-display"></span>
+                    </div>
+
+                    <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                        <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> ডেস্ক কপিতে কী রাখবেন?</label>
+                        <div class="options-card">
+                            <div class="checkbox-wrapper">
+                                <label class="check-item">
+                                    <input type="checkbox" id="check-name" checked>
+                                    <div class="checkmark"></div>
+                                    নাম (Name)
+                                </label>
+                                <label class="check-item">
+                                    <input type="checkbox" id="check-phone" checked>
+                                    <div class="checkmark"></div>
+                                    মোবাইল নম্বর (Mobile)
+                                </label>
+                                <label class="check-item">
+                                    <input type="checkbox" id="check-item" checked>
+                                    <div class="checkmark"></div>
+                                    জমা দেওয়া আইটেম (Item)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- অ্যাকশন বাটন -->
+                <div class="btn-full">
+                    <button id="btn-generate" class="action-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        টোকেন তৈরি করুন
+                    </button>
+                    <button id="btn-print" class="action-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+                        A4 প্রিন্ট করুন
+                    </button>
+                </div>
+            </div>
+
+            <!-- আউটপুট প্রিভিউ -->
+            <div id="preview-section">
+                <div class="preview-header">
+                    <div class="line"></div>
+                    <h3>প্রিন্ট প্রিভিউ</h3>
+                    <div class="line"></div>
+                </div>
+                <div id="print-area"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // =========================================
+        // কাস্টম অ্যালার্ট সিস্টেম
+        // =========================================
+        const CustomAlert = {
+            show: function(title, message) {
+                document.getElementById('modal-title').innerText = title;
+                document.getElementById('modal-message').innerText = message;
+                document.getElementById('custom-modal-overlay').classList.add('active');
+            },
+            hide: function() {
+                document.getElementById('custom-modal-overlay').classList.remove('active');
+            }
+        };
+
+        // অ্যান্টি-কপি সিকিউরিটি
+        document.addEventListener('contextmenu', e => { if(e.target.tagName !== 'INPUT') e.preventDefault(); });
+        document.addEventListener('copy', e => { if(e.target.tagName !== 'INPUT') e.preventDefault(); });
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && ['u', 's', 'p', 'c'].includes(e.key.toLowerCase()) && e.key.toLowerCase() !== 'p') {
+                e.preventDefault();
+            }
+        });
+        
+        // =========================================
+        // ব্যাকগ্রাউন্ড ক্যানভাস অ্যানিমেশন
+        // =========================================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
+                initCanvas();
+            }, 800);
+        });
+
+        function initCanvas() {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles;
+
+            function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width; this.y = Math.random() * height;
+                    this.size = Math.random() * 1.5;
+                    this.speedX = Math.random() * 0.3 - 0.15; this.speedY = Math.random() * 0.3 - 0.15;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX; this.y += this.speedY;
+                    if (this.x > width || this.x < 0 || this.y > height || this.y < 0) this.reset();
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < (window.innerWidth < 768 ? 40 : 120); i++) particles.push(new Particle());
+            }
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animate);
+            }
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize(); initParticles(); animate();
+        }
+
+        // =========================================
+        // কোর লজিক: টোকেন জেনারেটর ইঞ্জিন
+        // =========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            let uploadedLogoBase64 = null;
+            const inputLogo = document.getElementById('input-logo');
+            const logoDisplay = document.getElementById('file-name-display');
+            
+            // ফাইল আপলোড হ্যান্ডলিং
+            inputLogo.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.type !== 'image/png') {
+                        CustomAlert.show('ভুল ফাইল ফরম্যাট!', 'অনুগ্রহ করে শুধুমাত্র PNG (.png) ফরম্যাটের লোগো আপলোড করুন।');
+                        this.value = '';
+                        logoDisplay.textContent = '';
+                        uploadedLogoBase64 = null;
+                        return;
+                    }
+                    logoDisplay.textContent = '✔️ ফাইল যুক্ত হয়েছে: ' + file.name;
+                    const reader = new FileReader();
+                    reader.onload = function(event) { uploadedLogoBase64 = event.target.result; };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // জেনারেট বাটন ক্লিক
+            document.getElementById('btn-generate').addEventListener('click', () => {
+                const inputTokensValue = document.getElementById('input-tokens').value;
+                const totalTokens = parseInt(inputTokensValue);
+                const orgName = document.getElementById('input-org').value.trim();
+                
+                const layoutMode = document.querySelector('input[name="layout-mode"]:checked').value; 
+                const tokensPerPage = parseInt(layoutMode);
+
+                const hasName = document.getElementById('check-name').checked;
+                const hasPhone = document.getElementById('check-phone').checked;
+                const hasItem = document.getElementById('check-item').checked;
+
+                // ভ্যালিডেশন
+                if (!inputTokensValue || isNaN(totalTokens) || totalTokens <= 0) {
+                    CustomAlert.show('অসম্পূর্ণ তথ্য', 'দয়া করে আপনি কতগুলো টোকেন প্রিন্ট করতে চান তা উল্লেখ করুন।');
+                    return;
+                }
+                if (totalTokens > 5000) {
+                    CustomAlert.show('লিমিট ক্রস!', 'ব্রাউজার পারফরম্যান্সের জন্য একবারে ৫০০০ এর বেশি টোকেন জেনারেট করা যাবে না।');
+                    return;
+                }
+
+                const printArea = document.getElementById('print-area');
+                printArea.innerHTML = ''; 
+
+                const totalPages = Math.ceil(totalTokens / tokensPerPage);
+                let currentSerial = 1;
+
+                // হেডার ব্লক (লোগো + নাম)
+                let headerHtml = '';
+                if (orgName || uploadedLogoBase64) {
+                    headerHtml = `<div class="t-header">`;
+                    if (uploadedLogoBase64) headerHtml += `<img src="${uploadedLogoBase64}" class="t-logo">`;
+                    if (orgName) headerHtml += `<span class="t-org-name">${escapeHTML(orgName)}</span>`;
+                    headerHtml += `</div>`;
+                }
+
+                const fieldsCount = [hasName, hasPhone, hasItem].filter(Boolean).length;
+                
+                // লুপ চালিয়ে পেজ ও টোকেন তৈরি
+                for (let p = 0; p < totalPages; p++) {
+                    const page = document.createElement('div');
+                    page.className = `page layout-${tokensPerPage}`;
+
+                    for (let i = 0; i < tokensPerPage; i++) {
+                        const tokenEl = document.createElement('div');
+                        
+                        if (currentSerial <= totalTokens) {
+                            const serialStr = String(currentSerial).padStart(3, '0');
+                            
+                            if (tokensPerPage === 20) {
+                                tokenEl.className = 'token';
+                                
+                                let fieldsHtml = '';
+                                if (fieldsCount > 0) {
+                                    fieldsHtml = `<div class="t-fields">`;
+                                    if (hasName) fieldsHtml += `<div class="t-field"><span>নাম:</span><div class="line"></div></div>`;
+                                    if (hasPhone) fieldsHtml += `<div class="t-field"><span>নম্বর:</span><div class="line"></div></div>`;
+                                    if (hasItem) fieldsHtml += `<div class="t-field"><span>আইটেম:</span><div class="line"></div></div>`;
+                                    fieldsHtml += `</div>`;
+                                }
+                                const topClass = (fieldsCount === 0) ? 'token-top is-empty' : 'token-top';
+
+                                tokenEl.innerHTML = `
+                                    <div class="${topClass}">
+                                        ${headerHtml}
+                                        <div class="t-meta">
+                                            <div class="t-badge">ডেস্ক কপি</div>
+                                            <div class="t-sn">${serialStr}</div>
+                                        </div>
+                                        ${fieldsHtml}
+                                    </div>
+                                    <div class="token-bottom">
+                                        <div class="b-header">${headerHtml}</div>
+                                        <div class="b-badge">ইউজার কপি</div>
+                                        <div class="b-sn">${serialStr}</div>
+                                        <div class="b-footer-note">Thanks for trusting us <3</div>
+                                    </div>
+                                `;
+
+                            } else if (tokensPerPage === 10) {
+                                tokenEl.className = 'token-h';
+
+                                let fieldsHtmlH = '';
+                                if (fieldsCount > 0) {
+                                    fieldsHtmlH = `<div class="t-fields-h">`;
+                                    if (hasName) fieldsHtmlH += `<div class="t-field-h"><span>নাম:</span><div class="line"></div></div>`;
+                                    if (hasPhone) fieldsHtmlH += `<div class="t-field-h"><span>মোবাইল নম্বর:</span><div class="line"></div></div>`;
+                                    if (hasItem) fieldsHtmlH += `<div class="t-field-h"><span>জমা আইটেম:</span><div class="line"></div></div>`;
+                                    fieldsHtmlH += `</div>`;
+                                }
+                                const leftClass = (fieldsCount === 0) ? 'token-left is-empty' : 'token-left';
+
+                                tokenEl.innerHTML = `
+                                    <div class="${leftClass}">
+                                        <div class="t-meta-h">
+                                            ${headerHtml}
+                                            <div class="t-meta-h-inner">
+                                                <div class="t-badge-h">ডেস্ক কপি</div>
+                                                <div class="t-sn-h">${serialStr}</div>
+                                            </div>
+                                        </div>
+                                        ${fieldsHtmlH}
+                                    </div>
+                                    <div class="token-right">
+                                        <div class="b-header">${headerHtml}</div>
+                                        <div class="b-badge-h">ইউজার কপি</div>
+                                        <div class="b-sn-h">${serialStr}</div>
+                                        <div class="b-footer-note-h">TK VALID FOR DEPOSIT</div>
+                                    </div>
+                                `;
+                            }
+                            currentSerial++;
+                        } else {
+                            tokenEl.className = tokensPerPage === 20 ? 'token empty' : 'token-h empty';
+                        }
+                        page.appendChild(tokenEl);
+                    }
+                    printArea.appendChild(page);
+                }
+
+                const previewSection = document.getElementById('preview-section');
+                previewSection.style.display = 'block';
+                document.getElementById('btn-print').style.display = 'flex';
+                
+                setTimeout(() => {
+                    previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 150);
+            });
+
+            document.getElementById('btn-print').addEventListener('click', () => {
+                window.print();
+            });
+
+            function escapeHTML(str) {
+                return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+            }
+        });
+    </script>
+</body>
+</html>

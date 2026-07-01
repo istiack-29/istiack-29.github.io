@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" type="image/png" href="/profile.png">
-<link rel="shortcut icon" href="/profile.png">
+    <link rel="shortcut icon" href="/profile.png">
 
-<!-- সোশ্যাল মিডিয়া শেয়ারিং (Open Graph/Facebook/WhatsApp) -->
-<meta property="og:title" content="ADMIN PANEL">
-<meta property="og:description" content="ADMIN PANEL">
-<meta property="og:image" content="https://istiack.ami.bd/admin/thumbnail.png">
-<meta property="og:url" content="https://istiack.ami.bd/">
-<meta property="og:type" content="website">
+    <!-- সোশ্যাল মিডিয়া শেয়ারিং (Open Graph/Facebook/WhatsApp) -->
+    <meta property="og:title" content="ADMIN PANEL">
+    <meta property="og:description" content="ADMIN PANEL">
+    <meta property="og:image" content="https://istiack.ami.bd/admin/thumbnail.png">
+    <meta property="og:url" content="https://istiack.ami.bd/">
+    <meta property="og:type" content="website">
 
-<!-- টুইটার শেয়ারিং (Twitter Card) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ADMIN PANEL">
-<meta name="twitter:description" content="ADMIN PANEL">
-<meta name="twitter:image" content="https://istiack.ami.bd/admin/thumbnail.png">
+    <!-- টুইটার শেয়ারিং (Twitter Card) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ADMIN PANEL">
+    <meta name="twitter:description" content="ADMIN PANEL">
+    <meta name="twitter:image" content="https://istiack.ami.bd/admin/thumbnail.png">
     <title>ADMIN PANEL</title>
 
     <!-- PRE-FLIGHT SESSION CHECK: Prevents login screen from flashing on refresh -->
@@ -37,15 +37,22 @@
         /* Custom Local Font Implementation (Universal) */
         @font-face {
             font-family: 'E1';
-            src: url('E1.ttf') format('truetype');
+            src: url('/E1.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
         }
         @font-face {
             font-family: 'E2';
-            src: url('E2.ttf') format('truetype');
+            src: url('/E2.ttf') format('truetype');
             font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'B2';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
             font-style: normal;
             font-display: swap;
         }
@@ -57,9 +64,9 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"E1"', 'sans-serif'],
-                        heading: ['"E2"', 'serif'],
-                        code: ['"E1"', 'monospace'],
+                        sans: ['"E1"', '"B2"', 'sans-serif'],
+                        heading: ['"E2"', '"B2"', 'serif'],
+                        code: ['"E1"', '"B2"', 'monospace'],
                     },
                     colors: {
                         brand: {
@@ -102,15 +109,24 @@
         html { font-size: 16px; scroll-behavior: smooth; }
         @media (max-width: 640px) { html { font-size: 15px; } }
 
+        /* Universal Font Rule Enforcement */
+        * {
+            font-family: 'E1', 'B2', sans-serif;
+        }
+
         body { 
             -webkit-font-smoothing: antialiased; 
             -moz-osx-font-smoothing: grayscale; 
             overflow: hidden; 
-            font-family: 'E1', sans-serif;
+            font-family: 'E1', 'B2', sans-serif !important;
         }
         
-        h1, h2, h3, h4, h5, h6, .heading-text {
-            font-family: 'E2', serif !important;
+        h1, h2, h3, h4, h5, h6, .heading-text, .heading-text * {
+            font-family: 'E2', 'B2', serif !important;
+        }
+
+        input, textarea, select, button {
+            font-family: 'E1', 'B2', sans-serif !important;
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -212,7 +228,7 @@
         }
 
         .editorial-header {
-            font-family: 'E2', serif;
+            font-family: 'E2', 'B2', serif;
             font-size: 38px;
             font-weight: 700;
             color: #111;
@@ -256,7 +272,7 @@
             font-size: 36px;
             font-weight: 700;
             color: #8B312A;
-            font-family: 'E1', sans-serif;
+            font-family: 'E1', 'B2', sans-serif;
             line-height: 1.5;
             word-break: break-word;
         }
@@ -265,7 +281,7 @@
             font-size: 32px;
             font-weight: 500;
             color: #222;
-            font-family: 'E1', sans-serif;
+            font-family: 'E1', 'B2', sans-serif;
             line-height: 1.5;
             word-break: break-word;
         }
@@ -474,6 +490,25 @@
         </main>
     </div>
 
+    <!-- Custom Universal Confirm Modal -->
+    <div id="custom-confirm-overlay" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md z-[250] hidden-safely flex items-center justify-center p-4 transition-opacity duration-300 opacity-0">
+        <div id="custom-confirm-modal" class="glass-panel w-full max-w-sm rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-300 p-6">
+            <div class="flex items-center gap-4 mb-4">
+                <div id="custom-confirm-icon-bg" class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-colors">
+                    <i id="custom-confirm-icon" data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 id="custom-confirm-title" class="text-xl font-bold text-slate-800 dark:text-white heading-text">Confirm Action</h3>
+                </div>
+            </div>
+            <p id="custom-confirm-message" class="text-slate-600 dark:text-slate-300 font-medium mb-6 leading-relaxed font-sans"></p>
+            <div class="flex items-center justify-end gap-3">
+                <button id="custom-confirm-cancel" class="px-5 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold transition-all active:scale-95">Cancel</button>
+                <button id="custom-confirm-action" class="px-5 py-2.5 rounded-xl text-white font-bold transition-all shadow-md active:scale-95">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modals (Data Form) -->
     <div id="form-modal-overlay" class="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-md z-[60] hidden-safely flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
         <div id="form-modal" class="glass-panel w-full max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-500 var(--transition-bounce)">
@@ -533,6 +568,69 @@
 
     <script>
         /* -------------------------------------------------------------------------- */
+        /* CUSTOM CONFIRM MODAL SYSTEM                                                */
+        /* -------------------------------------------------------------------------- */
+        let confirmActionCallback = null;
+
+        function customConfirm({ title, message, type = 'danger', actionText = 'Confirm', onConfirm }) {
+            const overlay = document.getElementById('custom-confirm-overlay');
+            const modal = document.getElementById('custom-confirm-modal');
+            const titleEl = document.getElementById('custom-confirm-title');
+            const messageEl = document.getElementById('custom-confirm-message');
+            const actionBtn = document.getElementById('custom-confirm-action');
+            const iconBg = document.getElementById('custom-confirm-icon-bg');
+            const icon = document.getElementById('custom-confirm-icon');
+            
+            titleEl.innerHTML = wrapText(title, true);
+            messageEl.innerHTML = wrapText(message, false);
+            actionBtn.innerText = actionText;
+            
+            // Reset dynamic classes
+            actionBtn.className = "px-5 py-2.5 rounded-xl text-white font-bold transition-all shadow-md active:scale-95 ";
+            iconBg.className = "w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ";
+            
+            if (type === 'danger') {
+                actionBtn.classList.add('bg-red-500', 'hover:bg-red-600', 'shadow-red-500/20');
+                iconBg.classList.add('bg-red-100', 'dark:bg-red-500/20', 'text-red-500');
+                icon.setAttribute('data-lucide', 'trash-2');
+            } else if (type === 'warning') {
+                actionBtn.classList.add('bg-orange-500', 'hover:bg-orange-600', 'shadow-orange-500/20');
+                iconBg.classList.add('bg-orange-100', 'dark:bg-orange-500/20', 'text-orange-500');
+                icon.setAttribute('data-lucide', 'alert-triangle');
+            } else {
+                actionBtn.classList.add('bg-brand-500', 'hover:bg-brand-600', 'shadow-brand-500/20');
+                iconBg.classList.add('bg-brand-100', 'dark:bg-brand-500/20', 'text-brand-500');
+                icon.setAttribute('data-lucide', 'info');
+            }
+            
+            lucide.createIcons();
+            confirmActionCallback = onConfirm;
+            
+            overlay.classList.remove('hidden-safely');
+            requestAnimationFrame(() => {
+                overlay.classList.remove('opacity-0');
+                modal.classList.remove('scale-95');
+            });
+        }
+
+        document.getElementById('custom-confirm-cancel').addEventListener('click', closeConfirmModal);
+        document.getElementById('custom-confirm-action').addEventListener('click', () => {
+            if (confirmActionCallback) confirmActionCallback();
+            closeConfirmModal();
+        });
+
+        function closeConfirmModal() {
+            const overlay = document.getElementById('custom-confirm-overlay');
+            const modal = document.getElementById('custom-confirm-modal');
+            overlay.classList.add('opacity-0');
+            modal.classList.add('scale-95');
+            setTimeout(() => {
+                overlay.classList.add('hidden-safely');
+                confirmActionCallback = null;
+            }, 300);
+        }
+
+        /* -------------------------------------------------------------------------- */
         /* SUPABASE INITIALIZATION & BACKGROUND FETCHING                              */
         /* -------------------------------------------------------------------------- */
         const SUPABASE_URL = 'https://aqkeowuypcnavpuhyiuu.supabase.co';
@@ -546,6 +644,29 @@
             academic: [],
             hl: '', ld: '', cs: '', td: 8
         };
+
+        /* -------------------------------------------------------------------------- */
+        /* LANGUAGE DETECTOR & DYNAMIC FONT WRAPPER                                  */
+        /* -------------------------------------------------------------------------- */
+        function wrapText(text, isHeading = false) {
+            if (text === undefined || text === null) return '';
+            const str = String(text);
+            const hasBengali = /[\u0980-\u09FF]/.test(str);
+            const font = hasBengali ? 'B2' : (isHeading ? 'E2' : 'E1');
+            return `<span style="font-family: '${font}', sans-serif !important;">${escapeHtml(str)}</span>`;
+        }
+
+        document.addEventListener('input', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                const val = e.target.value;
+                if (/[\u0980-\u09FF]/.test(val)) {
+                    e.target.style.setProperty('font-family', "'B2', sans-serif", 'important');
+                } else {
+                    const isHeading = e.target.classList.contains('heading-text') || e.target.id === 'input_work';
+                    e.target.style.setProperty('font-family', isHeading ? "'E2', 'B2', sans-serif" : "'E1', 'B2', sans-serif", 'important');
+                }
+            }
+        });
 
         async function fetchAllData() {
             try {
@@ -683,7 +804,7 @@
             const bgClass = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
             const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-octagon' : 'info';
             toast.className = `${bgClass} text-white px-5 py-3.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.2)] flex items-center gap-3 toast-enter pointer-events-auto`;
-            toast.innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i><span class="font-bold text-sm">${msg}</span>`;
+            toast.innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i><span class="font-bold text-sm">${wrapText(msg)}</span>`;
             container.appendChild(toast);
             lucide.createIcons();
             setTimeout(() => {
@@ -722,7 +843,7 @@
         function escapeHtml(str) {
             if (!str) return '';
             if (typeof str !== 'string') return String(str);
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&quot;').replace(/'/g, '&#039;');
         }
 
         /* -------------------------------------------------------------------------- */
@@ -807,7 +928,7 @@
                     <div class="p-2 rounded-xl ${currentCategory === cat.id ? 'bg-brand-500 text-white shadow-md shadow-brand-500/30' : 'bg-slate-200/50 dark:bg-slate-800 text-slate-500 group-hover:text-slate-700 dark:group-hover:text-white transition-colors'}">
                         <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
                     </div>
-                    <span class="heading-text">${cat.title}</span>
+                    <span class="heading-text">${wrapText(cat.title, true)}</span>
                 </button>
             `).join('');
             lucide.createIcons();
@@ -817,8 +938,8 @@
             currentCategory = catId;
             renderSidebar();
             const catInfo = CATEGORIES.find(c => c.id === catId);
-            document.getElementById('current-category-title').innerText = catInfo.title;
-            document.getElementById('current-category-desc').innerText = catInfo.desc;
+            document.getElementById('current-category-title').innerHTML = wrapText(catInfo.title, true);
+            document.getElementById('current-category-desc').innerHTML = wrapText(catInfo.desc, false);
 
             ['vitals-section', 'overview-section', 'list-section', 'ngl-section'].forEach(id => {
                 document.getElementById(id).classList.add('hidden-safely');
@@ -847,7 +968,19 @@
             const hl = SYSTEM_DATA.hl || 'Not set'; const ld = SYSTEM_DATA.ld || 'Not set';
             const cs = SYSTEM_DATA.cs || 'Not set'; 
 
-            let html = `<div onclick="switchCategory('vitals')" class="glass-card p-5 rounded-2xl mb-6 cursor-pointer hover:border-brand-500 transition-colors"><div class="flex items-center gap-3 mb-3"><div class="p-2 bg-red-100 dark:bg-red-500/20 text-red-500 rounded-lg"><i data-lucide="activity" class="w-5 h-5"></i></div><h3 class="font-bold text-slate-800 dark:text-white text-lg heading-text">Health & Personal Info</h3></div><div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-slate-600 dark:text-slate-300"><p><strong>Hemoglobin:</strong> ${hl}</p><p><strong>Last Donation:</strong> ${ld}</p><p><strong>Current Study:</strong> ${cs}</p></div></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">`;
+            let html = `
+            <div onclick="switchCategory('vitals')" class="glass-card p-5 rounded-2xl mb-6 cursor-pointer hover:border-brand-500 transition-colors">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="p-2 bg-red-100 dark:bg-red-500/20 text-red-500 rounded-lg"><i data-lucide="activity" class="w-5 h-5"></i></div>
+                    <h3 class="font-bold text-slate-800 dark:text-white text-lg heading-text">${wrapText('Health & Personal Info', true)}</h3>
+                </div>
+                <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-slate-600 dark:text-slate-300">
+                    <p><strong>${wrapText('Hemoglobin', false)}:</strong> ${wrapText(hl)}</p>
+                    <p><strong>${wrapText('Last Donation', false)}:</strong> ${wrapText(ld)}</p>
+                    <p><strong>${wrapText('Current Study', false)}:</strong> ${wrapText(cs)}</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">`;
 
             const stats = [
                 { id: 'projects', title: 'Projects', count: p.length, icon: 'code-2', color: 'from-blue-500 to-blue-600' },
@@ -859,20 +992,32 @@
                 { id: 'academic', title: 'Academic Records', count: ac.length, icon: 'graduation-cap', color: 'from-green-500 to-green-600' }
             ];
 
-            html += stats.map((s, i) => `<div onclick="switchCategory('${s.id}')" class="glass-card p-5 rounded-2xl flex items-center justify-between cursor-pointer group transition-colors hover:border-${s.color.split('-')[1]}-500" style="animation: fadeInUp 0.4s ease-out ${i * 0.05}s both;"><div><p class="text-xs text-slate-500 dark:text-slate-400 font-bold mb-1 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors uppercase tracking-wider">${s.title}</p><h4 class="text-2xl font-bold text-slate-800 dark:text-white">${s.count}</h4></div><div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${s.color} text-white flex items-center justify-center shadow-md transform group-hover:rotate-6 transition-transform"><i data-lucide="${s.icon}" class="w-5 h-5"></i></div></div>`).join('');
+            html += stats.map((s, i) => `
+                <div onclick="switchCategory('${s.id}')" class="glass-card p-5 rounded-2xl flex items-center justify-between cursor-pointer group transition-colors hover:border-${s.color.split('-')[1]}-500" style="animation: fadeInUp 0.4s ease-out ${i * 0.05}s both;">
+                    <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-bold mb-1 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors uppercase tracking-wider">${wrapText(s.title, false)}</p>
+                        <h4 class="text-2xl font-bold text-slate-800 dark:text-white heading-text">${wrapText(s.count, true)}</h4>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${s.color} text-white flex items-center justify-center shadow-md transform group-hover:rotate-6 transition-transform">
+                        <i data-lucide="${s.icon}" class="w-5 h-5"></i>
+                    </div>
+                </div>
+            `).join('');
             html += `</div>`;
             document.getElementById('overview-stats').innerHTML = html;
             lucide.createIcons();
         }
 
         /* -------------------------------------------------------------------------- */
-        /* UPGRADED NGL SYSTEM & ENGINE (Batch Single Export Version)                 */
+        /* UPGRADED NGL SYSTEM & ENGINE (Discord Webhook + Batch Export)              */
         /* -------------------------------------------------------------------------- */
         const NGL_CFG = {
             API: "https://aqkeowuypcnavpuhyiuu.supabase.co/rest/v1/messages",
             KEY: "sb_publishable_jyD9-9Mxi5kpfC6Ssibf2w_pclXZ04g",
             MAX_EXPORT: 6 
         };
+
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1517539386043138252/o7mQ30AIKEcZCLzsqqenJAeV42sobDBqhUt7X0yRUg_tu80hxAvUUUY_fUlayaU-pXix";
 
         const NGL_DB = { data: [], selected: new Set() };
         const REACTIONS = { 1:'❤️', 2:'😕', 3:'🤨', 4:'😭', 5:'😡', 6:'😊', 7:'🔥', 8:'💀', 9:'😍', 10:'😎', 11:'🤯', 12:'😴' };
@@ -889,6 +1034,64 @@
                 try { const res = await fetch(`${NGL_CFG.API}?id=eq.${id}`, { method: "DELETE", headers: NGL_API.headers }); return res.ok; } catch(e) { return false; }
             }
         };
+
+        // DISCORD WEBHOOK LOGIC
+        async function syncDiscordMessage(m, updatedReply) {
+            const embedColor = (updatedReply && updatedReply.trim() !== '') ? 4437377 : 7506394; // 43b581 (green), 7289da (purple)
+            const replyText = (updatedReply && updatedReply.trim() !== '') ? updatedReply : "Not replied";
+
+            const payload = {
+                content: String(m.id),
+                embeds: [{
+                    title: "📩 New Message",
+                    description: `**মেসেজ-** ${m.message}\n**রিপ্লায়-** ${replyText}`,
+                    color: embedColor,
+                    footer: { text: String(m.id) }
+                }]
+            };
+
+            let msgId = m.discord_msg_id;
+            
+            if (msgId) {
+                try {
+                    const res = await fetch(`${DISCORD_WEBHOOK_URL}/messages/${msgId}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) return msgId; // Successfully updated
+                    // Fallback to CREATE if Discord returned 404 (message deleted in discord manually)
+                    if (res.status !== 404) return msgId; 
+                } catch (e) {
+                    console.error("Discord update error", e);
+                }
+            }
+            
+            // Create a NEW Discord Message
+            try {
+                const res = await fetch(`${DISCORD_WEBHOOK_URL}?wait=true`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    return data.id; // Return NEW ID generated by Discord
+                }
+            } catch (e) {
+                console.error("Discord create error", e);
+            }
+            return msgId; // Return whatever ID we had on failure
+        }
+
+        async function removeDiscordMessage(msgId) {
+            if (!msgId) return;
+            try {
+                await fetch(`${DISCORD_WEBHOOK_URL}/messages/${msgId}`, { method: 'DELETE' });
+            } catch (e) {
+                console.error("Discord delete failed", e);
+            }
+        }
 
         async function fetchNGLData(silent = false) {
             const data = await NGL_API.get();
@@ -942,16 +1145,27 @@
             renderNGLList();
         }
 
-        async function deleteNGLMessage(id) {
+        function deleteNGLMessage(id) {
             if(sessionStorage.getItem('auth_session') !== 'active') return showToast('Read-Only Mode', 'error');
-            if(confirm("Are you sure you want to PERMANENTLY delete this message?")) {
-                const ok = await NGL_API.delete(id);
-                if(ok) {
-                    showToast("Message deleted", "success");
-                    NGL_DB.selected.delete(id);
-                    fetchNGLData(true);
-                } else showToast("Failed to delete", "error");
-            }
+            
+            customConfirm({
+                title: "Delete Message",
+                message: "Are you sure you want to PERMANENTLY delete this message?",
+                type: "danger",
+                actionText: "Delete",
+                onConfirm: async () => {
+                    const m = NGL_DB.data.find(x => x.id === id);
+                    if (m && m.discord_msg_id) {
+                        await removeDiscordMessage(m.discord_msg_id);
+                    }
+                    const ok = await NGL_API.delete(id);
+                    if(ok) {
+                        showToast("Message deleted", "success");
+                        NGL_DB.selected.delete(id);
+                        fetchNGLData(true);
+                    } else showToast("Failed to delete", "error");
+                }
+            });
         }
 
         function toggleInlineReply(id) {
@@ -967,7 +1181,19 @@
             const btn = document.getElementById(`btn-save-${id}`);
             btn.innerHTML = `<div class="spinner w-4 h-4 border-2 mr-1"></div>`;
             const val = document.getElementById(`reply-input-${id}`).value;
-            const ok = await NGL_API.patch(id, { rep: val });
+            
+            const m = NGL_DB.data.find(x => x.id === id);
+            
+            // Sync with Discord Webhook
+            const newDiscordId = await syncDiscordMessage(m, val);
+            
+            const patchData = { rep: val };
+            if (newDiscordId && newDiscordId !== m.discord_msg_id) {
+                patchData.discord_msg_id = newDiscordId;
+            }
+
+            const ok = await NGL_API.patch(id, patchData);
+            
             if(ok) {
                 showToast("Reply Updated", "success");
                 await fetchNGLData(true);
@@ -1020,7 +1246,7 @@
             grid.innerHTML = Object.entries(m).map(([key, val]) => `
                 <div class="bg-white dark:bg-slate-800/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 flex flex-col gap-1 overflow-hidden">
                     <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">${key}</span>
-                    <span class="text-sm font-code text-slate-700 dark:text-slate-200 break-words">${val !== null && val !== "" ? escapeHtml(val) : '<span class="text-slate-400 italic">null</span>'}</span>
+                    <span class="text-sm font-code text-slate-700 dark:text-slate-200 break-words">${val !== null && val !== "" ? wrapText(val) : '<span class="text-slate-400 italic">null</span>'}</span>
                 </div>
             `).join('');
 
@@ -1029,7 +1255,7 @@
             };
 
             document.getElementById('copy-link-btn').onclick = () => {
-                const link = `https://istiack-29.github.io/ngl.html?reply=${m.id}`;
+                const link = `${window.location.origin}/ngl/index.html?reply=${m.id}`;
                 navigator.clipboard.writeText(link).then(() => showToast("Copied Link to Clipboard", "success")).catch(() => {
                     const tempInput = document.createElement("input");
                     tempInput.value = link;
@@ -1120,7 +1346,7 @@
                                     ${m.roq ? REACTIONS[m.roq] : '🤍'}
                                 </button>
                                 <p class="text-slate-800 dark:text-slate-200 font-medium text-base sm:text-lg leading-relaxed break-words w-full">
-                                    ${escapeHtml(m.message)}
+                                    ${wrapText(m.message)}
                                 </p>
                             </div>
                             
@@ -1140,10 +1366,10 @@
                 list.appendChild(div);
             });
 
-            document.getElementById('ngl-unread-count').innerText = `Unread: ${unreadCount}`;
+            document.getElementById('ngl-unread-count').innerHTML = wrapText(`Unread: ${unreadCount}`, false);
             const badge = document.getElementById('ngl-sel-counter');
             const c = NGL_DB.selected.size;
-            badge.innerText = `${c} Selected`;
+            badge.innerHTML = wrapText(`${c} Selected`, true);
             if(c > 0 && isAdmin) badge.classList.remove('hidden'); else badge.classList.add('hidden');
             lucide.createIcons();
         }
@@ -1152,8 +1378,8 @@
             buildExportHTML: (messages) => {
                 let cardsHtml = messages.map(m => `
                     <div class="editorial-card">
-                        <div class="editorial-q">Q. ${escapeHtml(m.message)}</div>
-                        <div class="editorial-a">${escapeHtml(m.rep) || ''}</div>
+                        <div class="editorial-q">Q. ${wrapText(m.message)}</div>
+                        <div class="editorial-a">${wrapText(m.rep) || ''}</div>
                     </div>
                 `).join('');
 
@@ -1245,7 +1471,8 @@
 
         function renderDataList() {
             const dataArr = getCategoryDataArray(); const container = document.getElementById('data-list'); const emptyState = document.getElementById('empty-state');
-            const safeDataArr = Array.isArray(dataArr) ? dataArr : []; document.getElementById('item-count').innerText = `Total ${safeDataArr.length} Records`;
+            const safeDataArr = Array.isArray(dataArr) ? dataArr : []; 
+            document.getElementById('item-count').innerHTML = wrapText(`Total ${safeDataArr.length} Records`, true);
             if (safeDataArr.length === 0) { container.innerHTML = ''; emptyState.classList.remove('hidden-safely'); return; }
             emptyState.classList.add('hidden-safely');
             const isAdmin = sessionStorage.getItem('auth_session') === 'active';
@@ -1262,25 +1489,25 @@
                 }
 
                 let dateHtml = '';
-                const presentBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-bold border border-brand-500/20"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span> Present</span>`;
+                const presentBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-bold border border-brand-500/20"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span> ${wrapText('Present', false)}</span>`;
                 
                 if(currentCategory === 'notices') {
                     let tags = [];
                     if(item.ip) tags.push('Permanent');
                     if(item.iey) tags.push('Every Year');
-                    let tagStr = tags.length ? `<span class="text-[10px] bg-brand-500/20 text-brand-600 dark:text-brand-400 font-bold px-2 py-0.5 rounded ml-2 uppercase tracking-wider">${tags.join(', ')}</span>` : '';
-                    dateHtml = (st ? escapeHtml(st.replace('T', ' ')) : 'N/A') + ' <i data-lucide="arrow-right" class="w-3 h-3 inline mx-1"></i> ' + (en ? escapeHtml(en.replace('T', ' ')) : 'N/A') + tagStr;
+                    let tagStr = tags.length ? `<span class="text-[10px] bg-brand-500/20 text-brand-600 dark:text-brand-400 font-bold px-2 py-0.5 rounded ml-2 uppercase tracking-wider">${wrapText(tags.join(', '), false)}</span>` : '';
+                    dateHtml = (st ? wrapText(st.replace('T', ' ')) : 'N/A') + ' <i data-lucide="arrow-right" class="w-3 h-3 inline mx-1"></i> ' + (en ? wrapText(en.replace('T', ' ')) : 'N/A') + tagStr;
                 }
                 else if(st && en) {
-                    dateHtml = `${escapeHtml(st)} &nbsp;<i data-lucide="arrow-right" class="w-3 h-3 inline"></i>&nbsp; ${en === 'Present' || en === 'বর্তমান' ? presentBadge : escapeHtml(en)}`;
+                    dateHtml = `${wrapText(st)} &nbsp;<i data-lucide="arrow-right" class="w-3 h-3 inline"></i>&nbsp; ${en === 'Present' || en === 'বর্তমান' ? presentBadge : wrapText(en)}`;
                 }
-                else if (st) dateHtml = escapeHtml(st); 
-                else if (en) dateHtml = en === 'Present' || en === 'বর্তমান' ? presentBadge : escapeHtml(en); 
+                else if (st) dateHtml = wrapText(st); 
+                else if (en) dateHtml = en === 'Present' || en === 'বর্তমান' ? presentBadge : wrapText(en); 
                 else dateHtml = 'Date not specified';
                 
                 if (currentCategory === 'academic') {
                     const extra = [item.level, item.department].filter(Boolean).join(' • ');
-                    if (extra) dateHtml = `<span class="text-brand-500 font-bold">${escapeHtml(extra)}</span> <br/> ` + dateHtml;
+                    if (extra) dateHtml = `<span class="text-brand-500 font-bold">${wrapText(extra)}</span> <br/> ` + dateHtml;
                 }
 
                 const actionsHtml = isAdmin ? `
@@ -1293,7 +1520,7 @@
                     <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group list-item-enter relative overflow-hidden" style="animation-delay: ${index * 0.05}s">
                         <div>
                             <div class="flex items-start justify-between gap-4 mb-3">
-                                <h4 class="font-bold text-slate-800 dark:text-white text-lg leading-snug heading-text">${escapeHtml(title)}</h4>
+                                <h4 class="font-bold text-slate-800 dark:text-white text-lg leading-snug heading-text">${wrapText(title, true)}</h4>
                                 <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 text-brand-500"><i data-lucide="${SCHEMAS[currentCategory][0].icon}" class="w-4 h-4"></i></div>
                             </div>
                             <div class="text-sm text-slate-500 dark:text-slate-400 font-code flex items-start flex-wrap gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5 mt-1"></i> <div>${dateHtml}</div></div>
@@ -1309,7 +1536,7 @@
         function openFormModal(index = -1) {
             editingIndex = index; const schema = SCHEMAS[currentCategory]; const dataArr = getCategoryDataArray();
             let existingData = index >= 0 ? { ...dataArr[index] } : {};
-            document.getElementById('modal-title-text').innerText = index >= 0 ? 'Edit Record' : 'Add New Record';
+            document.getElementById('modal-title-text').innerHTML = wrapText(index >= 0 ? 'Edit Record' : 'Add New Record', true);
 
             document.getElementById('dynamic-form').innerHTML = schema.map(field => {
                 let val = existingData[field.key];
@@ -1318,10 +1545,10 @@
                 let escapedVal = escapeHtml(val); let inputHtml = '';
                 if (field.type === 'textarea') inputHtml = `<textarea id="input_${field.key}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all min-h-[120px] text-slate-800 dark:text-slate-100 font-medium" placeholder="Enter details...">${escapedVal}</textarea>`;
                 else if (field.type === 'date' || field.type === 'datetime-local') inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold">`;
-                else if (field.type === 'date-present') { const isPresent = val === 'Present' || val === 'বর্তমান'; inputHtml = `<div class="flex flex-col sm:flex-row gap-3 items-center w-full"><input type="date" id="input_${field.key}" value="${!isPresent ? escapedVal : ''}" class="w-full sm:flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold disabled:opacity-50 disabled:cursor-not-allowed" ${isPresent ? 'disabled' : ''}><label class="w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-6 py-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors select-none"><input type="checkbox" id="checkbox_${field.key}_present" class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600" ${isPresent ? 'checked' : ''} onchange="togglePresent('${field.key}')"><span class="font-bold text-slate-700 dark:text-slate-200">Present</span></label></div>`; }
-                else if (field.type === 'checkbox') { inputHtml = `<div class="flex items-center gap-3 mt-2"><input type="checkbox" id="input_${field.key}" ${escapedVal === 'true' || escapedVal === '1' || val === true ? 'checked' : ''} class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 cursor-pointer"><label class="font-bold text-slate-700 dark:text-slate-300 cursor-pointer" for="input_${field.key}">Yes</label></div>`; }
+                else if (field.type === 'date-present') { const isPresent = val === 'Present' || val === 'বর্তমান'; inputHtml = `<div class="flex flex-col sm:flex-row gap-3 items-center w-full"><input type="date" id="input_${field.key}" value="${!isPresent ? escapedVal : ''}" class="w-full sm:flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold disabled:opacity-50 disabled:cursor-not-allowed" ${isPresent ? 'disabled' : ''}><label class="w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-6 py-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors select-none"><input type="checkbox" id="checkbox_${field.key}_present" class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600" ${isPresent ? 'checked' : ''} onchange="togglePresent('${field.key}')"><span class="font-bold text-slate-700 dark:text-slate-200">${wrapText('Present')}</span></label></div>`; }
+                else if (field.type === 'checkbox') { inputHtml = `<div class="flex items-center gap-3 mt-2"><input type="checkbox" id="input_${field.key}" ${escapedVal === 'true' || escapedVal === '1' || val === true ? 'checked' : ''} class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 cursor-pointer"><label class="font-bold text-slate-700 dark:text-slate-300 cursor-pointer" for="input_${field.key}">${wrapText('Yes')}</label></div>`; }
                 else inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400" placeholder="Type here...">`;
-                return `<div class="mb-2"><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2 heading-text"><i data-lucide="${field.icon}" class="w-4 h-4 text-brand-500"></i> ${field.label}</label>${inputHtml}</div>`;
+                return `<div class="mb-2"><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2 heading-text"><i data-lucide="${field.icon}" class="w-4 h-4 text-brand-500"></i> ${wrapText(field.label, true)}</label>${inputHtml}</div>`;
             }).join('');
 
             lucide.createIcons(); const overlay = document.getElementById('form-modal-overlay'); const modal = document.getElementById('form-modal'); overlay.classList.remove('hidden-safely'); requestAnimationFrame(() => { overlay.classList.remove('opacity-0'); modal.classList.remove('scale-95'); });
@@ -1351,6 +1578,13 @@
             const payload = preparePayload(currentCategory, newData);
             const table = getTableName(currentCategory);
 
+            if (currentCategory === 'projects') {
+                if (!payload.work || payload.work.trim() === '') {
+                    showToast('Project Name (work) is required!', 'error');
+                    return;
+                }
+            }
+
             try {
                 if (editingIndex >= 0) {
                     const id = dataArr[editingIndex].id;
@@ -1379,20 +1613,26 @@
 
         function editItem(index) { openFormModal(index); }
         
-        async function deleteItem(index) { 
-            if(confirm('Warning: Are you sure you want to permanently delete this record?')) { 
-                const id = getCategoryDataArray()[index].id;
-                const table = getTableName(currentCategory);
-                try {
-                    const { error } = await sbClient.from(table).delete().eq('id', id);
-                    if (error) throw error;
-                    showToast('Record deleted permanently.', 'success');
-                    await fetchAllData();
-                } catch(e) {
-                    showToast('Error deleting data', 'error');
-                    console.error(e);
+        function deleteItem(index) { 
+            customConfirm({
+                title: "Delete Record",
+                message: "Warning: Are you sure you want to permanently delete this record?",
+                type: "danger",
+                actionText: "Delete",
+                onConfirm: async () => {
+                    const id = getCategoryDataArray()[index].id;
+                    const table = getTableName(currentCategory);
+                    try {
+                        const { error } = await sbClient.from(table).delete().eq('id', id);
+                        if (error) throw error;
+                        showToast('Record deleted permanently.', 'success');
+                        await fetchAllData();
+                    } catch(e) {
+                        showToast('Error deleting data', 'error');
+                        console.error(e);
+                    }
                 }
-            } 
+            });
         }
 
         async function updateVitals(clearCSFlag = false) { 
@@ -1434,9 +1674,15 @@
         }
 
         function clearCS() {
-            if(confirm('Are you sure you want to clear your current study/work record?')) {
-                updateVitals(true);
-            }
+            customConfirm({
+                title: "Clear Current Study",
+                message: "Are you sure you want to clear your current study/work record?",
+                type: "warning",
+                actionText: "Clear",
+                onConfirm: () => {
+                    updateVitals(true);
+                }
+            });
         }
 
     </script>

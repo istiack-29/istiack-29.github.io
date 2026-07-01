@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>15 July, 2024</title>
+    
+    <!-- Open Graph for sharing -->
+    <meta property="og:title" content="15 July 2024: The Day the Campus Bled">
+    <meta property="og:description" content="On July 15, 2024, the Bangladeshi Anti-Quota Movement suffered its first massive wave of brutal physical violence.">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/15-july/">
+
+    <style>
+        /* ==========================================================================
+           1. FONT DEFINITIONS (Strict Asset Management)
+           ========================================================================== */
+        @font-face {
+            font-family: 'EnMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'EnHeader';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'BnHeader';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'BnMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ==========================================================================
+           2. CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-color: #fdfdfd;
+            --text-main: #1a1a1a;
+            --text-muted: #555555;
+            --border-color: #e5e5e5;
+            --header-bg: #ffffff;
+            --accent-color: #000000;
+            --button-hover: #f0f0f0;
+            --max-width: 800px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            padding-top: 70px; /* Space for fixed header */
+        }
+
+        /* ==========================================================================
+           3. DYNAMIC FONT ASSIGNMENTS (Based on data-lang attribute)
+           Every single letter is under font control
+           ========================================================================== */
+        body[data-lang="en"] {
+            font-family: 'EnMain', sans-serif;
+            font-size: 18px;
+        }
+        body[data-lang="bn"] {
+            font-family: 'BnMain', sans-serif;
+            font-size: 20px;
+        }
+
+        /* Header specific font overrides based on language */
+        body[data-lang="en"] h1, 
+        body[data-lang="en"] h2, 
+        body[data-lang="en"] h3,
+        body[data-lang="en"] .newspaper-name,
+        body[data-lang="en"] .btn-text,
+        body[data-lang="en"] .modal-title {
+            font-family: 'EnHeader', sans-serif;
+        }
+
+        body[data-lang="bn"] h1, 
+        body[data-lang="bn"] h2, 
+        body[data-lang="bn"] h3,
+        body[data-lang="bn"] .btn-text,
+        body[data-lang="bn"] .modal-title {
+            font-family: 'BnHeader', sans-serif;
+        }
+
+        /* Newspaper name remains English font but scales with layout */
+        .newspaper-name {
+            font-family: 'EnHeader', sans-serif !important;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ==========================================================================
+           4. LAYOUT & UI COMPONENTS
+           ========================================================================== */
+        /* Fixed Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--spacing-lg);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .logo-img {
+            height: 35px;
+            width: auto;
+            /* Convert logo to black and white */
+            filter: grayscale(100%); 
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        /* Buttons */
+        button {
+            background: none;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: var(--text-main);
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: var(--button-hover);
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+        .btn-primary:hover {
+            background-color: #333;
+        }
+
+        .lang-toggle {
+            border: 1px solid var(--accent-color);
+            border-radius: 20px;
+            padding: 6px 20px;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        /* Main Content Area */
+        main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        /* Hero Image */
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+            display: block;
+        }
+
+        /* Action Bar (Share/Print) */
+        .action-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Article Typography */
+        article h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+        }
+        article h2 {
+            font-size: 1.8rem;
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+        article p {
+            margin-bottom: var(--spacing-md);
+            text-align: justify;
+        }
+        article ul {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-xl);
+        }
+        article li {
+            margin-bottom: 8px;
+        }
+        
+        /* Links displayed as text */
+        .text-link {
+            word-break: break-all;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        /* In-Article Images */
+        .article-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+            display: block;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin: var(--spacing-lg) 0;
+            border-radius: 8px;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Source List */
+        .source-list {
+            background-color: #f9f9f9;
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin-top: var(--spacing-xl);
+            font-size: 0.9em;
+        }
+
+        /* ==========================================================================
+           5. MODALS & TOAST NOTIFICATIONS
+           ========================================================================== */
+        /* Print Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-box {
+            background: var(--bg-color);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        .modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: var(--spacing-lg);
+        }
+        .modal-options button {
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--accent-color);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           6. RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 var(--spacing-md);
+            }
+            .desktop-nav {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .newspaper-name span {
+                font-size: 1rem;
+            }
+            article h1 {
+                font-size: 2rem;
+            }
+            article h2 {
+                font-size: 1.5rem;
+            }
+            
+            /* Mobile Menu Expansion */
+            .mobile-menu-active .desktop-nav {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--header-bg);
+                padding: var(--spacing-md);
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            }
+        }
+
+        /* ==========================================================================
+           7. ADVANCED PRINT STYLES
+           ========================================================================== */
+        @media print {
+            @page {
+                margin: 2cm;
+            }
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                padding-top: 0 !important;
+            }
+            /* Hide UI Elements */
+            header .header-actions,
+            .hamburger,
+            .action-bar,
+            .modal-overlay,
+            .toast {
+                display: none !important;
+            }
+            /* Keep header branding but make it static for print */
+            header {
+                position: static !important;
+                border-bottom: 2px solid #000 !important;
+                height: auto !important;
+                padding: 10px 0 !important;
+                margin-bottom: 20px !important;
+            }
+            main {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            /* Ensure Fonts render in print if browser supports */
+            body[data-lang="en"] { font-family: 'EnMain', sans-serif !important; }
+            body[data-lang="bn"] { font-family: 'BnMain', sans-serif !important; }
+            
+            /* Typography adjustments for print */
+            article h1, article h2 {
+                page-break-after: avoid;
+                color: #000 !important;
+            }
+            article p, article li {
+                page-break-inside: avoid;
+                color: #000 !important;
+            }
+            
+            /* Images */
+            img {
+                max-width: 100% !important;
+                page-break-inside: avoid;
+            }
+            
+            /* REMOVE VIDEOS FOR PRINTING */
+            iframe, .video-container {
+                display: none !important;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+            
+            /* Links in print */
+            .text-link {
+                color: #000 !important;
+            }
+        }
+    </style>
+</head>
+<body data-lang="en">
+
+    <!-- HEADER -->
+    <header id="main-header">
+        <a href="#" class="newspaper-name">
+            <img src="/home.png" alt="Logo" class="logo-img" id="header-logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'black\' stroke-width=\'2\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'></path></svg>'; this.style.width='24px';">
+            <span>ISTIACK'S JULY CORNER</span>
+        </a>
+        
+        <div class="header-actions desktop-nav">
+            <button class="lang-toggle" id="langToggleBtn" onclick="toggleLanguage()">
+                <span class="btn-text">বাংলায় পড়ুন</span>
+            </button>
+        </div>
+
+        <button class="hamburger" id="mobileMenuBtn" aria-label="Menu" onclick="toggleMobileMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- Hero Image (No Caption) -->
+        <img src="./t.png" alt="Hero Image" class="hero-image" onerror="this.style.display='none'">
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <button onclick="copyLink()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span class="btn-text" id="shareBtnText">Share</span>
+            </button>
+            <button onclick="openPrintModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span class="btn-text" id="printBtnText">Print</span>
+            </button>
+        </div>
+
+        <!-- Dynamic Article Container -->
+        <article id="article-container"></article>
+    </main>
+
+    <!-- PRINT MODAL -->
+    <div class="modal-overlay" id="printModal">
+        <div class="modal-box">
+            <h2 class="modal-title btn-text" id="modalTitle">Print Options</h2>
+            <p class="btn-text" id="modalDesc">Select content to print:</p>
+            <div class="modal-options">
+                <button class="btn-primary" onclick="executePrint('en')">
+                    <span class="btn-text" id="btnPrintEn">English Only</span>
+                </button>
+                <button class="btn-primary" onclick="executePrint('bn')">
+                    <span class="btn-text" id="btnPrintBn">Bangla Only</span>
+                </button>
+                <button class="btn-primary" onclick="executePrint('both')">
+                    <span class="btn-text" id="btnPrintBoth">Both Languages</span>
+                </button>
+                <button onclick="closePrintModal()">
+                    <span class="btn-text" id="btnCancel">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toastMsg">Link copied!</div>
+
+    <!-- JAVASCRIPT LOGIC & CONTENT INJECTION -->
+    <script>
+        /**
+         * ==========================================================================
+         * CONTENT DATA (JSON-LIKE OBJECT)
+         * Contains complete English and translated Bangla versions.
+         * ==========================================================================
+         */
+        const articleData = {
+            en: {
+                ui: {
+                    langToggle: "বাংলায় পড়ুন", // Shows target language
+                    share: "Share",
+                    print: "Print",
+                    copied: "Link copied to clipboard!",
+                    modalTitle: "Print Options",
+                    modalDesc: "Select language format to print:",
+                    btnPrintEn: "English Only",
+                    btnPrintBn: "Bangla Only",
+                    btnPrintBoth: "Both Languages",
+                    btnCancel: "Cancel"
+                },
+                content: `
+                    <h1>15 July 2024: The Day the Campus Bled</h1>
+                    <p>On July 15, 2024, the Bangladeshi Anti-Quota Movement suffered its first massive wave of brutal physical violence. This day marks the entry of the pro-government student wing, the Bangladesh Chhatra League (BCL), which launched sweeping, coordinated armed attacks against unarmed student protestors on university campuses across the country. This turned a peaceful student movement into a bloody, nationwide confrontation. [1, 2, 3, 4]</p>
+                    
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: var(--spacing-lg) 0;">
+
+                    <h2>1. Chronological Breakdown of Events</h2>
+                    
+                    <h3>Morning (10:00 AM – 12:00 PM): Protests Mobilize Over the "Razakar" Insult</h3>
+                    <ul>
+                        <li><strong>The Gathering:</strong> Enraged by Prime Minister Sheikh Hasina's press conference remarks from the previous afternoon, thousands of students under the "Students Against Discrimination" banner gathered at the Raju Memorial Sculpture at Dhaka University (DU). [5, 6]</li>
+                        <li><strong>Nationwide Solidarity:</strong> Similar large-scale protest rallies took shape simultaneously across other major campuses, including Jahangirnagar University (JU), Chittagong University (CU), and Rajshahi University (RU). [7, 8, 9]</li>
+                        <li><strong>The Counter-Mobilization:</strong> At the same time, top leaders of the ruling Awami League and the BCL held high-level meetings. That time's Facist Government's Road, Bridge and Rail Transportation minister Obaidul Quader publicly stated that the students had crossed a line by chanting ironic "Razakar" slogans, declaring that the BCL would give a "fitting reply." [10]</li>
+                    </ul>
+
+                    <h3>Early Afternoon (1:30 PM – 3:30 PM): The Attack at Dhaka University Begins</h3>
+                    <ul>
+                        <li><strong>Armed Aggression:</strong> Around 1:30 PM, hundreds of BCL activists—many wearing helmets and armed with iron rods, hockey sticks, bamboo sticks, and leather belts—gathered near the Madhur Canteen and the TSC area of Dhaka University. Reports indicated that many attackers were political cadres brought in from outside the university to reinforce BCL ranks. [2, 11]</li>
+                    </ul>
+                    
+                    <img src="./h.jpg" class="article-img" alt="Helmeted Attackers of TSC" onerror="this.style.display='none'">
+                    
+                    <ul>
+                        <li><strong>The Clash Near TSC:</strong> BCL cadres launched a sudden, violent charge on the protesting students gathered near the Raju Memorial Sculpture. The peaceful assembly fractured as unarmed students scrambled for cover under a barrage of bricks and heavy clubbing. [2]</li>
+                        <li><strong>Targeting Female Students:</strong> In full view of onlookers and journalists, BCL attackers pursued and brutally beat female protestors with sticks and rods. Several prominent female organizers were cornered, assaulted, and left bleeding on the campus roads. [2]</li>
+                    </ul>
+
+                    <img src="./f1.jpg" class="article-img" alt="Assault on Female Protestors" onerror="this.style.display='none'">
+                    <img src="./f2.jpg" class="article-img" alt="Assault on Female Protestors 2" onerror="this.style.display='none'">
+
+                    <h3>Late Afternoon (3:30 PM – 6:00 PM): The Siege of Shahidullah Hall and DMCH</h3>
+                    <ul>
+                        <li><strong>Shahidullah Hall Pitched Battle:</strong> The violence escalated into a grueling multi-hour battle at Dhaka University’s Shahidullah Hall and Dr. Muhammad Qudrat-e-Khuda Road. Cornered protestors retreated inside the hall compounds and attempted to defend themselves by hurling back bricks at the helmeted BCL cadres.</li>
+                    </ul>
+
+                    <img src="./s.jpg" class="article-img" alt="Shahidullah Hall Brick-Pelting" onerror="this.style.display='none'">
+
+                    <ul>
+                        <li><strong>Hospital Violence:</strong> As over 300 injured students were rushed to the Emergency Department of Dhaka Medical College Hospital (DMCH), BCL groups chased them inside the hospital gates. Attackers entered the emergency compound, vandalized ambulances, and beat injured students who were actively receiving medical treatment, sparking terror among doctors and nurses. [2, 12, 13, 14, 15]</li>
+                    </ul>
+
+                    <img src="./dmc.jpg" class="article-img" alt="Dhaka Medical College Chaos" onerror="this.style.display='none'">
+
+                    <h3>Evening to Night: Nationwide Spreading and Midnight Siege at JU [16]</h3>
+                    <ul>
+                        <li><strong>Jahangirnagar University Escalation:</strong> News of the Dhaka University attacks triggered immediate outrage at Jahangirnagar University (JU) in Savar. In the evening, JU students took out large protest rallies.</li>
+                        <li><strong>The Midnight Attack:</strong> Around midnight, the JU BCL branch, led by its local president, alongside external armed goons, launched an attack on the demonstrating students. Protestors, including female students and several university teachers who tried to protect them, were forced to take refuge inside the Vice-Chancellor’s residence as BCL cadres surrounded the building, throwing bricks and detonating crude bombs. [14, 17, 18, 19, 20]</li>
+                    </ul>
+
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Hic79uxrUOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: var(--spacing-lg) 0;">
+
+                    <h2>3. Verification Sources</h2>
+                    <p>You can verify every detail, quote, and timeline of the events of July 15, 2024, by looking directly at these non-hyperlinked web addresses:</p>
+                    
+                    <div class="source-list">
+                        <ul>
+                            <li>The Daily Star Report on the Coordinated Chhatra League Assaults:<br><span class="text-link">https://www.thedailystar.net/news/bangladesh/news/july-15-2024-chhatra-league-attacks-quota-protesters-3939786</span></li>
+                            <li>Human Rights Watch Documentation on Armed Attacks on Unarmed Students:<br><span class="text-link">https://www.hrw.org/news/2024/07/22/bangladesh-security-forces-target-unarmed-students</span></li>
+                            <li>Scholars at Risk Academic Freedom Monitor on the Jahangirnagar University Attack:<br><span class="text-link">https://www.scholarsatrisk.org/report/2024-07-15-jahangirnagar-university/</span></li>
+                            <li>Prothom Alo English Timeline of Unfolding Campus Violence:<br><span class="text-link">https://en.prothomalo.com/bangladesh/5jvl0xye5l</span></li>
+                            <li>Wikipedia's Detailed Account of the July 15 Campus Clashes:<br><span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement</span></li>
+                        </ul>
+                        <br>
+                        <p>[1] <span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement</span></p>
+                        <p>[2] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/july-15-2024-chhatra-league-attacks-quota-protesters-3939786</span></p>
+                        <p>[3] <span class="text-link">https://www.aljazeera.com/news/2024/7/16/whats-behind-bangladeshs-violent-quota-protests</span></p>
+                        <p>[4] <span class="text-link">https://www.osac.gov/Country/Bangladesh/Content/Detail/Report/2f0475b0-6a46-46e5-bd5f-24e7ceae2355</span></p>
+                        <p>[5] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/the-razakar-back-and-forth-who-said-what-3657341</span></p>
+                        <p>[6] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/protest-du-over-alleged-desecration-lord-rams-image-4200076</span></p>
+                        <p>[7] <span class="text-link">https://tempestmag.org/2024/07/ten-days-in-bangladesh-a-report-on-the-uprising/</span></p>
+                        <p>[8] <span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_case</span></p>
+                        <p>[9] <span class="text-link">https://www.facebook.com/DailyStarNews/posts/at-least-four-students-of-eden-college-were-beaten-up-allegedly-by-bangladesh-ch/815420147405933/</span></p>
+                        <p>[10] <span class="text-link">https://www.bssnews.net/news/234531</span></p>
+                        <p>[11] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/quota-protest-live-updates-3658146</span></p>
+                        <p>[12] <span class="text-link">https://www.facebook.com/DailyStarNews/posts/clashes-between-two-factions-of-the-bangladesh-chhatra-league-took-place-followi/726378989643383/</span></p>
+                        <p>[13] <span class="text-link">https://www.facebook.com/EUAsylumAgency/posts/in-mid-2024-mass-student-protests-erupted-across-bangladesh-following-the-reintr/1076629624646422/</span></p>
+                        <p>[14] <span class="text-link">https://www.scholarsatrisk.org/report/2024-07-15-jahangirnagar-university/</span></p>
+                        <p>[15] <span class="text-link">https://www.facebook.com/DhakaTribune/posts/posters-of-the-banned-organization-bangladesh-chhatra-league-have-been-put-up-at/1373952091440177/</span></p>
+                        <p>[16] <span class="text-link">https://www.thedailystar.net/the-july-rocked-bangladesh?page=1</span></p>
+                        <p>[17] <span class="text-link">https://www.scholarsatrisk.org/report/2024-07-15-jahangirnagar-university/</span></p>
+                        <p>[18] <span class="text-link">https://www.bssnews.net/july-uprising/292524</span></p>
+                        <p>[19] <span class="text-link">https://www.bssnews.net/july-uprising/292045</span></p>
+                        <p>[20] <span class="text-link">https://julyshohid.com/details.php?id=256&lang=english</span></p>
+                        <p>[21] <span class="text-link">https://www.thehindu.com/news/international/bangladesh-mob-beats-ex-pm-hasinas-supporters/article68529077.ece</span></p>
+                        <p>[22] <span class="text-link">https://www.hrw.org/news/2024/07/22/bangladesh-security-forces-target-unarmed-students</span></p>
+                        <p>[23] <span class="text-link">https://www.bssnews.net/july-uprising/300527</span></p>
+                        <p>[24] <span class="text-link">https://www.ghrtv.org/the-trend-of-mob-justice-in-bangladesh-a-great-threat-to-human-rights/</span></p>
+                        <p>[25] <span class="text-link">https://en.prothomalo.com/bangladesh/politics/gl1l8fyp6n</span></p>
+                        <p>[26] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/bcl-quota-protesters-clash-3657531</span></p>
+                    </div>
+                `
+            },
+            bn: {
+                ui: {
+                    langToggle: "Read in English",
+                    share: "শেয়ার করুন",
+                    print: "প্রিন্ট করুন",
+                    copied: "লিংক কপি করা হয়েছে!",
+                    modalTitle: "প্রিন্ট অপশন",
+                    modalDesc: "যে ভাষায় প্রিন্ট করতে চান নির্বাচন করুন:",
+                    btnPrintEn: "শুধুমাত্র ইংরেজি",
+                    btnPrintBn: "শুধুমাত্র বাংলা",
+                    btnPrintBoth: "উভয় ভাষা",
+                    btnCancel: "বাতিল করুন"
+                },
+                content: `
+                    <h1>১৫ জুলাই ২০২৪: ক্যাম্পাস রক্তে রঞ্জিত হওয়ার দিন</h1>
+                    <p>১৫ জুলাই ২০২৪ তারিখে, বাংলাদেশের কোটা সংস্কার আন্দোলনে প্রথমবারের মতো ব্যাপক ও নৃশংস শারীরিক হামলার ঘটনা ঘটে। এই দিনে সরকারপন্থী ছাত্র সংগঠন বাংলাদেশ ছাত্রলীগ (বিসিএল) দেশব্যাপী বিশ্ববিদ্যালয় ক্যাম্পাসগুলোতে নিরস্ত্র আন্দোলনকারী শিক্ষার্থীদের ওপর সমন্বিত ও সশস্ত্র হামলা চালায়। এই ঘটনা একটি শান্তিপূর্ণ ছাত্র আন্দোলনকে দেশব্যাপী রক্তক্ষয়ী সংঘাতে পরিণত করে। [১, ২, ৩, ৪]</p>
+                    
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: var(--spacing-lg) 0;">
+
+                    <h2>১. ঘটনার কালানুক্রমিক বিবরণ</h2>
+                    
+                    <h3>সকাল (১০:০০ - ১২:০০): "রাজাকার" মন্তব্যের জেরে জমায়েত</h3>
+                    <ul>
+                        <li><strong>জমায়েত:</strong> আগের দিন বিকেলে প্রধানমন্ত্রী শেখ হাসিনার সংবাদ সম্মেলনের মন্তব্যে ক্ষুব্ধ হয়ে "বৈষম্যবিরোধী ছাত্র আন্দোলন"-এর ব্যানারে হাজার হাজার শিক্ষার্থী ঢাকা বিশ্ববিদ্যালয়ের (ঢাবি) রাজু ভাস্কর্যের সামনে জড়ো হয়। [৫, ৬]</li>
+                        <li><strong>দেশব্যাপী সংহতি:</strong> জাহাঙ্গীরনগর বিশ্ববিদ্যালয় (জাবি), চট্টগ্রাম বিশ্ববিদ্যালয় (চবি) এবং রাজশাহী বিশ্ববিদ্যালয় (রাবি) সহ অন্যান্য প্রধান ক্যাম্পাসগুলোতে একই সময়ে বিশাল প্রতিবাদ সমাবেশ গড়ে ওঠে। [৭, ৮, ৯]</li>
+                        <li><strong>পাল্টা-প্রস্তুতি:</strong> একই সময়ে ক্ষমতাসীন আওয়ামী লীগ এবং বিসিএল-এর শীর্ষ নেতারা উচ্চ পর্যায়ের বৈঠক করেন। তৎকালীন ফ্যাসিস্ট সরকারের সড়ক, সেতু ও রেল পরিবহন মন্ত্রী ওবাইদুল কাদের প্রকাশ্যে বলেন যে, শিক্ষার্থীরা "রাজাকার" স্লোগান দিয়ে সীমা অতিক্রম করেছে এবং ঘোষণা করেন যে ছাত্রলীগ এর "উপযুক্ত জবাব" দেবে। [১০]</li>
+                    </ul>
+
+                    <h3>দুপুর (১:৩০ - ৩:৩০): ঢাকা বিশ্ববিদ্যালয়ে হামলার সূচনা</h3>
+                    <ul>
+                        <li><strong>সশস্ত্র আগ্রাসন:</strong> দুপুর দেড়টার দিকে, শত শত ছাত্রলীগ কর্মী—যাদের অনেকেই হেলমেট পরিহিত এবং লোহার রড, হকি স্টিক, বাঁশের লাঠি ও চামড়ার বেল্ট হাতে সজ্জিত ছিল—ঢাকা বিশ্ববিদ্যালয়ের মধুর ক্যান্টিন এবং টিএসসি এলাকায় জড়ো হয়। প্রতিবেদন অনুযায়ী, ছাত্রলীগের শক্তি বাড়াতে বিশ্ববিদ্যালয়ের বাইরে থেকেও অনেক বহিরাগত ক্যাডার আনা হয়েছিল। [২, ১১]</li>
+                    </ul>
+
+                    <img src="./h.jpg" class="article-img" alt="Helmeted Attackers of TSC" onerror="this.style.display='none'">
+
+                    <ul>
+                        <li><strong>টিএসসি এলাকায় সংঘর্ষ:</strong> রাজু ভাস্কর্যের কাছে জড়ো হওয়া প্রতিবাদী শিক্ষার্থীদের ওপর ছাত্রলীগ ক্যাডাররা হঠাৎ ও হিংস্রভাবে ঝাঁপিয়ে পড়ে। ইটপাটকেল এবং ভারী লাঠিপেটার মুখে নিরস্ত্র শিক্ষার্থীরা আত্মরক্ষার্থে দিগ্বিদিক ছুটতে বাধ্য হলে শান্তিপূর্ণ জমায়েত ছত্রভঙ্গ হয়ে যায়। [২]</li>
+                        <li><strong>ছাত্রীদের ওপর হামলা:</strong> উপস্থিত জনতা এবং সাংবাদিকদের চোখের সামনেই ছাত্রলীগ হামলাকারীরা লাঠি ও রড দিয়ে ছাত্রীদের ধাওয়া করে এবং নির্মমভাবে প্রহার করে। বেশ কয়েকজন পরিচিত নারী সংগঠককে কোণঠাসা করে মারধর করা হয় এবং ক্যাম্পাসের রাস্তায় তারা রক্তাক্ত অবস্থায় পড়ে থাকেন। [২]</li>
+                    </ul>
+
+                    <img src="./f1.jpg" class="article-img" alt="Assault on Female Protestors" onerror="this.style.display='none'">
+                    <img src="./f2.jpg" class="article-img" alt="Assault on Female Protestors 2" onerror="this.style.display='none'">
+
+                    <h3>বিকেল (৩:৩০ - ৬:০০): শহীদুল্লাহ হল এবং ঢামেক-এ অবরুদ্ধ অবস্থা</h3>
+                    <ul>
+                        <li><strong>শহীদুল্লাহ হলের সম্মুখযুদ্ধ:</strong> ঢাকা বিশ্ববিদ্যালয়ের শহীদুল্লাহ হল এবং ড. মুহম্মদ কুদরত-এ-খুদা সড়কে কয়েক ঘণ্টাব্যাপী তীব্র লড়াই শুরু হয়। কোণঠাসা আন্দোলনকারীরা হলের ভেতরে আশ্রয় নেন এবং হেলমেট পরিহিত ছাত্রলীগ ক্যাডারদের দিকে পাল্টা ইট ছুড়ে আত্মরক্ষার চেষ্টা করেন।</li>
+                    </ul>
+
+                    <img src="./s.jpg" class="article-img" alt="Shahidullah Hall Brick-Pelting" onerror="this.style.display='none'">
+
+                    <ul>
+                        <li><strong>হাসপাতালে সহিংসতা:</strong> ৩০০ জনেরও বেশি আহত শিক্ষার্থীকে ঢাকা মেডিকেল কলেজ হাসপাতাল (ঢামেক) এর জরুরি বিভাগে নিয়ে যাওয়া হলে, ছাত্রলীগ কর্মীরা তাদের ধাওয়া করে হাসপাতালের গেট পর্যন্ত পৌঁছায়। হামলাকারীরা জরুরি বিভাগে প্রবেশ করে অ্যাম্বুলেন্স ভাঙচুর করে এবং চিকিৎসাধীন আহত শিক্ষার্থীদের মারধর করে, যা ডাক্তার ও নার্সদের মাঝে চরম আতঙ্ক সৃষ্টি করে। [২, ১২, ১৩, ১৪, ১৫]</li>
+                    </ul>
+
+                    <img src="./dmc.jpg" class="article-img" alt="Dhaka Medical College Chaos" onerror="this.style.display='none'">
+
+                    <h3>সন্ধ্যা থেকে রাত: দেশব্যাপী উত্তেজনা ও জাবিতে মধ্যরাতে অবরুদ্ধ অবস্থা [১৬]</h3>
+                    <ul>
+                        <li><strong>জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ে উত্তেজনা:</strong> ঢাকা বিশ্ববিদ্যালয়ে হামলার খবর সাভারের জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ে (জাবি) পৌঁছালে তাৎক্ষণিক ক্ষোভের সৃষ্টি হয়। সন্ধ্যায় জাবি শিক্ষার্থীরা বিশাল প্রতিবাদ মিছিল বের করেন।</li>
+                        <li><strong>মধ্যরাতের হামলা:</strong> মধ্যরাতের দিকে জাবি ছাত্রলীগের স্থানীয় সভাপতির নেতৃত্বে বহিরাগত সশস্ত্র সন্ত্রাসীরা আন্দোলনকারী শিক্ষার্থীদের ওপর হামলা চালায়। ছাত্রী এবং যে সকল শিক্ষক তাদের রক্ষা করার চেষ্টা করেছিলেন, তারা বাধ্য হয়ে উপাচার্যের বাসভবনের ভেতরে আশ্রয় নেন। এদিকে ছাত্রলীগ ক্যাডাররা ভবনটি ঘিরে ফেলে, ইট ছুড়তে থাকে এবং ককটেল বিস্ফোরণ ঘটায়। [১৪, ১৭, ১৮, ১৯, ২০]</li>
+                    </ul>
+
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/Hic79uxrUOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: var(--spacing-lg) 0;">
+
+                    <h2>৩. তথ্যসূত্র যাচাই</h2>
+                    <p>আপনি নিচের নন-হাইপারলিঙ্কড ওয়েব ঠিকানাগুলো সরাসরি ভিজিট করে ১৫ জুলাই ২০২৪ তারিখের ঘটনার সমস্ত বিবরণ, উদ্ধৃতি এবং সময়রেখা যাচাই করতে পারেন:</p>
+                    
+                    <div class="source-list">
+                        <ul>
+                            <li>ছাত্রলীগের সমন্বিত হামলার বিষয়ে দ্য ডেইলি স্টার-এর প্রতিবেদন:<br><span class="text-link">https://www.thedailystar.net/news/bangladesh/news/july-15-2024-chhatra-league-attacks-quota-protesters-3939786</span></li>
+                            <li>নিরস্ত্র শিক্ষার্থীদের ওপর সশস্ত্র হামলার বিষয়ে হিউম্যান রাইটস ওয়াচ-এর ডকুমেন্টেশন:<br><span class="text-link">https://www.hrw.org/news/2024/07/22/bangladesh-security-forces-target-unarmed-students</span></li>
+                            <li>জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ে হামলার বিষয়ে স্কলার্স অ্যাট রিস্ক একাডেমিক ফ্রিডম মনিটর:<br><span class="text-link">https://www.scholarsatrisk.org/report/2024-07-15-jahangirnagar-university/</span></li>
+                            <li>ক্যাম্পাস সহিংসতার প্রথম আলো ইংরেজির টাইমলাইন:<br><span class="text-link">https://en.prothomalo.com/bangladesh/5jvl0xye5l</span></li>
+                            <li>১৫ জুলাইয়ের সংঘর্ষের বিষয়ে উইকিপিডিয়ার বিস্তারিত বর্ণনা:<br><span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement</span></li>
+                        </ul>
+                        <br>
+                        <p>[১] <span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement</span></p>
+                        <p>[২] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/july-15-2024-chhatra-league-attacks-quota-protesters-3939786</span></p>
+                        <p>[৩] <span class="text-link">https://www.aljazeera.com/news/2024/7/16/whats-behind-bangladeshs-violent-quota-protests</span></p>
+                        <p>[৪] <span class="text-link">https://www.osac.gov/Country/Bangladesh/Content/Detail/Report/2f0475b0-6a46-46e5-bd5f-24e7ceae2355</span></p>
+                        <p>[৫] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/the-razakar-back-and-forth-who-said-what-3657341</span></p>
+                        <p>[৬] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/protest-du-over-alleged-desecration-lord-rams-image-4200076</span></p>
+                        <p>[৭] <span class="text-link">https://tempestmag.org/2024/07/ten-days-in-bangladesh-a-report-on-the-uprising/</span></p>
+                        <p>[৮] <span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_case</span></p>
+                        <p>[৯] <span class="text-link">https://www.facebook.com/DailyStarNews/posts/at-least-four-students-of-eden-college-were-beaten-up-allegedly-by-bangladesh-ch/815420147405933/</span></p>
+                        <p>[১০] <span class="text-link">https://www.bssnews.net/news/234531</span></p>
+                        <p>[১১] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/quota-protest-live-updates-3658146</span></p>
+                        <p>[১২] <span class="text-link">https://www.facebook.com/DailyStarNews/posts/clashes-between-two-factions-of-the-bangladesh-chhatra-league-took-place-followi/726378989643383/</span></p>
+                        <p>[১৩] <span class="text-link">https://www.facebook.com/EUAsylumAgency/posts/in-mid-2024-mass-student-protests-erupted-across-bangladesh-following-the-reintr/1076629624646422/</span></p>
+                        <p>[১৪] <span class="text-link">https://www.scholarsatrisk.org/report/2024-07-15-jahangirnagar-university/</span></p>
+                        <p>[১৫] <span class="text-link">https://www.facebook.com/DhakaTribune/posts/posters-of-the-banned-organization-bangladesh-chhatra-league-have-been-put-up-at/1373952091440177/</span></p>
+                        <p>[১৬] <span class="text-link">https://www.thedailystar.net/the-july-rocked-bangladesh?page=1</span></p>
+                        <p>[১৭] <span class="text-link">https://www.scholarsatrisk.org/report/2024-07-15-jahangirnagar-university/</span></p>
+                        <p>[১৮] <span class="text-link">https://www.bssnews.net/july-uprising/292524</span></p>
+                        <p>[১৯] <span class="text-link">https://www.bssnews.net/july-uprising/292045</span></p>
+                        <p>[২০] <span class="text-link">https://julyshohid.com/details.php?id=256&lang=english</span></p>
+                        <p>[২১] <span class="text-link">https://www.thehindu.com/news/international/bangladesh-mob-beats-ex-pm-hasinas-supporters/article68529077.ece</span></p>
+                        <p>[২২] <span class="text-link">https://www.hrw.org/news/2024/07/22/bangladesh-security-forces-target-unarmed-students</span></p>
+                        <p>[২৩] <span class="text-link">https://www.bssnews.net/july-uprising/300527</span></p>
+                        <p>[২৪] <span class="text-link">https://www.ghrtv.org/the-trend-of-mob-justice-in-bangladesh-a-great-threat-to-human-rights/</span></p>
+                        <p>[২৫] <span class="text-link">https://en.prothomalo.com/bangladesh/politics/gl1l8fyp6n</span></p>
+                        <p>[২৬] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/bcl-quota-protesters-clash-3657531</span></p>
+                    </div>
+                `
+            }
+        };
+
+        /**
+         * ==========================================================================
+         * CORE STATE AND RENDERING LOGIC
+         * ==========================================================================
+         */
+        let currentLang = 'en'; // Default language
+
+        function renderContent(lang) {
+            const data = articleData[lang];
+            
+            // 1. Update DOM data attribute to enforce strict Font mapping
+            document.body.setAttribute('data-lang', lang);
+            
+            // 2. Update UI Elements
+            document.querySelector('#langToggleBtn .btn-text').textContent = data.ui.langToggle;
+            document.getElementById('shareBtnText').textContent = data.ui.share;
+            document.getElementById('printBtnText').textContent = data.ui.print;
+            
+            // Update Modal Texts
+            document.getElementById('modalTitle').textContent = data.ui.modalTitle;
+            document.getElementById('modalDesc').textContent = data.ui.modalDesc;
+            document.getElementById('btnCancel').textContent = data.ui.btnCancel;
+            document.getElementById('btnPrintEn').textContent = data.ui.btnPrintEn;
+            document.getElementById('btnPrintBn').textContent = data.ui.btnPrintBn;
+            document.getElementById('btnPrintBoth').textContent = data.ui.btnPrintBoth;
+
+            // 3. Inject Article HTML
+            document.getElementById('article-container').innerHTML = data.content;
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'bn' : 'en';
+            renderContent(currentLang);
+        }
+
+        function toggleMobileMenu() {
+            document.body.classList.toggle('mobile-menu-active');
+        }
+
+        /**
+         * ==========================================================================
+         * SHARE LOGIC (Clipboard API)
+         * ==========================================================================
+         */
+        function copyLink() {
+            const copyUrl = "https://istiack.ami.bd/july-corner/15-july/";
+            
+            // Try modern clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(copyUrl).then(() => showToast());
+            } else {
+                // Fallback for older browsers or iframes
+                let textArea = document.createElement("textarea");
+                textArea.value = copyUrl;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                textArea.remove();
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toastMsg');
+            toast.textContent = articleData[currentLang].ui.copied;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        /**
+         * ==========================================================================
+         * ADVANCED PRINTING LOGIC (Modal + Language Override + Multi-lang Print)
+         * ==========================================================================
+         */
+        const modal = document.getElementById('printModal');
+
+        function openPrintModal() {
+            modal.classList.add('active');
+        }
+
+        function closePrintModal() {
+            modal.classList.remove('active');
+        }
+
+        // Close modal if clicked outside
+        modal.addEventListener('click', function(e) {
+            if(e.target === modal) {
+                closePrintModal();
+            }
+        });
+
+        function executePrint(format) {
+            closePrintModal();
+            const originalLang = currentLang;
+            const container = document.getElementById('article-container');
+
+            if (format === 'en' || format === 'bn') {
+                // Single language print
+                renderContent(format);
+                
+                // Allow DOM to update before printing
+                setTimeout(() => {
+                    window.print();
+                    // Restore original state
+                    renderContent(originalLang);
+                }, 300);
+
+            } else if (format === 'both') {
+                // Render BOTH languages specifically for printing
+                // Temporary print layout setup
+                document.body.setAttribute('data-lang', 'both'); // Allows us to use inline fonts
+                
+                // Construct combined HTML with page breaks
+                let combinedHTML = `
+                    <div style="font-family: 'EnMain', sans-serif;">
+                        ${articleData['en'].content}
+                    </div>
+                    <div class="page-break"></div>
+                    <div style="font-family: 'BnMain', sans-serif;">
+                        ${articleData['bn'].content}
+                    </div>
+                `;
+                
+                container.innerHTML = combinedHTML;
+                
+                setTimeout(() => {
+                    window.print();
+                    // Restore original state
+                    renderContent(originalLang);
+                }, 500);
+            }
+        }
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContent(currentLang);
+        });
+
+    </script>
+</body>
+</html>

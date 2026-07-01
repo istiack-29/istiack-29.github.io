@@ -607,24 +607,41 @@
                 }, 3500);
             },
             async sendToDiscord(message, id) {
-                // Simplified Discord Payload as requested
                 const payload = {
-                    content: id.toString(), // Makes it super easy to copy directly on mobile
+                    content: id.toString(), 
                     embeds: [{
                         title: "📩 New Message",
                         color: 0x7c3aed,
                         description: `**মেসেজ-** ${message}\n**রিপ্লায়-** Not replied`,
-                        footer: { text: id.toString() } // Small text showing only the ID
+                        footer: { text: id.toString() } 
                     }]
                 };
 
                 try {
-                    await fetch(CONFIG.DISCORD_WEBHOOK, {
+                    // ?wait=true প্যারামিটার যুক্ত করা হয়েছে ডিসকর্ড মেসেজ আইডি পাওয়ার জন্য
+                    const discordRes = await fetch(`${CONFIG.DISCORD_WEBHOOK}?wait=true`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(payload)
                     });
-                } catch(e) { console.error("Discord error:", e); }
+
+                    if (discordRes.ok) {
+                        const discordData = await discordRes.json();
+                        const discordMsgId = discordData.id;
+
+                        // সুপাবেসে discord_msg_id আপডেট করা হচ্ছে
+                        await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/messages?id=eq.${id}`, {
+                            method: "PATCH",
+                            headers: { 
+                                "Content-Type": "application/json",
+                                "apikey": CONFIG.SUPABASE_KEY,
+                                "Authorization": `Bearer ${CONFIG.SUPABASE_KEY}`
+                            },
+                            body: JSON.stringify({ discord_msg_id: discordMsgId })
+                        });
+                        console.log("Supabase successfully updated with Discord Msg ID:", discordMsgId);
+                    }
+                } catch(e) { console.error("Discord/Supabase error:", e); }
             },
             async fetchReply(id) {
                 try {
@@ -731,7 +748,7 @@
                             const data = await res.json();
                             const msgId = data[0].id;
 
-                            // 1. Send To Discord Webhook in background (New simplified format)
+                            // 1. Send To Discord Webhook in background and update Supabase
                             this.sendToDiscord(m, msgId);
 
                             // 2. Generate Dynamic Link based on current hosting site

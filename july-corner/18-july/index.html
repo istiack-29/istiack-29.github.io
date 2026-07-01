@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- SEO and Open Graph Meta Tags -->
+    <title>July 18, 2024</title>
+    <meta name="description" content="A detailed timeline of events from July 18, 2024, during the Bangladesh quota reform movement.">
+    <meta property="og:title" content="July 18, 2024: The Turning Point of the July Uprising">
+    <meta property="og:description" content="Comprehensive coverage of the July 18 events, casualties, and the nationwide internet blackout.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/18-july/">
+    <meta property="og:image" content="./t.png">
+
+    <style>
+        /* ==========================================================================
+           1. FONT-FACE DEFINITIONS (STRICT ASSET MANAGEMENT)
+           ========================================================================== */
+        
+        /* English Main Font */
+        @font-face {
+            font-family: 'E1';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* English Header Font */
+        @font-face {
+            font-family: 'E2';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Bangla Header Font */
+        @font-face {
+            font-family: 'B1';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Bangla Main Font */
+        @font-face {
+            font-family: 'B2';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ==========================================================================
+           2. CSS VARIABLES & THEMING
+           ========================================================================== */
+        :root {
+            /* Color Palette (Pure Article Aesthetic) */
+            --bg-color: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-color: #e5e5e5;
+            --brand-color: #000000;
+            --highlight-bg: #f9f9f9;
+            --modal-bg: rgba(0, 0, 0, 0.6);
+            --modal-surface: #ffffff;
+            
+            /* Typography Scale */
+            --font-size-base: 18px;
+            --line-height-base: 1.75;
+            --h1-size: clamp(2rem, 5vw, 3rem);
+            --h2-size: clamp(1.5rem, 4vw, 2.25rem);
+            --h3-size: clamp(1.25rem, 3vw, 1.75rem);
+            --small-text: 0.875rem;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+
+            /* Layout */
+            --header-height: 70px;
+            --max-width: 760px; /* Optimal reading width */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --transition-speed: 0.3s;
+        }
+
+        /* Language-Specific Font Assignment */
+        html[lang="en"] {
+            --font-main: 'E1', sans-serif;
+            --font-header: 'E2', sans-serif;
+        }
+
+        html[lang="bn"] {
+            --font-main: 'B2', sans-serif;
+            --font-header: 'B1', sans-serif;
+        }
+
+        /* ==========================================================================
+           3. CSS RESET & GLOBAL STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* STRICT ENFORCEMENT: All elements must inherit defined fonts */
+            font-family: inherit; 
+        }
+
+        html {
+            font-size: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main); /* Controlled by html[lang] */
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: var(--header-height);
+            overflow-x: hidden;
+        }
+
+        /* Enforce header fonts on all headings */
+        h1, h2, h3, h4, h5, h6, .brand-name {
+            font-family: var(--font-header);
+            color: var(--brand-color);
+            line-height: 1.3;
+            margin-bottom: var(--space-sm);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+        }
+
+        ul, ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-lg);
+        }
+
+        li {
+            margin-bottom: var(--space-xs);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: var(--space-xl) 0;
+        }
+
+        .bold-highlight {
+            font-weight: bold;
+            background-color: var(--highlight-bg);
+            padding: var(--space-xs);
+            border-left: 4px solid var(--brand-color);
+            display: block;
+            margin-bottom: var(--space-md);
+        }
+
+        /* ==========================================================================
+           4. LAYOUT COMPONENTS
+           ========================================================================== */
+        
+        /* Header */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .site-logo {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+            filter: grayscale(100%); /* Make black and white as requested */
+            transition: opacity var(--transition-speed);
+        }
+
+        .site-logo:hover {
+            opacity: 0.8;
+        }
+
+        .brand-name {
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        /* Language Switcher Button */
+        .lang-switcher-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 8px 16px;
+            border: 1px solid var(--brand-color);
+            border-radius: 20px;
+            font-size: var(--small-text);
+            font-family: var(--font-header);
+            font-weight: bold;
+            transition: all var(--transition-speed);
+        }
+
+        .lang-switcher-btn:hover {
+            background-color: var(--brand-color);
+            color: var(--bg-color);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            padding: var(--space-xs);
+        }
+
+        /* Main Article Layout */
+        .main-article {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-image {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+            /* Ensure no captions exist around this image */
+        }
+
+        /* Action Buttons (Share, Print) */
+        .article-actions {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: var(--small-text);
+            font-family: var(--font-header);
+            color: var(--text-secondary);
+            transition: color var(--transition-speed);
+        }
+
+        .action-btn:hover {
+            color: var(--brand-color);
+        }
+
+        .action-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Content Blocks */
+        .content-section h2 {
+            font-size: var(--h2-size);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .content-section h3 {
+            font-size: var(--h3-size);
+            margin-top: var(--space-md);
+            color: var(--text-secondary);
+        }
+
+        /* Plain Text Links Styles */
+        .text-link {
+            word-break: break-all;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+
+        /* ==========================================================================
+           5. BILINGUAL DISPLAY LOGIC (CSS DRIVEN)
+           ========================================================================== */
+        /* By default, hide both */
+        [data-lang="en"], [data-lang="bn"] {
+            display: none;
+        }
+
+        /* Show English when HTML is EN */
+        html[lang="en"] [data-lang="en"] {
+            display: block;
+        }
+        
+        html[lang="en"] span[data-lang="en"] {
+            display: inline;
+        }
+
+        /* Show Bangla when HTML is BN */
+        html[lang="bn"] [data-lang="bn"] {
+            display: block;
+        }
+
+        html[lang="bn"] span[data-lang="bn"] {
+            display: inline;
+        }
+
+        /* ==========================================================================
+           6. MODAL UI (Custom Alerts & Print Dialogs)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--modal-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-speed);
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--modal-surface);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(20px);
+            transition: transform var(--transition-speed);
+            text-align: center;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-family: var(--font-header);
+            font-size: 1.25rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .modal-text {
+            font-size: var(--small-text);
+            margin-bottom: var(--space-lg);
+            color: var(--text-secondary);
+        }
+
+        /* Print Options Styling */
+        .print-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .print-opt-btn {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--highlight-bg);
+            font-family: inherit; /* Takes body font */
+            transition: all 0.2s;
+        }
+
+        .print-opt-btn:hover {
+            border-color: var(--brand-color);
+            background: var(--bg-color);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .modal-btn {
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-family: var(--font-header);
+            font-size: var(--small-text);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-color);
+            color: var(--bg-color);
+            border: 1px solid var(--brand-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--brand-color);
+            border: 1px solid var(--border-color);
+        }
+
+        /* ==========================================================================
+           7. RESPONSIVE DESIGN (MOBILE-FIRST ADAPTATIONS)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            :root {
+                --h1-size: 1.75rem;
+                --h2-size: 1.5rem;
+                --space-xl: 2.5rem;
+            }
+
+            .brand-name {
+                font-size: 1rem;
+            }
+
+            .header-right {
+                gap: var(--space-sm);
+            }
+
+            /* Mobile menu interaction */
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .lang-switcher-btn {
+                padding: 6px 12px;
+            }
+
+            /* Optional: hide brand name text on very small screens to save space */
+            @media (max-width: 480px) {
+                .brand-name {
+                    display: none;
+                }
+            }
+        }
+
+        /* ==========================================================================
+           8. ADVANCED PRINT CSS
+           ========================================================================== */
+        @media print {
+            /* Basic Print Normalization */
+            @page {
+                margin: 2cm;
+                size: auto;
+            }
+
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                padding-top: 0 !important;
+                font-size: 12pt;
+                line-height: 1.5;
+            }
+
+            /* Hide UI Elements completely */
+            .site-header,
+            .article-actions,
+            .modal-overlay,
+            .no-print {
+                display: none !important;
+            }
+
+            /* Reset max-width for paper */
+            .main-article {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* Ensure images print, but no videos */
+            img {
+                max-width: 100% !important;
+                page-break-inside: avoid;
+            }
+            video {
+                display: none !important;
+            }
+
+            /* Typography adjustments for paper */
+            h1, h2, h3 {
+                page-break-after: avoid;
+                color: #000 !important;
+            }
+            
+            p, h2, h3 {
+                orphans: 3;
+                widows: 3;
+            }
+
+            .text-link {
+                word-break: break-all;
+                color: #333 !important;
+                text-decoration: none !important;
+            }
+
+            hr {
+                border-color: #ccc !important;
+            }
+
+            .bold-highlight {
+                border-left-color: #000 !important;
+                background-color: #f0f0f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* --- CRITICAL: PRINT DISPLAY LOGIC BASED ON USER CHOICE --- */
+            /* The JS will set a data-print-mode attribute on the body before printing */
+            
+            /* If user chose 'en' only */
+            body[data-print-mode="en"] [data-lang="bn"] {
+                display: none !important;
+            }
+            body[data-print-mode="en"] [data-lang="en"] {
+                display: block !important;
+            }
+            body[data-print-mode="en"] span[data-lang="en"] {
+                display: inline !important;
+            }
+
+            /* If user chose 'bn' only */
+            body[data-print-mode="bn"] [data-lang="en"] {
+                display: none !important;
+            }
+            body[data-print-mode="bn"] [data-lang="bn"] {
+                display: block !important;
+            }
+            body[data-print-mode="bn"] span[data-lang="bn"] {
+                display: inline !important;
+            }
+
+            /* If user chose 'both' */
+            body[data-print-mode="both"] [data-lang="en"],
+            body[data-print-mode="both"] [data-lang="bn"] {
+                display: block !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* Visual separator for bilingual print */
+            body[data-print-mode="both"] [data-lang="bn"]::after {
+                content: "";
+                display: block;
+                width: 50%;
+                margin: 1.5rem auto;
+                border-bottom: 1px dashed #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =======================================================================
+         HEADER SECTION (Fixed)
+         ======================================================================= -->
+    <header class="site-header no-print">
+        <div class="header-left">
+            <!-- Logo filtered to black and white via CSS -->
+            <img src="/home.png" alt="Home Logo" class="site-logo">
+            <h1 class="brand-name">ISTIACK'S JULY CORNER</h1>
+        </div>
+        
+        <div class="header-right">
+            <!-- Language Switcher: Toggles HTML lang attribute -->
+            <button class="lang-switcher-btn" id="langToggleBtn" onclick="toggleLanguage()">
+                <!-- Inline SVG for Globe Icon -->
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span data-lang="en">বাংলায় পড়ুন</span>
+                <span data-lang="bn">Read in English</span>
+            </button>
+
+            <!-- Mobile Hamburger Menu (SVG Only) -->
+            <button class="mobile-menu-toggle" aria-label="Menu">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- =======================================================================
+         MAIN ARTICLE CONTENT
+         ======================================================================= -->
+    <main class="main-article">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <!-- Required hero image. No captions allowed. -->
+            <img src="./t.png" alt="July 18 Hero Image" class="hero-image">
+            
+            <!-- Share & Download (Print) Actions -->
+            <div class="article-actions no-print">
+                <button class="action-btn" onclick="openShareModal()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/>
+                    </svg>
+                    <span data-lang="en">Share</span>
+                    <span data-lang="bn">শেয়ার করুন</span>
+                </button>
+                
+                <button class="action-btn" onclick="openPrintModal()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+                    </svg>
+                    <span data-lang="en">Print</span>
+                    <span data-lang="bn">প্রিন্ট করুন</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Dynamic Content Container -->
+        <article id="dynamic-article-content" class="content-section">
+            <!-- Content will be injected here by JS, but we also write it explicitly 
+                 in HTML for SEO and initial load speed. -->
+                 
+            <!-- TITLE -->
+            <h1 data-lang="en">July 18, 2024: The Deadliest Day & Complete Shutdown</h1>
+            <h1 data-lang="bn">১৮ জুলাই, ২০২৪: ভয়াবহ দিন এবং কমপ্লিট শাটডাউন</h1>
+
+            <!-- INTRODUCTION -->
+            <p data-lang="en">On July 18, 2024, Bangladesh witnessed what was widely considered one of the deadliest days in its recent history, marking a turning point where the student-led quota reform movement escalated into a full-scale nationwide mass uprising. Following the "complete shutdown" called by the Anti-Discrimination Student Movement, massive street battles between law enforcement, ruling party cadres, and protesters crippled the country. [1, 2, 3, 4, 5]</p>
+            <p data-lang="bn">১৮ জুলাই, ২০২৪ তারিখে বাংলাদেশ তার সাম্প্রতিক ইতিহাসের অন্যতম ভয়াবহ একটি দিন প্রত্যক্ষ করেছে। এটি ছিল এমন একটি সন্ধিক্ষণ, যখন ছাত্র-নেতৃত্বাধীন কোটা সংস্কার আন্দোলন একটি পূর্ণাঙ্গ দেশব্যাপী গণ-অভ্যুত্থানে রূপ নেয়। বৈষম্যবিরোধী ছাত্র আন্দোলনের ডাকা "কমপ্লিট শাটডাউন" এর পর, আইনশৃঙ্খলা রক্ষাকারী বাহিনী, ক্ষমতাসীন দলের ক্যাডার এবং আন্দোলনকারীদের মধ্যে ব্যাপক রাস্তার লড়াই দেশকে অচল করে দেয়। [১, ২, ৩, ৪, ৫]</p>
+
+            <hr>
+
+            <!-- SECTION 1 -->
+            <h2 data-lang="en">Key Events and Happenings on July 18, 2024</h2>
+            <h2 data-lang="bn">১৮ জুলাই, ২০২৪ এর মূল ঘটনাপ্রবাহ</h2>
+            
+            <h3 data-lang="en">1. Enforcement of the "Complete Shutdown"</h3>
+            <h3 data-lang="bn">১. "কমপ্লিট শাটডাউন" কার্যকর</h3>
+            
+            <ul>
+                <li data-lang="en">Private University & College Involvement: Private university students (from BRAC University, East West University, North South University, IUB, AIUB, and UIU) stepped out in large numbers to enforce the shutdown across Dhaka.</li>
+                <li data-lang="bn">বেসরকারি বিশ্ববিদ্যালয় ও কলেজের অংশগ্রহণ: ব্র্যাক, ইস্ট ওয়েস্ট, নর্থ সাউথ, আইইউবি, এআইইউবি এবং ইউআইইউ এর মতো বেসরকারি বিশ্ববিদ্যালয়ের শিক্ষার্থীরা ঢাকা জুড়ে শাটডাউন কার্যকর করতে বিপুল সংখ্যায় রাস্তায় নেমে আসে।</li>
+                
+                <li data-lang="en">Mass Disruptions: Major roads, highways, and transport networks were blocked in Dhaka and at least 19 other districts. [6, 7, 8]</li>
+                <li data-lang="bn">ব্যাপক অচলাবস্থা: ঢাকা এবং অন্তত ১৯টি অন্যান্য জেলায় প্রধান সড়ক, মহাসড়ক এবং পরিবহন নেটওয়ার্ক অবরুদ্ধ করা হয়। [৬, ৭, ৮]</li>
+            </ul>
+
+            <!-- SECTION 2 -->
+            <h3 data-lang="en">2. Violent Clashes and Casualties</h3>
+            <h3 data-lang="bn">২. সহিংস সংঘর্ষ ও হতাহত</h3>
+            <ul>
+                <li data-lang="en">The Death Toll: At least 29 people were killed on this single day, including 11 students and a journalist, while more than 3,000 people were injured. [2, 9, 10, 11]</li>
+                <li data-lang="bn">নিহতের সংখ্যা: এদিন অন্তত ২৯ জন নিহত হয়, যার মধ্যে ১১ জন শিক্ষার্থী এবং একজন সাংবাদিক ছিলেন। পাশাপাশি ৩,০০০-এর বেশি মানুষ আহত হন। [২, ৯, ১০, ১১]</li>
+                
+                <li data-lang="en">Key Flashpoints: Fierce battles occurred in Dhaka's Uttara, Rampura, Mohakhali, Badda, and Dhanmondi areas. Rapid Action Battalion (RAB) vehicles were forced to retreat amid severe resistance from protesters in Uttara. [11]</li>
+                <li data-lang="bn">মূল সংঘর্ষের স্থান: ঢাকার উত্তরা, রামপুরা, মহাখালী, বাড্ডা এবং ধানমন্ডি এলাকায় তুমুল যুদ্ধ হয়। উত্তরায় আন্দোলনকারীদের তীব্র প্রতিরোধের মুখে র‍্যাপিড অ্যাকশন ব্যাটালিয়নের (র‍্যাব) যানবাহন পিছু হটতে বাধ্য হয়। [১১]</li>
+                
+                <li data-lang="en">State Crackdown: Law enforcement fired rubber bullets, tear gas, and live ammunition into crowds to suppress the demonstrations. [12, 13, 14]</li>
+                <li data-lang="bn">রাষ্ট্রীয় দমন-পীড়ন: বিক্ষোভ দমনে আইনশৃঙ্খলা রক্ষাকারী বাহিনী জনতার ওপর রাবার বুলেট, টিয়ার গ্যাস এবং তাজা গুলি চালায়। [১২, ১৩, ১৪]</li>
+            </ul>
+
+            <!-- SECTION 3 -->
+            <h3 data-lang="en">3. Attacks on Government Establishments</h3>
+            <h3 data-lang="bn">৩. সরকারি স্থাপনায় হামলা</h3>
+            <ul>
+                <li data-lang="en">BTV Bhaban Torched: Enraged protesters breached, vandalized, and set fire to the headquarters of the state-run Bangladesh Television (BTV) in Rampura. [15, 16]</li>
+                <li data-lang="bn">বিটিভি ভবনে অগ্নিসংযোগ: ক্ষুব্ধ আন্দোলনকারীরা রামপুরায় রাষ্ট্রীয় সম্প্রচার মাধ্যম বাংলাদেশ টেলিভিশন (বিটিভি) এর সদর দপ্তরে প্রবেশ করে, ভাঙচুর চালায় এবং আগুন ধরিয়ে দেয়। [১৫, ১৬]</li>
+                
+                <li data-lang="en">Infrastructure Targeted: Establishments like Setu Bhaban (Bridges Department) and the Banani toll plaza of the Dhaka Elevated Expressway were set on fire. [8, 17]</li>
+                <li data-lang="bn">অবকাঠামো লক্ষ্যবস্তু: সেতু ভবন এবং ঢাকা এলিভেটেড এক্সপ্রেসওয়ের বনানী টোল প্লাজার মতো স্থাপনাগুলোতে আগুন দেওয়া হয়। [৮, ১৭]</li>
+                
+                <li data-lang="en">Metro Rail Halt: Metro rail operations in Dhaka were suspended for an indefinite period due to security breaches and damage. [8, 18]</li>
+                <li data-lang="bn">মেট্রোরেল বন্ধ: নিরাপত্তা লঙ্ঘন ও ক্ষয়ক্ষতির কারণে ঢাকায় মেট্রোরেল চলাচল অনির্দিষ্টকালের জন্য স্থগিত করা হয়। [৮, ১৮]</li>
+            </ul>
+
+            <!-- SECTION 4 -->
+            <h3 data-lang="en">4. The Digital Blackout</h3>
+            <h3 data-lang="bn">৪. ডিজিটাল ব্ল্যাকআউট</h3>
+            <ul>
+                <li data-lang="en">Mobile Internet Shutdown: By the afternoon of July 18, the government cut off mobile internet data nationwide. [19]</li>
+                <li data-lang="bn">মোবাইল ইন্টারনেট শাটডাউন: ১৮ জুলাই বিকালের মধ্যে সরকার দেশব্যাপী মোবাইল ইন্টারনেট ডাটা বন্ধ করে দেয়। [১৯]</li>
+                
+                <li data-lang="en">Total Internet Blackout: Around 9:00 PM, Internet Service Providers (ISPs) were ordered to cut broadband connections, completely severing Bangladesh's communication with the outside world. [8, 20, 21]</li>
+                <li data-lang="bn">সম্পূর্ণ ইন্টারনেট ব্ল্যাকআউট: রাত আনুমানিক ৯:০০ টায়, ইন্টারনেট পরিষেবা প্রদানকারীদের (আইএসপি) ব্রডব্যান্ড সংযোগ বিচ্ছিন্ন করার নির্দেশ দেওয়া হয়, যা বহির্বিশ্বের সাথে বাংলাদেশের যোগাযোগ সম্পূর্ণ বিচ্ছিন্ন করে। [৮, ২০, ২১]</li>
+                
+                <li data-lang="en">Official Cover-up: Government authorities initially falsely claimed the internet blackout was caused by a fire at a data center in Mohakhali. [22]</li>
+                <li data-lang="bn">সরকারি ধামাচাপা: সরকারি কর্তৃপক্ষ প্রাথমিকভাবে মিথ্যা দাবি করে যে মহাখালীতে একটি ডেটা সেন্টারে আগুনের কারণে ইন্টারনেট ব্ল্যাকআউট হয়েছে। [২২]</li>
+            </ul>
+
+            <hr>
+
+            <!-- BOLD MENTION REQUIRED IN PROMPT -->
+            <span class="bold-highlight" data-lang="en">
+                Due to the strict internet blackout implemented on that evening, much of the media from July 18 was documented via localized smartphone footage or professional press photography.
+            </span>
+            <span class="bold-highlight" data-lang="bn">
+                সেদিন সন্ধ্যায় কার্যকর হওয়া কঠোর ইন্টারনেট ব্ল্যাকআউটের কারণে, ১৮ জুলাইয়ের বেশিরভাগ মিডিয়া স্থানীয় স্মার্টফোন ফুটেজ বা পেশাদার প্রেস ফটোগ্রাফির মাধ্যমে নথিবদ্ধ করা হয়েছিল।
+            </span>
+
+            <hr>
+
+            <!-- SOURCES SECTION (TEXT LINKS ONLY) -->
+            <h2 data-lang="en">Information Sources</h2>
+            <h2 data-lang="bn">তথ্যের উৎস</h2>
+            
+            <p data-lang="en">The data and specific timelines for these events are well-documented by leading national and international entities. You can read the comprehensive journalistic timelines at the following addresses: [23]</p>
+            <p data-lang="bn">এই ঘটনাগুলির তথ্য এবং নির্দিষ্ট সময়রেখা শীর্ষস্থানীয় জাতীয় এবং আন্তর্জাতিক সংস্থাগুলি দ্বারা সু-নথিবদ্ধ। আপনি নিম্নলিখিত ঠিকানাগুলিতে বিস্তারিত সাংবাদিকতার সময়রেখা পড়তে পারেন: [২৩]</p>
+            
+            <ul>
+                <li data-lang="en">The Daily Star Uprising Timeline: <span class="text-link">thedailystar.net/july-uprising</span></li>
+                <li data-lang="bn">দ্য ডেইলি স্টার অভ্যুত্থান টাইমলাইন: <span class="text-link">thedailystar.net/july-uprising</span></li>
+                
+                <li data-lang="en">The Daily Star July 18 Coverage: <span class="text-link">thedailystar.net/july-rocked-bangladesh/news/july-18-2024-deadliest-day-yet-quota-protests-3942211</span></li>
+                <li data-lang="bn">দ্য ডেইলি স্টার ১৮ জুলাই কভারেজ: <span class="text-link">thedailystar.net/july-rocked-bangladesh/news/july-18-2024-deadliest-day-yet-quota-protests-3942211</span></li>
+                
+                <li data-lang="en">Wikipedia's July Uprising Record: <span class="text-link">en.wikipedia.org/wiki/July_Uprising</span></li>
+                <li data-lang="bn">উইকিপিডিয়ার জুলাই অভ্যুত্থান রেকর্ড: <span class="text-link">en.wikipedia.org/wiki/July_Uprising</span></li>
+                
+                <li data-lang="en">Prothom Alo Quota Timeline: <span class="text-link">en.prothomalo.com/bangladesh/5jvl0xye5l</span> [24, 25]</li>
+                <li data-lang="bn">প্রথম আলো কোটা টাইমলাইন: <span class="text-link">en.prothomalo.com/bangladesh/5jvl0xye5l</span> [২৪, ২৫]</li>
+            </ul>
+
+            <br>
+            
+            <p data-lang="en">
+                [1] <span class="text-link">https://www.thehindu.com/news/international/bangladesh-army-enforces-curfew-as-student-led-protests-spiral/article68425139.ece</span><br>
+                [2] <span class="text-link">https://www.thedailystar.net/july-rocked-bangladesh/news/july-18-2024-deadliest-day-yet-quota-protests-3942211</span><br>
+                [3] <span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement</span><br>
+                [4] <span class="text-link">https://www.voanews.com/a/timeline-of-events-leading-to-the-resignation-of-bangladesh-prime-minister-sheikh-hasina/7731456.html</span><br>
+                [5] <span class="text-link">https://www.voanews.com/a/bangladesh-tv-news-off-air-communications-widely-disrupted-as-student-protests-spike/7704501.html</span><br>
+                [6] <span class="text-link">https://en.wikipedia.org/wiki/July_Uprising</span><br>
+                [7] <span class="text-link">https://brill.com/view/journals/jbds/27/2/article-p158_3.xml</span><br>
+                [8] <span class="text-link">https://thedailystar.net/july-uprising</span><br>
+                [9] <span class="text-link">https://www.amnesty.org/en/latest/news/2024/07/what-is-happening-at-the-quota-reform-protests-in-bangladesh/</span><br>
+                [10] <span class="text-link">https://ooni.org/post/2025-bangladesh-report/</span><br>
+                [11] <span class="text-link">https://www.thedailystar.net/july-rocked-bangladesh/news/july-18-2024-deadliest-day-yet-quota-protests-3942211</span><br>
+                [12] <span class="text-link">https://www.reuters.com/world/asia-pacific/bangladesh-shuts-universities-colleges-indefinitely-after-protests-turn-deadly-2024-07-17/</span><br>
+                [13] <span class="text-link">https://www.krctimes.com/news/gopalganj-carnage/</span><br>
+                [14] <span class="text-link">https://www.facebook.com/EUAsylumAgency/posts/in-mid-2024-mass-student-protests-erupted-across-bangladesh-following-the-reintr/1118323810477003/</span><br>
+                [15] <span class="text-link">https://www.bssnews.net/july-uprising/293119</span><br>
+                [16] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/quota-reform-protests-across-bangladesh-3659566</span><br>
+                [17] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/while-we-were-gone-3660066</span><br>
+                [18] <span class="text-link">https://www.voanews.com/a/timeline-of-events-leading-to-the-resignation-of-bangladesh-prime-minister-sheikh-hasina/7731456.html</span><br>
+                [19] <span class="text-link">https://en.wikipedia.org/wiki/July_Uprising</span><br>
+                [20] <span class="text-link">https://www.thehindu.com/news/international/bangladesh-protests-army-out-in-force-as-police-fire-on-demonstrators/article68426827.ece</span><br>
+                [21] <span class="text-link">https://thedailystar.net/july-uprising</span><br>
+                [22] <span class="text-link">https://www.thedailystar.net/business/news/what-you-need-know-about-internet-crackdown-bangladesh-3676346</span><br>
+                [23] <span class="text-link">https://ooni.org/post/2025-bangladesh-report/</span><br>
+                [24] <span class="text-link">https://www.facebook.com/DailyStarNews/posts/for-timeline-what-began-as-a-student-led-movement-for-quota-reform-quickly-escal/848222310792383/</span><br>
+                [25] <span class="text-link">https://www.isas.nus.edu.sg/papers/a-year-after-bangladeshs-uprising-fragmented-politics-and-disunity/</span>
+            </p>
+            <p data-lang="bn">
+                [১] <span class="text-link">https://www.thehindu.com/news/international/bangladesh-army-enforces-curfew-as-student-led-protests-spiral/article68425139.ece</span><br>
+                [২] <span class="text-link">https://www.thedailystar.net/july-rocked-bangladesh/news/july-18-2024-deadliest-day-yet-quota-protests-3942211</span><br>
+                [৩] <span class="text-link">https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement</span><br>
+                [৪] <span class="text-link">https://www.voanews.com/a/timeline-of-events-leading-to-the-resignation-of-bangladesh-prime-minister-sheikh-hasina/7731456.html</span><br>
+                [৫] <span class="text-link">https://www.voanews.com/a/bangladesh-tv-news-off-air-communications-widely-disrupted-as-student-protests-spike/7704501.html</span><br>
+                [৬] <span class="text-link">https://en.wikipedia.org/wiki/July_Uprising</span><br>
+                [৭] <span class="text-link">https://brill.com/view/journals/jbds/27/2/article-p158_3.xml</span><br>
+                [৮] <span class="text-link">https://thedailystar.net/july-uprising</span><br>
+                [৯] <span class="text-link">https://www.amnesty.org/en/latest/news/2024/07/what-is-happening-at-the-quota-reform-protests-in-bangladesh/</span><br>
+                [১০] <span class="text-link">https://ooni.org/post/2025-bangladesh-report/</span><br>
+                [১১] <span class="text-link">https://www.thedailystar.net/july-rocked-bangladesh/news/july-18-2024-deadliest-day-yet-quota-protests-3942211</span><br>
+                [১২] <span class="text-link">https://www.reuters.com/world/asia-pacific/bangladesh-shuts-universities-colleges-indefinitely-after-protests-turn-deadly-2024-07-17/</span><br>
+                [১৩] <span class="text-link">https://www.krctimes.com/news/gopalganj-carnage/</span><br>
+                [১৪] <span class="text-link">https://www.facebook.com/EUAsylumAgency/posts/in-mid-2024-mass-student-protests-erupted-across-bangladesh-following-the-reintr/1118323810477003/</span><br>
+                [১৫] <span class="text-link">https://www.bssnews.net/july-uprising/293119</span><br>
+                [১৬] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/quota-reform-protests-across-bangladesh-3659566</span><br>
+                [১৭] <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/while-we-were-gone-3660066</span><br>
+                [১৮] <span class="text-link">https://www.voanews.com/a/timeline-of-events-leading-to-the-resignation-of-bangladesh-prime-minister-sheikh-hasina/7731456.html</span><br>
+                [১৯] <span class="text-link">https://en.wikipedia.org/wiki/July_Uprising</span><br>
+                [২০] <span class="text-link">https://www.thehindu.com/news/international/bangladesh-protests-army-out-in-force-as-police-fire-on-demonstrators/article68426827.ece</span><br>
+                [২১] <span class="text-link">https://thedailystar.net/july-uprising</span><br>
+                [২২] <span class="text-link">https://www.thedailystar.net/business/news/what-you-need-know-about-internet-crackdown-bangladesh-3676346</span><br>
+                [২৩] <span class="text-link">https://ooni.org/post/2025-bangladesh-report/</span><br>
+                [২৪] <span class="text-link">https://www.facebook.com/DailyStarNews/posts/for-timeline-what-began-as-a-student-led-movement-for-quota-reform-quickly-escal/848222310792383/</span><br>
+                [২৫] <span class="text-link">https://www.isas.nus.edu.sg/papers/a-year-after-bangladeshs-uprising-fragmented-politics-and-disunity/</span>
+            </p>
+
+        </article>
+    </main>
+
+    <!-- =======================================================================
+         MODALS (Pure Custom UI, NO alerts/prompts)
+         ======================================================================= -->
+    
+    <!-- 1. Print Selection Modal -->
+    <div class="modal-overlay no-print" id="printModal">
+        <div class="modal-content">
+            <h3 class="modal-title" data-lang="en">Print Configuration</h3>
+            <h3 class="modal-title" data-lang="bn">প্রিন্ট কনফিগারেশন</h3>
+            
+            <p class="modal-text" data-lang="en">What language version would you like to print?</p>
+            <p class="modal-text" data-lang="bn">আপনি কোন ভাষার সংস্করণটি প্রিন্ট করতে চান?</p>
+            
+            <div class="print-options">
+                <button class="print-opt-btn" onclick="executePrint('en')">
+                    English Only (শুধুমাত্র ইংরেজি)
+                </button>
+                <button class="print-opt-btn" onclick="executePrint('bn')">
+                    Bangla Only (শুধুমাত্র বাংলা)
+                </button>
+                <button class="print-opt-btn" onclick="executePrint('both')">
+                    Both Languages (উভয় ভাষা)
+                </button>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn btn-outline" onclick="closeModals()">
+                    <span data-lang="en">Cancel</span>
+                    <span data-lang="bn">বাতিল করুন</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Share Success Modal -->
+    <div class="modal-overlay no-print" id="shareModal">
+        <div class="modal-content">
+            <!-- Checkmark SVG -->
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#28a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 1rem auto; display: block;">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            
+            <h3 class="modal-title" data-lang="en">Link Copied!</h3>
+            <h3 class="modal-title" data-lang="bn">লিঙ্ক কপি হয়েছে!</h3>
+            
+            <p class="modal-text" data-lang="en">The canonical article link has been copied to your clipboard.</p>
+            <p class="modal-text" data-lang="bn">নিবন্ধের লিঙ্কটি আপনার ক্লিপবোর্ডে কপি করা হয়েছে।</p>
+            
+            <div style="background: var(--highlight-bg); padding: 8px; border-radius: 4px; margin-bottom: 16px; font-size: 0.8rem; word-break: break-all; color: var(--text-secondary);">
+                https://istiack.ami.bd/july-corner/18-july/
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn btn-primary" onclick="closeModals()">
+                    <span data-lang="en">Close</span>
+                    <span data-lang="bn">বন্ধ করুন</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         JAVASCRIPT LOGIC
+         ======================================================================= -->
+    <script>
+        /**
+         * State Management
+         */
+        let currentLanguage = 'en'; // Default language
+
+        /**
+         * System Initialization
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial language explicitly on the HTML tag
+            document.documentElement.setAttribute('lang', currentLanguage);
+            
+            // Note: The content is already statically rendered in the HTML for SEO and 
+            // immediate loading. The CSS [lang="en"] and [lang="bn"] selectors handle 
+            // the display toggling natively without requiring heavy DOM manipulation.
+            // A JSON object structure could be used to inject content dynamically, 
+            // but for a strict dual-language setup, native DOM with CSS toggles is 
+            // faster, more semantic, and highly SEO friendly.
+        });
+
+        /**
+         * Toggle Language function
+         * Swaps the lang attribute on the HTML root, CSS instantly handles visibility
+         */
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'bn' : 'en';
+            document.documentElement.setAttribute('lang', currentLanguage);
+        }
+
+        /**
+         * Modal Logic
+         */
+        function openPrintModal() {
+            document.getElementById('printModal').classList.add('active');
+        }
+
+        function openShareModal() {
+            // Target Canonical URL without trailing index.html
+            const targetUrl = 'https://istiack.ami.bd/july-corner/18-july/';
+            
+            // Use Clipboard API with fallback for older browsers/iframes
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(targetUrl).then(() => {
+                    showShareSuccess();
+                }).catch(err => {
+                    fallbackCopyTextToClipboard(targetUrl);
+                });
+            } else {
+                fallbackCopyTextToClipboard(targetUrl);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showShareSuccess();
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showShareSuccess() {
+            document.getElementById('shareModal').classList.add('active');
+        }
+
+        function closeModals() {
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => modal.classList.remove('active'));
+        }
+
+        /**
+         * Advanced Print Execution
+         * Temporarily sets a data attribute on the body to override standard CSS
+         * language visibility rules just for the print dialog.
+         */
+        function executePrint(mode) {
+            // 1. Close Modal
+            closeModals();
+            
+            // 2. Set print mode attribute on body
+            // mode = 'en', 'bn', or 'both'
+            document.body.setAttribute('data-print-mode', mode);
+            
+            // 3. Trigger print dialog (slight timeout ensures CSS catches up)
+            setTimeout(() => {
+                window.print();
+                
+                // 4. Clean up after print dialog closes
+                // We use an event listener for standard cleanup
+                document.body.removeAttribute('data-print-mode');
+            }, 150);
+        }
+
+        // Close modals on clicking outside content
+        window.addEventListener('click', (event) => {
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

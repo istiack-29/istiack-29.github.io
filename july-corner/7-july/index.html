@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 July, 2024</title>
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="ISTIACK'S JULY CORNER - 7 July Bangla Blockade & BCS Scandal">
+    <meta property="og:description" content="On July 7, 2024, the Bangladesh Quota Reform Movement reached a major inflection point with the launch of the nationwide Bangla Blockade.">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:type" content="article">
+    
+    <style>
+        /* ----------------------------------------------------
+           CSS VARIABLES & DESIGN TOKENS
+        ---------------------------------------------------- */
+        :root {
+            --color-bg: #fdfdfb;
+            --color-text-main: #1a1a1a;
+            --color-text-muted: #555555;
+            --color-border: #e0e0d8;
+            --color-accent: #222222;
+            --color-accent-light: #f5f5f0;
+            --color-success: #2e7d32;
+            
+            /* Custom Font Bindings */
+            --font-en-main: 'EnglishMain', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-en-header: 'EnglishHeader', Georgia, "Times New Roman", serif;
+            --font-bn-header: 'BanglaHeader', "SolaimanLipi", "Kalpurush", sans-serif;
+            --font-bn-main: 'BanglaMain', "SutonnyMJ", "Vrinda", sans-serif;
+            
+            /* Fluid active variables overridden by JS language selection */
+            --active-font-main: var(--font-en-main);
+            --active-font-header: var(--font-en-header);
+            
+            --max-width: 720px;
+            --header-height: 70px;
+        }
+
+        /* Font Family Definitions */
+        @font-face {
+            font-family: 'EnglishMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'EnglishHeader';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'BanglaHeader';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'BanglaMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ----------------------------------------------------
+           BASE RESET & LAYOUT
+        ---------------------------------------------------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: var(--active-font-main);
+            line-height: 1.75;
+            padding-top: var(--header-height);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ----------------------------------------------------
+           FIXED BILINGUAL HEADER
+        ---------------------------------------------------- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(253, 253, 251, 0.96);
+            border-bottom: 2px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-text-main);
+        }
+
+        .logo-container {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Grayscale to full rendering fallback */
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            filter: grayscale(0%);
+        }
+
+        .newspaper-title {
+            font-family: var(--active-font-header);
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Lang switcher button with direct variable control */
+        .lang-switch-btn {
+            font-family: var(--active-font-main);
+            background: none;
+            border: 1px solid var(--color-text-main);
+            color: var(--color-text-main);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lang-switch-btn:hover {
+            background-color: var(--color-accent-light);
+        }
+
+        /* ----------------------------------------------------
+           ARTICLE CONTAINER
+        ---------------------------------------------------- */
+        .article-wrapper {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem;
+        }
+
+        /* Hero banner layout */
+        .hero-banner {
+            width: 100%;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Metadata & Share Bar */
+        .meta-actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+            padding: 0.75rem 0;
+            margin-bottom: 2.5rem;
+        }
+
+        .meta-info {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            font-family: var(--active-font-main);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            background-color: var(--color-accent-light);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-main);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-family: var(--active-font-main);
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+            border-color: var(--color-accent);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* ----------------------------------------------------
+           ARTICLE BODY TYPOGRAPHY
+        ---------------------------------------------------- */
+        article {
+            font-size: 1.125rem;
+            line-height: 1.85;
+            color: var(--color-text-main);
+        }
+
+        article h1 {
+            font-family: var(--active-font-header);
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        article h2 {
+            font-family: var(--active-font-header);
+            font-size: 1.65rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 0.5rem;
+        }
+
+        article p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        article ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        article li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            list-style: square;
+        }
+
+        /* Custom text reference style instead of links */
+        .text-reference {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            background-color: var(--color-accent-light);
+            padding: 0.1rem 0.4rem;
+            border-radius: 2px;
+            margin-left: 0.2rem;
+            vertical-align: super;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--color-border);
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .divider::after {
+            content: "✦ ✦ ✦";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--color-bg);
+            padding: 0 1rem;
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+        }
+
+        /* Secondary Article Image (Required without caption) */
+        .article-image {
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Sources Box */
+        .sources-box {
+            background-color: var(--color-accent-light);
+            border-left: 4px solid var(--color-accent);
+            padding: 1.5rem;
+            margin-top: 3rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sources-box h3 {
+            font-family: var(--active-font-header);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sources-list {
+            list-style: none !important;
+            padding-left: 0 !important;
+        }
+
+        .sources-list li {
+            list-style: none !important;
+            font-size: 0.9rem;
+            margin-bottom: 0.85rem;
+            word-break: break-all;
+            color: var(--color-text-muted);
+        }
+
+        .source-label {
+            font-weight: 700;
+            color: var(--color-text-main);
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        /* Non-hyperlinked text display */
+        .raw-link {
+            font-family: monospace;
+            background-color: rgba(0,0,0,0.03);
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+        }
+
+        /* ----------------------------------------------------
+           ALERT TOAST SYSTEM
+        ---------------------------------------------------- */
+        #toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            pointer-events: none;
+        }
+
+        .toast {
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            font-family: var(--active-font-main);
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: auto;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ----------------------------------------------------
+           MODALS (PRINT PROMPT SYSTEM)
+        ---------------------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background-color: var(--color-bg);
+            border: 2px solid var(--color-accent);
+            padding: 2rem;
+            border-radius: 6px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: scale(0.9);
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-family: var(--active-font-header);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-main);
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .modal-desc {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-option-btn {
+            background-color: var(--color-accent-light);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-main);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-family: var(--active-font-main);
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            font-weight: 500;
+        }
+
+        .modal-option-btn:hover {
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+            border-color: var(--color-accent);
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            text-decoration: underline;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* ----------------------------------------------------
+           PRINT DESIGN SYSTEM (STRICT PRINT RULES)
+        ---------------------------------------------------- */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                padding-top: 0 !important;
+                font-size: 11pt !important;
+                line-height: 1.6 !important;
+            }
+
+            header, 
+            .meta-actions-bar, 
+            #toast-container, 
+            .modal-overlay,
+            video {
+                display: none !important;
+            }
+
+            .article-wrapper {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* Enable custom @font-face rendering on physical prints */
+            * {
+                font-family: var(--active-font-main) !important;
+            }
+
+            h1, h2, h3 {
+                font-family: var(--active-font-header) !important;
+                color: #000000 !important;
+                page-break-after: avoid;
+            }
+
+            /* Print-only translations render blocks */
+            .print-only-container {
+                display: block !important;
+            }
+
+            /* Keep all image tags intact during printing */
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+                page-break-inside: avoid;
+            }
+
+            .sources-box {
+                background-color: #ffffff !important;
+                border-left: 3px solid #000000 !important;
+                page-break-inside: avoid;
+            }
+
+            .raw-link {
+                background-color: transparent !important;
+                font-family: monospace !important;
+            }
+        }
+
+        /* Responsive UI Optimization */
+        @media (max-width: 600px) {
+            :root {
+                --header-height: 60px;
+            }
+            header {
+                padding: 0 1rem;
+            }
+            .newspaper-title {
+                font-size: 1.05rem;
+            }
+            .lang-switch-btn {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.75rem;
+            }
+            article h1 {
+                font-size: 1.85rem;
+            }
+            article h2 {
+                font-size: 1.35rem;
+            }
+            .article-wrapper {
+                padding: 1.5rem 1rem;
+            }
+            .meta-actions-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .action-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FIXED HEADER -->
+    <header>
+        <a href="#" class="header-brand">
+            <div class="logo-container">
+                <!-- Using absolute root alignment as configured in local setup -->
+                <img src="/home.png" alt="Logo" onerror="this.style.display='none';">
+            </div>
+            <span class="newspaper-title" id="newspaper-name">ISTIACK'S JULY CORNER</span>
+        </a>
+        <button class="lang-switch-btn" id="lang-switch" onclick="toggleLanguage()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+            </svg>
+            <span id="lang-btn-text">Read in Bangla</span>
+        </button>
+    </header>
+
+    <!-- ARTICLE WRAPPER -->
+    <main class="article-wrapper" id="main-content">
+        
+        <!-- Top banner picture (t.png, no caption) -->
+        <div class="hero-banner">
+            <img src="./t.png" alt="Banner Image" onerror="this.src='https://placehold.co/720x400?text=t.png';">
+        </div>
+
+        <!-- Action / Metadata bar -->
+        <div class="meta-actions-bar">
+            <div class="meta-info" id="article-meta">
+                Published: July 7, 2024
+            </div>
+            <div class="action-buttons">
+                <!-- Share Button -->
+                <button class="btn" id="share-btn" onclick="shareArticle()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                    </svg>
+                    <span id="share-text">Share</span>
+                </button>
+                <!-- Print Button -->
+                <button class="btn" id="print-btn" onclick="openPrintModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+                    </svg>
+                    <span id="print-text">Print</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Renderable Article Dynamic Context -->
+        <article id="article-payload">
+            <!-- Programmatically Injected Content -->
+        </article>
+
+        <!-- Secondary Local Image Block inside article body (No caption) -->
+        <div class="article-image">
+            <img src="/july-corner/6-july/students.jpg" alt="Secondary Picture" onerror="this.src='https://placehold.co/720x450?text=students.jpg';">
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Dynamic Sources Segment (Displays Raw URL string text strictly, no hyperlinks) -->
+        <div class="sources-box" id="sources-payload">
+            <!-- Programmatically Injected Sources -->
+        </div>
+
+    </main>
+
+    <!-- CUSTOM TOAST NOTIFICATION POPUP -->
+    <div id="toast-container"></div>
+
+    <!-- PRINT DECISION MODAL OVERLAY -->
+    <div class="modal-overlay" id="print-modal">
+        <div class="modal-card">
+            <h4 class="modal-title" id="modal-title-text">Print Document Configuration</h4>
+            <p class="modal-desc" id="modal-desc-text">Please choose your preferred language format to render before triggering the printer layout interface:</p>
+            <div class="modal-options">
+                <button class="modal-option-btn" onclick="handlePrintExecution('en')">Print in English (ইংরেজিতে প্রিন্ট করুন)</button>
+                <button class="modal-option-btn" onclick="handlePrintExecution('bn')">Print in Bangla (বাংলায় প্রিন্ট করুন)</button>
+                <button class="modal-option-btn" onclick="handlePrintExecution('both')">Print Both / Dual-Language (উভয় সংস্করণ প্রিন্ট করুন)</button>
+            </div>
+            <button class="modal-close-btn" onclick="closePrintModal()" id="modal-close-text">Cancel / ফিরে যান</button>
+        </div>
+    </div>
+
+    <!-- Dual Language In-Memory State & Controller System -->
+    <script>
+        // Set dynamic date representation matching canonical naming rule
+        const CURRENT_DATE_KEY = "7"; // Representing 7-july
+        const CANONICAL_SHARE_BASE = `https://istiack.ami.bd/july-corner/${CURRENT_DATE_KEY}-july/`;
+
+        // ----------------------------------------------------
+        // ENGLISH CONTENT DATA PACKET
+        // ----------------------------------------------------
+        const contentEN = {
+            langButton: "ইংরেজিতে পড়ুন",
+            meta: "Published: July 7, 2024",
+            shareBtn: "Share Link",
+            printBtn: "Print Article",
+            title: "The Bangla Blockade: 7 July 2024 Inflection Point",
+            body: `
+                <p>On July 7, 2024, the <span class="text-reference">Bangladesh Quota Reform Movement</span> reached a major inflection point. It transitioned from localized campus sit-ins into a massive, highly coordinated nationwide civic disruption. This was the day the iconic "Bangla Blockade" (বাংলা ব্লকেড) program was officially launched. <span class="text-reference">[1, 2, 3]</span></p>
+                
+                <h2>1. Main Event: Launch of the "Bangla Blockade"</h2>
+                <p>The Anti-Discrimination Student Movement (the umbrella student platform leading the protests) officially kicked off the "Bangla Blockade" at 3:00 PM on July 7, 2024. The objective was to completely halt public transport, major highways, and railway lines throughout the country to pressure the government into reforming the 56% public job quota system. <span class="text-reference">[3, 4, 5]</span></p>
+                
+                <h2>2. Breakdown of Major Key Locations Hit by Blockades</h2>
+                <ul>
+                    <li><strong>Dhaka (The Epicenter):</strong> Students from Dhaka University, Jagannath University, and various colleges marched in massive processions. They completely locked down critical traffic intersections including Shahbagh, Science Lab, Chankharpool, Nilkhet, Agargaon, and Mohakhali. This brought the capital city’s entire transportation system to an absolute standstill for hours. <span class="text-reference">[6, 7, 8, 9, 10]</span></li>
+                    <li><strong>Chittagong:</strong> Students from Chittagong University and local colleges blocked the crucial Sholoshahar rail station and key urban intersections, cutting off internal city mobility. <span class="text-reference">[4]</span></li>
+                    <li><strong>Other Major Cities:</strong> Simultaneous blockades completely choked up highways and transit points in Rajshahi, Comilla, Jessore, Rangpur, and Bogra. <span class="text-reference">[11]</span></li>
+                    <li><strong>The Railways:</strong> Protesters sat on railway tracks at multiple locations, completely disrupting train schedules connecting Dhaka to the rest of the country. <span class="text-reference">[12]</span></li>
+                </ul>
+
+                <h2>3. Parallel Shock: The BCS Question Leak Scandal</h2>
+                <p>Coincidentally, July 7, 2024, was also the exact day a major investigative journalism report broke in Bangladesh. It revealed that questions for the Bangladesh Civil Service (BCS) exams had been systematically leaked by corrupt officials for over 12 years. This fueled the students' anger exponentially. They realized that while 56% of jobs were blocked by quotas, the remaining 44% "merit" seats were being compromised by corruption, supercharging the movement's momentum over the following days. <span class="text-reference">[13, 14, 15, 16]</span></p>
+            `,
+            sourcesTitle: "Sourcing & Verification Links (Text Format)",
+            sourcesDesc: "Below are the text URLs where these specific daily timelines, events, and background details are documented:",
+            sources: [
+                { id: "1", text: "Wikipedia - Movement Overview & July 7 Bangla Blockade:", url: "https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement" },
+                { id: "2", text: "BDNews24 - Step-by-Step July Timeline Records:", url: "https://bdnews24.com/bangladesh/2cfe08a184cb" },
+                { id: "3", text: "SOAS University of London - Analysis of the July 7 BCS Leak and Movement Intersection:", url: "https://www.soas.ac.uk/about/blogs/2024-uprising-bangladesh-more-just-quota-reform" },
+                { id: "4", text: "[1] SAGE Journals Resource Location:", url: "https://journals.sagepub.com" },
+                { id: "5", text: "[5] EU Asylum Agency Report Context:", url: "https://www.facebook.com" },
+                { id: "6", text: "[6] Taylor & Francis Online Context:", url: "https://www.tandfonline.com" },
+                { id: "7", text: "[7] The Daily Star Detailed Outbreak Records:", url: "https://www.thedailystar.net" },
+                { id: "8", text: "[9] Scribd Documentation Repository:", url: "https://www.scribd.com" },
+                { id: "9", text: "[10] Prothom Alo City Reporting Records:", url: "https://en.prothomalo.com" },
+                { id: "10", text: "[12] Bangladesh Sangbad Sangstha Records:", url: "https://www.bssnews.net" },
+                { id: "11", text: "[14] Scroll In Mass Revolution Analysis:", url: "https://scroll.in" },
+                { id: "12", text: "[15] Voice Of America (VOA) Timelines:", url: "https://www.voanews.com" },
+                { id: "13", text: "[16] OSAC Security Safety Advisory Reports:", url: "https://www.osac.gov" },
+                { id: "14", text: "[17] Institute of South Asian Studies Records:", url: "https://www.isas.nus.edu.sg" }
+            ],
+            modalTitle: "Configure Print Options",
+            modalDesc: "Specify how you wish to format this historic archive for print production output:",
+            modalClose: "Dismiss Setup"
+        };
+
+        // ----------------------------------------------------
+        // BANGLA CONTENT DATA PACKET
+        // ----------------------------------------------------
+        const contentBN = {
+            langButton: "Read in English",
+            meta: "প্রকাশিত হয়েছে: ৭ জুলাই, ২০২৪",
+            shareBtn: "শেয়ার করুন",
+            printBtn: "প্রিন্ট করুন",
+            title: "বাংলা ব্লকেড: ৭ জুলাই ২০২৪-এর ঐতিহাসিক রূপান্তর",
+            body: `
+                <p>২০২৪ সালের ৭ জুলাই, <span class="text-reference">বাংলাদেশ কোটা সংস্কার আন্দোলন</span> একটি অত্যন্ত গুরুত্বপূর্ণ মোড় নেয়। ক্যাম্পাসের সীমাবদ্ধ অবস্থান ধর্মঘট থেকে এটি একটি ব্যাপক, অত্যন্ত সুসংগঠিত দেশব্যাপী নাগরিক অবরোধের রূপ ধারণ করে। এই দিনেই আনুষ্ঠানিকভাবে শুরু হয়েছিল ঐতিহাসিক "বাংলা ব্লকেড" (Bangla Blockade) কর্মসূচি। <span class="text-reference">[১, ২, ৩]</span></p>
+                
+                <h2>১. মূল ঘটনা: "বাংলা ব্লকেড" এর সূচনা</h2>
+                <p>বৈষম্যবিরোধী ছাত্র আন্দোলন (বিক্ষোভের নেতৃত্বদানকারী সমন্বিত ছাত্র প্ল্যাটফর্ম) ৭ জুলাই, ২০২৪ তারিখে দুপুর ৩:০০ টায় আনুষ্ঠানিকভাবে "বাংলা ব্লকেড" কর্মসূচি শুরু করে। এর মূল উদ্দেশ্য ছিল সরকারি চাকরির ৫৬% কোটা ব্যবস্থা সংস্কারের দাবিতে সরকারের ওপর চাপ সৃষ্টির উদ্দেশ্যে সারা দেশে গণপরিবহন, প্রধান মহাসড়ক এবং রেলপথ সম্পূর্ণ বন্ধ করে দেওয়া। <span class="text-reference">[৩, ৪, ৫]</span></p>
+                
+                <h2>২. অবরোধের মুখে পড়া প্রধান প্রধান গুরুত্বপূর্ণ এলাকার বিবরণ</h2>
+                <ul>
+                    <li><strong>ঢাকা (মূল কেন্দ্রবিন্দু):</strong> ঢাকা বিশ্ববিদ্যালয়, জগন্নাথ বিশ্ববিদ্যালয় এবং বিভিন্ন কলেজের শিক্ষার্থীরা বিশাল মিছিল নিয়ে বের হন। তারা শাহবাগ, সায়েন্স ল্যাব, চাঁনখারপুল, নীলক্ষেত, আগারগাঁও এবং মহাখালী সহ সমস্ত গুরুত্বপূর্ণ ট্রাফিক ইন্টারসেকশন সম্পূর্ণ অবরুদ্ধ করে ফেলেন। এর ফলে ঘণ্টার পর ঘণ্টা রাজধানীর সামগ্রিক যোগাযোগ ব্যবস্থা পুরোপুরি অচল হয়ে পড়ে। <span class="text-reference">[৬, ৭, ৮, ৯, ১০]</span></li>
+                    <li><strong>চট্টগ্রাম:</strong> চট্টগ্রাম বিশ্ববিদ্যালয় ও স্থানীয় কলেজের শিক্ষার্থীরা গুরুত্বপূর্ণ ষোলশহর রেল স্টেশন এবং প্রধান প্রধান নগর মোড় অবরুদ্ধ করে অভ্যন্তরীণ শহরের যোগাযোগ বিচ্ছিন্ন করে দেয়। <span class="text-reference">[৪]</span></li>
+                    <li><strong>অন্যান্য প্রধান শহর:</strong> রাজশাহী, কুমিল্লা, যশোর, রংপুর এবং বগুড়ায় যুগপৎ অবরোধের মাধ্যমে মহাসড়ক এবং ট্রানজিট পয়েন্টগুলো সম্পূর্ণ বন্ধ করে দেওয়া হয়। <span class="text-reference">[১১]</span></li>
+                    <li><strong>রেলপথ অবরুদ্ধকরণ:</strong> বিক্ষোভকারীরা একাধিক স্থানে রেললাইনের ওপর বসে পড়েন, যার ফলে ঢাকার সঙ্গে দেশের বাকি অংশের ট্রেন চলাচল সম্পূর্ণ বিঘ্নিত হয়। <span class="text-reference">[১২]</span></li>
+                </ul>
+
+                <h2>৩. সমান্তরাল আঘাত: বিসিএস প্রশ্ন ফাঁসের কেলেঙ্কারি</h2>
+                <p>কাকতালীয়ভাবে, ৭ জুলাই, ২০২৪ তারিখে বাংলাদেশে একটি যুগান্তকারী অনুসন্ধানী সাংবাদিকতার প্রতিবেদন প্রকাশিত হয়। এতে জানা যায় যে গত ১২ বছরেরও বেশি সময় ধরে দুর্নীতিবাজ কর্মকর্তারা বিসিএস পরীক্ষার প্রশ্নপত্র পদ্ধতিগতভাবে ফাঁস করে আসছিলেন। এই খবরটি শিক্ষার্থীদের ক্ষোভকে বহুগুণে বাড়িয়ে দেয়। শিক্ষার্থীরা বুঝতে পেরেছিল যে একদিকে ৫৬% আসন কোটার মাধ্যমে বন্ধ ছিল, অন্যদিকে অবশিষ্ট ৪৪% "মেধা" তালিকাও দুর্নীতির শিকার হচ্ছিল। এই ক্ষোভ পরবর্তী দিনগুলোতে আন্দোলনকে আরও শক্তিশালী রূপ দেয়। <span class="text-reference">[১৩, ૧৪, ১৫, ১৬]</span></p>
+            `,
+            sourcesTitle: "উৎস এবং সত্যতা যাচাইকরণের লিঙ্ক (টেক্সট ফরম্যাট)",
+            sourcesDesc: "নিচে দেওয়া টেক্সট ইউআরএলগুলোতে এই সুনির্দিষ্ট দৈনিক সময়রেখা, ঘটনা এবং আন্দোলনের পটভূমি বিশদভাবে নথিভুক্ত করা হয়েছে:",
+            sources: [
+                { id: "1", text: "উইকিপিডিয়া - আন্দোলন পর্যালোচনা এবং ৭ জুলাইয়ের বাংলা ব্লকেড বিবরণ:", url: "https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement" },
+                { id: "2", text: "বিডিনিউজ২৪ - ধাপে ধাপে জুলাইয়ের বিস্তারিত ঘটনাপঞ্জি বিবরণ:", url: "https://bdnews24.com/bangladesh/2cfe08a184cb" },
+                { id: "3", text: "এসওএএস লন্ডন বিশ্ববিদ্যালয় - বিসিএস প্রশ্ন ফাঁস ও আন্দোলনের সংযোগ বিশ্লেষণ:", url: "https://www.soas.ac.uk/about/blogs/2024-uprising-bangladesh-more-just-quota-reform" },
+                { id: "4", text: "[১] সেজ জার্নালস সোর্স লিংক:", url: "https://journals.sagepub.com" },
+                { id: "5", text: "[৫] ইইউ অ্যাসাইলাম এজেন্সি কান্ট্রি রিপোর্ট রেফারেন্স:", url: "https://www.facebook.com" },
+                { id: "6", text: "[৬] টেলর অ্যান্ড ফ্রান্সিস অনলাইন জার্নাল রিসোর্স:", url: "https://www.tandfonline.com" },
+                { id: "7", text: "[৭] ডেইলি স্টার ঘটনার বিস্তারিত তথ্য চিত্র:", url: "https://www.thedailystar.net" },
+                { id: "8", text: "[৯] স্ক্রিবড আন্দোলন নথি এবং বিবরণপত্র:", url: "https://www.scribd.com" },
+                { id: "9", text: "[১০] প্রথম আলো স্থানীয় সংবাদ প্রতিবেদন আর্কাইভ:", url: "https://en.prothomalo.com" },
+                { id: "10", text: "[১২] বাংলাদেশ সংবাদ সংস্থা (বিএসএস) বিবরণী:", url: "https://www.bssnews.net" },
+                { id: "11", text: "[১৪] স্ক্রল ইন গণ-অভ্যুত্থান বিস্তারিত পর্যবেক্ষণ:", url: "https://scroll.in" },
+                { id: "12", text: "[১৫] ভয়েস অফ আমেরিকা (ভিওএ) বিশেষ প্রতিবেদন:", url: "https://www.voanews.com" },
+                { id: "13", text: "[১৬] ওএসএসি নিরাপত্তা সংক্রান্ত আন্তর্জাতিক অ্যাডভাইজরি:", url: "https://www.osac.gov" },
+                { id: "14", text: "[১৭] ইনস্টিটিউট অফ সাউথ এশিয়ান স্টাডিজ নিবন্ধ:", url: "https://www.isas.nus.edu.sg" }
+            ],
+            modalTitle: "প্রিন্ট বিন্যাস নির্বাচন করুন",
+            modalDesc: "এই ঐতিহাসিক আর্কাইভ সংস্করণটি প্রিন্ট করার পূর্বে আপনার পছন্দের লেআউট ভাষা নির্ধারণ করুন:",
+            modalClose: "বাতিল করুন"
+        };
+
+        // Current Active System Language State
+        let currentLang = 'en';
+
+        // ----------------------------------------------------
+        // SYSTEM CONTROLLERS & ENGINE FUNCTIONS
+        // ----------------------------------------------------
+        function updatePageLanguage() {
+            const content = (currentLang === 'en') ? contentEN : contentBN;
+            const root = document.documentElement;
+
+            // Strict font binding override according to language state
+            if (currentLang === 'en') {
+                root.style.setProperty('--active-font-main', 'var(--font-en-main)');
+                root.style.setProperty('--active-font-header', 'var(--font-en-header)');
+                document.getElementById('lang-btn-text').innerText = "Read in Bangla";
+                document.getElementById('lang-switch').style.fontFamily = "var(--font-en-main)";
+            } else {
+                root.style.setProperty('--active-font-main', 'var(--font-bn-main)');
+                root.style.setProperty('--active-font-header', 'var(--font-bn-header)');
+                document.getElementById('lang-btn-text').innerText = "ইংরেজিতে পড়ুন";
+                document.getElementById('lang-switch').style.fontFamily = "var(--font-bn-main)";
+            }
+
+            // Update Header brand title and layout elements
+            document.getElementById('newspaper-name').style.fontFamily = "var(--active-font-header)";
+            document.getElementById('article-meta').innerText = content.meta;
+            document.getElementById('share-text').innerText = content.shareBtn;
+            document.getElementById('print-text').innerText = content.printBtn;
+
+            // Injected body content
+            const articleElement = document.getElementById('article-payload');
+            articleElement.innerHTML = `
+                <h1 style="font-family: var(--active-font-header)">${content.title}</h1>
+                ${content.body}
+            `;
+
+            // Setup dynamic text sources block strictly with raw string formatting
+            const sourcesElement = document.getElementById('sources-payload');
+            let sourcesHTML = `
+                <h3 style="font-family: var(--active-font-header)">${content.sourcesTitle}</h3>
+                <p style="margin-bottom: 1rem; font-size: 0.95rem;">${content.sourcesDesc}</p>
+                <ul class="sources-list">
+            `;
+            
+            content.sources.forEach(src => {
+                sourcesHTML += `
+                    <li>
+                        <span class="source-label">${src.text}</span>
+                        <span class="raw-link">${src.url}</span>
+                    </li>
+                `;
+            });
+            sourcesHTML += `</ul>`;
+            sourcesElement.innerHTML = sourcesHTML;
+
+            // Update printable dialog content properties
+            document.getElementById('modal-title-text').innerText = content.modalTitle;
+            document.getElementById('modal-desc-text').innerText = content.modalDesc;
+            document.getElementById('modal-close-text').innerText = content.modalClose;
+        }
+
+        // Toggle language trigger
+        function toggleLanguage() {
+            currentLang = (currentLang === 'en') ? 'bn' : 'en';
+            updatePageLanguage();
+            showToast(currentLang === 'en' ? "Language changed to English" : "ভাষা পরিবর্তন করে বাংলায় রূপান্তর করা হয়েছে");
+        }
+
+        // Clip string execution logic targeting specific customized paths
+        function shareArticle() {
+            const fallbackCopy = (text) => {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed"; 
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(currentLang === 'en' ? "Share URL copied successfully!" : "শেয়ার লিঙ্কটি কপি করা হয়েছে!");
+                } catch (err) {
+                    showToast(currentLang === 'en' ? "Could not copy link." : "লিঙ্ক কপি করা সম্ভব হয়নি।");
+                }
+                document.body.removeChild(textArea);
+            };
+            fallbackCopy(CANONICAL_SHARE_BASE);
+        }
+
+        // Custom Toast system
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 50);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ----------------------------------------------------
+        // PRINT HANDLING ARCHITECTURE
+        // ----------------------------------------------------
+        function openPrintModal() {
+            document.getElementById('print-modal').classList.add('active');
+        }
+
+        function closePrintModal() {
+            document.getElementById('print-modal').classList.remove('active');
+        }
+
+        function handlePrintExecution(mode) {
+            closePrintModal();
+            const originalLang = currentLang;
+
+            if (mode === 'en') {
+                currentLang = 'en';
+                updatePageLanguage();
+                window.print();
+            } else if (mode === 'bn') {
+                currentLang = 'bn';
+                updatePageLanguage();
+                window.print();
+            } else if (mode === 'both') {
+                // Dual Language printing generates a single unified page temporarily
+                const wrapper = document.getElementById('main-content');
+                const backupHTML = wrapper.innerHTML;
+
+                // Set layout fonts dynamically for sequential document display
+                const bnSegment = `
+                    <div style="page-break-before: always; margin-top: 3cm; --active-font-main: var(--font-bn-main); --active-font-header: var(--font-bn-header);">
+                        <h1 style="font-family: var(--font-bn-header); border-bottom: 2px solid #000; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                            ${contentBN.title}
+                        </h1>
+                        ${contentBN.body}
+                        <div class="sources-box" style="margin-top: 2rem; border-left: 3px solid #000; padding-left: 1rem;">
+                            <h3 style="font-family: var(--font-bn-header)">${contentBN.sourcesTitle}</h3>
+                            <p style="margin-bottom: 1rem;">${contentBN.sourcesDesc}</p>
+                            <ul class="sources-list">
+                                ${contentBN.sources.map(src => `<li><strong>${src.text}</strong><br>${src.url}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+
+                // Temporarily inject secondary print layout behind primary block
+                currentLang = 'en';
+                updatePageLanguage();
+                wrapper.innerHTML += bnSegment;
+
+                // Execute system printer routine
+                setTimeout(() => {
+                    window.print();
+                    // Restore original single-view representation
+                    wrapper.innerHTML = backupHTML;
+                    currentLang = originalLang;
+                    updatePageLanguage();
+                }, 150);
+                return;
+            }
+
+            // Restore screen setup after physical printer handoff
+            setTimeout(() => {
+                currentLang = originalLang;
+                updatePageLanguage();
+            }, 1000);
+        }
+
+        // Initial setup sequence on DOM load
+        window.onload = function() {
+            updatePageLanguage();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>July 11, 2024 - ISTIACK'S JULY CORNER</title>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="July 11, 2024: The First Confrontations">
+    <meta property="og:description" content="Chronological blueprint of the first violent confrontations between state law enforcement and student protesters in Bangladesh.">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/11-july/">
+    <meta property="og:type" content="article">
+
+    <style>
+        /* ==========================================================================
+           1. STRICT FONT MANAGEMENT & CSS VARIABLES
+           ========================================================================== */
+        
+        /* English Fonts */
+        @font-face {
+            font-family: 'EnglishMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'EnglishHeader';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Bangla Fonts */
+        @font-face {
+            font-family: 'BanglaHeader';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'BanglaMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* CSS Variables - Mobile First & Minimalist Theme */
+        :root {
+            --bg-color: #FAFAFA;
+            --text-color-primary: #1A1A1A;
+            --text-color-secondary: #4A4A4A;
+            --text-color-muted: #757575;
+            --border-color: #E0E0E0;
+            --accent-color: #000000;
+            --btn-hover: #F0F0F0;
+            --header-height: 64px;
+            --content-width: 720px;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --transition-speed: 0.3s;
+            --radius: 4px;
+            --z-header: 1000;
+            --z-modal: 2000;
+            --z-toast: 3000;
+        }
+
+        /* ==========================================================================
+           2. BASE RESET & TYPOGRAPHY
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Force inheritance so we can strictly control it via body class */
+            font-family: inherit;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Language-Specific Typography Enforcements */
+        /* Every single letter falls under these rules */
+        
+        /* English Mode */
+        body[data-lang="en"] {
+            font-family: 'EnglishMain', Arial, sans-serif;
+            font-size: 18px;
+        }
+        body[data-lang="en"] h1,
+        body[data-lang="en"] h2,
+        body[data-lang="en"] h3,
+        body[data-lang="en"] .newspaper-name,
+        body[data-lang="en"] .font-header-force {
+            font-family: 'EnglishHeader', 'EnglishMain', Arial, sans-serif;
+        }
+
+        /* Bangla Mode */
+        body[data-lang="bn"] {
+            font-family: 'BanglaMain', Arial, sans-serif;
+            font-size: 19px; /* Bangla usually needs slight size bump for readability */
+        }
+        body[data-lang="bn"] h1,
+        body[data-lang="bn"] h2,
+        body[data-lang="bn"] h3,
+        body[data-lang="bn"] .newspaper-name,
+        body[data-lang="bn"] .font-header-force {
+            font-family: 'BanglaHeader', 'BanglaMain', Arial, sans-serif;
+        }
+
+        /* ==========================================================================
+           3. LAYOUT & COMPONENTS
+           ========================================================================== */
+        
+        /* Fixed Header */
+/* Update these specific classes in your existing CSS */
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: #FFFFFF;
+    border-bottom: 1px solid var(--border-color);
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+    /* Changed to space-between to push the menu button to the far right */
+    justify-content: space-between; 
+    padding: 0 var(--spacing-md);
+}
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            text-decoration: none;
+            color: var(--text-color-primary);
+        }
+
+        .site-logo {
+            height: 32px;
+            width: auto;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .newspaper-name {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: none; /* Hidden on mobile, shown on desktop */
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background var(--transition-speed) ease;
+        }
+        
+        .lang-toggle-btn:hover {
+            background: var(--btn-hover);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            color: var(--text-color-primary);
+        }
+
+        /* Main Content Wrapper */
+        .main-content {
+            margin-top: var(--header-height);
+            width: 100%;
+            max-width: var(--content-width);
+            margin-left: auto;
+            margin-right: auto;
+            padding: var(--spacing-md);
+            flex-grow: 1;
+        }
+
+        /* Hero Image - STRICT: t.png, no caption */
+        .hero-image-container {
+            width: 100%;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius);
+            background-color: var(--border-color); /* skeleton placeholder */
+        }
+
+        /* Action Bar (Share / Print) */
+        .article-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: var(--text-color-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 8px 0;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .action-btn:hover {
+            color: var(--accent-color);
+        }
+        
+        .action-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Article Typography & Formatting */
+        .article-body {
+            width: 100%;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-color-primary);
+        }
+
+        .article-body p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-color-primary);
+        }
+
+        .article-body h2 {
+            font-size: 1.5rem;
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        .article-body ul {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-lg);
+        }
+
+        .article-body li {
+            margin-bottom: var(--spacing-sm);
+            padding-left: var(--spacing-sm);
+        }
+        
+        .article-body li::marker {
+            color: var(--text-color-muted);
+        }
+
+        /* In-article Images */
+        .article-image {
+            width: 100%;
+            height: auto;
+            margin: var(--spacing-lg) 0;
+            border-radius: var(--radius);
+        }
+
+        /* Embedded Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin: var(--spacing-lg) 0;
+            border-radius: var(--radius);
+            background-color: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        /* Links as Text Formatting */
+        .link-text {
+            color: var(--text-color-secondary);
+            word-break: break-all;
+            background-color: #F5F5F5;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-size: 0.9em;
+        }
+
+        .reference-block {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-lg);
+            border-top: 2px dashed var(--border-color);
+        }
+        
+        .reference-block p {
+            font-size: 0.9rem;
+            color: var(--text-color-secondary);
+        }
+
+        /* ==========================================================================
+           4. MODALS & TOASTS (Print & Share)
+           ========================================================================== */
+        
+        /* Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: var(--z-modal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal Box */
+        .modal-box {
+            background: #FFFFFF;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color-muted);
+            padding: 4px;
+        }
+        
+        .close-btn:hover {
+            color: var(--text-color-primary);
+        }
+
+        /* Print Options */
+        .print-option-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-color-primary);
+            transition: all 0.2s ease;
+        }
+
+        .print-option-btn:hover {
+            border-color: var(--accent-color);
+            background: #F9F9F9;
+        }
+        
+        .print-option-btn:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: var(--z-toast);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--spacing-md);
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: calc(var(--z-header) - 1);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ==========================================================================
+           5. MEDIA QUERIES (Responsive Adjustments)
+           ========================================================================== */
+        @media (min-width: 768px) {
+            .newspaper-name {
+                display: block;
+            }
+            .mobile-menu-btn {
+                display: none;
+            }
+            .main-content {
+                padding: var(--spacing-xl) 0;
+            }
+            .article-title {
+                font-size: 2.5rem;
+            }
+            /* Hide mobile menu if screen resizes */
+            .mobile-menu {
+                display: none;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-actions .lang-toggle-btn {
+                display: none; /* Move to mobile menu */
+            }
+        }
+
+        /* ==========================================================================
+           6. ADVANCED PRINT MEDIA QUERIES
+           ========================================================================== */
+        @media print {
+            /* 1. Page Setup */
+            @page {
+                margin: 2cm;
+                size: auto;
+            }
+
+            /* 2. Reset Backgrounds & Colors for Ink Saving */
+            body {
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                font-size: 12pt !important;
+            }
+            
+            /* 3. Hide Unnecessary UI Elements */
+            .site-header,
+            .article-actions,
+            .modal-overlay,
+            .toast,
+            .mobile-menu,
+            .no-print {
+                display: none !important;
+            }
+
+            /* 4. Remove margins for header compensation */
+            .main-content {
+                margin-top: 0 !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+
+            /* 5. Typography Adjustments for Print */
+            h1, h2, h3 {
+                color: #000000 !important;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+
+            h1 { font-size: 24pt !important; }
+            h2 { font-size: 18pt !important; border-bottom: 1px solid #000 !important; }
+            
+            p, li {
+                color: #000000 !important;
+                line-height: 1.5 !important;
+                page-break-inside: avoid;
+                orphans: 3;
+                widows: 3;
+            }
+
+            /* 6. Strict Font Enforcement in Print (Important for Bilingual) */
+            body[data-print-lang="en"] { font-family: 'EnglishMain', serif !important; }
+            body[data-print-lang="en"] h1, 
+            body[data-print-lang="en"] h2 { font-family: 'EnglishHeader', sans-serif !important; }
+            
+            body[data-print-lang="bn"] { font-family: 'BanglaMain', serif !important; }
+            body[data-print-lang="bn"] h1, 
+            body[data-print-lang="bn"] h2 { font-family: 'BanglaHeader', sans-serif !important; }
+
+            /* 7. Image Handling (Strict requirement: Include all pics) */
+            img {
+                display: block !important;
+                max-width: 100% !important;
+                height: auto !important;
+                page-break-inside: avoid !important;
+                margin: 1cm 0 !important;
+                border: 1px solid #ccc !important;
+            }
+
+            /* 8. Video Handling (Requirement: videos may removed) */
+            .video-container {
+                display: none !important;
+            }
+
+            /* 9. Ensure links render as plain text in print as requested */
+            .link-text {
+                background: none !important;
+                border: none !important;
+                padding: 0 !important;
+                color: #333 !important;
+                font-family: monospace !important;
+                font-size: 10pt !important;
+            }
+            
+            /* Print Bilingual Specific Layout */
+            .bilingual-print-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .bilingual-divider {
+                border-top: 2px dashed #000;
+                margin: 2rem 0;
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body data-lang="en">
+
+    <!-- Fixed Header -->
+    <header class="site-header">
+        <a href="#" class="header-left">
+            <!-- Requirement: /home.png as logo, black and white -->
+            <img src="/home.png" alt="Home" class="site-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTMgOWw5LTcgOSA3djExYTIgMiAwIDAgMS0yIDJIOSJhMiAyIDAgMCAxLTItMnoiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSI5IDIyIDkgMTIgMTUgMTIgMTUgMjIiPjwvcG9seWxpbmU+PC9zdmc+'">
+            <span class="newspaper-name font-header-force" id="ui-brand">ISTIACK'S JULY CORNER</span>
+        </a>
+        <div class="header-actions">
+            <!-- Requirement: Strict bilingual switcher -->
+            <button class="lang-toggle-btn font-header-force" onclick="app.toggleLanguage()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <span id="ui-lang-btn">ইংরেজিতে পড়ুন</span>
+            </button>
+            <button class="mobile-menu-btn" onclick="app.toggleMobileMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="lang-toggle-btn font-header-force" style="width: 100%; justify-content: center;" onclick="app.toggleLanguage(); app.toggleMobileMenu();">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span id="ui-lang-btn-mobile">ইংরেজিতে পড়ুন</span>
+        </button>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Hero Image -->
+        <div class="hero-image-container">
+            <!-- Requirement: Use ./t.png for hero, no caption -->
+            <img src="./t.png" alt="Hero Image" class="hero-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2VlZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=='">
+        </div>
+
+        <!-- Share and Download/Print Buttons -->
+        <div class="article-actions no-print">
+            <button class="action-btn font-header-force" onclick="app.copyLink()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span id="ui-share-btn">Share Link</span>
+            </button>
+            <button class="action-btn font-header-force" onclick="app.openPrintModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                <span id="ui-print-btn">Print Article</span>
+            </button>
+        </div>
+
+        <!-- Dynamic Article Container -->
+        <article class="article-body" id="articleContainer">
+            <!-- Content Injected via JavaScript -->
+        </article>
+    </main>
+
+    <!-- Print Modal Options -->
+    <div class="modal-overlay no-print" id="printModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 class="modal-title font-header-force" id="ui-print-title">Print Options</h3>
+                <button class="close-btn" onclick="app.closePrintModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button class="print-option-btn font-header-force" onclick="app.executePrint('en')">Print in English</button>
+                <button class="print-option-btn font-header-force" onclick="app.executePrint('bn')">Print in Bangla (বাংলায় প্রিন্ট করুন)</button>
+                <button class="print-option-btn font-header-force" onclick="app.executePrint('both')">Print Both (উভয় ভাষায় প্রিন্ট)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copy Link Toast Notification -->
+    <div class="toast font-header-force no-print" id="copyToast">
+        Link Copied to Clipboard!
+    </div>
+
+    <!-- Print Canvas (Hidden visually, used only for Bilingual Print logic) -->
+    <div id="printCanvas" class="bilingual-print-wrapper" style="display:none;"></div>
+
+    <script>
+        /* ==========================================================================
+           7. JAVASCRIPT LOGIC & CONTENT MANAGEMENT
+           ========================================================================== */
+        
+        const app = (function() {
+            // Strict Architecture: Content structured as JSON for easy updates.
+            // Links are formatted as pure text URLs inside the text, no HTML <a> tags per requirements.
+            const contentData = {
+                en: {
+                    ui: {
+                        langBtn: "ইংরেজিতে পড়ুন",
+                        shareBtn: "Share Link",
+                        printBtn: "Print Article",
+                        printTitle: "Select Print Language",
+                        copiedToast: "Link copied to clipboard!"
+                    },
+                    article: {
+                        title: "July 11, 2024: The First Violent Confrontations",
+                        blocks: [
+                            {
+                                type: "paragraph",
+                                content: "On July 11, 2024, the Bangladesh Quota Reform Movement (later known as the July Uprising) reached a major turning point, shifting from peaceful street blockades to the very first violent confrontations between state law enforcement and student protesters. [1, 2]"
+                            },
+                            {
+                                type: "h2",
+                                content: "Chronological Blueprint"
+                            },
+                            {
+                                type: "paragraph",
+                                content: "Here is the comprehensive chronological blueprint, detailing every minor to major event that occurred on that specific day:"
+                            },
+                            {
+                                type: "list",
+                                items: [
+                                    "<strong>Judiciary Pronouncement:</strong> The High Court released a summary statement clarifying that the executive branch of the government holds the absolute authority to modify, reform, or cancel the quota system for public service jobs. It noted that vacant positions could legally be filled via a general merit list if quota quotas were left unfulfilled. [3]",
+                                    "<strong>Student Rejection:</strong> Protesting students, organized under the banner of the \"Anti-Discrimination Student Movement,\" rejected this court-centric approach. They publicly announced that their movement was directed at the executive branch, not the judiciary. They vowed to continue the streets blocks until the National Parliament enacted a specific law to permanently reform the quota system across all grades. [3, 4, 5, 6]",
+                                    "<strong>DMP Ultimatums:</strong> The Dhaka Metropolitan Police (DMP) shifted to a hardline stance. Additional Commissioner Khandkar Mahid Uddin held a press briefing explicitly warning students to withdraw their blockades. He declared that police would take strict legal action if the demonstrations continued to create \"public suffering\". [2, 7]",
+                                    "<strong>Political Rhetoric:</strong> High-ranking government ministers escalated their verbal opposition. Awami League General Secretary Obaidul Quader publicly rebuked the students, stating that the protesters were \"flexing muscle against the highest court of the country,\" labeling their actions as unwarranted and illegal. Concurrently, the Home Minister warned that the students were \"crossing their limits\". [2, 8]",
+                                    "<strong>Delayed by Torrential Rain:</strong> The \"Bangla Blockade\" program at Shahbagh was initially scheduled to begin at 3:00 p.m. However, heavy downpours delayed the mass convergence of students. [9]",
+                                    "<strong>Breaching Police Barricades:</strong> Around 4:30 p.m. to 5:30 p.m., thousands of students from Dhaka University and Jagannath University marched through the streets, completely overpowering and physically breaking through the heavy wire and wood police barricades positioned at the Shahbagh intersection. [1, 2, 9, 10]",
+                                    "<strong>Vandalism & Clashes:</strong> As students took over the area, a physical scuffle ensued. Police later filed formal criminal charges stating that students clashed with officers, assaulted on-duty policemen, and vandalized a police vehicle, an Armored Personnel Carrier (APC), and a water cannon stationed near the Bangabandhu Sheikh Mujib Medical University (BSMMU). [11, 12, 13]"
+                                ]
+                            },
+                            {
+                                type: "image",
+                                src: "./e.jpg", // Photo Asset of the Broken Barricades at Shahbagh in the Rain
+                                alt: "Broken Barricades at Shahbagh"
+                            },
+                            {
+                                type: "h2",
+                                content: "Key Flashpoints"
+                            },
+                            {
+                                type: "list",
+                                items: [
+                                    "<strong>The Cumilla University Clash:</strong> The most violent flashpoint of July 11 occurred near Cumilla University. Around 3:15 p.m., when hundreds of students marched toward the Ansar Camp to block the vital Dhaka-Chattogram highway, police heavily intercepted them. The situation quickly dissolved into a chaotic chase and counter-chase. Police used severe baton charges (lathi-charge) and fired tear gas shells and blank shotgun rounds to disperse the crowd. At least 20 people, including students, journalists, and police officers, were injured and rushed away by university ambulances. [1, 14]",
+                                    "<strong>Chattogram & Other Regions:</strong> In Chittogong, police forcefully obstructed student groups attempting to halt transit lines, charging with batons and firing tear shells. Nationwide, more than 50 student protesters sustained injuries from police actions throughout the afternoon. [1, 15]",
+                                    "<strong>Sher-e-Bangla Agricultural University:</strong> Protesters blocked the road in front of Gate-2 of the university. When police intervened to clear the road, a conflict erupted where students allegedly threw brickbats at the police, critically injuring two officers before the crowd was chased away. [16]"
+                                ]
+                            },
+                            {
+                                type: "image",
+                                src: "./c.jpg", // Photo Asset of the Protesters Confronting Riot Gear Police at Cumilla
+                                alt: "Protesters Confronting Riot Gear Police at Cumilla"
+                            },
+                            {
+                                type: "video",
+                                src: "https://www.youtube.com/embed/-WLCcWNKaj8" // Video of Students Breaking the Shahbagh Police Barricade
+                            },
+                            {
+                                type: "reference-block",
+                                content: "The details outlined above are meticulously documented across major national and international media timelines covering the 2024 uprising. The text URLs below can be pasted into any web browser to verify the raw data points: [17, 18]<br><br>Official Historical News Bulletin on July 11 Clashes:<br><span class='link-text'>https://www.bssnews.net/july-uprising/290919</span><br><br>The Daily Star’s Detailed 'July 11 Confrontation' Chronology:<br><span class='link-text'>https://www.thedailystar.net/news/bangladesh/news/july-11-2024-blockade-turns-confrontational-3936896</span><br><br>Prothom Alo Report on the Cumilla Highway Clashes and Casualties:<br><span class='link-text'>https://en.prothomalo.com/bangladesh/local-news/05a6ow3s02</span><br><br>Somoy TV Archive of DMP Warnings to Protesters:<br><span class='link-text'>https://en.somoynews.tv/news/2024-07-11/5xKQ3M62</span><br><br>Prothom Alo Overview of the Post-July 11 Police Retaliation Cases:<br><span class='link-text'>https://en.prothomalo.com/bangladesh/q5tgzqk6gf</span><br><br>[1] https://www.bssnews.net/july-uprising/290919<br>[2] https://www.thedailystar.net/news/bangladesh/news/july-11-2024-blockade-turns-confrontational-3936896<br>[3] https://thedailystar.net/july-uprising<br>[4] https://en.prothomalo.com/bangladesh/en7im2ott7<br>[5] https://www.scribd.com/document/878387640/Quota-Reform-Movement-2024-Composition-Last<br>[6] https://simple.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement<br>[7] https://en.somoynews.tv/news/2024-07-11/5xKQ3M62<br>[8] https://en.prothomalo.com/bangladesh/5jvl0xye5l<br>[9] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement<br>[10] https://julyshohid.com/details.php?id=256&lang=english<br>[11] https://en.prothomalo.com/bangladesh/q5tgzqk6gf<br>[12] https://www.thedailystar.net/news/bangladesh/news/anti-quota-protests-police-sue-protestors-over-vandalism-assault-3655751<br>[13] https://www.dhakatribune.com/bangladesh/351936/quota-reinstatement-case-filed-against-protesters<br>[14] https://en.prothomalo.com/bangladesh/local-news/05a6ow3s02<br>[15] https://en.prothomalo.com/bangladesh/local-news/vuwew4jy8f<br>[16] https://en.prothomalo.com/bangladesh/44akwke6ec<br>[17] https://en.prothomalo.com/bangladesh/381u1nsy9k<br>[18] https://rsisinternational.org/journals/ijriss/articles/the-role-of-political-parties-in-bangladeshs-july-revolution-of-2024-insights-from-sufi-perspectives/<br>[19] https://reliefweb.int/report/bangladesh/what-happening-quota-reform-protests-bangladesh"
+                            }
+                        ]
+                    }
+                },
+                bn: {
+                    ui: {
+                        langBtn: "Read in English", // Toggle text to go back to English
+                        shareBtn: "লিংক শেয়ার করুন",
+                        printBtn: "প্রিন্ট করুন",
+                        printTitle: "প্রিন্টের ভাষা নির্বাচন করুন",
+                        copiedToast: "লিংক কপি করা হয়েছে!"
+                    },
+                    article: {
+                        title: "১১ জুলাই, ২০২৪: প্রথম সহিংস সংঘাত",
+                        blocks: [
+                            {
+                                type: "paragraph",
+                                content: "১১ জুলাই, ২০২৪ তারিখে, বাংলাদেশ কোটা সংস্কার আন্দোলন (যা পরবর্তীতে 'জুলাই অভ্যুত্থান' নামে পরিচিত হয়) একটি বড় মোড় নেয়। এই দিন শান্তিপূর্ণ সড়ক অবরোধ থেকে সরে গিয়ে রাষ্ট্রীয় আইনশৃঙ্খলা রক্ষাকারী বাহিনী এবং আন্দোলনকারী শিক্ষার্থীদের মাঝে প্রথমবারের মতো সহিংস সংঘাতের ঘটনা ঘটে। [১, ২]"
+                            },
+                            {
+                                type: "h2",
+                                content: "কালানুক্রমিক ব্লুপ্রিন্ট"
+                            },
+                            {
+                                type: "paragraph",
+                                content: "নিচে সেই নির্দিষ্ট দিনে ঘটে যাওয়া ছোট থেকে বড় প্রতিটি ঘটনার বিস্তারিত কালানুক্রমিক ব্লুপ্রিন্ট দেওয়া হলো:"
+                            },
+                            {
+                                type: "list",
+                                items: [
+                                    "<strong>বিচার বিভাগের বিবৃতি:</strong> হাইকোর্ট একটি সংক্ষিপ্ত বিবৃতি প্রকাশ করে স্পষ্ট করে যে, সরকারি চাকরিতে কোটা ব্যবস্থা সংশোধন, সংস্কার বা বাতিল করার নিরঙ্কুশ ক্ষমতা সরকারের নির্বাহী বিভাগের রয়েছে। এতে উল্লেখ করা হয়, কোটার পদগুলো পূরণ না হলে সাধারণ মেধা তালিকা থেকে শূন্য পদ পূরণে কোনো আইনি বাধা নেই। [৩]",
+                                    "<strong>শিক্ষার্থীদের প্রত্যাখ্যান:</strong> 'বৈষম্যবিরোধী ছাত্র আন্দোলন'-এর ব্যানারে সংগঠিত আন্দোলনরত শিক্ষার্থীরা আদালত-কেন্দ্রিক এই প্রস্তাব প্রত্যাখ্যান করে। তারা প্রকাশ্যে ঘোষণা দেয় যে, তাদের এই আন্দোলন বিচার বিভাগের উদ্দেশ্যে নয়, বরং নির্বাহী বিভাগের প্রতি। তারা প্রতিশ্রুতিবদ্ধ হয় যে, যতক্ষণ না জাতীয় সংসদে সব গ্রেডে কোটা ব্যবস্থা স্থায়ীভাবে সংস্কার করার জন্য নির্দিষ্ট আইন পাস করা হচ্ছে, ততক্ষণ পর্যন্ত রাজপথ অবরোধ চলবে। [৩, ৪, ৫, ৬]",
+                                    "<strong>ডিএমপি'র আল্টিমেটাম:</strong> ঢাকা মেট্রোপলিটন পুলিশ (ডিএমপি) কঠোর অবস্থান গ্রহণ করে। অতিরিক্ত কমিশনার খন্দকার মহিদ উদ্দিন একটি প্রেস ব্রিফিংয়ে স্পষ্টভাবে শিক্ষার্থীদের অবরোধ তুলে নেওয়ার জন্য সতর্ক করেন। তিনি ঘোষণা দেন যে, জনদুর্ভোগ সৃষ্টি করে এমন কোনো কর্মসূচি চালিয়ে গেলে পুলিশ কঠোর আইনি ব্যবস্থা নেবে। [২, ৭]",
+                                    "<strong>রাজনৈতিক বাগাড়ম্বর:</strong> সরকারের উচ্চপদস্থ মন্ত্রীরা তাদের মৌখিক বিরোধিতার মাত্রা বাড়িয়ে দেন। আওয়ামী লীগের সাধারণ সম্পাদক ওবায়দুল কাদের প্রকাশ্যে শিক্ষার্থীদের তিরস্কার করে বলেন যে, আন্দোলনকারীরা \"দেশের সর্বোচ্চ আদালতের বিরুদ্ধে শক্তি প্রদর্শন করছে\", যা অযাচিত এবং বেআইনি। একই সময়ে, স্বরাষ্ট্রমন্ত্রী সতর্ক করেন যে শিক্ষার্থীরা \"তাদের সীমা অতিক্রম করছে\"। [২, ৮]",
+                                    "<strong>ভারী বৃষ্টিপাতে বিলম্ব:</strong> শাহবাগে 'বাংলা ব্লকেড' কর্মসূচি প্রাথমিকভাবে বেলা ৩ টায় শুরু হওয়ার কথা ছিল। তবে ভারী বৃষ্টিপাতের কারণে শিক্ষার্থীদের ব্যাপক জমায়েত হতে দেরি হয়। [৯]",
+                                    "<strong>পুলিশের ব্যারিকেড ভাঙা:</strong> বিকেল সাড়ে ৪টা থেকে সাড়ে ৫টার দিকে, ঢাকা বিশ্ববিদ্যালয় ও জগন্নাথ বিশ্ববিদ্যালয়ের হাজার হাজার শিক্ষার্থী রাস্তায় মিছিল বের করে এবং শাহবাগ মোড়ে বসানো পুলিশের ভারী তার ও কাঠের ব্যারিকেডগুলো শারীরিকভাবে ভেঙে অগ্রসর হয়। [১, ২, ৯, ১০]",
+                                    "<strong>ভাঙচুর ও সংঘর্ষ:</strong> শিক্ষার্থীরা এলাকা নিজেদের নিয়ন্ত্রণে নেওয়ার সাথে সাথে এক হাতাহাতির সৃষ্টি হয়। পরবর্তীতে পুলিশ আনুষ্ঠানিকভাবে ফৌজদারি অভিযোগ দায়ের করে উল্লেখ করে যে, শিক্ষার্থীরা পুলিশ কর্মকর্তাদের ওপর হামলা চালিয়েছে এবং বঙ্গবন্ধু শেখ মুজিব মেডিক্যাল বিশ্ববিদ্যালয় (বিএসএমএমইউ)-এর কাছে অবস্থানরত একটি পুলিশের গাড়ি, একটি আর্মড পার্সোনেল ক্যারিয়ার (এপিসি) ও একটি জলকামান ভাঙচুর করেছে। [১১, ১২, ১৩]"
+                                ]
+                            },
+                            {
+                                type: "image",
+                                src: "./e.jpg", // Photo Asset of the Broken Barricades at Shahbagh in the Rain
+                                alt: "শাহবাগে বৃষ্টিতে ভাঙা ব্যারিকেড"
+                            },
+                            {
+                                type: "h2",
+                                content: "মূল সংঘাতস্থল"
+                            },
+                            {
+                                type: "list",
+                                items: [
+                                    "<strong>কুমিল্লা বিশ্ববিদ্যালয়ের সংঘর্ষ:</strong> ১১ জুলাইয়ের সবচেয়ে সহিংস ঘটনাটি ঘটে কুমিল্লা বিশ্ববিদ্যালয়ের কাছে। বিকেল সোয়া ৩টার দিকে, কয়েকশো শিক্ষার্থী যখন গুরুত্বপূর্ণ ঢাকা-চট্টগ্রাম মহাসড়ক অবরোধ করতে আনসার ক্যাম্পের দিকে অগ্রসর হচ্ছিল, তখন পুলিশ তাদের কঠোরভাবে বাধা দেয়। পরিস্থিতি দ্রুত ধাওয়া-পাল্টা ধাওয়া ও বিশৃঙ্খলায় রূপ নেয়। পুলিশ জনতাকে ছত্রভঙ্গ করতে বেধড়ক লাঠিচার্জ করে এবং টিয়ার গ্যাস ও শর্টগানের ফাঁকা গুলি ছোঁড়ে। শিক্ষার্থী, সাংবাদিক এবং পুলিশ কর্মকর্তাসহ অন্তত ২০ জন আহত হন এবং তাদের বিশ্ববিদ্যালয়ের অ্যাম্বুলেন্সে করে সরিয়ে নেওয়া হয়। [১, ১৪]",
+                                    "<strong>চট্টগ্রাম ও অন্যান্য অঞ্চল:</strong> চট্টগ্রামে, ট্রানজিট লাইন বন্ধ করার চেষ্টাকারী শিক্ষার্থীদের পুলিশ বলপ্রয়োগ করে বাধা দেয়, লাঠিচার্জ করে এবং টিয়ার শেল নিক্ষেপ করে। দেশজুড়ে বিকেলব্যাপী পুলিশের এই কার্যক্রমে ৫০ জনেরও বেশি আন্দোলনকারী শিক্ষার্থী আহত হয়। [১, ১৫]",
+                                    "<strong>শেরেবাংলা কৃষি বিশ্ববিদ্যালয়:</strong> আন্দোলনকারীরা বিশ্ববিদ্যালয়ের ২ নম্বর গেটের সামনের রাস্তা অবরোধ করে। পুলিশ রাস্তা পরিষ্কার করতে হস্তক্ষেপ করলে সংঘর্ষ শুরু হয়, যেখানে শিক্ষার্থীরা পুলিশের দিকে ইটপাটকেল ছুঁড়ে বলে অভিযোগ ওঠে। এতে দুইজন পুলিশ কর্মকর্তা গুরুতর আহত হন এবং পরবর্তীতে জনতাকে তাড়িয়ে দেওয়া হয়। [১৬]"
+                                ]
+                            },
+                            {
+                                type: "image",
+                                src: "./c.jpg", // Photo Asset of the Protesters Confronting Riot Gear Police at Cumilla
+                                alt: "কুমিল্লায় দাঙ্গা পুলিশের সাথে আন্দোলনকারীদের সংঘাত"
+                            },
+                            {
+                                type: "video",
+                                src: "https://www.youtube.com/embed/-WLCcWNKaj8" // Video of Students Breaking the Shahbagh Police Barricade
+                            },
+                            {
+                                type: "reference-block",
+                                content: "উপরের বিশদ বিবরণগুলি ২০২৪ সালের অভ্যুত্থান কভার করা প্রধান জাতীয় ও আন্তর্জাতিক সংবাদমাধ্যমের টাইমলাইন থেকে সুনিপুণভাবে সংগ্রহ করা হয়েছে। নিচের টেক্সট ইউআরএলগুলো যেকোনো ওয়েব ব্রাউজারে পেস্ট করে মূল তথ্য যাচাই করা যাবে: [১৭, ১৮]<br><br>১১ জুলাইয়ের সংঘর্ষের সরকারি ঐতিহাসিক সংবাদ বুলেটিন:<br><span class='link-text'>https://www.bssnews.net/july-uprising/290919</span><br><br>দ্য ডেইলি স্টারের বিস্তারিত '১১ জুলাই সংঘাত' ক্রনোলজি:<br><span class='link-text'>https://www.thedailystar.net/news/bangladesh/news/july-11-2024-blockade-turns-confrontational-3936896</span><br><br>কুমিল্লা মহাসড়কে সংঘর্ষ ও হতাহতের বিষয়ে প্রথম আলোর প্রতিবেদন:<br><span class='link-text'>https://en.prothomalo.com/bangladesh/local-news/05a6ow3s02</span><br><br>আন্দোলনকারীদের প্রতি ডিএমপি'র সতর্কবার্তার সময় টিভির আর্কাইভ:<br><span class='link-text'>https://en.somoynews.tv/news/2024-07-11/5xKQ3M62</span><br><br>১১ জুলাই পরবর্তী পুলিশের প্রতিশোধমূলক মামলার প্রথম আলোর ওভারভিউ:<br><span class='link-text'>https://en.prothomalo.com/bangladesh/q5tgzqk6gf</span><br><br>[১] https://www.bssnews.net/july-uprising/290919<br>[২] https://www.thedailystar.net/news/bangladesh/news/july-11-2024-blockade-turns-confrontational-3936896<br>[৩] https://thedailystar.net/july-uprising<br>[৪] https://en.prothomalo.com/bangladesh/en7im2ott7<br>[৫] https://www.scribd.com/document/878387640/Quota-Reform-Movement-2024-Composition-Last<br>[৬] https://simple.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement<br>[৭] https://en.somoynews.tv/news/2024-07-11/5xKQ3M62<br>[৮] https://en.prothomalo.com/bangladesh/5jvl0xye5l<br>[৯] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement<br>[১০] https://julyshohid.com/details.php?id=256&lang=english<br>[১১] https://en.prothomalo.com/bangladesh/q5tgzqk6gf<br>[১২] https://www.thedailystar.net/news/bangladesh/news/anti-quota-protests-police-sue-protestors-over-vandalism-assault-3655751<br>[১৩] https://www.dhakatribune.com/bangladesh/351936/quota-reinstatement-case-filed-against-protesters<br>[১৪] https://en.prothomalo.com/bangladesh/local-news/05a6ow3s02<br>[১৫] https://en.prothomalo.com/bangladesh/local-news/vuwew4jy8f<br>[১৬] https://en.prothomalo.com/bangladesh/44akwke6ec<br>[১৭] https://en.prothomalo.com/bangladesh/381u1nsy9k<br>[১৮] https://rsisinternational.org/journals/ijriss/articles/the-role-of-political-parties-in-bangladeshs-july-revolution-of-2024-insights-from-sufi-perspectives/<br>[১৯] https://reliefweb.int/report/bangladesh/what-happening-quota-reform-protests-bangladesh"
+                            }
+                        ]
+                    }
+                }
+            };
+
+            let currentLang = 'en';
+
+            // DOM Elements Cache
+            const dom = {
+                body: document.body,
+                langBtnText: document.getElementById('ui-lang-btn'),
+                langBtnMobileText: document.getElementById('ui-lang-btn-mobile'),
+                shareBtnText: document.getElementById('ui-share-btn'),
+                printBtnText: document.getElementById('ui-print-btn'),
+                printTitleText: document.getElementById('ui-print-title'),
+                articleContainer: document.getElementById('articleContainer'),
+                printModal: document.getElementById('printModal'),
+                toast: document.getElementById('copyToast'),
+                mobileMenu: document.getElementById('mobileMenu'),
+                printCanvas: document.getElementById('printCanvas')
+            };
+
+            // Builder function for the article DOM
+            function buildArticleDOM(articleData) {
+                let html = `<h1 class="article-title">${articleData.title}</h1>`;
+                
+                articleData.blocks.forEach(block => {
+                    if (block.type === 'paragraph') {
+                        html += `<p>${block.content}</p>`;
+                    } else if (block.type === 'h2') {
+                        html += `<h2>${block.content}</h2>`;
+                    } else if (block.type === 'list') {
+                        html += `<ul>`;
+                        block.items.forEach(item => {
+                            html += `<li>${item}</li>`;
+                        });
+                        html += `</ul>`;
+                    } else if (block.type === 'image') {
+                        // Images have no caption as requested, but are responsive and included in print
+                        html += `<img src="${block.src}" alt="${block.alt || ''}" class="article-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZSIvPjwvc3ZnPg=='">`;
+                    } else if (block.type === 'video') {
+                        html += `
+                        <div class="video-container no-print">
+                            <iframe src="${block.src}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>`;
+                    } else if (block.type === 'reference-block') {
+                        html += `<div class="reference-block"><p>${block.content}</p></div>`;
+                    }
+                });
+                
+                return html;
+            }
+
+            // Render function to swap language content
+            function renderContent() {
+                const data = contentData[currentLang];
+                
+                // Update UI Texts
+                dom.langBtnText.textContent = data.ui.langBtn;
+                dom.langBtnMobileText.textContent = data.ui.langBtn;
+                dom.shareBtnText.textContent = data.ui.shareBtn;
+                dom.printBtnText.textContent = data.ui.printBtn;
+                dom.printTitleText.textContent = data.ui.printTitle;
+                dom.toast.textContent = data.ui.copiedToast;
+
+                // Set HTML attribute for global font enforcement
+                dom.body.setAttribute('data-lang', currentLang);
+
+                // Build Article Body
+                dom.articleContainer.innerHTML = buildArticleDOM(data.article);
+            }
+
+            // Initialization
+            renderContent();
+
+            return {
+                toggleLanguage: function() {
+                    currentLang = currentLang === 'en' ? 'bn' : 'en';
+                    renderContent();
+                },
+
+                toggleMobileMenu: function() {
+                    dom.mobileMenu.classList.toggle('active');
+                },
+                
+                // Print Modal Management
+                openPrintModal: function() {
+                    dom.printModal.classList.add('active');
+                },
+                
+                closePrintModal: function() {
+                    dom.printModal.classList.remove('active');
+                },
+
+                // Share Link functionality
+                copyLink: function() {
+                    // Specific requirement: User can only copy "https://istiack.ami.bd/july-corner/{date}-july/"
+                    const exactUrlToCopy = "https://istiack.ami.bd/july-corner/11-july/";
+                    
+                    // Fallback copy mechanism for broad compatibility
+                    const textarea = document.createElement("textarea");
+                    textarea.value = exactUrlToCopy;
+                    textarea.style.position = "fixed";  // Prevent scrolling to bottom
+                    document.body.appendChild(textarea);
+                    textarea.focus();
+                    textarea.select();
+
+                    try {
+                        document.execCommand('copy');
+                        // Show toast notification
+                        dom.toast.classList.add('show');
+                        setTimeout(() => {
+                            dom.toast.classList.remove('show');
+                        }, 3000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                    }
+
+                    document.body.removeChild(textarea);
+                },
+
+                // Advanced Print Logic
+                executePrint: function(printLang) {
+                    this.closePrintModal();
+                    
+                    if (printLang === 'both') {
+                        // Bilingual Print logic
+                        // Temporarily hide the main article visually during print
+                        // and render both languages in the printCanvas
+                        const htmlEn = `<div lang="en" data-print-lang="en">` + buildArticleDOM(contentData.en.article) + `</div>`;
+                        const htmlBn = `<div class="bilingual-divider"></div><div lang="bn" data-print-lang="bn">` + buildArticleDOM(contentData.bn.article) + `</div>`;
+                        
+                        dom.printCanvas.innerHTML = htmlEn + htmlBn;
+                        
+                        // Override display just for print using inline styles
+                        dom.articleContainer.style.display = 'none';
+                        dom.printCanvas.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            window.print();
+                            // Revert DOM back to screen mode
+                            dom.articleContainer.style.display = 'block';
+                            dom.printCanvas.style.display = 'none';
+                            dom.printCanvas.innerHTML = '';
+                        }, 200);
+
+                    } else {
+                        // Single Language Print logic
+                        const originalLang = currentLang;
+                        if (currentLang !== printLang) {
+                            currentLang = printLang;
+                            renderContent();
+                        }
+                        // Important to apply print-lang attribute specifically for print media queries
+                        dom.body.setAttribute('data-print-lang', printLang);
+
+                        setTimeout(() => {
+                            window.print();
+                            // Revert to user's original view
+                            if (currentLang !== originalLang) {
+                                currentLang = originalLang;
+                                renderContent();
+                            }
+                            dom.body.removeAttribute('data-print-lang');
+                        }, 200);
+                    }
+                }
+            };
+        })();
+    </script>
+</body>
+</html>

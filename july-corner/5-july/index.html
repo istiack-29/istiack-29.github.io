@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Nationwide Decentralization of Protests: July 5, 2024 - Bangladesh Quota Reform Movement">
+    
+    <!-- Open Graph / Asset Management -->
+    <meta property="og:title" content="ISTIACK'S JULY CORNER - July 5, 2024">
+    <meta property="og:description" content="Detailed events of the July 5, 2024 Bangladesh Quota Reform Movement protests.">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:type" content="article">
+    
+    <!-- Canonical URL Constraint -->
+    <link rel="canonical" href="https://istiack.ami.bd/july-corner/05-july/">
+
+    <title>5 July, 2024</title>
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & THEME SETUP
+           ========================================================================== */
+        :root {
+            /* Colors - Pure Article Aesthetic */
+            --bg-color: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #555555;
+            --border-color: #e5e5e5;
+            --header-bg: rgba(255, 255, 255, 0.98);
+            --btn-bg: #f5f5f5;
+            --btn-hover: #e0e0e0;
+            --accent-color: #000000;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 2rem;
+            --space-xl: 4rem;
+            
+            /* Layout */
+            --header-height: 70px;
+            --max-width-article: 760px;
+            
+            /* Transition */
+            --trans-fast: 0.2s ease;
+        }
+
+        /* ==========================================================================
+           2. TYPOGRAPHY & FONT ASSET MANAGEMENT (STRICT)
+           ========================================================================== */
+        @font-face {
+            font-family: 'E1';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'E2';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'B1';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'B2';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Base Typography Rules */
+        body {
+            /* Default to English */
+            font-family: 'E1', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            line-height: 1.7;
+            font-size: 18px;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6, .newspaper-title {
+            font-family: 'E2', sans-serif;
+            color: var(--accent-color);
+            line-height: 1.3;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Bangla Typography Overrides */
+        body.lang-bn {
+            font-family: 'B2', sans-serif;
+            font-size: 19px; /* Slightly larger for Bangla readability */
+        }
+        body.lang-bn h1, 
+        body.lang-bn h2, 
+        body.lang-bn h3, 
+        body.lang-bn h4, 
+        body.lang-bn h5, 
+        body.lang-bn h6,
+        body.lang-bn .modal-title {
+            font-family: 'B1', sans-serif;
+        }
+
+        /* Newspaper title remains English font as per requirement structure */
+        .newspaper-title {
+            font-family: 'E2', sans-serif !important; 
+        }
+
+        /* Button font control */
+        button, .btn {
+            font-family: inherit;
+        }
+        body.lang-en .btn-lang-toggle { font-family: 'B2', sans-serif; } /* Show Bangla text in English mode */
+        body.lang-bn .btn-lang-toggle { font-family: 'E1', sans-serif; } /* Show English text in Bangla mode */
+
+        /* ==========================================================================
+           3. CSS RESET & GLOBAL STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        img, video, svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           4. LAYOUT & COMPONENTS
+           ========================================================================== */
+        
+        /* Fixed Header */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .site-logo {
+            height: 40px;
+            width: auto;
+            filter: grayscale(100%);
+            transition: filter var(--trans-fast);
+        }
+
+        .newspaper-title {
+            font-size: 1.2rem;
+            margin: 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        /* Language Toggle Button */
+        .btn-lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background-color: transparent;
+            font-size: 0.95rem;
+            font-weight: bold;
+            transition: all var(--trans-fast);
+        }
+
+        .btn-lang-toggle:hover {
+            background-color: var(--btn-hover);
+        }
+
+        /* Mobile Menu Toggle (SVG) */
+        .menu-toggle {
+            display: none;
+            padding: 8px;
+        }
+        
+        .menu-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-main);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-top: var(--header-height);
+            padding: 0; /* Hero image touches edges on mobile */
+            min-height: 100vh;
+        }
+
+        /* Hero Image - strictly ./t.png */
+        .hero-image-container {
+            width: 100%;
+            max-width: var(--max-width-article);
+            margin: 0 auto;
+            padding-top: var(--space-md);
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 0; /* Square edges for pure article look */
+        }
+
+        /* Article Container */
+        .article-container {
+            max-width: var(--max-width-article);
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-md);
+        }
+
+        /* Action Bar (Share, Download) */
+        .action-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding-bottom: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background-color: var(--btn-bg);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background-color var(--trans-fast);
+        }
+
+        .btn-action:hover {
+            background-color: var(--btn-hover);
+        }
+
+        .btn-action svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Article Body Elements */
+        .article-title {
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.02em;
+        }
+
+        .article-date {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-lg);
+            display: block;
+        }
+
+        .article-body p {
+            margin-bottom: var(--space-md);
+        }
+
+        .article-body ul {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-lg);
+        }
+
+        .article-body li {
+            margin-bottom: var(--space-sm);
+        }
+
+        .article-body hr {
+            border: 0;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: var(--space-xl) 0;
+        }
+
+        /* Text-only links formatting */
+        .text-link {
+            word-break: break-all;
+            color: var(--text-muted);
+            font-size: 0.9em;
+            background: var(--btn-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            z-index: 2000;
+            transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toast.show {
+            bottom: 30px;
+        }
+
+        /* ==========================================================================
+           5. MODAL STYLES (Print Dialog)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            width: 90%;
+            max-width: 450px;
+            border-radius: 8px;
+            padding: var(--space-lg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: var(--text-muted);
+        }
+        .btn-close svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .btn-print-option {
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--trans-fast);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-print-option:hover {
+            border-color: var(--accent-color);
+            background-color: var(--btn-bg);
+        }
+
+        /* ==========================================================================
+           6. RESPONSIVE DESIGN (Mobile-First approach implies expanding up)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .header-left .newspaper-title {
+                font-size: 1rem;
+                max-width: 150px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .btn-lang-toggle span {
+                display: none; /* Hide text on very small screens, show icon only */
+            }
+            .btn-lang-toggle::after {
+                content: 'A/অ'; /* Minimal toggle indicator */
+                display: inline-block;
+            }
+
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .hero-image-container {
+                padding-top: 0; /* Flush to header on mobile */
+            }
+        }
+
+        @media (min-width: 769px) {
+            .btn-lang-toggle::after {
+                display: none;
+            }
+            .btn-lang-toggle span {
+                display: inline;
+            }
+            .hero-image-container {
+                padding: var(--space-lg) var(--space-md) 0 var(--space-md);
+            }
+            .hero-image {
+                border-radius: 8px; /* Slightly rounded on desktop */
+            }
+        }
+
+        /* ==========================================================================
+           7. PRINT STYLES (Advanced @media print)
+           ========================================================================== */
+        @media print {
+            /* 1. Reset Colors for Print */
+            * {
+                background: transparent !important;
+                color: #000 !important; /* Pure black text */
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+            
+            /* 2. Enforce Fonts for Print (Browsers can be tricky, ensuring specificity) */
+            body, .article-body, p, li {
+                font-family: 'E1', sans-serif !important;
+            }
+            h1, h2, h3, h4, .newspaper-title {
+                font-family: 'E2', sans-serif !important;
+            }
+            body.print-bn, body.print-bn .article-body, body.print-bn p, body.print-bn li {
+                font-family: 'B2', sans-serif !important;
+            }
+            body.print-bn h1, body.print-bn h2, body.print-bn h3, body.print-bn h4 {
+                font-family: 'B1', sans-serif !important;
+            }
+
+            /* 3. Hide UI Elements */
+            .site-header, 
+            .action-bar, 
+            .modal-overlay,
+            .toast {
+                display: none !important;
+            }
+
+            /* 4. Layout & Margins */
+            @page {
+                margin: 2cm;
+                size: portrait;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.5;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .main-content {
+                margin-top: 0 !important;
+            }
+            
+            .article-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* 5. Image Handling (Strict requirement: add every pic, no caption) */
+            .hero-image-container {
+                padding: 0 !important;
+                margin-bottom: 20px !important;
+            }
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+                page-break-inside: avoid;
+                display: block; /* Ensure it shows */
+            }
+
+            /* 6. Video Handling (Strict requirement: videos may be removed) */
+            video, iframe {
+                display: none !important;
+            }
+
+            /* 7. Typography Adjustments for Paper */
+            h2, h3, h4 {
+                page-break-after: avoid;
+                margin-top: 24pt;
+            }
+            p, li {
+                page-break-inside: avoid;
+                widows: 3;
+                orphans: 3;
+            }
+            
+            /* 8. Links formatting for print */
+            .text-link {
+                border: 1px solid #ccc;
+                display: block;
+                padding: 4px;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+            }
+
+            /* 9. Dual Language Print Container Logic */
+            #print-buffer {
+                display: block !important;
+            }
+            
+            /* Hide the normal screen article during a dual-print override to prevent duplicate */
+            body.print-override .screen-article {
+                display: none !important;
+            }
+        }
+
+        /* Screen rules for print buffer */
+        @media screen {
+            #print-buffer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<!-- Initial state is English -->
+<body class="lang-en">
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-left">
+            <!-- Logo from root -->
+            <img src="/home.png" alt="Home Logo" class="site-logo" onerror="this.style.display='none'">
+            <h1 class="newspaper-title" id="ui-newspaper-name">ISTIACK'S JULY CORNER</h1>
+        </div>
+        
+        <div class="header-right">
+            <!-- Language Toggle Button -->
+            <button class="btn-lang-toggle" id="btn-toggle-lang" aria-label="Toggle Language">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span id="ui-lang-text">ইংরেজিতে পড়ুন</span>
+            </button>
+            
+            <!-- Mobile Menu (SVG only) -->
+            <button class="menu-toggle" aria-label="Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- Hero Image Container (Strict constraint: ./t.png, no caption) -->
+        <div class="hero-image-container">
+            <img src="./t.png" alt="Hero Image representing the movement" class="hero-image" onerror="this.style.display='none'">
+        </div>
+
+        <!-- Article Section -->
+        <article class="article-container screen-article">
+            
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <button class="btn-action" id="btn-share" aria-label="Share Article">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/>
+                    </svg>
+                    <span id="ui-share-text">Share Link</span>
+                </button>
+                
+                <button class="btn-action" id="btn-print-trigger" aria-label="Print Article">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+                    </svg>
+                    <span id="ui-print-text">Download / Print</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Content Injected Here -->
+            <div id="dynamic-article-content">
+                <!-- Populated via JS -->
+            </div>
+            
+        </article>
+        
+        <!-- Print Buffer for Dual-Language Printing -->
+        <div id="print-buffer"></div>
+    </main>
+
+    <!-- PRINT MODAL DIALOG -->
+    <div class="modal-overlay" id="print-modal">
+        <div class="modal-content" role="dialog" aria-labelledby="modal-title">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Print Options</h3>
+                <button class="btn-close" id="btn-close-modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="ui-modal-desc">What would you like to print?</p>
+                <button class="btn-print-option" data-print-lang="en">
+                    <span style="font-family: 'E2', sans-serif;">English Version</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <button class="btn-print-option" data-print-lang="bn">
+                    <span style="font-family: 'B1', sans-serif;">বাংলা সংস্করণ (Bangla)</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <button class="btn-print-option" data-print-lang="both">
+                    <span style="font-family: 'E2', sans-serif;">Both / উভয়</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast-message">Link copied to clipboard!</div>
+
+    <!-- ==========================================================================
+         8. JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        /**
+         * APPLICATION STATE & CONFIGURATION
+         */
+        const AppState = {
+            currentLang: 'en', // 'en' or 'bn'
+            urlDate: '05',     // Used for canonical copy URL requirement
+        };
+
+        /**
+         * BILINGUAL CONTENT DICTIONARY
+         * Structured as a JSON-like object for easy text updates.
+         * Links are represented as text as per the strict requirement.
+         */
+        const ArticleData = {
+            en: {
+                ui: {
+                    newspaperName: "ISTIACK'S JULY CORNER",
+                    toggleBtnText: "বাংলায় পড়ুন", // Text shown when currently in English, to switch TO Bangla
+                    shareBtnText: "Share Link",
+                    printBtnText: "Download / Print",
+                    modalTitle: "Print Options",
+                    modalDesc: "Which version would you like to print?",
+                    toastSuccess: "Link copied to clipboard!"
+                },
+                content: {
+                    title: "Nationwide Decentralization of Protests: July 5, 2024",
+                    date: "Published on July 5, 2024",
+                    bodyHTML: `
+                        <p>On July 5, 2024, the Bangladesh Quota Reform Movement expanded significantly despite being a Friday (the start of the weekend holiday in Bangladesh), shifting from a capital-centric demonstration into a decentralized, nationwide network of resistance. Here are the detailed events of that day, tracking political escalations, campus tensions, and street protests:</p>
+                        
+                        <h2>Nationwide Decentralization of Protests</h2>
+                        <ul>
+                            <li><strong>The Holiday Disruption:</strong> Despite the official weekend holiday, students across Bangladesh defied expectations by staging widespread rallies, road blockades, and human chains.</li>
+                            <li><strong>Beyond Dhaka:</strong> Protests successfully ruptured geographic barriers. In Chattogram, Chittagong University students gathered at Shaheed Minar and blocked the critical Sholoshohor road for 90 minutes. In Dinajpur, students from Hajee Mohammad Danesh Science and Technology University (HSTU) braved heavy rain to block the main campus gates. Similar human chains and sit-ins flared in Khulna and other district headquarters.</li>
+                        </ul>
+
+                        <h2>Escalation of Tactical Demands</h2>
+                        <ul>
+                            <li><strong>Announcement of Next Phase:</strong> Under the organizing banner of the "Anti-Discrimination Student Movement", organizers concluded the day's events by announcing a strategically coordinated boycott of all university classes and examinations nationwide starting Sunday, July 7.</li>
+                            <li><strong>Intermediate Protest Framework:</strong> Leaders laid out a structured framework for the following day (July 6) to keep the momentum high before the full academic shutdown began.</li>
+                        </ul>
+
+                        <h2>Internal Campus Clashes & Eviction Tactics</h2>
+                        <ul>
+                            <li><strong>Targeting Movement Leaders:</strong> Hostility toward the student leaders grew behind closed doors. On the night of July 4 leading into the morning of July 5, Sarjis Alam, a key coordinator of the Anti-Discrimination Student Movement, faced an attempted eviction from his dormitory room.</li>
+                            <li><strong>Chhatra League Infiltration:</strong> Budding political leaders from the Bangladesh Chhatra League (BCL)—the student wing of the ruling Awami League—attempted to forcefully throw him out of Amar Ekushey Hall at Dhaka University to weaken the movement's organization. This attempt failed but intensified internal campus hostilities.</li>
+                        </ul>
+
+                        <h2>Societal Expansion and Broadened Support</h2>
+                        <ul>
+                            <li><strong>Shifting Demands:</strong> The public sentiment transformed rapidly on July 5. The core demands solidified into an ultimatum: the absolute reinstatement of the 2018 government circular that had completely abolished the quota system before the High Court invalidated it.</li>
+                            <li><strong>A Citizen's Movement:</strong> Public university teachers, professional associations, and ordinary citizens officially began extending public support to the students. This shift laid the groundwork for what would eventually evolve from a job quota protest into a broader anti-government democratic uprising.</li>
+                        </ul>
+
+                        <hr>
+                        
+                        <h3>Sources & References</h3>
+                        <p><em>(Links provided as text format)</em></p>
+                        <ul>
+                            <li>The Daily Star Report on July 5 Holiday Protests:<br> <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/july-5-2024-nationwide-protests-persist-despite-holiday-3932441</span></li>
+                            <li>The Business Standard (TBS) Detailed Report on Student Boycotts:<br> <span class="text-link">https://www.tbsnews.net/features/panorama/5-july-2024-students-announce-class-boycott-amid-growing-protests-1181041</span></li>
+                            <li>The Daily Star Comprehensive Education Segment Tracker:<br> <span class="text-link">https://www.thedailystar.net/news/bangladesh/education/news/anti-quota-protests-swell-across-univs-3649171</span></li>
+                            <li>Bangladesh Sangbad Sangstha (BSS) Official Timeline:<br> <span class="text-link">https://www.bssnews.net/news/234531</span></li>
+                            <li>VOA News Timeline:<br> <span class="text-link">https://www.voanews.com/a/timeline-of-events-leading-to-the-resignation-of-bangladesh-prime-minister-sheikh-hasina/7731456.html</span></li>
+                        </ul>
+                    `
+                }
+            },
+            bn: {
+                ui: {
+                    newspaperName: "ISTIACK'S JULY CORNER", // Strict requirement to keep this name
+                    toggleBtnText: "Read in English", // Text shown when in Bangla, to switch TO English
+                    shareBtnText: "লিংক শেয়ার করুন",
+                    printBtnText: "ডাউনলোড / প্রিন্ট করুন",
+                    modalTitle: "প্রিন্ট অপশন",
+                    modalDesc: "আপনি কোন সংস্করণটি প্রিন্ট করতে চান?",
+                    toastSuccess: "লিংক ক্লিপবোর্ডে কপি করা হয়েছে!"
+                },
+                content: {
+                    title: "প্রতিবাদের দেশব্যাপী বিকেন্দ্রীকরণ: ৫ জুলাই, ২০২৪",
+                    date: "প্রকাশিত: ৫ জুলাই, ২০২৪",
+                    bodyHTML: `
+                        <p>৫ জুলাই ২০২৪, শুক্রবার (বাংলাদেশে সাপ্তাহিক ছুটির দিন) হওয়া সত্ত্বেও বাংলাদেশ কোটা সংস্কার আন্দোলন উল্লেখযোগ্যভাবে প্রসারিত হয়, যা রাজধানী-কেন্দ্রিক একটি বিক্ষোভ থেকে একটি বিকেন্দ্রীকৃত, দেশব্যাপী প্রতিরোধ নেটওয়ার্কে রূপান্তরিত হয়। রাজনৈতিক উত্তেজনা, ক্যাম্পাসের পরিস্থিতি এবং রাস্তার বিক্ষোভের ওপর নজর রেখে সেই দিনের বিস্তারিত ঘটনা নিচে দেওয়া হলো:</p>
+                        
+                        <h2>প্রতিবাদের দেশব্যাপী বিকেন্দ্রীকরণ</h2>
+                        <ul>
+                            <li><strong>ছুটির দিনের বিঘ্ন:</strong> সরকারি সাপ্তাহিক ছুটি থাকা সত্ত্বেও, বাংলাদেশের বিভিন্ন প্রান্তের শিক্ষার্থীরা সব প্রত্যাশাকে পাশ কাটিয়ে ব্যাপক সমাবেশ, সড়ক অবরোধ এবং মানববন্ধনের আয়োজন করে।</li>
+                            <li><strong>ঢাকার বাইরে:</strong> প্রতিবাদ সফলভাবে ভৌগোলিক বাধা অতিক্রম করে। চট্টগ্রামে, চট্টগ্রাম বিশ্ববিদ্যালয়ের শিক্ষার্থীরা শহীদ মিনারে জড়ো হয়ে গুরুত্বপূর্ণ ষোলশহর সড়ক ৯০ মিনিটের জন্য অবরোধ করে রাখে। দিনাজপুরে, হাজী মোহাম্মদ দানেশ বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের (হাবিপ্রবি) শিক্ষার্থীরা প্রবল বৃষ্টি উপেক্ষা করে মূল ক্যাম্পাসের ফটক অবরোধ করে। খুলনা এবং অন্যান্য জেলা সদরেও অনুরূপ মানববন্ধন এবং অবস্থান কর্মসূচি ছড়িয়ে পড়ে।</li>
+                        </ul>
+
+                        <h2>কৌশলগত দাবির তীব্রতা বৃদ্ধি</h2>
+                        <ul>
+                            <li><strong>পরবর্তী ধাপের ঘোষণা:</strong> "বৈষম্যবিরোধী ছাত্র আন্দোলন"-এর ব্যানারে আয়োজকরা আগামী ৭ জুলাই, রবিবার থেকে দেশব্যাপী সকল বিশ্ববিদ্যালয়ের ক্লাস ও পরীক্ষা বর্জনের একটি সুপরিকল্পিত বয়কটের ঘোষণা দিয়ে দিনের কর্মসূচি শেষ করেন।</li>
+                            <li><strong>অন্তর্বর্তীকালীন প্রতিবাদের রূপরেখা:</strong> পূর্ণাঙ্গ একাডেমিক অচলাবস্থা শুরুর আগে আন্দোলনের গতি ধরে রাখতে নেতারা পরের দিন (৬ জুলাই) এর জন্য একটি সুনির্দিষ্ট কাঠামোগত রূপরেখা তুলে ধরেন।</li>
+                        </ul>
+
+                        <h2>ক্যাম্পাসের অভ্যন্তরীণ সংঘর্ষ ও উচ্ছেদ কৌশল</h2>
+                        <ul>
+                            <li><strong>আন্দোলনের নেতাদের লক্ষ্যবস্তু করা:</strong> রুদ্ধদ্বার কক্ষে ছাত্র নেতাদের প্রতি বৈরিতা বৃদ্ধি পেতে থাকে। ৪ জুলাই গভীর রাত এবং ৫ জুলাই ভোরে, বৈষম্যবিরোধী ছাত্র আন্দোলনের অন্যতম সমন্বয়ক সারজিস আলমকে তার আবাসিক হল থেকে উচ্ছেদের চেষ্টা করা হয়।</li>
+                            <li><strong>ছাত্রলীগের অনুপ্রবেশ:</strong> ক্ষমতাসীন আওয়ামী লীগের ছাত্র সংগঠন বাংলাদেশ ছাত্রলীগের (বিসিএল) উদীয়মান রাজনৈতিক নেতারা আন্দোলনের সাংগঠনিক শক্তি দুর্বল করার লক্ষ্যে ঢাকা বিশ্ববিদ্যালয়ের অমর একুশে হল থেকে তাকে জোরপূর্বক বের করে দেওয়ার চেষ্টা করে। এই প্রচেষ্টা ব্যর্থ হলেও এটি ক্যাম্পাসের অভ্যন্তরীণ উত্তেজনা আরও বাড়িয়ে দেয়।</li>
+                        </ul>
+
+                        <h2>সামাজিক সম্প্রসারণ এবং বৃহত্তর সমর্থন</h2>
+                        <ul>
+                            <li><strong>দাবির পরিবর্তন:</strong> ৫ জুলাই জনমত দ্রুত পরিবর্তিত হয়। মূল দাবিগুলো একটি আল্টিমেটামে পরিণত হয়: হাইকোর্ট কর্তৃক কোটা ব্যবস্থা বাতিলের আগে ২০১৮ সালের যে সরকারি পরিপত্র কোটা ব্যবস্থা সম্পূর্ণ বাতিল করেছিল, তার চূড়ান্ত পুনর্বহাল।</li>
+                            <li><strong>নাগরিক আন্দোলন:</strong> পাবলিক বিশ্ববিদ্যালয়ের শিক্ষক, পেশাজীবী সংগঠন এবং সাধারণ নাগরিকরা আনুষ্ঠানিকভাবে শিক্ষার্থীদের প্রতি তাদের সমর্থন জানাতে শুরু করেন। এই পরিবর্তনটি এমন একটি ভিত্তি তৈরি করেছিল যা শেষ পর্যন্ত চাকরি কোটার প্রতিবাদ থেকে বৃহত্তর সরকারবিরোধী গণতান্ত্রিক অভ্যুত্থানে রূপ নেয়।</li>
+                        </ul>
+
+                        <hr>
+                        
+                        <h3>তথ্যসূত্র ও রেফারেন্স</h3>
+                        <p><em>(লিংকসমূহ টেক্সট হিসেবে দেওয়া হলো)</em></p>
+                        <ul>
+                            <li>দ্য ডেইলি স্টার রিপোর্ট (৫ জুলাই ছুটির দিনের প্রতিবাদ):<br> <span class="text-link">https://www.thedailystar.net/news/bangladesh/news/july-5-2024-nationwide-protests-persist-despite-holiday-3932441</span></li>
+                            <li>দ্য বিজনেস স্ট্যান্ডার্ড (টিবিএস) ক্লাস বর্জন নিয়ে বিস্তারিত প্রতিবেদন:<br> <span class="text-link">https://www.tbsnews.net/features/panorama/5-july-2024-students-announce-class-boycott-amid-growing-protests-1181041</span></li>
+                            <li>দ্য ডেইলি স্টার শিক্ষা সেগমেন্ট ট্র্যাকার:<br> <span class="text-link">https://www.thedailystar.net/news/bangladesh/education/news/anti-quota-protests-swell-across-univs-3649171</span></li>
+                            <li>বাংলাদেশ সংবাদ সংস্থা (বাসস) অফিসিয়াল টাইমলাইন:<br> <span class="text-link">https://www.bssnews.net/news/234531</span></li>
+                            <li>ভয়েস অফ আমেরিকা (VOA) টাইমলাইন:<br> <span class="text-link">https://www.voanews.com/a/timeline-of-events-leading-to-the-resignation-of-bangladesh-prime-minister-sheikh-hasina/7731456.html</span></li>
+                        </ul>
+                    `
+                }
+            }
+        };
+
+        /**
+         * DOM ELEMENTS
+         */
+        const Elements = {
+            body: document.body,
+            uiLangText: document.getElementById('ui-lang-text'),
+            uiShareText: document.getElementById('ui-share-text'),
+            uiPrintText: document.getElementById('ui-print-text'),
+            uiModalTitle: document.getElementById('modal-title'),
+            uiModalDesc: document.getElementById('ui-modal-desc'),
+            articleContainer: document.getElementById('dynamic-article-content'),
+            btnToggleLang: document.getElementById('btn-toggle-lang'),
+            btnShare: document.getElementById('btn-share'),
+            btnPrintTrigger: document.getElementById('btn-print-trigger'),
+            printModal: document.getElementById('print-modal'),
+            btnCloseModal: document.getElementById('btn-close-modal'),
+            printOptions: document.querySelectorAll('.btn-print-option'),
+            toast: document.getElementById('toast-message'),
+            printBuffer: document.getElementById('print-buffer')
+        };
+
+        /**
+         * RENDER UI AND CONTENT BASED ON CURRENT LANGUAGE
+         */
+        function renderLanguage() {
+            const lang = AppState.currentLang;
+            const data = ArticleData[lang];
+
+            // 1. Update Body Class for Font Management
+            Elements.body.className = `lang-${lang}`;
+
+            // 2. Update UI Texts
+            Elements.uiLangText.textContent = data.ui.toggleBtnText;
+            Elements.uiShareText.textContent = data.ui.shareBtnText;
+            Elements.uiPrintText.textContent = data.ui.printBtnText;
+            Elements.uiModalTitle.textContent = data.ui.modalTitle;
+            Elements.uiModalDesc.textContent = data.ui.modalDesc;
+
+            // 3. Render Article Content
+            // Construct semantic article markup
+            const html = `
+                <h1 class="article-title">${data.content.title}</h1>
+                <time class="article-date">${data.content.date}</time>
+                <div class="article-body">
+                    ${data.content.bodyHTML}
+                </div>
+            `;
+            Elements.articleContainer.innerHTML = html;
+        }
+
+        /**
+         * LANGUAGE TOGGLE HANDLER
+         */
+        Elements.btnToggleLang.addEventListener('click', () => {
+            // Swap language
+            AppState.currentLang = AppState.currentLang === 'en' ? 'bn' : 'en';
+            renderLanguage();
+        });
+
+        /**
+         * SHARE LINK HANDLER (Clipboard logic)
+         */
+        function showToast(message) {
+            Elements.toast.textContent = message;
+            Elements.toast.classList.add('show');
+            setTimeout(() => {
+                Elements.toast.classList.remove('show');
+            }, 3000);
+        }
+
+        Elements.btnShare.addEventListener('click', () => {
+            // Strict URL requirement implementation
+            const exactUrlToCopy = `https://istiack.ami.bd/july-corner/${AppState.urlDate}-july/`;
+            
+            // Clipboard API with fallback
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(exactUrlToCopy).then(() => {
+                    showToast(ArticleData[AppState.currentLang].ui.toastSuccess);
+                }).catch(err => {
+                    console.error("Clipboard write failed", err);
+                    fallbackCopyTextToClipboard(exactUrlToCopy);
+                });
+            } else {
+                fallbackCopyTextToClipboard(exactUrlToCopy);
+            }
+        });
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            // Prevent scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if(successful) {
+                    showToast(ArticleData[AppState.currentLang].ui.toastSuccess);
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        /**
+         * PRINT MODAL LOGIC
+         */
+        Elements.btnPrintTrigger.addEventListener('click', () => {
+            Elements.printModal.classList.add('active');
+        });
+
+        Elements.btnCloseModal.addEventListener('click', () => {
+            Elements.printModal.classList.remove('active');
+        });
+
+        // Close on clicking outside
+        Elements.printModal.addEventListener('click', (e) => {
+            if (e.target === Elements.printModal) {
+                Elements.printModal.classList.remove('active');
+            }
+        });
+
+        /**
+         * EXECUTE PRINT BASED ON SELECTION
+         */
+        Elements.printOptions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const selectedLang = btn.getAttribute('data-print-lang');
+                Elements.printModal.classList.remove('active');
+                
+                // Prepare print buffer
+                preparePrintEnvironment(selectedLang);
+                
+                // Slight delay to ensure DOM updates and fonts apply before browser print dialog
+                setTimeout(() => {
+                    window.print();
+                    
+                    // Cleanup after print dialog closes
+                    setTimeout(cleanupPrintEnvironment, 500);
+                }, 100);
+            });
+        });
+
+        function preparePrintEnvironment(mode) {
+            Elements.printBuffer.innerHTML = ''; // Clear existing
+            
+            if (mode === 'en' || mode === 'bn') {
+                // Single language override
+                const originalLang = AppState.currentLang;
+                if (originalLang !== mode) {
+                    // Temporarily change language for print
+                    AppState.currentLang = mode;
+                    renderLanguage();
+                    Elements.body.setAttribute('data-restore-lang', originalLang);
+                }
+                
+                // Set body font class specific to print
+                Elements.body.className = `lang-${mode}`; 
+            } 
+            else if (mode === 'both') {
+                // Both languages: Construct a combined DOM purely for printing
+                Elements.body.classList.add('print-override'); // Hide normal screen article
+                
+                const enData = ArticleData['en'].content;
+                const bnData = ArticleData['bn'].content;
+                
+                const bothHtml = `
+                    <div style="font-family: 'E1', sans-serif;">
+                        <h1 style="font-family: 'E2', sans-serif;">${enData.title}</h1>
+                        <p style="color: #555;">${enData.date}</p>
+                        ${enData.bodyHTML}
+                    </div>
+                    <hr style="margin: 40px 0; border: 0; border-top: 1px solid #000;">
+                    <div style="font-family: 'B2', sans-serif;">
+                        <h1 style="font-family: 'B1', sans-serif;">${bnData.title}</h1>
+                        <p style="color: #555;">${bnData.date}</p>
+                        ${bnData.bodyHTML}
+                    </div>
+                `;
+                Elements.printBuffer.innerHTML = bothHtml;
+            }
+        }
+
+        function cleanupPrintEnvironment() {
+            // Restore single language if it was overridden
+            const restoreLang = Elements.body.getAttribute('data-restore-lang');
+            if (restoreLang) {
+                AppState.currentLang = restoreLang;
+                renderLanguage();
+                Elements.body.removeAttribute('data-restore-lang');
+            }
+            
+            // Remove override classes and clear buffer
+            Elements.body.classList.remove('print-override');
+            Elements.printBuffer.innerHTML = '';
+            
+            // Ensure body class is correct based on current state
+            Elements.body.className = `lang-${AppState.currentLang}`;
+        }
+
+        /**
+         * INITIALIZATION
+         */
+        // Render initial English content on load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLanguage();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+    =======================================================================
+    ISTIACK'S JULY CORNER - BILINGUAL ARTICLE TEMPLATE
+    =======================================================================
+    Event Date: July 21, 2024 (Supreme Court Quota Ruling)
+    Architecture: Mobile-First, Vanilla JS, Pure CSS (No Frameworks)
+    Design System: Minimalist, Pure Article Aesthetic, Data Visualization
+    Language: Bilingual (English / Bangla) - No Reload Swapping
+    =======================================================================
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>July 21, 2024</title>
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="July 21, 2024: The Supreme Court Ruling">
+    <meta property="og:description" content="On July 21, 2024, the Appellate Division of the Supreme Court of Bangladesh completely overhauled the government job quota system.">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/21-july/">
+    <meta property="og:type" content="article">
+
+    <!-- Strict Font Definitions (Root Directory) -->
+    <style>
+        /*
+         * ==========================================
+         * 1. FONT FACE DECLARATIONS (STRICT CONTROL)
+         * ==========================================
+         */
+        @font-face {
+            font-family: 'EnglishMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'EnglishHeader';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaHeader';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /*
+         * ==========================================
+         * 2. CSS VARIABLES & THEME
+         * ==========================================
+         */
+        :root {
+            /* Color Palette - Minimalist / Pure Article */
+            --bg-color: #fdfdfd;
+            --text-color-main: #222222;
+            --text-color-muted: #555555;
+            --text-color-light: #777777;
+            --header-bg: rgba(255, 255, 255, 0.98);
+            --border-color: #e5e5e5;
+            --accent-color: #111111;
+            --accent-hover: #444444;
+            --overlay-bg: rgba(0, 0, 0, 0.6);
+            --modal-bg: #ffffff;
+            
+            /* Chart Colors */
+            --chart-merit: #2c3e50;
+            --chart-ff: #e74c3c;
+            --chart-minority: #f39c12;
+            --chart-disabled: #27ae60;
+            
+            /* Spacing variables for systematic layout */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-xxl: 5rem;
+            
+            /* Header height for fixed positioning offset */
+            --header-height: 70px;
+
+            /* Dynamic Font Variables - Initialized to English */
+            --current-font-main: 'EnglishMain', sans-serif;
+            --current-font-header: 'EnglishHeader', sans-serif;
+            --current-font-size-base: 18px;
+            --current-line-height: 1.7;
+        }
+
+        /* Dynamic Font Switching based on html[lang] attribute */
+        html[lang="bn"] {
+            --current-font-main: 'BanglaMain', sans-serif;
+            --current-font-header: 'BanglaHeader', sans-serif;
+            --current-font-size-base: 20px; 
+            --current-line-height: 1.8;
+        }
+
+        /*
+         * ==========================================
+         * 3. CSS RESET & GLOBAL STYLES
+         * ==========================================
+         */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color-main);
+            /* STRICT ENFORCEMENT: Every single letter under font control */
+            font-family: var(--current-font-main) !important;
+            font-size: var(--current-font-size-base);
+            line-height: var(--current-line-height);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            padding-top: var(--header-height); /* Offset for fixed header */
+        }
+
+        /* Enforce header fonts on specific tags */
+        h1, h2, h3, h4, h5, h6, .brand-name {
+            font-family: var(--current-font-header) !important;
+            color: var(--accent-color);
+            line-height: 1.3;
+            margin-bottom: var(--space-sm);
+        }
+
+        /* Enforce main font on UI elements, ensuring buttons are under font control */
+        button, input, select, textarea, .nav-link, .modal-text {
+            font-family: var(--current-font-main) !important;
+        }
+
+        ul, ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-lg);
+        }
+
+        li {
+            margin-bottom: var(--space-xs);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* STRICT REQUIREMENT: Links shown as text (Not hyperlinked) */
+        .text-link {
+            word-break: break-all;
+            color: var(--text-color-muted);
+            font-style: italic;
+            display: inline-block;
+        }
+
+        /*
+         * ==========================================
+         * 4. HEADER & NAVIGATION STYLES
+         * ==========================================
+         */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        /* Logo styling - Requirement: Black and white first */
+        .site-logo {
+            height: 40px;
+            width: auto;
+            filter: grayscale(100%);
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle-btn {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+        }
+
+        .lang-toggle-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        /* Mobile Menu Toggle (Hamburger) */
+        .mobile-menu-btn {
+            display: none; /* Hidden on desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /*
+         * ==========================================
+         * 5. MAIN CONTENT LAYOUT
+         * ==========================================
+         */
+        .main-container {
+            max-width: 800px; /* Optimal reading width */
+            margin: 0 auto;
+            padding: 0; 
+            background-color: var(--bg-color);
+        }
+
+        /* Hero Image - Requirement: No caption, just the image, under header */
+        .hero-section {
+            width: 100%;
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Article Wrapper */
+        .article-wrapper {
+            padding: var(--space-md);
+        }
+
+        /* Action Buttons (Share & Download) - Right under image */
+        .action-bar {
+            display: flex;
+            justify-content: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: var(--space-lg);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-color-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .action-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .action-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Dynamic Content Area */
+        .dynamic-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .article-title {
+            font-size: 2.2rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .article-meta {
+            color: var(--text-color-light);
+            font-size: 0.9rem;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .sub-section-title {
+            font-size: 1.25rem;
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-sm);
+            color: var(--text-color-main);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: var(--space-xl) 0;
+            border: none;
+        }
+
+        /*
+         * ==========================================
+         * 6. DATA VISUALIZATION (PROFESSIONAL QUOTA CHART)
+         * ==========================================
+         */
+        .chart-container {
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg);
+            background: #f9f9f9;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        @media (min-width: 600px) {
+            .chart-container {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+
+        .svg-chart-wrapper {
+            width: 250px;
+            height: 250px;
+            position: relative;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .legend-color-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            margin-right: 12px;
+            display: inline-block;
+        }
+
+        .legend-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .legend-value {
+            font-weight: bold;
+            font-family: var(--current-font-header) !important;
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: var(--space-md);
+            width: 100%;
+        }
+
+        /*
+         * ==========================================
+         * 7. MODALS & TOAST NOTIFICATIONS
+         * ==========================================
+         */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2000;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .toast.show {
+            bottom: 30px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--modal-bg);
+            width: 90%;
+            max-width: 450px;
+            padding: var(--space-xl) var(--space-lg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .modal-desc {
+            color: var(--text-color-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .modal-btn {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color-main);
+            padding: var(--space-sm);
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn:hover {
+            border-color: var(--accent-color);
+            background-color: #f9f9f9;
+        }
+
+        .modal-btn.primary {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+        }
+
+        .modal-btn.primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .modal-close {
+            margin-top: var(--space-md);
+            background: none;
+            border: none;
+            color: var(--text-color-muted);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /*
+         * ==========================================
+         * 8. RESPONSIVE DESIGN (MOBILE FIRST OVERRIDES)
+         * ==========================================
+         */
+        @media (max-width: 768px) {
+            .brand-name {
+                font-size: 1.1rem;
+            }
+            .lang-toggle-btn.desktop-only {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .article-title {
+                font-size: 1.8rem;
+            }
+            /* Mobile Navigation Overlay */
+            .mobile-nav {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background-color: var(--header-bg);
+                border-bottom: 1px solid var(--border-color);
+                padding: var(--space-md);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: var(--space-md);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 999;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            }
+            .mobile-nav.active {
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-nav {
+                display: none;
+            }
+        }
+
+        /*
+         * ==========================================
+         * 9. ADVANCED PRINT STYLES (Strict Requirements)
+         * ==========================================
+         */
+        @media print {
+            /* Reset body completely for printing */
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 12pt !important;
+            }
+
+            /* Hide all interactive & UI elements */
+            .site-header, .action-bar, .modal-overlay, .toast, .mobile-nav, .no-print {
+                display: none !important;
+            }
+
+            /* Optimize Container */
+            .main-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .article-wrapper {
+                padding: 0 !important;
+            }
+
+            /* Ensure Font Faces render in PDF/Print */
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid;
+                color: black !important;
+            }
+
+            p, h2, h3 {
+                orphans: 3;
+                widows: 3;
+            }
+
+            ul, ol, p {
+                page-break-inside: avoid;
+            }
+
+            /* Asset Management: Keep images, hide videos */
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+                page-break-inside: avoid;
+                display: block !important;
+            }
+
+            video, iframe {
+                display: none !important;
+            }
+
+            /* Specific Print Container logic */
+            #print-render-area {
+                display: block !important;
+            }
+            
+            /* Chart adjustments for print */
+            .chart-container {
+                border: 1px solid #ccc !important;
+                background: white !important;
+                page-break-inside: avoid;
+            }
+
+            /* If we are generating a dual-language print, separate them cleanly */
+            .print-lang-section {
+                page-break-after: always;
+            }
+            .print-lang-section:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        /* Hide print render area on screen */
+        @media screen {
+            #print-render-area {
+                display: none !important;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================================= -->
+    <!-- 1. FIXED HEADER -->
+    <!-- ======================================================= -->
+    <header class="site-header no-print" id="main-header">
+        <div class="header-left">
+            <!-- Logo from root directory, grayscale applied via CSS -->
+            <img src="/home.png" alt="Home" class="site-logo" onerror="this.style.display='none'">
+            <h1 class="brand-name">ISTIACK'S JULY CORNER</h1>
+        </div>
+        <div class="header-right">
+            <!-- Desktop Language Toggle -->
+            <button class="lang-toggle-btn desktop-only" id="langToggleDesktop" aria-label="Toggle Language">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                <span id="langToggleTextDesktop">ইংরেজিতে পড়ুন</span>
+            </button>
+            
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+                <svg id="hamburgerIcon" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                <svg id="closeIcon" viewBox="0 0 24 24" style="display: none;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav no-print" id="mobileNav">
+        <button class="lang-toggle-btn" id="langToggleMobile">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+            <span id="langToggleTextMobile">ইংরেজিতে পড়ুন</span>
+        </button>
+    </nav>
+
+    <!-- ======================================================= -->
+    <!-- 2. MAIN APPLICATION CONTAINER -->
+    <!-- ======================================================= -->
+    <main class="main-container" id="main-container">
+        
+        <!-- Hero Section (Under Header) -->
+        <section class="hero-section">
+            <img src="./t.png" alt="July 21 Article Cover" class="hero-image">
+        </section>
+
+        <!-- Article Content Wrapper -->
+        <article class="article-wrapper">
+            
+            <!-- Action Bar (Share & Download/Print) -->
+            <div class="action-bar no-print">
+                <button class="action-btn" id="shareBtn" aria-label="Share Article">
+                    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+                    <span id="uiTextShare">Share</span>
+                </button>
+                <button class="action-btn" id="triggerPrintBtn" aria-label="Print Article">
+                    <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                    <span id="uiTextPrint">Download</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Content Container (Injected via JS) -->
+            <div id="article-content" class="dynamic-content">
+                <!-- Main textual content and data visualization renders here -->
+            </div>
+            
+        </article>
+    </main>
+
+    <!-- ======================================================= -->
+    <!-- 3. PRINT RENDER AREA (Hidden on screen, shown in print) -->
+    <!-- ======================================================= -->
+    <div id="print-render-area"></div>
+
+    <!-- ======================================================= -->
+    <!-- 4. PRINT PREFERENCE MODAL -->
+    <!-- ======================================================= -->
+    <div class="modal-overlay no-print" id="printModal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modalTitle">Print Options</h3>
+            <p class="modal-desc" id="modalDesc">Which version would you like to print?</p>
+            <div class="modal-actions">
+                <button class="modal-btn" id="printBtnEn">English Only</button>
+                <button class="modal-btn" id="printBtnBn">Bangla Only</button>
+                <button class="modal-btn primary" id="printBtnBoth">Both Languages</button>
+                <button class="modal-close" id="closeModalBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- 5. TOAST NOTIFICATION -->
+    <!-- ======================================================= -->
+    <div class="toast no-print" id="toastMessage">Link copied to clipboard!</div>
+
+    <!-- ======================================================= -->
+    <!-- 6. APPLICATION LOGIC & DATA (Vanilla JS) -->
+    <!-- ======================================================= -->
+    <script>
+        /**
+         * ==========================================
+         * A. STRUCTURED CONTENT OBJECT (JSON-LIKE)
+         * ==========================================
+         * Contains both English and Bangla translations mapped exactly 
+         * to the provided event details. Includes special 'chart' type
+         * for rendering professional data visualization.
+         */
+        const articleData = {
+            en: {
+                ui: {
+                    langToggleText: "ইংরেজিতে পড়ুন", // We show target language script
+                    langToggleDisplay: "Read in Bangla", 
+                    shareBtn: "Share",
+                    printBtn: "Print / Download",
+                    toastCopied: "Link copied to clipboard: ",
+                    modalTitle: "Print Options",
+                    modalDesc: "Select the language version you wish to print:",
+                    printEn: "English Only",
+                    printBn: "Bangla Only",
+                    printBoth: "Both Languages",
+                    cancel: "Cancel"
+                },
+                content: {
+                    title: "July 21, 2024: The Supreme Court Ruling",
+                    meta: "July 21, 2024 • ISTIACK'S JULY CORNER",
+                    intro: "On July 21, 2024, the single most critical event of the Bangladeshi Anti-Quota Movement occurred when the Appellate Division of the Supreme Court of Bangladesh completely overhauled the government job quota system, ordering that 93% of public sector jobs must be allocated strictly on merit. This landmark ruling drastically dismantled the High Court's previous decision and scaled down the highly controversial 30% quota for freedom fighters' descendants to just 5%. [1, 2]",
+                    sections: [
+                        {
+                            type: "h2",
+                            text: "The Supreme Court Ruling"
+                        },
+                        {
+                            type: "list",
+                            items: [
+                                "The Verdict: The Appellate Division declared the lower court's reinstatement of the old quota system illegal.",
+                                "Merit Allocation: Public job recruitment based on merit was officially raised to 93%.",
+                                "Freedom Fighter Quota: The reservation for descendants of 1971 Liberation War veterans was cut from 30% down to 5%.",
+                                "Minority & Disability Quota: The remaining 2% was set aside, split into 1% for ethnic minorities and 1% for transgender individuals and people with disabilities.",
+                                "The Call to Return: The top court explicitly urged protesting students to end their demonstrations and return to their classes. [1, 3, 4, 5, 6]"
+                            ]
+                        },
+                        {
+                            // Trigger for the professional Quota breakdown chart
+                            type: "chart",
+                            data: {
+                                title: "New Supreme Court Quota Allocation",
+                                labels: ["Merit", "Freedom Fighters", "Ethnic Minorities", "Transgender / Disabled"],
+                                values: [93, 5, 1, 1],
+                                colors: ["var(--chart-merit)", "var(--chart-ff)", "var(--chart-minority)", "var(--chart-disabled)"]
+                            }
+                        },
+                        {
+                            type: "h2",
+                            text: "Ground Situation and Security Crackdown"
+                        },
+                        {
+                            type: "list",
+                            items: [
+                                "Strict Curfew: The government extended a nationwide curfew with a strict \"shoot-on-sight\" order executed by military personnel and police patrolling deserted streets. [3, 7]",
+                                "Communication Blackout: A massive nationwide internet, mobile data, and SMS text message service suspension remained fully active, leaving Bangladesh functionally isolated from the world. [2, 8]",
+                                "Casualties & Arrests: Over 100 to 140 deaths had already been recorded leading up to this day due to intense clashes. Mass arrests targeted opposition leaders and student organizers, with key coordinators like Nahid Islam reporting detention and physical abuse. [7, 9, 10, 11]"
+                            ]
+                        },
+                        {
+                            type: "h2",
+                            text: "Protester Responses"
+                        },
+                        {
+                            type: "list",
+                            items: [
+                                "Mixed Reactions: While the ruling fulfilled the core legal restructuring demands of the movement, the Students Against Discrimination group did not immediately back down. [7, 12, 13, 14]",
+                                "Evolving Demands: Student leaders vowed to continue demonstrations until broader demands were addressed, including the immediate release of jailed students and accountability from officials responsible for the deadly state-backed violence. [7, 12]"
+                            ]
+                        },
+                        {
+                            type: "divider"
+                        },
+                        {
+                            type: "h2",
+                            text: "Media Recommendations and Direct Links"
+                        },
+                        {
+                            type: "p",
+                            text: "Below are standard video and textual reporting sources covering the exact events of July 21, 2024."
+                        },
+                        {
+                            type: "h3",
+                            text: "Recommended News and Video Sources:"
+                        },
+                        {
+                            type: "list-links",
+                            items: [
+                                "BBC News Video Coverage: https://www.youtube.com/watch?v=-tWZlLP_GNk",
+                                "Al Jazeera Live Updates: https://www.aljazeera.com/news/liveblog/2024/7/21/bangladesh-quota-protests-live-top-court-scales-back-job-reservation",
+                                "Reuters World News Dispatch: https://www.reuters.com/world/asia-pacific/bangladesh-extends-curfew-ahead-court-hearing-controversial-job-quotas-2024-07-21/",
+                                "Prasar Bharati (NewsOnAir) Report: https://newsonair.gov.in/bangladesh-supreme-court-declares-high-court-verdict-on-quota-system-illegal/ [1]"
+                            ]
+                        },
+                        {
+                            type: "divider"
+                        },
+                        {
+                            type: "footnotes",
+                            items: [
+                                "[1] https://en.wikipedia.org/wiki/Bangladesh_quota_reform_movement",
+                                "[2] https://www.reuters.com/world/asia-pacific/bangladesh-extends-curfew-ahead-court-hearing-controversial-job-quotas-2024-07-21/",
+                                "[3] https://newsonair.gov.in/bangladesh-supreme-court-declares-high-court-verdict-on-quota-system-illegal/",
+                                "[4] https://en.wikipedia.org/wiki/Quota_system_of_Bangladesh_Civil_Service",
+                                "[5] https://www.aljazeera.com/news/2024/7/21/bangladesh-court-scraps-most-job-quotas-that-caused-deadly-unrest-reports",
+                                "[6] https://www.isas.nus.edu.sg/papers/a-country-in-turmoil-political-violence-in-bangladesh/",
+                                "[7] https://www.aljazeera.com/news/liveblog/2024/7/21/bangladesh-quota-protests-live-top-court-scales-back-job-reservation",
+                                "[8] https://en.wikiquote.org/wiki/2024_Bangladesh_quota_reform_movement",
+                                "[9] https://www.aa.com.tr/en/asia-pacific/bangladesh-unrest-anti-quota-movement-for-public-jobs-escalates-past-student-protests/3282531",
+                                "[10] https://newsonair.gov.in/bangladesh-supreme-court-scraps-most-jobs-quota-that-sparked-violent-protests/",
+                                "[11] https://monitor.civicus.org/explore/bangladesh-brutal-crackdown-on-quota-reform-protesters-by-security-forces-and-ruling-party-youth-wing/",
+                                "[12] https://www.aljazeera.com/news/liveblog/2024/7/21/bangladesh-quota-protests-live-top-court-scales-back-job-reservation",
+                                "[13] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                                "[14] https://cilj.co.uk/the-july-revolution-quota-discrimination-and-equality-in-international-law/"
+                            ]
+                        }
+                    ]
+                }
+            },
+            bn: {
+                ui: {
+                    langToggleText: "Read in English",
+                    langToggleDisplay: "ইংরেজিতে পড়ুন",
+                    shareBtn: "শেয়ার করুন",
+                    printBtn: "ডাউনলোড / প্রিন্ট",
+                    toastCopied: "লিঙ্ক কপি করা হয়েছে: ",
+                    modalTitle: "প্রিন্ট অপশন",
+                    modalDesc: "আপনি কোন সংস্করণটি প্রিন্ট করতে চান তা নির্বাচন করুন:",
+                    printEn: "শুধুমাত্র ইংরেজি",
+                    printBn: "শুধুমাত্র বাংলা",
+                    printBoth: "উভয় ভাষা",
+                    cancel: "বাতিল করুন"
+                },
+                content: {
+                    title: "২১ জুলাই, ২০২৪: সুপ্রিম কোর্টের যুগান্তকারী রায়",
+                    meta: "২১ জুলাই, ২০২৪ • ইশতিয়াকস জুলাই কর্নার",
+                    intro: "২১ জুলাই, ২০২৪ তারিখে, বাংলাদেশের কোটা সংস্কার আন্দোলনের সবচেয়ে গুরুত্বপূর্ণ ঘটনাটি ঘটে যখন বাংলাদেশ সুপ্রিম কোর্টের আপিল বিভাগ সরকারি চাকরির কোটা ব্যবস্থা সম্পূর্ণ ঢেলে সাজায়, এবং নির্দেশ দেয় যে ৯৩% সরকারি চাকরি সম্পূর্ণ মেধার ভিত্তিতে বরাদ্দ করতে হবে। এই যুগান্তকারী রায় হাইকোর্টের পূর্ববর্তী সিদ্ধান্তকে বাতিল করে দেয় এবং মুক্তিযোদ্ধাদের বংশধরদের জন্য অত্যন্ত বিতর্কিত ৩০% কোটা কমিয়ে মাত্র ৫% এ নামিয়ে আনে। [১, ২]",
+                    sections: [
+                        {
+                            type: "h2",
+                            text: "সুপ্রিম কোর্টের রায়"
+                        },
+                        {
+                            type: "list",
+                            items: [
+                                "রায়: আপিল বিভাগ নিম্ন আদালতের পুরনো কোটা ব্যবস্থা পুনর্বহালের রায়কে অবৈধ ঘোষণা করে।",
+                                "মেধা বরাদ্দ: মেধার ভিত্তিতে সরকারি চাকরিতে নিয়োগ আনুষ্ঠানিকভাবে ৯৩% এ উন্নীত করা হয়।",
+                                "মুক্তিযোদ্ধা কোটা: ১৯৭১ সালের মুক্তিযুদ্ধের প্রবীণদের বংশধরদের জন্য সংরক্ষণ ৩০% থেকে কমিয়ে ৫% করা হয়।",
+                                "সংখ্যালঘু ও প্রতিবন্ধী কোটা: অবশিষ্ট ২% আলাদা করে রাখা হয়, যা ক্ষুদ্র নৃগোষ্ঠীর জন্য ১% এবং হিজড়া ও প্রতিবন্ধী ব্যক্তিদের জন্য ১% এ বিভক্ত করা হয়।",
+                                "ফিরে যাওয়ার আহ্বান: শীর্ষ আদালত স্পষ্টভাবে আন্দোলনরত শিক্ষার্থীদের তাদের বিক্ষোভ শেষ করে ক্লাসে ফিরে যাওয়ার আহ্বান জানায়। [১, ৩, ৪, ৫, ৬]"
+                            ]
+                        },
+                        {
+                            type: "chart",
+                            data: {
+                                title: "সুপ্রিম কোর্টের নতুন কোটা বন্টন",
+                                labels: ["মেধা", "মুক্তিযোদ্ধা", "ক্ষুদ্র নৃগোষ্ঠী", "হিজড়া / প্রতিবন্ধী"],
+                                values: [93, 5, 1, 1],
+                                colors: ["var(--chart-merit)", "var(--chart-ff)", "var(--chart-minority)", "var(--chart-disabled)"]
+                            }
+                        },
+                        {
+                            type: "h2",
+                            text: "মাঠ পরিস্থিতি এবং নিরাপত্তা কঠোরকরণ"
+                        },
+                        {
+                            type: "list",
+                            items: [
+                                "কঠোর কারফিউ: সরকার দেশব্যাপী কারফিউ সম্প্রসারিত করে এবং জনশূন্য রাস্তায় টহলরত সামরিক ও পুলিশ বাহিনীর মাধ্যমে কঠোর \"দেখামাত্র গুলি\" (shoot-on-sight) নির্দেশ কার্যকর করে। [৩, ৭]",
+                                "যোগাযোগ বিচ্ছিন্নতা: দেশব্যাপী ইন্টারনেট, মোবাইল ডাটা এবং এসএমএস টেক্সট মেসেজ পরিষেবার বিশাল স্থগিতাদেশ সম্পূর্ণ সক্রিয় থাকে, যা বাংলাদেশকে কার্যকরীভাবে বিশ্ব থেকে বিচ্ছিন্ন করে রাখে। [২, ৮]",
+                                "হতাহত ও গ্রেপ্তার: তীব্র সংঘর্ষের কারণে এই দিনটির আগে থেকেই ১০০ থেকে ১৪০ জনের মৃত্যুর খবর রেকর্ড করা হয়েছিল। বিরোধী দলীয় নেতা এবং ছাত্র সংগঠকদের লক্ষ্য করে গণগ্রেপ্তার চালানো হয়, যেখানে নাহিদ ইসলামের মতো প্রধান সমন্বয়করা আটক ও শারীরিক নির্যাতনের শিকার হওয়ার কথা জানান। [৭, ৯, ১০, ১১]"
+                            ]
+                        },
+                        {
+                            type: "h2",
+                            text: "আন্দোলনকারীদের প্রতিক্রিয়া"
+                        },
+                        {
+                            type: "list",
+                            items: [
+                                "মিশ্র প্রতিক্রিয়া: যদিও রায়টি আন্দোলনের মূল আইনি পুনর্গঠনের দাবি পূরণ করেছিল, তবুও বৈষম্যবিরোধী ছাত্র আন্দোলন তাৎক্ষণিকভাবে পিছু হটেনি। [৭, ১২, ১৩, ১৪]",
+                                "দাবির বিবর্তন: ছাত্র নেতারা বৃহত্তর দাবিগুলো পূরণ না হওয়া পর্যন্ত বিক্ষোভ চালিয়ে যাওয়ার প্রতিশ্রুতি দেন, যার মধ্যে ছিল কারাবন্দী শিক্ষার্থীদের অবিলম্বে মুক্তি এবং রাষ্ট্রীয় মদদপুষ্ট প্রাণঘাতী সহিংসতার জন্য দায়ী কর্মকর্তাদের জবাবদিহিতা। [৭, ১২]"
+                            ]
+                        },
+                        {
+                            type: "divider"
+                        },
+                        {
+                            type: "h2",
+                            text: "মিডিয়া সুপারিশ এবং সরাসরি লিঙ্ক"
+                        },
+                        {
+                            type: "p",
+                            text: "নিচে ২১ জুলাই, ২০২৪ তারিখের সঠিক ঘটনা কভার করা প্রামাণ্য ভিডিও এবং পাঠ্য রিপোর্টিংয়ের উৎস দেওয়া হলো।"
+                        },
+                        {
+                            type: "h3",
+                            text: "প্রস্তাবিত খবর এবং ভিডিও উৎস:"
+                        },
+                        {
+                            type: "list-links",
+                            items: [
+                                "BBC News Video Coverage: https://www.youtube.com/watch?v=-tWZlLP_GNk",
+                                "Al Jazeera Live Updates: https://www.aljazeera.com/news/liveblog/2024/7/21/bangladesh-quota-protests-live-top-court-scales-back-job-reservation",
+                                "Reuters World News Dispatch: https://www.reuters.com/world/asia-pacific/bangladesh-extends-curfew-ahead-court-hearing-controversial-job-quotas-2024-07-21/",
+                                "Prasar Bharati (NewsOnAir) Report: https://newsonair.gov.in/bangladesh-supreme-court-declares-high-court-verdict-on-quota-system-illegal/ [১]"
+                            ]
+                        },
+                        {
+                            type: "divider"
+                        },
+                        {
+                            type: "footnotes",
+                            items: [
+                                "[১] https://en.wikipedia.org/wiki/Bangladesh_quota_reform_movement",
+                                "[২] https://www.reuters.com/world/asia-pacific/bangladesh-extends-curfew-ahead-court-hearing-controversial-job-quotas-2024-07-21/",
+                                "[৩] https://newsonair.gov.in/bangladesh-supreme-court-declares-high-court-verdict-on-quota-system-illegal/",
+                                "[৪] https://en.wikipedia.org/wiki/Quota_system_of_Bangladesh_Civil_Service",
+                                "[৫] https://www.aljazeera.com/news/2024/7/21/bangladesh-court-scraps-most-job-quotas-that-caused-deadly-unrest-reports",
+                                "[৬] https://www.isas.nus.edu.sg/papers/a-country-in-turmoil-political-violence-in-bangladesh/",
+                                "[৭] https://www.aljazeera.com/news/liveblog/2024/7/21/bangladesh-quota-protests-live-top-court-scales-back-job-reservation",
+                                "[৮] https://en.wikiquote.org/wiki/2024_Bangladesh_quota_reform_movement",
+                                "[৯] https://www.aa.com.tr/en/asia-pacific/bangladesh-unrest-anti-quota-movement-for-public-jobs-escalates-past-student-protests/3282531",
+                                "[১০] https://newsonair.gov.in/bangladesh-supreme-court-scraps-most-jobs-quota-that-sparked-violent-protests/",
+                                "[১১] https://monitor.civicus.org/explore/bangladesh-brutal-crackdown-on-quota-reform-protesters-by-security-forces-and-ruling-party-youth-wing/",
+                                "[১২] https://www.aljazeera.com/news/liveblog/2024/7/21/bangladesh-quota-protests-live-top-court-scales-back-job-reservation",
+                                "[১৩] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                                "[১৪] https://cilj.co.uk/the-july-revolution-quota-discrimination-and-equality-in-international-law/"
+                            ]
+                        }
+                    ]
+                }
+            }
+        };
+
+        /**
+         * ==========================================
+         * B. STATE MANAGEMENT & DOM ELEMENTS
+         * ==========================================
+         */
+        let currentLang = 'en';
+        // User strictly asked for this specific share URL structure:
+        const STRICT_SHARE_URL = 'https://istiack.ami.bd/july-corner/21-july/';
+
+        const els = {
+            html: document.documentElement,
+            contentContainer: document.getElementById('article-content'),
+            printRenderArea: document.getElementById('print-render-area'),
+            mainContainer: document.getElementById('main-container'),
+            
+            langToggleDesktop: document.getElementById('langToggleDesktop'),
+            langToggleMobile: document.getElementById('langToggleMobile'),
+            langToggleTextDesktop: document.getElementById('langToggleTextDesktop'),
+            langToggleTextMobile: document.getElementById('langToggleTextMobile'),
+            shareBtn: document.getElementById('shareBtn'),
+            triggerPrintBtn: document.getElementById('triggerPrintBtn'),
+            
+            uiTextShare: document.getElementById('uiTextShare'),
+            uiTextPrint: document.getElementById('uiTextPrint'),
+            
+            mobileMenuBtn: document.getElementById('mobileMenuBtn'),
+            mobileNav: document.getElementById('mobileNav'),
+            hamburgerIcon: document.getElementById('hamburgerIcon'),
+            closeIcon: document.getElementById('closeIcon'),
+            toastMessage: document.getElementById('toastMessage'),
+            
+            printModal: document.getElementById('printModal'),
+            modalTitle: document.getElementById('modalTitle'),
+            modalDesc: document.getElementById('modalDesc'),
+            printBtnEn: document.getElementById('printBtnEn'),
+            printBtnBn: document.getElementById('printBtnBn'),
+            printBtnBoth: document.getElementById('printBtnBoth'),
+            closeModalBtn: document.getElementById('closeModalBtn')
+        };
+
+        /**
+         * ==========================================
+         * C. DATA VISUALIZATION ENGINE (SVG DONUT CHART)
+         * ==========================================
+         * Generates a professional, responsive SVG Donut chart dynamically
+         * based on the numerical data provided in the JSON payload.
+         */
+        function generateDonutChartHTML(chartData) {
+            const size = 250;
+            const center = size / 2;
+            const radius = 100;
+            const strokeWidth = 40;
+            
+            let total = chartData.values.reduce((sum, val) => sum + val, 0);
+            let currentAngle = -Math.PI / 2; // Start at top (12 o'clock)
+            
+            let svgPaths = '';
+            let legendHTML = '';
+
+            chartData.values.forEach((value, index) => {
+                // Calculate angles
+                const sliceAngle = (value / total) * 2 * Math.PI;
+                const nextAngle = currentAngle + sliceAngle;
+                
+                // If value is 100%, render a full circle instead of an arc path
+                if (value === total) {
+                    svgPaths += `<circle cx="${center}" cy="${center}" r="${radius}" fill="transparent" stroke="${chartData.colors[index]}" stroke-width="${strokeWidth}" />`;
+                } else {
+                    // Calculate start and end coordinates
+                    const startX = center + radius * Math.cos(currentAngle);
+                    const startY = center + radius * Math.sin(currentAngle);
+                    const endX = center + radius * Math.cos(nextAngle);
+                    const endY = center + radius * Math.sin(nextAngle);
+                    
+                    const largeArcFlag = sliceAngle > Math.PI ? 1 : 0;
+                    
+                    // Create SVG Path Data
+                    const d = `
+                        M ${startX} ${startY}
+                        A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}
+                    `;
+                    
+                    svgPaths += `
+                        <path d="${d}" fill="transparent" stroke="${chartData.colors[index]}" stroke-width="${strokeWidth}" 
+                              style="transition: stroke-width 0.3s ease; cursor: pointer;"
+                              onmouseover="this.setAttribute('stroke-width', '${strokeWidth + 5}')"
+                              onmouseout="this.setAttribute('stroke-width', '${strokeWidth}')" />
+                    `;
+                }
+                
+                currentAngle = nextAngle;
+
+                // Build Legend HTML
+                let toBanglaNum = (num) => currentLang === 'bn' ? num.toString().replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]) : num;
+                
+                legendHTML += `
+                    <div class="legend-item">
+                        <div class="legend-left">
+                            <span class="legend-color-box" style="background-color: ${chartData.colors[index]}"></span>
+                            <span>${chartData.labels[index]}</span>
+                        </div>
+                        <span class="legend-value">${toBanglaNum(value)}%</span>
+                    </div>
+                `;
+            });
+
+            return `
+                <div class="chart-container no-print-break">
+                    <h3 class="chart-title">${chartData.title}</h3>
+                    <div class="svg-chart-wrapper">
+                        <svg width="100%" height="100%" viewBox="0 0 ${size} ${size}">
+                            ${svgPaths}
+                            <text x="${center}" y="${center + 5}" text-anchor="middle" font-size="18" font-weight="bold" fill="var(--text-color-main)" font-family="var(--current-font-header)">100%</text>
+                        </svg>
+                    </div>
+                    <div class="chart-legend">
+                        ${legendHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+
+        /**
+         * ==========================================
+         * D. HTML RENDER ENGINE
+         * ==========================================
+         */
+        function generateHTML(contentObj) {
+            let html = `
+                <h1 class="article-title">${contentObj.title}</h1>
+                <div class="article-meta">${contentObj.meta}</div>
+                <p class="article-intro"><strong>${contentObj.intro}</strong></p>
+            `;
+
+            contentObj.sections.forEach(sec => {
+                switch (sec.type) {
+                    case 'h2':
+                        html += `<h2 class="section-title">${sec.text}</h2>`;
+                        break;
+                    case 'h3':
+                        html += `<h3 class="sub-section-title">${sec.text}</h3>`;
+                        break;
+                    case 'p':
+                        html += `<p>${sec.text}</p>`;
+                        break;
+                    case 'list':
+                        html += `<ul>`;
+                        sec.items.forEach(item => { html += `<li>${item}</li>`; });
+                        html += `</ul>`;
+                        break;
+                    case 'list-links':
+                        // Enforce plain text links without <a> tags (Strict Requirement)
+                        html += `<ul>`;
+                        sec.items.forEach(item => { 
+                            // Highlight the URL part slightly using our text-link class
+                            const textParts = item.split(': http');
+                            if(textParts.length > 1) {
+                                html += `<li>${textParts[0]}: <span class="text-link">http${textParts[1]}</span></li>`;
+                            } else {
+                                html += `<li><span class="text-link">${item}</span></li>`;
+                            }
+                        });
+                        html += `</ul>`;
+                        break;
+                    case 'footnotes':
+                        html += `<ul style="list-style-type: none; padding-left: 0;">`;
+                        sec.items.forEach(item => { 
+                            const parts = item.split(' ');
+                            const idx = parts[0];
+                            const url = parts[1] || '';
+                            html += `<li style="font-size: 0.9rem; margin-bottom: 0.8rem;">
+                                <strong>${idx}</strong> 
+                                <span class="text-link" style="display: block; margin-top: 0.2rem;">${url}</span>
+                            </li>`; 
+                        });
+                        html += `</ul>`;
+                        break;
+                    case 'chart':
+                        html += generateDonutChartHTML(sec.data);
+                        break;
+                    case 'divider':
+                        html += `<hr class="divider">`;
+                        break;
+                }
+            });
+
+            return html;
+        }
+
+        /**
+         * ==========================================
+         * E. LANGUAGE SWITCHER LOGIC
+         * ==========================================
+         */
+        function updateLanguage(lang) {
+            currentLang = lang;
+            const data = articleData[lang];
+            
+            // 1. Update HTML lang attribute (triggers CSS Custom Properties for strict font enforcement)
+            els.html.setAttribute('lang', lang);
+
+            // 2. Update UI Texts
+            els.langToggleTextDesktop.textContent = data.ui.langToggleDisplay;
+            els.langToggleTextMobile.textContent = data.ui.langToggleDisplay;
+            els.uiTextShare.textContent = data.ui.shareBtn;
+            els.uiTextPrint.textContent = data.ui.printBtn;
+            
+            els.modalTitle.textContent = data.ui.modalTitle;
+            els.modalDesc.textContent = data.ui.modalDesc;
+            els.printBtnEn.textContent = data.ui.printEn;
+            els.printBtnBn.textContent = data.ui.printBn;
+            els.printBtnBoth.textContent = data.ui.printBoth;
+            els.closeModalBtn.textContent = data.ui.cancel;
+
+            // 3. Update Content with Fade Animation
+            els.contentContainer.style.animation = 'none';
+            els.contentContainer.innerHTML = generateHTML(data.content);
+            void els.contentContainer.offsetWidth; // Trigger DOM reflow
+            els.contentContainer.style.animation = 'fadeIn 0.5s ease-in-out';
+        }
+
+        function toggleLanguage() {
+            const newLang = currentLang === 'en' ? 'bn' : 'en';
+            updateLanguage(newLang);
+            if (els.mobileNav.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        }
+
+        els.langToggleDesktop.addEventListener('click', toggleLanguage);
+        els.langToggleMobile.addEventListener('click', toggleLanguage);
+
+        /**
+         * ==========================================
+         * F. MOBILE MENU LOGIC
+         * ==========================================
+         */
+        function toggleMobileMenu() {
+            els.mobileNav.classList.toggle('active');
+            const isActive = els.mobileNav.classList.contains('active');
+            els.hamburgerIcon.style.display = isActive ? 'none' : 'block';
+            els.closeIcon.style.display = isActive ? 'block' : 'none';
+        }
+        els.mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        /**
+         * ==========================================
+         * G. SHARE (COPY CANONICAL LINK) LOGIC
+         * ==========================================
+         */
+        function showToast(message) {
+            els.toastMessage.textContent = message;
+            els.toastMessage.classList.add('show');
+            setTimeout(() => { els.toastMessage.classList.remove('show'); }, 3000);
+        }
+
+        els.shareBtn.addEventListener('click', async () => {
+            const msgPrefix = articleData[currentLang].ui.toastCopied;
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(STRICT_SHARE_URL);
+                    showToast(msgPrefix + STRICT_SHARE_URL);
+                } else {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = STRICT_SHARE_URL;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-999999px";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    textArea.remove();
+                    showToast(msgPrefix + STRICT_SHARE_URL);
+                }
+            } catch (err) {
+                console.error('Copy failed: ', err);
+                showToast("Failed to copy. URL: " + STRICT_SHARE_URL);
+            }
+        });
+
+        /**
+         * ==========================================
+         * H. ADVANCED PRINT LOGIC (Modal Interception)
+         * ==========================================
+         */
+        function openPrintModal() { els.printModal.classList.add('active'); }
+        function closePrintModal() { els.printModal.classList.remove('active'); }
+
+        els.triggerPrintBtn.addEventListener('click', openPrintModal);
+        els.closeModalBtn.addEventListener('click', closePrintModal);
+        els.printModal.addEventListener('click', (e) => {
+            if(e.target === els.printModal) closePrintModal();
+        });
+
+        /**
+         * Intercepts standard print workflow, constructs a specialized, 
+         * hidden DOM tree mapped to the selected language(s), executes print, 
+         * and then seamlessly restores the original user state.
+         */
+        function executePrint(mode) {
+            closePrintModal();
+            const originalLang = currentLang;
+            
+            // Re-render hero image in print area
+            const headerPrintHTML = `<img src="./t.png" style="max-width: 100%; height: auto; margin-bottom: 20px; display: block;" alt="Hero" />`;
+            
+            els.printRenderArea.innerHTML = '';
+            
+            if (mode === 'en' || mode === 'bn') {
+                els.html.setAttribute('lang', mode);
+                currentLang = mode; // Temp override for inner functions
+                els.printRenderArea.innerHTML = `
+                    <div class="print-lang-section" lang="${mode}">
+                        ${headerPrintHTML}
+                        ${generateHTML(articleData[mode].content)}
+                    </div>`;
+            } else if (mode === 'both') {
+                els.printRenderArea.innerHTML = `
+                    <div class="print-lang-section" lang="en">
+                        ${headerPrintHTML}
+                        ${(() => { currentLang = 'en'; return generateHTML(articleData.en.content); })()}
+                    </div>
+                    <div class="print-lang-section" lang="bn">
+                        ${headerPrintHTML}
+                        ${(() => { currentLang = 'bn'; return generateHTML(articleData.bn.content); })()}
+                    </div>`;
+            }
+
+            els.mainContainer.style.display = 'none';
+
+            // Slight delay ensures fonts and SVGs render inside the hidden container before print
+            setTimeout(() => {
+                window.print();
+                
+                // Cleanup and Restore
+                els.mainContainer.style.display = 'block';
+                els.printRenderArea.innerHTML = '';
+                updateLanguage(originalLang); 
+            }, 300);
+        }
+
+        els.printBtnEn.addEventListener('click', () => executePrint('en'));
+        els.printBtnBn.addEventListener('click', () => executePrint('bn'));
+        els.printBtnBoth.addEventListener('click', () => executePrint('both'));
+
+        /**
+         * ==========================================
+         * I. INITIALIZATION BOOTSTRAP
+         * ==========================================
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLanguage('en');
+        });
+
+    </script>
+</body>
+</html>

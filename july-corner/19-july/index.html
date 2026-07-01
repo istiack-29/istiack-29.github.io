@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<!-- 
+  =============================================================================
+  PROJECT: ISTIACK'S JULY CORNER - BILINGUAL ARTICLE TEMPLATE
+  DATE: 19 JULY 2024 (EVENT COVERAGE)
+  ARCHITECTURE: MOBILE-FIRST, JSON-DRIVEN DOM, STRICT CSS TOGGLE
+  =============================================================================
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- SEO and Open Graph Meta Tags -->
+    <title>July 19, 2024</title>
+    <meta name="description" content="A detailed timeline and ground reality of events from July 19, 2024, during the Bangladesh mass uprising.">
+    
+    <!-- Open Graph (Strictly adhering to requested image) -->
+    <meta property="og:title" content="July 19, 2024: The Deadliest Day & Complete Shutdown">
+    <meta property="og:description" content="Comprehensive coverage of the July 19 mass casualties, state brutality, and the nationwide internet blackout.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/19-july/">
+    <meta property="og:image" content="./t.png">
+
+    <style>
+        /* * ==========================================================================
+         * 1. FONT-FACE DEFINITIONS (STRICT LOCAL ASSET MANAGEMENT)
+         * ==========================================================================
+         * These fonts dictate the typography of the entire application.
+         * The application is built to ensure NO fallback fonts override these.
+         */
+        
+        /* English Main Text Font */
+        @font-face {
+            font-family: 'E1';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* English Header/Title Font */
+        @font-face {
+            font-family: 'E2';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Bangla Header/Title Font */
+        @font-face {
+            font-family: 'B1';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Bangla Main Text Font */
+        @font-face {
+            font-family: 'B2';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* * ==========================================================================
+         * 2. CSS VARIABLES & THEMING ENGINE
+         * ==========================================================================
+         * Centralized control for the "Pure Article" aesthetic.
+         */
+        :root {
+            /* Pure Article Color Palette */
+            --bg-color: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #333333;
+            --text-tertiary: #555555;
+            --border-color: #dddddd;
+            --border-heavy: #222222;
+            --brand-color: #000000;
+            --highlight-bg: #f4f4f4;
+            --modal-bg: rgba(0, 0, 0, 0.75);
+            --modal-surface: #ffffff;
+            
+            /* Responsive Typography Scale (Fluid) */
+            --font-size-base: 1.125rem; /* 18px */
+            --line-height-base: 1.8;
+            --h1-size: clamp(1.75rem, 5vw, 2.75rem);
+            --h2-size: clamp(1.5rem, 4vw, 2rem);
+            --h3-size: clamp(1.25rem, 3vw, 1.5rem);
+            --h4-size: clamp(1.1rem, 2vw, 1.25rem);
+            --small-text: 0.875rem;
+
+            /* Standardized Spacing Tokens */
+            --space-2xs: 0.25rem;
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+
+            /* Structural Variables */
+            --header-height: 72px;
+            --max-width: 720px; /* Optimal reading width for articles */
+            --radius-sm: 2px;
+            --radius-md: 6px;
+            --radius-lg: 12px;
+            --transition-speed: 0.25s;
+            --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* * ==========================================================================
+         * 3. LANGUAGE-SPECIFIC FONT ASSIGNMENT LOGIC
+         * ==========================================================================
+         * This strictly forces the correct font-face based on the HTML lang attribute.
+         */
+        html[lang="en"] {
+            --font-main: 'E1', sans-serif;
+            --font-header: 'E2', sans-serif;
+        }
+
+        html[lang="bn"] {
+            --font-main: 'B2', sans-serif;
+            --font-header: 'B1', sans-serif;
+        }
+
+        /* * ==========================================================================
+         * 4. CSS RESET & GLOBAL TYPOGRAPHY STRICTNESS
+         * ==========================================================================
+         */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            /* CRITICAL: Force font inheritance onto every single node */
+            font-family: inherit; 
+        }
+
+        html {
+            font-size: 100%;
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: var(--header-height);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Enforce header fonts on all structural headings and UI titles */
+        h1, h2, h3, h4, h5, h6, .brand-name, .modal-title, .ui-heading {
+            font-family: var(--font-header);
+            color: var(--brand-color);
+            line-height: 1.25;
+            margin-bottom: var(--space-sm);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        ul, ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-lg);
+        }
+
+        li {
+            margin-bottom: var(--space-xs);
+            line-height: var(--line-height-base);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-sm);
+            /* Prevent image dragging to maintain clean UI */
+            -webkit-user-drag: none; 
+        }
+
+        /* Remove captions across the board as requested */
+        figcaption, .img-caption {
+            display: none !important;
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
+            font-size: inherit;
+            font-family: var(--font-header); /* Enforce font on buttons */
+        }
+        
+        button:focus-visible {
+            outline: 2px solid var(--brand-color);
+            outline-offset: 2px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: var(--space-lg) 0;
+            display: block;
+            width: 100%;
+        }
+        
+        /* Strong visual separator for sections */
+        .section-divider {
+            border-top: 3px solid var(--border-heavy);
+            margin: var(--space-xl) 0;
+        }
+
+        .highlight-box {
+            font-weight: 700;
+            background-color: var(--highlight-bg);
+            padding: var(--space-md);
+            border-left: 5px solid var(--brand-color);
+            display: block;
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-md);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        /* * ==========================================================================
+         * 5. STRUCTURAL COMPONENTS (HEADER & NAVIGATION)
+         * ==========================================================================
+         */
+        
+        /* Fixed Header Configuration */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+            z-index: 1000;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        /* Logo Configuration */
+        .site-logo {
+            height: 44px;
+            width: 44px;
+            object-fit: contain;
+            /* Filter applied to force black and white output per requirements */
+            filter: grayscale(100%) contrast(1.2); 
+            transition: opacity var(--transition-speed);
+        }
+
+        .site-logo:hover {
+            opacity: 0.7;
+        }
+
+        .brand-name {
+            font-size: 1.15rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        /* Bilingual Toggle Switch (Fully Font-Controlled) */
+        .lang-switcher-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 8px 18px;
+            border: 2px solid var(--brand-color);
+            border-radius: 50px;
+            font-size: var(--small-text);
+            font-family: var(--font-header);
+            font-weight: 700;
+            background-color: var(--bg-color);
+            color: var(--brand-color);
+            transition: all var(--transition-speed) var(--transition-easing);
+            user-select: none;
+        }
+
+        .lang-switcher-btn:hover, .lang-switcher-btn:active {
+            background-color: var(--brand-color);
+            color: var(--bg-color);
+        }
+
+        /* Mobile Hamburger Icon Container (SVG Only) */
+        .mobile-menu-toggle {
+            display: none;
+            padding: var(--space-xs);
+            color: var(--brand-color);
+        }
+
+        /* * ==========================================================================
+         * 6. ARTICLE MAIN CONTENT LAYOUT
+         * ==========================================================================
+         */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .article-wrapper {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-md) var(--space-2xl) var(--space-md);
+            width: 100%;
+        }
+
+        /* Hero Image specifically handled to avoid any captions */
+        .hero-section {
+            margin-bottom: var(--space-lg);
+            width: 100%;
+        }
+
+        .hero-image {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+        
+        .content-image {
+            width: 100%;
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-md);
+            margin-top: var(--space-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        /* User Action Buttons Layer (Share & Print) */
+        .action-bar {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--highlight-bg);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-family: var(--font-header);
+            color: var(--text-secondary);
+            transition: color var(--transition-speed);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        .action-btn:hover {
+            color: var(--brand-color);
+            background-color: var(--highlight-bg);
+        }
+
+        .action-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* Dynamic Content Typography Spacing */
+        .article-content-dynamic h1 {
+            font-size: var(--h1-size);
+            margin-bottom: var(--space-md);
+        }
+
+        .article-content-dynamic h2 {
+            font-size: var(--h2-size);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .article-content-dynamic h3 {
+            font-size: var(--h3-size);
+            margin-top: var(--space-lg);
+            color: var(--text-secondary);
+        }
+        
+        .article-content-dynamic h4 {
+            font-size: var(--h4-size);
+            margin-top: var(--space-md);
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+
+        /* * Raw Text Links (As Requested: Links must be text, not hyperlinks)
+         * We style them to look like raw data, preventing accidental clicks.
+         */
+        .raw-text-link {
+            display: inline-block;
+            word-break: break-all;
+            color: var(--text-tertiary);
+            font-size: 0.95em;
+            background-color: var(--highlight-bg);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-family: monospace; /* Monospace for links helps distinguish them safely */
+            border: 1px solid var(--border-color);
+        }
+
+        /* * ==========================================================================
+         * 7. STRICT CSS-DRIVEN BILINGUAL TOGGLE SYSTEM
+         * ==========================================================================
+         * This ensures ZERO page reloads. DOM holds both nodes, CSS handles visibility.
+         */
+        
+        /* Default State: Hide All Language Nodes */
+        [data-lang="en"], 
+        [data-lang="bn"] {
+            display: none;
+        }
+
+        /* Active State: HTML lang="en" -> Show English */
+        html[lang="en"] div[data-lang="en"],
+        html[lang="en"] p[data-lang="en"],
+        html[lang="en"] h1[data-lang="en"],
+        html[lang="en"] h2[data-lang="en"],
+        html[lang="en"] h3[data-lang="en"],
+        html[lang="en"] h4[data-lang="en"],
+        html[lang="en"] ul[data-lang="en"],
+        html[lang="en"] ol[data-lang="en"],
+        html[lang="en"] li[data-lang="en"] {
+            display: block;
+        }
+        
+        html[lang="en"] span[data-lang="en"] {
+            display: inline;
+        }
+
+        /* Active State: HTML lang="bn" -> Show Bangla */
+        html[lang="bn"] div[data-lang="bn"],
+        html[lang="bn"] p[data-lang="bn"],
+        html[lang="bn"] h1[data-lang="bn"],
+        html[lang="bn"] h2[data-lang="bn"],
+        html[lang="bn"] h3[data-lang="bn"],
+        html[lang="bn"] h4[data-lang="bn"],
+        html[lang="bn"] ul[data-lang="bn"],
+        html[lang="bn"] ol[data-lang="bn"],
+        html[lang="bn"] li[data-lang="bn"] {
+            display: block;
+        }
+
+        html[lang="bn"] span[data-lang="bn"] {
+            display: inline;
+        }
+
+        /* * ==========================================================================
+         * 8. MODAL INTERFACES (Print Dialog & Share Confirmation)
+         * ==========================================================================
+         */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--modal-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .modal-backdrop.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: var(--modal-surface);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            max-width: 450px;
+            width: 92%;
+            box-shadow: var(--shadow-modal);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.3s var(--transition-easing);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-backdrop.is-open .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-title {
+            font-size: 1.35rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .modal-desc {
+            font-size: 0.95rem;
+            margin-bottom: var(--space-lg);
+            color: var(--text-tertiary);
+        }
+
+        /* Specific Print Modal Layout */
+        .print-choice-grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .print-option-btn {
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-color);
+            font-family: var(--font-header);
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .print-option-btn:hover {
+            border-color: var(--brand-color);
+            background: var(--highlight-bg);
+        }
+        
+        .print-option-btn svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.5;
+        }
+
+        .print-option-btn:hover svg {
+            opacity: 1;
+        }
+
+        .modal-action-row {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--space-md);
+        }
+
+        .btn-cancel {
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-family: var(--font-header);
+            font-size: var(--small-text);
+            cursor: pointer;
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+            transition: all var(--transition-speed);
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+        
+        .btn-confirm {
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-family: var(--font-header);
+            font-size: var(--small-text);
+            cursor: pointer;
+            background-color: var(--brand-color);
+            color: var(--bg-color);
+            border: 2px solid var(--brand-color);
+            transition: all var(--transition-speed);
+            margin-left: var(--space-sm);
+        }
+
+        /* * ==========================================================================
+         * 9. RESPONSIVE MEDIA QUERIES (MOBILE-FIRST TUNING)
+         * ==========================================================================
+         */
+        @media (max-width: 768px) {
+            :root {
+                --space-xl: 3rem;
+                --space-2xl: 4rem;
+                --header-height: 64px;
+            }
+
+            .brand-name {
+                font-size: 1rem;
+            }
+
+            .header-right {
+                gap: var(--space-sm);
+            }
+
+            /* Enable Mobile Hamburger */
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .lang-switcher-btn {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+
+            /* Condense layout for smaller screens */
+            .article-wrapper {
+                padding-top: var(--space-md);
+            }
+            
+            .action-bar {
+                justify-content: space-between;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Hide brand name text on very small screens to ensure buttons fit */
+            .brand-name {
+                display: none;
+            }
+        }
+
+        /* * ==========================================================================
+         * 10. ADVANCED PRINT MEDIA ENGINE
+         * ==========================================================================
+         * Ensures optimal paper output. Strips UI, manages images, formats text.
+         */
+        @media print {
+            @page {
+                margin: 2cm;
+                size: A4 portrait;
+            }
+
+            /* Reset body for physical paper */
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding-top: 0 !important;
+                font-size: 11pt !important;
+                line-height: 1.6 !important;
+            }
+
+            /* Strictly hide all UI, Modals, Buttons, and Headers */
+            .site-header,
+            .action-bar,
+            .modal-backdrop,
+            .no-print {
+                display: none !important;
+                height: 0 !important;
+                overflow: hidden !important;
+            }
+
+            /* Expand container to full page width */
+            .main-container, .article-wrapper {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* Asset Control: Print Images, Hide Videos */
+            img {
+                max-width: 100% !important;
+                page-break-inside: avoid !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            video, iframe {
+                display: none !important;
+            }
+
+            /* Print Typography & Orphans/Widows protection */
+            h1, h2, h3, h4 {
+                page-break-after: avoid !important;
+                color: #000000 !important;
+            }
+            
+            p, h2, h3, li {
+                orphans: 3;
+                widows: 3;
+            }
+
+            .raw-text-link {
+                word-break: break-all;
+                color: #333333 !important;
+                background: transparent !important;
+                border: none !important;
+                padding: 0 !important;
+            }
+
+            hr, .section-divider {
+                border-color: #cccccc !important;
+            }
+
+            .highlight-box {
+                border-left-color: #000000 !important;
+                background-color: #f0f0f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* * CRITICAL PRINT LOGIC: DOM INTERSECTION BASED ON USER CHOICE 
+             * The JS sets a data attribute on the <body> right before printing.
+             */
+            
+            /* Print Mode: ENGLISH ONLY */
+            body[data-print-target="en"] [data-lang="bn"] {
+                display: none !important;
+            }
+            body[data-print-target="en"] [data-lang="en"] {
+                display: block !important;
+            }
+            body[data-print-target="en"] span[data-lang="en"] {
+                display: inline !important;
+            }
+
+            /* Print Mode: BANGLA ONLY */
+            body[data-print-target="bn"] [data-lang="en"] {
+                display: none !important;
+            }
+            body[data-print-target="bn"] [data-lang="bn"] {
+                display: block !important;
+            }
+            body[data-print-target="bn"] span[data-lang="bn"] {
+                display: inline !important;
+            }
+
+            /* Print Mode: BOTH LANGUAGES (BILINGUAL STACKED) */
+            body[data-print-target="both"] [data-lang="en"],
+            body[data-print-target="both"] [data-lang="bn"] {
+                display: block !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            /* Create visual separation between language nodes when printing both */
+            body[data-print-target="both"] [data-lang="bn"] {
+                padding-bottom: 1rem;
+                border-bottom: 1px dashed #dddddd;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* Last element cleanup */
+            body[data-print-target="both"] *:last-child[data-lang="bn"] {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+      ==========================================================================
+      STRUCTURAL HTML: HEADER 
+      ========================================================================== 
+    -->
+    <header class="site-header no-print">
+        <div class="header-left">
+            <!-- Strict adherence: Local image, grayscale filter applied via CSS -->
+            <img src="/home.png" alt="Home Logo" class="site-logo">
+            <h1 class="brand-name">ISTIACK'S JULY CORNER</h1>
+        </div>
+        
+        <div class="header-right">
+            <!-- Language Switcher: Controls root HTML tag -->
+            <button class="lang-switcher-btn" id="langSwitchBtn" aria-label="Toggle Language">
+                <!-- Scalable Inline SVG - No Emojis -->
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span data-lang="en">বাংলায় পড়ুন</span>
+                <span data-lang="bn">Read in English</span>
+            </button>
+
+            <!-- Mobile Hamburger Menu Toggle -->
+            <button class="mobile-menu-toggle" aria-label="Open Menu">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- 
+      ==========================================================================
+      STRUCTURAL HTML: MAIN CONTAINER 
+      ========================================================================== 
+    -->
+    <main class="main-container">
+        <article class="article-wrapper">
+            
+            <!-- Mandatory Hero Image -->
+            <section class="hero-section">
+                <!-- Strict adherence: ./t.png with no caption -->
+                <img src="./t.png" alt="July 19 Cover Photo" class="hero-image">
+                
+                <!-- Interaction Bar -->
+                <div class="action-bar no-print">
+                    <button class="action-btn" id="shareBtn" aria-label="Share Article">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                        <span data-lang="en">Share Link</span>
+                        <span data-lang="bn">লিঙ্ক শেয়ার করুন</span>
+                    </button>
+                    
+                    <button class="action-btn" id="printTriggerBtn" aria-label="Print Article">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+                        </svg>
+                        <span data-lang="en">Print / PDF</span>
+                        <span data-lang="bn">প্রিন্ট / পিডিএফ</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 
+              ======================================================================
+              DYNAMIC CONTENT INJECTION POINT
+              ======================================================================
+              The JS Engine will safely construct and inject DOM nodes here based 
+              on the strict JSON structure.
+            -->
+            <div id="dynamicContentContainer" class="article-content-dynamic">
+                <!-- Content generated via JavaScript goes here -->
+            </div>
+
+        </article>
+    </main>
+
+    <!-- 
+      ==========================================================================
+      MODALS & OVERLAYS 
+      ========================================================================== 
+    -->
+    
+    <!-- Custom Print Dialogue Modal -->
+    <div class="modal-backdrop no-print" id="printConfigModal" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <h3 class="modal-title" data-lang="en">Document Print Setup</h3>
+            <h3 class="modal-title" data-lang="bn">ডকুমেন্ট প্রিন্ট সেটআপ</h3>
+            
+            <p class="modal-desc" data-lang="en">Select the language format you wish to print or save as PDF.</p>
+            <p class="modal-desc" data-lang="bn">আপনি কোন ভাষার বিন্যাসটি প্রিন্ট বা পিডিএফ হিসেবে সেভ করতে চান তা নির্বাচন করুন।</p>
+            
+            <div class="print-choice-grid">
+                <button class="print-option-btn" data-mode="en">
+                    English Document (শুধুমাত্র ইংরেজি)
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </button>
+                <button class="print-option-btn" data-mode="bn">
+                    Bangla Document (শুধুমাত্র বাংলা)
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </button>
+                <button class="print-option-btn" data-mode="both">
+                    Bilingual Version (উভয় ভাষা)
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line></svg>
+                </button>
+            </div>
+            
+            <div class="modal-action-row">
+                <button class="btn-cancel btn-close-modal">
+                    <span data-lang="en">Cancel</span>
+                    <span data-lang="bn">বাতিল করুন</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Notification Modal -->
+    <div class="modal-backdrop no-print" id="shareSuccessModal" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <!-- Inline SVG Success Checkmark -->
+            <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 1.5rem auto; display: block; border: 2px solid #000; border-radius: 50%; padding: 8px;">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            
+            <h3 class="modal-title" data-lang="en">Link Copied!</h3>
+            <h3 class="modal-title" data-lang="bn">লিঙ্ক কপি হয়েছে!</h3>
+            
+            <p class="modal-desc" data-lang="en">The official article URL has been safely copied to your clipboard.</p>
+            <p class="modal-desc" data-lang="bn">নিবন্ধের অফিসিয়াল ইউআরএলটি আপনার ক্লিপবোর্ডে কপি করা হয়েছে।</p>
+            
+            <!-- Visual display of the strict copied URL -->
+            <div style="background: var(--highlight-bg); padding: 12px; border-radius: 6px; margin-bottom: 24px; font-family: monospace; font-size: 0.9rem; word-break: break-all; border: 1px solid var(--border-color); color: var(--text-secondary);">
+                https://istiack.ami.bd/july-corner/19-july/
+            </div>
+            
+            <div class="modal-action-row">
+                <button class="btn-confirm btn-close-modal">
+                    <span data-lang="en">Dismiss</span>
+                    <span data-lang="bn">বন্ধ করুন</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+      ==========================================================================
+      JAVASCRIPT LOGIC ENGINE
+      ========================================================================== 
+      Contains the structured JSON data block and DOM rendering mechanics.
+    -->
+    <script>
+        /**
+         * =======================================================================
+         * DATA LAYER: JSON STRUCTURE
+         * =======================================================================
+         * As requested: Structure content using a JSON-like object for easy updates.
+         * The engine reads this and dynamically creates the DOM safely.
+         */
+        const articleData = {
+            "meta": {
+                "date": "19 July 2024",
+                "canonicalUrl": "https://istiack.ami.bd/july-corner/19-july/"
+            },
+            "blocks": [
+                {
+                    "type": "h1",
+                    "content": {
+                        "en": "July 19, 2024: The Deadliest Day & Complete Shutdown",
+                        "bn": "১৯ জুলাই, ২০২৪: গণঅভ্যুত্থানের ভয়াবহতম দিন এবং কমপ্লিট শাটডাউন"
+                    }
+                },
+                {
+                    "type": "p",
+                    "content": {
+                        "en": "On 19 July 2024, Bangladesh experienced the deadliest and most chaotic day of the student-led Anti-Quota Movement, which later escalated into a full mass uprising. This day was part of the student-announced nationwide \"Complete Shutdown\". [1, 2, 3, 4, 5]",
+                        "bn": "১৯ জুলাই ২০২৪ তারিখে বাংলাদেশ বৈষম্যবিরোধী ছাত্র আন্দোলনের সবচেয়ে ভয়াবহ এবং বিশৃঙ্খল দিনটি পার করে, যা পরবর্তীতে একটি পূর্ণাঙ্গ গণঅভ্যুত্থানে রূপ নেয়। এই দিনটি ছিল শিক্ষার্থীদের ঘোষিত দেশব্যাপী \"কমপ্লিট শাটডাউন\" এর অংশ। [১, ২, ৩, ৪, ৫]"
+                    }
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "h2",
+                    "content": {
+                        "en": "Core Events & Ground Reality",
+                        "bn": "মূল ঘটনা ও মাঠ পর্যায়ের বাস্তব চিত্র"
+                    }
+                },
+                {
+                    "type": "h3",
+                    "content": {
+                        "en": "1. Unprecedented Mass Casualties [6]",
+                        "bn": "১. নজিরবিহীন ব্যাপক প্রাণহানি [৬]"
+                    }
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        {
+                            "en": "The Deadliest Day: Independent news monitors confirmed between 67 and 148 people were killed in a single day.",
+                            "bn": "ভয়াবহতম দিন: স্বাধীন সংবাদ পর্যবেক্ষকরা নিশ্চিত করেছেন যে একদিনেই ৬৭ থেকে ১৪৮ জন মানুষ নিহত হয়েছেন।"
+                        },
+                        {
+                            "en": "Dhaka as a Warzone: The highest concentration of deaths occurred in the capital, with 55 confirmed dead in Dhaka alone.",
+                            "bn": "রণক্ষেত্রে ঢাকা: সবচেয়ে বেশি মৃত্যু ঘটেছে রাজধানীতে, শুধুমাত্র ঢাকাতেই ৫৫ জনের মৃত্যু নিশ্চিত করা হয়েছে।"
+                        },
+                        {
+                            "en": "Diverse Demographic: The deceased were not just university students. They included teenagers, garment workers, rickshaw pullers, bus drivers, and media professionals caught in heavy crossfires. [1, 2, 7, 8, 9, 10]",
+                            "bn": "বিচিত্র জনসংখ্যা: নিহতরা শুধুমাত্র বিশ্ববিদ্যালয়ের শিক্ষার্থী ছিলেন না। তাদের মধ্যে কিশোর, পোশাক শ্রমিক, রিকশাচালক, বাস চালক এবং ক্রসফায়ারে আটকে পড়া গণমাধ্যমকর্মীরাও ছিলেন। [১, ২, ৭, ৮, ৯, ১০]"
+                        }
+                    ]
+                },
+                {
+                    "type": "h3",
+                    "content": {
+                        "en": "2. Severe State Brutality & Deployment [1]",
+                        "bn": "২. তীব্র রাষ্ট্রীয় দমন-পীড়ন ও মোতায়েন [১]"
+                    }
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        {
+                            "en": "Live Ammunition: Police, Rapid Action Battalion (RAB), and Border Guard Bangladesh (BGB) forces used unlawful lethal weapons, tear gas, sound grenades, and rubber bullets against crowds. [5, 11, 12, 13]",
+                            "bn": "তাজা গুলি: পুলিশ, র‍্যাপিড অ্যাকশন ব্যাটালিয়ন (র‍্যাব) এবং বর্ডার গার্ড বাংলাদেশ (বিজিবি) জনসমাবেশের বিরুদ্ধে বেআইনি প্রাণঘাতী অস্ত্র, টিয়ার গ্যাস, সাউন্ড গ্রেনেড এবং রাবার বুলেট ব্যবহার করে। [৫, ১১, ১২, ১৩]"
+                        },
+                        {
+                            "en": "Political Clashes: Pro-government student wing Bangladesh Chhatra League (BCL) and Jubo League cadres combined forces with law enforcement to violently crush the assemblies. [6, 14, 15]",
+                            "bn": "রাজনৈতিক সংঘর্ষ: সরকার সমর্থক ছাত্র সংগঠন বাংলাদেশ ছাত্রলীগ (বিসিএল) এবং যুবলীগ ক্যাডাররা আইনশৃঙ্খলা বাহিনীর সাথে যুক্ত হয়ে সহিংসভাবে সমাবেশগুলো গুঁড়িয়ে দেয়। [৬, ১৪, ১৫]"
+                        }
+                    ]
+                },
+                {
+                    "type": "h3",
+                    "content": {
+                        "en": "3. Nationwide Curfew & \"Shoot-on-Sight\" Orders [16, 17]",
+                        "bn": "৩. দেশব্যাপী কারফিউ এবং \"দেখামাত্র গুলির\" নির্দেশ [১৬, ১৭]"
+                    }
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        {
+                            "en": "Midnight Curfew: Faced with absolute loss of control, the Sheikh Hasina-led government declared a national curfew starting at midnight.",
+                            "bn": "মধ্যরাতের কারফিউ: সম্পূর্ণ নিয়ন্ত্রণ হারিয়ে শেখ হাসিনার নেতৃত্বাধীন সরকার মধ্যরাত থেকে জাতীয় কারফিউ ঘোষণা করে।"
+                        },
+                        {
+                            "en": "Military Mobilization: The Bangladesh Army was officially deployed to aid civilian authorities in enforcing restrictions.",
+                            "bn": "সামরিক মোতায়েন: নিষেধাজ্ঞা কার্যকর করতে বেসামরিক কর্তৃপক্ষকে সহায়তা করার জন্য আনুষ্ঠানিকভাবে বাংলাদেশ সেনাবাহিনী মোতায়েন করা হয়।"
+                        },
+                        {
+                            "en": "Shoot-on-Sight: Awami League General Secretary Obaidul Quader publicly stated that security personnel would maintain a strict \"shoot-on-sight\" framework during the curfew hours. [7, 18, 19]",
+                            "bn": "দেখামাত্র গুলি: আওয়ামী লীগের সাধারণ সম্পাদক ওবায়দুল কাদের প্রকাশ্যে বিবৃতি দেন যে, কারফিউ চলাকালীন নিরাপত্তা কর্মীরা কঠোরভাবে \"দেখামাত্র গুলির\" নির্দেশ বজায় রাখবেন। [৭, ১৮, ১৯]"
+                        }
+                    ]
+                },
+                {
+                    "type": "h3",
+                    "content": {
+                        "en": "4. Total Communication Blackout",
+                        "bn": "৪. সম্পূর্ণ যোগাযোগ ব্ল্যাকআউট"
+                    }
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        {
+                            "en": "Digital Isolation: Following partial restrictions on July 18, the government executed a blanket nationwide internet blackout on July 19. Both broadband and mobile internet were cut. [2, 5, 19]",
+                            "bn": "ডিজিটাল বিচ্ছিন্নতা: ১৮ জুলাই আংশিক নিষেধাজ্ঞার পর, ১৯ জুলাই সরকার দেশব্যাপী সম্পূর্ণ ইন্টারনেট ব্ল্যাকআউট কার্যকর করে। ব্রডব্যান্ড এবং মোবাইল ইন্টারনেট উভয়ই বিচ্ছিন্ন করা হয়। [২, ৫, ১৯]"
+                        },
+                        {
+                            "en": "Information Choke: This absolute digital shutdown prevented protesters from organising, blocked local hospitals from sharing immediate casualty lists, and stopped international media from getting instant verified updates. [10, 20, 21]",
+                            "bn": "তথ্য অবরোধ: এই সম্পূর্ণ ডিজিটাল শাটডাউন আন্দোলনকারীদের সংগঠিত হতে বাধা দেয়, স্থানীয় হাসপাতালগুলোকে তাৎক্ষণিক হতাহতের তালিকা শেয়ার করতে বাধা দেয় এবং আন্তর্জাতিক মিডিয়াকে তাৎক্ষণিক যাচাইকৃত আপডেট পাওয়া বন্ধ করে দেয়। [১০, ২০, ২১]"
+                        }
+                    ]
+                },
+                {
+                    "type": "h3",
+                    "content": {
+                        "en": "5. Infrastructural Damage & Prison Breakout [6]",
+                        "bn": "৫. অবকাঠামোগত ক্ষতি এবং কারাগার ভাঙচুর [৬]"
+                    }
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        {
+                            "en": "Infrastructure Target: Fierce clashes post-Friday prayers saw extensive arson attacks. The Mirpur-10 Dhaka Metro Rail station was vandalised and closed. [5, 22]",
+                            "bn": "অবকাঠামো লক্ষ্যবস্তু: জুমার নামাজের পর তীব্র সংঘর্ষে ব্যাপক অগ্নিসংযোগের ঘটনা ঘটে। মিরপুর-১০ ঢাকা মেট্রোরেল স্টেশন ভাঙচুর ও বন্ধ করে দেওয়া হয়। [৫, ২২]"
+                        },
+                        {
+                            "en": "Narsingdi District Jail Storming: Protesters stormed the Narsingdi district prison, leading to a mass prison break where hundreds of inmates were freed before the facility was set on fire. [18, 22]",
+                            "bn": "নরসিংদী জেলা কারাগারে হামলা: আন্দোলনকারীরা নরসিংদী জেলা কারাগারে হামলা চালায়, যার ফলে একটি বিশাল কারাগার ভাঙচুর হয় এবং স্থাপনাটিতে আগুন দেওয়ার আগে শত শত বন্দীকে মুক্ত করা হয়। [১৮, ২২]"
+                        }
+                    ]
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "h2",
+                    "content": {
+                        "en": "Key Specific Locations in Dhaka",
+                        "bn": "ঢাকায় সংঘর্ষের প্রধান স্থানসমূহ"
+                    }
+                },
+                {
+                    "type": "h4",
+                    "content": {
+                        "en": "Badda, Dhaka",
+                        "bn": "বাড্ডা, ঢাকা"
+                    }
+                },
+                {
+                    "type": "p",
+                    "content": {
+                        "en": "Brutal morning clashes erupted outside BRAC University, with police firing heavy tear gas directly into the university campus.",
+                        "bn": "ব্র্যাক ইউনিভার্সিটির বাইরে সকালে ভয়াবহ সংঘর্ষ শুরু হয়, পুলিশ সরাসরি বিশ্ববিদ্যালয় ক্যাম্পাসে ভারী টিয়ার গ্যাস নিক্ষেপ করে।"
+                    }
+                },
+                {
+                    "type": "h4",
+                    "content": {
+                        "en": "Jatrabari, Dhaka",
+                        "bn": "যাত্রাবাড়ী, ঢাকা"
+                    }
+                },
+                {
+                    "type": "p",
+                    "content": {
+                        "en": "Transformed into an open battlefield near the Mayor Mohammad Hanif Flyover toll plaza.",
+                        "bn": "মেয়র মোহাম্মদ হানিফ ফ্লাইওভার টোল প্লাজার কাছে এলাকাটি একটি উন্মুক্ত রণক্ষেত্রে পরিণত হয়।"
+                    }
+                },
+                {
+                    "type": "h4",
+                    "content": {
+                        "en": "Uttara, Dhaka",
+                        "bn": "উত্তরা, ঢাকা"
+                    }
+                },
+                {
+                    "type": "p",
+                    "content": {
+                        "en": "Experienced severe blocks, multi-way confrontations, and barricades built out of trees and electric poles. [2, 5, 9, 23, 24]",
+                        "bn": "তীব্র অবরোধ, বহুমুখী সংঘর্ষ এবং গাছ ও বিদ্যুতের খুঁটি দিয়ে তৈরি ব্যারিকেডের সম্মুখীন হয়। [২, ৫, ৯, ২৩, ২৪]"
+                    }
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "h2",
+                    "content": {
+                        "en": "Visual Recommendations & Records",
+                        "bn": "ভিজ্যুয়াল রেকর্ড ও সুপারিশ"
+                    }
+                },
+                {
+                    "type": "p",
+                    "content": {
+                        "en": "Image Search Suggestion: \"19 July 2024 Jatrabari toll plaza clash\"<br>Context: Captures armed security forces and smoke-filled streets around the Hanif Flyover.",
+                        "bn": "ছবি অনুসন্ধানের পরামর্শ: \"১৯ জুলাই ২০২৪ যাত্রাবাড়ী টোল প্লাজা সংঘর্ষ\"<br>প্রেক্ষাপট: হানিফ ফ্লাইওভারের আশেপাশে সশস্ত্র নিরাপত্তা বাহিনী এবং ধোঁয়াটে রাস্তা ধারণ করে।"
+                    }
+                },
+                {
+                    "type": "image",
+                    "src": "./c.jpg",
+                    "alt": "Jatrabari toll plaza clash scene"
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "h2",
+                    "content": {
+                        "en": "Media Sources (Raw Links)",
+                        "bn": "মিডিয়া সূত্র (র লিংক)"
+                    }
+                },
+                {
+                    "type": "raw-links",
+                    "items": [
+                        "The Daily Star: https://www.thedailystar.net/july-rocked-bangladesh/news/july-19-2024-country-descends-deeper-crisis-3942691",
+                        "The Business Standard: https://www.tbsnews.net/features/panorama/19-july-2024-least-148-killed-government-attempts-quash-protests-violently-1191126",
+                        "Amnesty International: https://amnesty.ca/features/quota-reform-protests-bangladesh/",
+                        "Wikipedia (Timeline): https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "Al Jazeera News: https://www.aljazeera.com/news/2024/7/20/bangladesh-imposes-shutdown-as-death-toll-from-student-protests-mounts",
+                        "The Guardian: https://www.theguardian.com/world/article/2024/jul/19/bangladesh-imposes-communications-blackout-as-protest-violence-continues"
+                    ]
+                },
+                {
+                    "type": "raw-links",
+                    "items": [
+                        "[1] https://www.thedailystar.net/july-rocked-bangladesh/news/july-19-2024-country-descends-deeper-crisis-3942691",
+                        "[2] https://www.tbsnews.net/features/panorama/19-july-2024-least-148-killed-government-attempts-quash-protests-violently-1191126",
+                        "[3] https://www.scribd.com/document/878387640/Quota-Reform-Movement-2024-Composition-Last",
+                        "[4] https://en.wikipedia.org/wiki/Bangladesh_quota_reform_movement",
+                        "[5] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "[6] https://en.prothomalo.com/bangladesh/5jvl0xye5l",
+                        "[7] https://www.bssnews.net/july-uprising/293459",
+                        "[8] https://journals.sagepub.com/doi/10.1177/13582291261424344",
+                        "[9] https://www.thedailystar.net/july-rocked-bangladesh/news/july-19-2024-country-descends-deeper-crisis-3942691",
+                        "[10] https://www.amnesty.org/en/latest/news/2024/07/what-is-happening-at-the-quota-reform-protests-in-bangladesh/",
+                        "[11] https://amnesty.ca/features/quota-reform-protests-bangladesh/",
+                        "[12] https://www.osac.gov/Country/Bangladesh/Content/Detail/Report/2f0475b0-6a46-46e5-bd5f-24e7ceae2355",
+                        "[13] https://reliefweb.int/report/bangladesh/what-happening-quota-reform-protests-bangladesh",
+                        "[14] https://en.wikipedia.org/wiki/July_Uprising",
+                        "[15] https://www.isas.nus.edu.sg/papers/quota-protests-in-bangladesh-causes-and-consequences/",
+                        "[16] https://blog.prif.org/2024/08/05/bangladesh-quota-protest-tip-of-the-iceberg/",
+                        "[17] https://monitor.civicus.org/explore/bangladesh-brutal-crackdown-on-quota-reform-protesters-by-security-forces-and-ruling-party-youth-wing/",
+                        "[18] https://www.theguardian.com/world/article/2024/jul/19/bangladesh-imposes-communications-blackout-as-protest-violence-continues",
+                        "[19] https://www.aa.com.tr/en/asia-pacific/curfew-imposed-military-deployed-as-death-toll-in-student-protests-climbs-to-75-in-bangladesh/3280318",
+                        "[20] https://www.nytimes.com/2024/07/20/world/asia/bangladesh-curfew-unrest.html",
+                        "[21] https://vocal.media/history/2024-bangladesh-quota-reform-movement-2l360w9z",
+                        "[22] https://www.tbsnews.net/features/panorama/19-july-2024-least-148-killed-government-attempts-quash-protests-violently-1191126",
+                        "[23] https://www.thedailystar.net/july-rocked-bangladesh/news/july-20-2024-curfew-begins-amid-rising-death-toll-3943421",
+                        "[24] https://en.wikipedia.org/wiki/July_Uprising",
+                        "[25] https://brill.com/view/journals/jbds/27/2/article-p158_3.xml",
+                        "[26] https://www.aljazeera.com/news/2024/7/20/bangladesh-imposes-shutdown-as-death-toll-from-student-protests-mounts"
+                    ]
+                }
+            ]
+        };
+
+        /**
+         * =======================================================================
+         * RENDERING ENGINE: HTML CONSTRUCTOR
+         * =======================================================================
+         * Converts the JSON object into native DOM nodes to avoid innerHTML vulnerabilities
+         * and ensures both language nodes exist simultaneously for CSS toggling.
+         */
+        const ContentBuilder = {
+            container: document.getElementById('dynamicContentContainer'),
+
+            init() {
+                if (!this.container) return;
+                
+                // Construct the DOM sequentially based on blocks
+                articleData.blocks.forEach(block => {
+                    let element = null;
+
+                    switch (block.type) {
+                        case 'h1':
+                        case 'h2':
+                        case 'h3':
+                        case 'h4':
+                            element = this.createHeading(block.type, block.content);
+                            break;
+                        case 'p':
+                            element = this.createParagraph(block.content);
+                            break;
+                        case 'highlight':
+                            element = this.createHighlight(block.content);
+                            break;
+                        case 'list':
+                            element = this.createList(block.items);
+                            break;
+                        case 'image':
+                            element = this.createImage(block.src, block.alt);
+                            break;
+                        case 'divider':
+                            element = document.createElement('hr');
+                            element.className = 'section-divider';
+                            break;
+                        case 'raw-links':
+                            element = this.createRawLinks(block.items);
+                            break;
+                    }
+
+                    if (element) {
+                        this.container.appendChild(element);
+                    }
+                });
+            },
+
+            // Creates a wrapper div containing both language nodes
+            createLangWrapper(tag, contentObj, customClass = '') {
+                const wrapper = document.createElement('div');
+                
+                // English Node
+                const elEn = document.createElement(tag);
+                elEn.setAttribute('data-lang', 'en');
+                elEn.innerHTML = contentObj.en; // Using innerHTML strictly for safe internal <br> tags
+                if (customClass) elEn.className = customClass;
+                
+                // Bangla Node
+                const elBn = document.createElement(tag);
+                elBn.setAttribute('data-lang', 'bn');
+                elBn.innerHTML = contentObj.bn;
+                if (customClass) elBn.className = customClass;
+
+                wrapper.appendChild(elEn);
+                wrapper.appendChild(elBn);
+                
+                // We return a document fragment so we don't insert unnecessary divs
+                const fragment = document.createDocumentFragment();
+                fragment.appendChild(elEn);
+                fragment.appendChild(elBn);
+                return fragment;
+            },
+
+            createHeading(tag, contentObj) {
+                return this.createLangWrapper(tag, contentObj);
+            },
+
+            createParagraph(contentObj) {
+                return this.createLangWrapper('p', contentObj);
+            },
+
+            createHighlight(contentObj) {
+                return this.createLangWrapper('span', contentObj, 'highlight-box');
+            },
+
+            createList(itemsArray) {
+                const fragment = document.createDocumentFragment();
+                
+                const ulEn = document.createElement('ul');
+                ulEn.setAttribute('data-lang', 'en');
+                
+                const ulBn = document.createElement('ul');
+                ulBn.setAttribute('data-lang', 'bn');
+
+                itemsArray.forEach(item => {
+                    const liEn = document.createElement('li');
+                    liEn.textContent = item.en;
+                    ulEn.appendChild(liEn);
+                    
+                    const liBn = document.createElement('li');
+                    liBn.textContent = item.bn;
+                    ulBn.appendChild(liBn);
+                });
+
+                fragment.appendChild(ulEn);
+                fragment.appendChild(ulBn);
+                return fragment;
+            },
+
+            createImage(src, alt) {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = alt;
+                img.className = 'content-image';
+                return img;
+            },
+
+            createRawLinks(itemsArray) {
+                const fragment = document.createDocumentFragment();
+                
+                // Since links are universal in this context, we create them 
+                // in a generic paragraph that shows in both languages.
+                const pContainer = document.createElement('p');
+                // By not setting data-lang, it's visible in both modes naturally
+                
+                itemsArray.forEach((itemText, index) => {
+                    const span = document.createElement('span');
+                    span.className = 'raw-text-link';
+                    span.textContent = itemText;
+                    
+                    pContainer.appendChild(span);
+                    
+                    // Add line break between links
+                    if (index < itemsArray.length - 1) {
+                        pContainer.appendChild(document.createElement('br'));
+                    }
+                });
+
+                fragment.appendChild(pContainer);
+                return fragment;
+            }
+        };
+
+        /**
+         * =======================================================================
+         * STATE & INTERACTION CONTROLLER
+         * =======================================================================
+         */
+        const AppController = {
+            // State
+            currentLang: 'en',
+            canonicalUrl: articleData.meta.canonicalUrl,
+            
+            // DOM References
+            htmlRoot: document.documentElement,
+            btnToggleLang: document.getElementById('langSwitchBtn'),
+            btnShare: document.getElementById('shareBtn'),
+            btnPrintTrigger: document.getElementById('printTriggerBtn'),
+            
+            // Modal Elements
+            modalPrint: document.getElementById('printConfigModal'),
+            modalShare: document.getElementById('shareSuccessModal'),
+            printOptions: document.querySelectorAll('.print-option-btn'),
+            closeButtons: document.querySelectorAll('.btn-close-modal'),
+
+            init() {
+                // 1. Build the content
+                ContentBuilder.init();
+                
+                // 2. Set Initial State
+                this.htmlRoot.setAttribute('lang', this.currentLang);
+                
+                // 3. Bind Event Listeners
+                this.bindEvents();
+            },
+
+            bindEvents() {
+                // Language Toggle
+                this.btnToggleLang.addEventListener('click', () => this.toggleLanguage());
+                
+                // Share Flow
+                this.btnShare.addEventListener('click', () => this.executeShare());
+                
+                // Print Flow
+                this.btnPrintTrigger.addEventListener('click', () => this.openModal(this.modalPrint));
+                
+                // Print specific options
+                this.printOptions.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const mode = e.currentTarget.getAttribute('data-mode');
+                        this.executePrint(mode);
+                    });
+                });
+
+                // Generic Modal Closers
+                this.closeButtons.forEach(btn => {
+                    btn.addEventListener('click', () => this.closeAllModals());
+                });
+
+                // Backdrop Click to Close
+                window.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal-backdrop')) {
+                        this.closeAllModals();
+                    }
+                });
+                
+                // Escape key to close modals
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') this.closeAllModals();
+                });
+            },
+
+            toggleLanguage() {
+                this.currentLang = this.currentLang === 'en' ? 'bn' : 'en';
+                this.htmlRoot.setAttribute('lang', this.currentLang);
+            },
+
+            /**
+             * Strict Copy Functionality
+             * Only copies the predefined canonical URL string.
+             */
+            executeShare() {
+                // Try modern Clipboard API
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(this.canonicalUrl)
+                        .then(() => this.openModal(this.modalShare))
+                        .catch(() => this.fallbackCopy());
+                } else {
+                    this.fallbackCopy();
+                }
+            },
+
+            // Legacy fallback for older browsers or restricted iframes
+            fallbackCopy() {
+                const textArea = document.createElement("textarea");
+                textArea.value = this.canonicalUrl;
+                // Prevent scrolling to bottom
+                textArea.style.position = "fixed";
+                textArea.style.top = "0";
+                textArea.style.left = "0";
+                textArea.style.opacity = "0";
+                
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    this.openModal(this.modalShare);
+                } catch (err) {
+                    console.error('Fallback Copy Failed', err);
+                    alert("Copy failed. Link: " + this.canonicalUrl);
+                }
+                
+                document.body.removeChild(textArea);
+            },
+
+            /**
+             * Advanced Print Execution
+             * @param {string} targetMode - 'en', 'bn', or 'both'
+             */
+            executePrint(targetMode) {
+                // 1. Hide modal to prevent it showing up in print
+                this.closeAllModals();
+                
+                // 2. Set the strict print attribute on the body. 
+                // The @media print CSS relies on this to filter nodes.
+                document.body.setAttribute('data-print-target', targetMode);
+                
+                // 3. Allow DOM/CSS to repaint before triggering print dialog
+                setTimeout(() => {
+                    window.print();
+                    
+                    // 4. Cleanup attribute after the print dialog closes
+                    // Note: window.print() is blocking in most browsers, 
+                    // so cleanup runs immediately after user closes the dialog.
+                    setTimeout(() => {
+                        document.body.removeAttribute('data-print-target');
+                    }, 500);
+                }, 200);
+            },
+
+            openModal(modalElement) {
+                this.closeAllModals();
+                modalElement.classList.add('is-open');
+            },
+
+            closeAllModals() {
+                document.querySelectorAll('.modal-backdrop').forEach(modal => {
+                    modal.classList.remove('is-open');
+                });
+            }
+        };
+
+        // Bootstrap the Application
+        document.addEventListener('DOMContentLoaded', () => {
+            AppController.init();
+        });
+
+    </script>
+</body>
+</html>

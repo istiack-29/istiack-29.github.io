@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Chronological Breakdown of Events (July 14, 2024) - Anti-Quota Movement">
+    
+    <!-- Open Graph for sharing -->
+    <meta property="og:title" content="ISTIACK'S JULY CORNER - July 14, 2024">
+    <meta property="og:description" content="The turning point of the Bangladeshi Anti-Quota Movement.">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/14-july/">
+    <meta property="og:type" content="article">
+
+    <title>14 July, 2024</title>
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & THEME DEFINITIONS
+           ========================================================================== */
+        :root {
+            /* Color Palette - Minimalist / Pure Article */
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-muted: #444444;
+            --border-color: #e5e5e5;
+            --btn-bg: #f5f5f5;
+            --btn-hover: #e0e0e0;
+            --overlay-bg: rgba(0, 0, 0, 0.6);
+            --modal-bg: #ffffff;
+            --black: #000000;
+            --white: #ffffff;
+            
+            /* Layout */
+            --header-height: 70px;
+            --content-max-width: 720px;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+        }
+
+        /* ==========================================================================
+           2. STRICT ASSET MANAGEMENT: TYPOGRAPHY (ROOT FOLDER)
+           ========================================================================== */
+        @font-face {
+            font-family: 'EnMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'EnHead';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'BnHead';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'BnMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ==========================================================================
+           3. RESET & BASE STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            padding-top: var(--header-height);
+        }
+
+        /* STRICT FONT ENFORCEMENT 
+           Every single letter is controlled by these classes dynamically toggled via JS.
+           !important is used to guarantee no browser overrides.
+        */
+        body.lang-en, body.lang-en * { font-family: 'EnMain', sans-serif !important; }
+        body.lang-en h1, body.lang-en h2, body.lang-en h3, body.lang-en h4, body.lang-en h5, body.lang-en h6, body.lang-en .header-title, body.lang-en strong, body.lang-en b {
+            font-family: 'EnHead', sans-serif !important;
+        }
+
+        body.lang-bn, body.lang-bn * { font-family: 'BnMain', sans-serif !important; }
+        body.lang-bn h1, body.lang-bn h2, body.lang-bn h3, body.lang-bn h4, body.lang-bn h5, body.lang-bn h6, body.lang-bn .header-title, body.lang-bn strong, body.lang-bn b {
+            font-family: 'BnHead', sans-serif !important;
+        }
+
+        /* Lists */
+        ul, ol { padding-left: 1.5rem; margin-bottom: var(--spacing-md); }
+        li { margin-bottom: 0.5rem; }
+
+        /* Media */
+        img, video, iframe {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: var(--spacing-lg) 0;
+            border-radius: 4px;
+        }
+        
+        iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+
+        /* ==========================================================================
+           4. LAYOUT & COMPONENTS
+           ========================================================================== */
+        
+        /* HEADER (Fixed) */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content, absolute positioning for sides */
+            padding: 0 var(--spacing-md);
+        }
+
+        .header-logo {
+            position: absolute;
+            left: var(--spacing-md);
+            height: 40px;
+            width: auto;
+            /* Rule: Make it black and white first */
+            filter: grayscale(100%);
+            margin: 0; /* Reset global img margin */
+        }
+
+        .header-title {
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            position: absolute;
+            right: var(--spacing-md);
+            display: flex;
+            gap: 10px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            background-color: var(--btn-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover { background-color: var(--btn-hover); }
+        .btn:active { transform: scale(0.98); }
+
+        .btn-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* MOBILE MENU HAMBURGER */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: var(--text-main);
+        }
+
+        .menu-toggle svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+        }
+
+        /* ARTICLE CONTAINER */
+        .article-container {
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        .hero-image {
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+            border-radius: 0;
+        }
+
+        /* ACTION BAR (Under Hero) */
+        .action-bar {
+            display: flex;
+            justify-content: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* CONTENT TYPOGRAPHY */
+        .article-content h1 { font-size: 2.2rem; margin: var(--spacing-xl) 0 var(--spacing-md) 0; line-height: 1.3; }
+        .article-content h2 { font-size: 1.8rem; margin: var(--spacing-xl) 0 var(--spacing-md) 0; line-height: 1.3; }
+        .article-content h3 { font-size: 1.4rem; margin: var(--spacing-lg) 0 var(--spacing-sm) 0; line-height: 1.3; }
+        .article-content p { margin-bottom: var(--spacing-md); font-size: 1.1rem; }
+        .article-content .source-link { color: var(--text-muted); word-break: break-all; }
+        .article-content hr { border: 0; border-top: 1px solid var(--border-color); margin: var(--spacing-xl) 0; }
+
+        /* ==========================================================================
+           5. MODALS & TOAST NOTIFICATIONS
+           ========================================================================== */
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--text-main);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 2000;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Print Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--overlay-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--modal-bg);
+            padding: var(--spacing-xl);
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.2s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.3rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .modal-actions .btn {
+            justify-content: center;
+            padding: 12px;
+            font-size: 1rem;
+        }
+
+        .btn-cancel {
+            background-color: transparent;
+            border: none;
+            text-decoration: underline;
+            margin-top: 10px;
+        }
+        .btn-cancel:hover { background-color: transparent; color: var(--text-muted); }
+
+        /* ==========================================================================
+           6. RESPONSIVE DESIGN (MOBILE-FIRST ADAPTATIONS)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .header-logo {
+                position: relative;
+                left: 0;
+            }
+            .header-title {
+                display: none; /* Hide newspaper name on mobile to save space, rely on logo */
+            }
+            .site-header {
+                justify-content: space-between;
+            }
+            .header-actions {
+                position: relative;
+                right: 0;
+                display: none; /* Hidden on mobile by default, shown via menu */
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background: var(--bg-color);
+                padding: var(--spacing-md);
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            }
+            .header-actions.menu-open {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .article-content h1 { font-size: 1.8rem; }
+            .article-content h2 { font-size: 1.5rem; }
+            .article-content p { font-size: 1rem; }
+        }
+
+        /* ==========================================================================
+           7. ADVANCED PRINT CSS
+           ========================================================================== */
+        /* Container used exclusively for building the print document */
+        #print-render-zone { display: none; }
+        
+        @media print {
+            /* Hide UI elements */
+            .site-header, 
+            .action-bar,
+            .toast,
+            .modal-overlay {
+                display: none !important;
+            }
+
+            /* Reset body */
+            body {
+                padding-top: 0 !important;
+                background: #fff !important;
+                color: #000 !important;
+                font-size: 12pt !important;
+            }
+
+            /* Main container */
+            .article-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Hide Videos for Print */
+            video, iframe {
+                display: none !important;
+            }
+
+            /* Ensure Images print well */
+            img {
+                max-width: 100% !important;
+                page-break-inside: avoid;
+            }
+
+            /* Typography optimized for ink */
+            h1, h2, h3, p, li, .source-link {
+                color: #000 !important;
+                page-break-inside: avoid;
+            }
+            
+            h1 { font-size: 24pt !important; margin-bottom: 12pt !important; }
+            h2 { font-size: 18pt !important; margin-top: 20pt !important; margin-bottom: 10pt !important; }
+            h3 { font-size: 14pt !important; margin-top: 15pt !important; margin-bottom: 8pt !important; }
+            p { font-size: 12pt !important; line-height: 1.5 !important; margin-bottom: 10pt !important; }
+
+            /* Ensure links are printed clearly as text */
+            .source-link {
+                text-decoration: none !important;
+                word-wrap: break-word !important;
+            }
+
+            /* Logic for custom print modes (En, Bn, Both) handled by JS dynamically swapping DOM */
+            
+            /* Page breaks for 'Both' languages mode */
+            .print-page-break {
+                page-break-before: always;
+                border-top: 2px dashed #000;
+                margin-top: 40pt;
+                padding-top: 40pt;
+            }
+        }
+    </style>
+</head>
+<body class="lang-en" id="app-body">
+
+    <!-- FIXED HEADER -->
+    <header class="site-header">
+        <!-- B/W Logo from Root -->
+        <img src="./home.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
+        
+        <div class="header-title" id="ui-newspaper-name">ISTIACK'S JULY CORNER</div>
+        
+        <!-- Mobile Menu Toggle (SVG) -->
+        <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Menu">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+        </button>
+
+        <div class="header-actions" id="header-actions-menu">
+            <button class="btn btn-icon" id="lang-toggle-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                </svg>
+                <span id="ui-lang-text">ইংরেজিতে পড়ুন</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN ARTICLE UI -->
+    <main class="article-container" id="main-ui-container">
+        <!-- Hero Image (Strictly ./t.png, no caption) -->
+        <img src="./t.png" alt="Hero Image" class="hero-image" onerror="this.style.display='none'">
+
+        <!-- Action Bar (Share & Download/Print) -->
+        <div class="action-bar">
+            <button class="btn btn-icon" id="share-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                </svg>
+                <span id="ui-share-text">Share Link</span>
+            </button>
+            <button class="btn btn-icon" id="print-trigger-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+                </svg>
+                <span id="ui-print-text">Download / Print</span>
+            </button>
+        </div>
+
+        <!-- Dynamic Content Injected Here -->
+        <article class="article-content" id="dynamic-content-area">
+            <!-- Populated by JS -->
+        </article>
+    </main>
+
+    <!-- PRINT RENDER ZONE (Hidden from normal view, used for compiling print DOM) -->
+    <div id="print-render-zone"></div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast-msg">Link copied!</div>
+
+    <!-- PRINT SELECTION MODAL -->
+    <div class="modal-overlay" id="print-modal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="ui-modal-title">What would you like to print?</h3>
+            <div class="modal-actions">
+                <button class="btn" id="print-opt-en">English Only</button>
+                <button class="btn" id="print-opt-bn">Bangla Only</button>
+                <button class="btn" id="print-opt-both">Both Languages</button>
+                <button class="btn btn-cancel" id="print-opt-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         8. JAVASCRIPT: LOGIC & CONTENT MANAGEMENT
+         ========================================================================== -->
+    <script>
+        /**
+         * CONTENT DATA STRUCTURE (JSON-like Object)
+         * This strictly maps all English text and its Bengali translation.
+         * Structure allows easy text updates. Images/Videos are embedded as blocks.
+         * * RULES APPLIED: 
+         * - No captions for images.
+         * - Links are converted to plain text format: Text [URL]
+         */
+        const articleData = {
+            en: {
+                ui: {
+                    newspaperName: "ISTIACK'S JULY CORNER",
+                    langToggle: "Read in Bangla", /* This is the text shown WHEN IN English, pointing to target */
+                    share: "Share Link",
+                    print: "Download / Print",
+                    modalTitle: "What would you like to print?",
+                    printEn: "English Only",
+                    printBn: "Bangla Only",
+                    printBoth: "Both Languages",
+                    cancel: "Cancel",
+                    copiedToast: "Link copied to clipboard!"
+                },
+                blocks: [
+                    { type: 'paragraph', content: "On July 14, 2024, the Bangladeshi Anti-Quota Movement hit its most critical psychological turning point. This was the exact day the student-led protests shifted from a peaceful policy grievance into a massive, emotionally charged nationwide uprising, catalyzed directly by controversial statements from the country's leadership. [https://en.wikipedia.org/wiki/Bangladesh_quota_reform_movement]" },
+                    { type: 'divider' },
+                    { type: 'heading', level: 2, content: "1. Chronological Breakdown of Events (July 14, 2024)" },
+                    { type: 'heading', level: 3, content: "Morning to Afternoon: The March to Bangabhaban [https://www.dhakatribune.com/bangladesh/352021/students-gather-at-du-for-quota-reform-march-to]" },
+                    { type: 'list', items: [
+                        "The Gathering: At around 11:00 AM, thousands of students under the banner of the \"Students Against Discrimination\" movement gathered outside the Dhaka University Central Library. [https://www.thedailystar.net/news/bangladesh/news/july-4-2024-protesters-call-nationwide-strike-3931941]",
+                        "The Blockade: The students initiated a mass procession heading toward Bangabhaban (https://www.google.com/search?kgmid=/m/0gdbjz) (the President's official residence) to submit a formal memorandum. [https://www.aljazeera.com/news/2024/7/16/whats-behind-bangladeshs-violent-quota-protests]",
+                        "Police Confrontation: The march was heavily obstructed by the Bangladesh Police at the Gulistan intersection in Dhaka. Rather than engaging in violence, students held a sit-in at the intersection, completely halting local traffic to maintain order. [https://en.wikipedia.org/wiki/Timeline_of_the_July_Uprising]",
+                        "Submission of the Memorandum: A selected delegation of student leaders bypassed the blockades to enter Bangabhaban. They formally submitted a memorandum addressed to the President demanding:"
+                    ]},
+                    { type: 'list', items: [
+                        "An urgent parliamentary session convened within 24 hours to pass a new law restructuring the quota system.",
+                        "An executive order to cap all combined public job quotas at a maximum of 5%, reserving the remaining 95% strictly for merit-based appointments.",
+                        "The immediate withdrawal of legal cases filed by law enforcement against the student protestors at Shahbagh Police Station, issuing a strict 24-hour ultimatum. [https://www.bssnews.net/july-uprising/291723]"
+                    ]},
+                    { type: 'image', src: './a.jpg' }, // The March to Bangabhaban image
+                    { type: 'heading', level: 3, content: "The High Court's Full Verdict Release" },
+                    { type: 'list', items: [
+                        "Simultaneously, the High Court Division of the Supreme Court published its full, detailed judgment regarding the reinstatement of the 30% quota for descendants of Freedom Fighters. The court explicitly justified the quotas by classifying the descendants of 1971 veterans as a \"backward section of society,\" a definition that deeply frustrated job seekers and university students. [https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_case]"
+                    ]},
+                    { type: 'heading', level: 3, content: "Afternoon Press Conference: The Catalyst" },
+                    { type: 'list', items: [
+                        "Sheikh Hasina’s Speech: At 4:00 PM, Prime Minister Sheikh Hasina (https://www.google.com/search?q=sheikh+hasina) held a formal press conference at her official residence, Ganabhaban, following her return from a trip to China. [https://morningstaronline.co.uk/article/mass-uprising-bangladesh-and-fall-sheikh-hasina]",
+                        "The Controversial Remark: When asked about the ongoing anti-quota demonstrations, Hasina delivered a highly provocative rhetorical statement:"
+                    ]},
+                    { type: 'paragraph', content: "\"If the grandchildren of freedom fighters don't get quota benefits, should the grandchildren of Razakars get them?\" [https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement]" },
+                    { type: 'list', items: [
+                        "Why It Mattered: The term \"Razakar\" refers to the local wartime collaborators who assisted the Pakistani military in committing atrocities and genocide during the 1971 Bangladesh Liberation War. Labeling the reform-seeking students as descendants of traitors completely backfired. [https://www.youtube.com/watch?v=bENyIwYExhE]"
+                    ]},
+                    { type: 'video-embed', src: 'https://www.youtube.com/embed/qF8Ms3K6kjE' }, // Sheikh Hasina's Press Conference Broadcast
+                    { type: 'heading', level: 3, content: "Late Night (10:30 PM – 2:00 AM): The Explosion of Dissent" },
+                    { type: 'list', items: [
+                        "Breaking the Gates: Within hours of the broadcast, immense outrage spread across student residential halls. Around 11:00 PM, female students at Dhaka University (including Rokeya Hall and Shamsunnahar Hall) broke through their locked dormitory gates in defiance of hall administrations. [https://www.thedailystar.net/news/bangladesh/news/inside-july-uprising-women-led-nation-followed-3950221]"
+                    ]},
+                    { type: 'image', src: './f.jpg' }, // Female Dormitory Breakout image
+                    { type: 'list', items: [
+                        "The \"Razakar\" Slogans: Thousands of students poured onto the streets of Dhaka University, marching toward the Raju Memorial Sculpture. To weaponize and mock the Prime Minister’s insult, they chanted the historic ironic slogan:"
+                    ]},
+                    { type: 'list', items: [
+                        "“Tumi ke? Ami ke? Razakar, Razakar!” (Who are you? Who am I? Razakar, Razakar!)",
+                        "Followed immediately by: “Ke boleche? Ke boleche? Shoirachar, Shoirachar!” (Who said it? Who said it? The Autocrat, The Autocrat!) [https://www.tbsnews.net/features/panorama/14-july-2024-anti-quota-movement-escalates-after-hasina-calls-protesters-razakars]"
+                    ]},
+                    { type: 'video-local', src: './o.mp4' }, // Midnight Chanting Audio/Video
+                    { type: 'list', items: [
+                        "Nationwide Synchronization: Within midnight, near-identical mass nighttime breakouts and protest marches erupted across every major public university campus in Bangladesh, including Jahangirnagar University, Rajshahi University, Chittagong University, Comilla University, and Jagannath University. This set the stage for the violent counter-attacks by the pro-government student wing (Chhatra League) the following afternoon on July 15. [https://www.aljazeera.com/news/longform/2024/8/7/how-bangladeshs-gen-z-protests-brought-down-pm-sheikh-hasina]"
+                    ]},
+                    { type: 'divider' },
+                    { type: 'heading', level: 2, content: "3. Verification Sources" },
+                    { type: 'list', items: [
+                        "The Daily Star Detailed Historical Retrospective of July 14: https://www.thedailystar.net/news/bangladesh/news/july-14-2024-pms-remark-ignites-protests-3938926",
+                        "The Business Standard Comprehensive Summary of the Escalation: https://www.tbsnews.net/features/panorama/14-july-2024-anti-quota-movement-escalates-after-hasina-calls-protesters-razakars",
+                        "Dhaka Tribune Report on the President's Memorandum and Gulistan Blockade: https://www.dhakatribune.com/bangladesh/352021/students-gather-at-du-for-quota-reform-march-to",
+                        "Wikipedia's Detailed Timeline of the 2024 Bangladesh Quota Reform Movement: https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "The Daily Star Analysis on the Role of Female Students on July 14: https://www.thedailystar.net/news/bangladesh/news/inside-july-uprising-women-led-nation-followed-3950221"
+                    ]}
+                ]
+            },
+            bn: {
+                ui: {
+                    newspaperName: "ISTIACK'S JULY CORNER",
+                    langToggle: "ইংরেজিতে পড়ুন", /* Text shown WHEN IN Bangla */
+                    share: "লিংক শেয়ার করুন",
+                    print: "ডাউনলোড / প্রিন্ট করুন",
+                    modalTitle: "আপনি কোন ভাষায় প্রিন্ট করতে চান?",
+                    printEn: "শুধুমাত্র ইংরেজি",
+                    printBn: "শুধুমাত্র বাংলা",
+                    printBoth: "উভয় ভাষা",
+                    cancel: "বাতিল করুন",
+                    copiedToast: "লিংক কপি করা হয়েছে!"
+                },
+                blocks: [
+                    { type: 'paragraph', content: "১৪ জুলাই ২০২৪, বাংলাদেশের কোটা বিরোধী আন্দোলন তার সবচেয়ে গুরুত্বপূর্ণ মনস্তাত্ত্বিক মোড় নেয়। ঠিক এই দিনেই শিক্ষার্থীদের নেতৃত্বে পরিচালিত প্রতিবাদ একটি শান্তিপূর্ণ নীতিগত অভিযোগ থেকে একটি বিশাল, আবেগপূর্ণ দেশব্যাপী অভ্যুত্থানে পরিণত হয়, যা সরাসরি দেশের নেতৃত্বের বিতর্কিত বক্তব্যের দ্বারা ত্বরান্বিত হয়েছিল। [https://en.wikipedia.org/wiki/Bangladesh_quota_reform_movement]" },
+                    { type: 'divider' },
+                    { type: 'heading', level: 2, content: "১. ঘটনাবলির কালানুক্রমিক বিশ্লেষণ (১৪ জুলাই ২০২৪)" },
+                    { type: 'heading', level: 3, content: "সকাল থেকে বিকেল: বঙ্গভবন অভিমুখে পদযাত্রা [https://www.dhakatribune.com/bangladesh/352021/students-gather-at-du-for-quota-reform-march-to]" },
+                    { type: 'list', items: [
+                        "সমাবেশ: সকাল ১১টার দিকে, 'বৈষম্যবিরোধী ছাত্র আন্দোলন'-এর ব্যানারে হাজার হাজার শিক্ষার্থী ঢাকা বিশ্ববিদ্যালয়ের কেন্দ্রীয় গ্রন্থাগারের বাইরে জড়ো হয়। [https://www.thedailystar.net/news/bangladesh/news/july-4-2024-protesters-call-nationwide-strike-3931941]",
+                        "অবরোধ: শিক্ষার্থীরা একটি আনুষ্ঠানিক স্মারকলিপি জমা দেওয়ার জন্য বঙ্গভবনের (রাষ্ট্রপতির সরকারি বাসভবন) দিকে (https://www.google.com/search?kgmid=/m/0gdbjz) একটি গণমিছিল শুরু করে। [https://www.aljazeera.com/news/2024/7/16/whats-behind-bangladeshs-violent-quota-protests]",
+                        "পুলিশের বাধা: ঢাকার গুলিস্তান মোড়ে বাংলাদেশ পুলিশ মিছিলটিকে ব্যাপকভাবে বাধা দেয়। সহিংসতায় জড়ানোর পরিবর্তে, শিক্ষার্থীরা শৃঙ্খলা বজায় রাখার জন্য গুলিস্তান মোড়ে অবস্থান কর্মসূচি পালন করে এবং স্থানীয় যান চলাচল সম্পূর্ণ বন্ধ করে দেয়। [https://en.wikipedia.org/wiki/Timeline_of_the_July_Uprising]",
+                        "স্মারকলিপি জমা: ছাত্র নেতাদের একটি নির্বাচিত প্রতিনিধি দল অবরোধ পেরিয়ে বঙ্গভবনে প্রবেশ করে। তারা আনুষ্ঠানিকভাবে রাষ্ট্রপতির কাছে একটি স্মারকলিপি জমা দেয়, যেখানে দাবি করা হয়:"
+                    ]},
+                    { type: 'list', items: [
+                        "কোটা ব্যবস্থা পুনর্গঠনের জন্য নতুন আইন পাসের লক্ষ্যে ২৪ ঘণ্টার মধ্যে জরুরি সংসদীয় অধিবেশন আহ্বান করা।",
+                        "সকল সরকারি চাকরির কোটা সর্বোচ্চ ৫%-এ সীমাবদ্ধ করে একটি নির্বাহী আদেশ জারি করা এবং বাকি ৯৫% কঠোরভাবে মেধার ভিত্তিতে নিয়োগের জন্য সংরক্ষণ করা।",
+                        "শাহবাগ থানায় ছাত্র আন্দোলনকারীদের বিরুদ্ধে আইনশৃঙ্খলা রক্ষাকারী বাহিনীর দায়ের করা আইনি মামলাগুলো অবিলম্বে প্রত্যাহার করার জন্য ২৪ ঘণ্টার কঠোর আল্টিমেটাম প্রদান। [https://www.bssnews.net/july-uprising/291723]"
+                    ]},
+                    { type: 'image', src: './a.jpg' },
+                    { type: 'heading', level: 3, content: "হাইকোর্টের পূর্ণাঙ্গ রায় প্রকাশ" },
+                    { type: 'list', items: [
+                        "একই সময়ে, সুপ্রিম কোর্টের হাইকোর্ট বিভাগ মুক্তিযোদ্ধাদের বংশধরদের জন্য ৩০% কোটা পুনর্বহালের বিষয়ে তাদের পূর্ণাঙ্গ ও বিস্তারিত রায় প্রকাশ করে। আদালত স্পষ্টভাবে ১৯৭১ সালের বীর মুক্তিযোদ্ধাদের বংশধরদের সমাজের একটি 'অনগ্রসর অংশ' হিসেবে শ্রেণীবদ্ধ করে কোটার যৌক্তিকতা তুলে ধরে, যে সংজ্ঞাটি চাকরিপ্রত্যাশী এবং বিশ্ববিদ্যালয়ের শিক্ষার্থীদের গভীরভাবে ক্ষুব্ধ করে। [https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_case]"
+                    ]},
+                    { type: 'heading', level: 3, content: "বিকেলের সংবাদ সম্মেলন: অনুঘটক" },
+                    { type: 'list', items: [
+                        "শেখ হাসিনার ভাষণ: বিকেল ৪টায় প্রধানমন্ত্রী শেখ হাসিনা (https://www.google.com/search?q=sheikh+hasina) চীন সফর থেকে ফিরে তাঁর সরকারি বাসভবন গণভবনে একটি আনুষ্ঠানিক সংবাদ সম্মেলন করেন। [https://morningstaronline.co.uk/article/mass-uprising-bangladesh-and-fall-sheikh-hasina]",
+                        "বিতর্কিত মন্তব্য: চলমান কোটা বিরোধী বিক্ষোভ সম্পর্কে জিজ্ঞাসা করা হলে, হাসিনা একটি অত্যন্ত উস্কানিমূলক আলংকারিক বিবৃতি দেন:"
+                    ]},
+                    { type: 'paragraph', content: "\"মুক্তিযোদ্ধাদের নাতি-পুতিরা কোটা সুবিধা পাবে না তো কি রাজাকারের নাতি-পুতিরা পাবে?\" [https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement]" },
+                    { type: 'list', items: [
+                        "কেন এটি গুরুত্বপূর্ণ ছিল: 'রাজাকার' শব্দটি স্থানীয় যুদ্ধকালীন সহযোগীদের বোঝায় যারা ১৯৭১ সালের বাংলাদেশের মুক্তিযুদ্ধের সময় পাকিস্তানি সামরিক বাহিনীকে নৃশংসতা ও গণহত্যা চালাতে সহায়তা করেছিল। সংস্কারকামী শিক্ষার্থীদের দেশদ্রোহীদের বংশধর হিসেবে আখ্যায়িত করা সম্পূর্ণ বিপরীত প্রতিক্রিয়া সৃষ্টি করে। [https://www.youtube.com/watch?v=bENyIwYExhE]"
+                    ]},
+                    { type: 'video-embed', src: 'https://www.youtube.com/embed/qF8Ms3K6kjE' },
+                    { type: 'heading', level: 3, content: "গভীর রাত (১০:৩০ পিএম – ২:০০ এএম): অসন্তোষের বিস্ফোরণ" },
+                    { type: 'list', items: [
+                        "গেট ভাঙা: সম্প্রচারের কয়েক ঘণ্টার মধ্যেই শিক্ষার্থীদের আবাসিক হলগুলোতে তীব্র ক্ষোভ ছড়িয়ে পড়ে। রাত ১১টার দিকে ঢাকা বিশ্ববিদ্যালয়ের ছাত্রীরা (রোকেয়া হল ও শামসুন্নাহার হল সহ) হল প্রশাসনের নির্দেশ অমান্য করে তাদের তালাবদ্ধ গেট ভেঙে ফেলে। [https://www.thedailystar.net/news/bangladesh/news/inside-july-uprising-women-led-nation-followed-3950221]"
+                    ]},
+                    { type: 'image', src: './f.jpg' },
+                    { type: 'list', items: [
+                        "'রাজাকার' স্লোগান: হাজার হাজার শিক্ষার্থী ঢাকা বিশ্ববিদ্যালয়ের রাস্তায় নেমে আসে এবং রাজু ভাস্কর্যের দিকে পদযাত্রা করে। প্রধানমন্ত্রীর অপমানকে হাতিয়ার করে এবং বিদ্রূপ করার জন্য তারা ঐতিহাসিক স্লোগানটি উচ্চারণ করে:"
+                    ]},
+                    { type: 'list', items: [
+                        "“তুমি কে? আমি কে? রাজাকার, রাজাকার!”",
+                        "এর পরপরই: “কে বলেছে? কে বলেছে? স্বৈরাচার, স্বৈরাচার!” [https://www.tbsnews.net/features/panorama/14-july-2024-anti-quota-movement-escalates-after-hasina-calls-protesters-razakars]"
+                    ]},
+                    { type: 'video-local', src: './o.mp4' },
+                    { type: 'list', items: [
+                        "দেশব্যাপী সমন্বয়: মধ্যরাতের মধ্যে জাহাঙ্গীরনগর বিশ্ববিদ্যালয়, রাজশাহী বিশ্ববিদ্যালয়, চট্টগ্রাম বিশ্ববিদ্যালয়, কুমিল্লা বিশ্ববিদ্যালয় এবং জগন্নাথ বিশ্ববিদ্যালয় সহ বাংলাদেশের প্রতিটি বড় পাবলিক বিশ্ববিদ্যালয় ক্যাম্পাসে প্রায় অভিন্ন গণ নৈশকালীন ভাঙচুর এবং প্রতিবাদ মিছিল শুরু হয়। এটি পরের দিন ১৫ জুলাই বিকেলে সরকার সমর্থক ছাত্র সংগঠন (ছাত্রলীগ) দ্বারা সহিংস পাল্টা আক্রমণের পটভূমি তৈরি করে। [https://www.aljazeera.com/news/longform/2024/8/7/how-bangladeshs-gen-z-protests-brought-down-pm-sheikh-hasina]"
+                    ]},
+                    { type: 'divider' },
+                    { type: 'heading', level: 2, content: "৩. যাচাইকরণের উৎস" },
+                    { type: 'list', items: [
+                        "দ্য ডেইলি স্টারের ১৪ জুলাইয়ের বিস্তারিত ঐতিহাসিক পর্যালোচনা: https://www.thedailystar.net/news/bangladesh/news/july-14-2024-pms-remark-ignites-protests-3938926",
+                        "দ্য বিজনেস স্ট্যান্ডার্ডের বিস্তারিত সারসংক্ষেপ: https://www.tbsnews.net/features/panorama/14-july-2024-anti-quota-movement-escalates-after-hasina-calls-protesters-razakars",
+                        "বঙ্গভবন অভিমুখে যাত্রা ও গুলিস্তান অবরোধ নিয়ে ঢাকা ট্রিবিউনের প্রতিবেদন: https://www.dhakatribune.com/bangladesh/352021/students-gather-at-du-for-quota-reform-march-to",
+                        "২০২৪ বাংলাদেশ কোটা সংস্কার আন্দোলনের উইকিপিডিয়ার বিস্তারিত টাইমলাইন: https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "১৪ জুলাই ছাত্রীদের ভূমিকা নিয়ে দ্য ডেইলি স্টারের বিশ্লেষণ: https://www.thedailystar.net/news/bangladesh/news/inside-july-uprising-women-led-nation-followed-3950221"
+                    ]}
+                ]
+            }
+        };
+
+        // --- STATE MANAGEMENT ---
+        let currentLang = 'en'; // Default language
+
+        // --- DOM ELEMENTS ---
+        const bodyEl = document.getElementById('app-body');
+        const dynContentArea = document.getElementById('dynamic-content-area');
+        
+        // UI Elements that need translation
+        const uiNewspaperName = document.getElementById('ui-newspaper-name');
+        const langToggleBtn = document.getElementById('lang-toggle-btn');
+        const uiLangText = document.getElementById('ui-lang-text');
+        const uiShareText = document.getElementById('ui-share-text');
+        const uiPrintText = document.getElementById('ui-print-text');
+        
+        const uiModalTitle = document.getElementById('ui-modal-title');
+        const btnPrintEn = document.getElementById('print-opt-en');
+        const btnPrintBn = document.getElementById('print-opt-bn');
+        const btnPrintBoth = document.getElementById('print-opt-both');
+        const btnPrintCancel = document.getElementById('print-opt-cancel');
+        
+        const toastMsg = document.getElementById('toast-msg');
+
+        // --- CORE FUNCTIONS ---
+
+        /**
+         * Builds the HTML string for the content blocks based on language
+         */
+        function generateHTML(blocksData) {
+            let html = '';
+            blocksData.forEach(block => {
+                switch(block.type) {
+                    case 'paragraph':
+                        // Simple URL text conversion is already handled in the JSON structure
+                        html += `<p>${block.content}</p>`;
+                        break;
+                    case 'heading':
+                        html += `<h${block.level}>${block.content}</h${block.level}>`;
+                        break;
+                    case 'list':
+                        html += `<ul>`;
+                        block.items.forEach(item => { html += `<li>${item}</li>`; });
+                        html += `</ul>`;
+                        break;
+                    case 'image':
+                        // No captions allowed per instructions
+                        html += `<img src="${block.src}" onerror="this.style.display='none'">`;
+                        break;
+                    case 'video-embed':
+                        html += `<iframe src="${block.src}" allowfullscreen></iframe>`;
+                        break;
+                    case 'video-local':
+                        html += `<video src="${block.src}" controls preload="metadata"></video>`;
+                        break;
+                    case 'divider':
+                        html += `<hr>`;
+                        break;
+                }
+            });
+            return html;
+        }
+
+        /**
+         * Renders the page in the target language
+         */
+        function setLanguage(lang) {
+            currentLang = lang;
+            const data = articleData[lang];
+
+            // 1. Update Body Font Class (Strict Rule Application)
+            bodyEl.className = ''; 
+            bodyEl.classList.add(`lang-${lang}`);
+
+            // 2. Update Static UI Elements
+            uiNewspaperName.textContent = data.ui.newspaperName;
+            
+            // Toggle Button Text: If currently EN, show Bangla toggle text, else English
+            uiLangText.textContent = lang === 'en' ? articleData.bn.ui.langToggle : articleData.en.ui.langToggle;
+            
+            uiShareText.textContent = data.ui.share;
+            uiPrintText.textContent = data.ui.print;
+            uiModalTitle.textContent = data.ui.modalTitle;
+            btnPrintEn.textContent = data.ui.printEn;
+            btnPrintBn.textContent = data.ui.printBn;
+            btnPrintBoth.textContent = data.ui.printBoth;
+            btnPrintCancel.textContent = data.ui.cancel;
+            toastMsg.textContent = data.ui.copiedToast;
+
+            // 3. Render Dynamic Content
+            dynContentArea.innerHTML = generateHTML(data.blocks);
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Language Toggle
+        langToggleBtn.addEventListener('click', () => {
+            const nextLang = currentLang === 'en' ? 'bn' : 'en';
+            setLanguage(nextLang);
+        });
+
+        // Mobile Menu Toggle
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const headerActionsMenu = document.getElementById('header-actions-menu');
+        menuToggleBtn.addEventListener('click', () => {
+            headerActionsMenu.classList.toggle('menu-open');
+        });
+
+        // Share Action (Strict: copy exact URL)
+        const shareBtn = document.getElementById('share-btn');
+        shareBtn.addEventListener('click', async () => {
+            const strictUrl = "https://istiack.ami.bd/july-corner/14-july/";
+            try {
+                // Use clipboard API
+                await navigator.clipboard.writeText(strictUrl);
+                showToast();
+            } catch (err) {
+                // Fallback for older browsers
+                const tempInput = document.createElement('input');
+                tempInput.value = strictUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                showToast();
+            }
+        });
+
+        function showToast() {
+            toastMsg.classList.add('show');
+            setTimeout(() => {
+                toastMsg.classList.remove('show');
+            }, 3000);
+        }
+
+        // --- PRINT PIPELINE ---
+        const printTriggerBtn = document.getElementById('print-trigger-btn');
+        const printModal = document.getElementById('print-modal');
+        const printRenderZone = document.getElementById('print-render-zone');
+        const mainUiContainer = document.getElementById('main-ui-container');
+
+        printTriggerBtn.addEventListener('click', () => {
+            printModal.classList.add('active');
+        });
+
+        btnPrintCancel.addEventListener('click', () => {
+            printModal.classList.remove('active');
+        });
+
+        function executePrint(mode) {
+            // Close modal
+            printModal.classList.remove('active');
+            
+            // Clear print zone
+            printRenderZone.innerHTML = '';
+
+            // Build print content
+            let printContent = '';
+
+            if (mode === 'en' || mode === 'both') {
+                printContent += `<div class="article-container lang-en">`;
+                printContent += `<h1>${articleData.en.ui.newspaperName}</h1>`;
+                printContent += `<img src="./t.png" style="width:100%; margin-bottom: 20px;">`;
+                printContent += generateHTML(articleData.en.blocks);
+                printContent += `</div>`;
+            }
+
+            if (mode === 'both') {
+                printContent += `<div class="print-page-break"></div>`;
+            }
+
+            if (mode === 'bn' || mode === 'both') {
+                printContent += `<div class="article-container lang-bn">`;
+                printContent += `<h1>${articleData.bn.ui.newspaperName}</h1>`;
+                if(mode === 'bn') { 
+                    // Only render hero image again if it's strictly Bangla mode, 
+                    // if both, we already have it at the top.
+                    printContent += `<img src="./t.png" style="width:100%; margin-bottom: 20px;">`;
+                }
+                printContent += generateHTML(articleData.bn.blocks);
+                printContent += `</div>`;
+            }
+
+            // Inject to print zone
+            printRenderZone.innerHTML = printContent;
+
+            // Swap visibility for printing using CSS classes instead of inline styles
+            // Note: Our @media print CSS already hides main-ui-container, site-header, etc.
+            // We just need to make the print render zone visible during print.
+            
+            // Add a temporary style block specifically for this print instance
+            const tempPrintStyle = document.createElement('style');
+            tempPrintStyle.id = 'temp-print-style';
+            tempPrintStyle.innerHTML = `
+                @media print {
+                    #main-ui-container { display: none !important; }
+                    #print-render-zone { display: block !important; }
+                }
+            `;
+            document.head.appendChild(tempPrintStyle);
+
+            // Trigger browser print
+            setTimeout(() => {
+                window.print();
+                
+                // Cleanup after print dialog closes
+                setTimeout(() => {
+                    printRenderZone.innerHTML = '';
+                    const styleToRemove = document.getElementById('temp-print-style');
+                    if (styleToRemove) styleToRemove.remove();
+                }, 500);
+            }, 100);
+        }
+
+        btnPrintEn.addEventListener('click', () => executePrint('en'));
+        btnPrintBn.addEventListener('click', () => executePrint('bn'));
+        btnPrintBoth.addEventListener('click', () => executePrint('both'));
+
+        // Initialize app in default language
+        setLanguage(currentLang);
+
+    </script>
+</body>
+</html>

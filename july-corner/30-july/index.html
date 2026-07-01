@@ -1,0 +1,1446 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ==========================================================================
+         META TAGS & SEO CONFIGURATION
+         ========================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Primary Meta Tags -->
+    <title>July 30, 2024</title>
+    <meta name="title" content="ISTIACK'S JULY CORNER | Key Events of July 30, 2024">
+    <meta name="description" content="On July 30, 2024, the Bangladeshi Anti-Quota Movement witnessed a profound psychological battle of symbols known as the 'Red Wave of Defiance'.">
+    <meta name="author" content="Istiack's July Corner">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://istiack.ami.bd/july-corner/30-july/">
+    <meta property="og:title" content="ISTIACK'S JULY CORNER | Key Events of July 30, 2024">
+    <meta property="og:description" content="On July 30, 2024, the Bangladeshi Anti-Quota Movement witnessed a profound psychological battle of symbols known as the 'Red Wave of Defiance'.">
+    <meta property="og:image" content="./t.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://istiack.ami.bd/july-corner/30-july/">
+    <meta property="twitter:title" content="ISTIACK'S JULY CORNER | Key Events of July 30, 2024">
+    <meta property="twitter:description" content="On July 30, 2024, the Bangladeshi Anti-Quota Movement witnessed a profound psychological battle of symbols known as the 'Red Wave of Defiance'.">
+    <meta property="twitter:image" content="./t.png">
+
+    <style>
+        /* ==========================================================================
+           1. FONTS & TYPOGRAPHY CONFIGURATION (STRICT CONTROL)
+           ========================================================================== 
+           These fonts are strictly loaded from the root directory as requested.
+           Every single element is forced to inherit these based on the active language class.
+        */
+        
+        @font-face {
+            font-family: 'EnglishMain';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'EnglishHeader';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaHeader';
+            src: url('/B1.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BanglaMain';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* * Strict enforcement of typography rules. 
+         * The `!important` tags guarantee that NO browser stylesheet or external 
+         * interference can override the typography of this document.
+         */
+         
+        /* ENGLISH TYPOGRAPHY */
+        body.lang-en, body.lang-en *, body.lang-en button, body.lang-en input, body.lang-en textarea {
+            font-family: 'EnglishMain', sans-serif !important;
+        }
+        body.lang-en h1, body.lang-en h2, body.lang-en h3, 
+        body.lang-en h4, body.lang-en h5, body.lang-en h6,
+        body.lang-en .site-title, body.lang-en .btn-text,
+        body.lang-en strong, body.lang-en b, body.lang-en th {
+            font-family: 'EnglishHeader', sans-serif !important;
+        }
+
+        /* BANGLA TYPOGRAPHY */
+        body.lang-bn, body.lang-bn *, body.lang-bn button, body.lang-bn input, body.lang-bn textarea {
+            font-family: 'BanglaMain', sans-serif !important;
+        }
+        body.lang-bn h1, body.lang-bn h2, body.lang-bn h3, 
+        body.lang-bn h4, body.lang-bn h5, body.lang-bn h6,
+        body.lang-bn .site-title, body.lang-bn .btn-text,
+        body.lang-bn strong, body.lang-bn b, body.lang-bn th {
+            font-family: 'BanglaHeader', sans-serif !important;
+        }
+
+        /* ==========================================================================
+           2. CSS VARIABLES (DESIGN TOKENS)
+           ========================================================================== 
+           "Pure Article" Aesthetic - High contrast, minimalist, clean, grayscale dominance.
+        */
+        :root {
+            /* Color Palette */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-tertiary: #6b7280;
+            
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --border-dark: #9ca3af;
+            
+            --accent-black: #000000;
+            --accent-white: #ffffff;
+            
+            --warning-red: #dc2626;
+            --warning-bg: #fef2f2;
+            
+            --modal-overlay: rgba(0, 0, 0, 0.75);
+            
+            /* Typography Scales */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            
+            /* Layout & Spacing */
+            --header-height: 72px;
+            --content-max-width: 800px;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            
+            /* Borders & Shadows */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-full: 9999px;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            /* Animation */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ==========================================================================
+           3. BASE RESET & GLOBAL STYLES (MOBILE-FIRST)
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            padding-top: var(--header-height);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Media constraints */
+        img, video, canvas, svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Clean List Styles */
+        ul, ol {
+            padding-left: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        li {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Button Reset */
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--accent-black);
+            outline-offset: 2px;
+        }
+
+        /* Default SVG Setup */
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Utilities */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* ==========================================================================
+           4. LAYOUT COMPONENTS
+           ========================================================================== */
+        
+        /* --------------------------------------------------------------------------
+           4.1 Header (Fixed, Responsive, Minimalist)
+           -------------------------------------------------------------------------- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-4);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .site-logo {
+            height: 40px;
+            width: auto;
+            /* Logo strictly forced to Black and White as per requirements */
+            filter: grayscale(100%) contrast(120%);
+        }
+
+        .site-title {
+            font-size: var(--text-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle-btn {
+            border: 1px solid var(--border-medium);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            gap: var(--space-2);
+            background-color: var(--bg-primary);
+        }
+
+        .lang-toggle-btn:hover {
+            background-color: var(--accent-black);
+            color: var(--accent-white);
+            border-color: var(--accent-black);
+        }
+        
+        .lang-toggle-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Mobile Hamburger Menu Trigger */
+        .mobile-menu-trigger {
+            display: none;
+            padding: var(--space-2);
+            color: var(--text-primary);
+        }
+
+        /* --------------------------------------------------------------------------
+           4.2 Main Content Wrapper
+           -------------------------------------------------------------------------- */
+        .main-content {
+            flex-grow: 1;
+            width: 100%;
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            padding: var(--space-6) var(--space-4) var(--space-12);
+        }
+
+        /* --------------------------------------------------------------------------
+           4.3 Hero Section & Actions
+           -------------------------------------------------------------------------- */
+        .hero-section {
+            margin-bottom: var(--space-6);
+            width: 100%;
+        }
+
+        .hero-image {
+            width: 100%;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            background-color: var(--bg-tertiary);
+            /* Ensure maintaining aspect ratio */
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .action-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-4);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            background-color: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        .action-btn:hover {
+            background-color: var(--border-medium);
+            border-color: var(--border-dark);
+        }
+        
+        .action-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* --------------------------------------------------------------------------
+           4.4 Article Typography & Formatting
+           -------------------------------------------------------------------------- */
+        .article-body {
+            position: relative;
+        }
+
+        .article-title {
+            font-size: var(--text-3xl);
+            line-height: 1.2;
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+
+        .article-meta {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-8);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .article-meta svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .article-body h2 {
+            font-size: var(--text-2xl);
+            margin-top: var(--space-12);
+            margin-bottom: var(--space-4);
+            border-bottom: 2px solid var(--accent-black);
+            padding-bottom: var(--space-2);
+            color: var(--text-primary);
+            display: inline-block;
+        }
+
+        .article-body h3 {
+            font-size: var(--text-xl);
+            margin-top: var(--space-8);
+            margin-bottom: var(--space-3);
+            color: var(--text-primary);
+        }
+
+        .article-body p {
+            margin-bottom: var(--space-6);
+            font-size: var(--text-base);
+            text-align: justify;
+            color: var(--text-secondary);
+        }
+
+        .article-body strong, .article-body b {
+            color: var(--text-primary);
+        }
+
+        /* Links formatted strictly as plain text, wrapping correctly */
+        .link-text {
+            color: var(--text-tertiary);
+            word-break: break-all;
+            background-color: var(--bg-secondary);
+            padding: 0 var(--space-1);
+            border-radius: var(--radius-sm);
+            font-family: 'EnglishMain', monospace !important; /* Forces monospace for URL parts if needed, overridden by global strictness though */
+            font-size: 0.9em;
+        }
+
+        /* Inline Images (No captions as per strict requirements) */
+        .article-image {
+            width: 100%;
+            margin: var(--space-8) 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background-color: var(--border-light);
+            margin: var(--space-12) 0;
+            width: 100%;
+        }
+
+        /* References / Source Lists */
+        .references-list {
+            list-style: none;
+            padding-left: 0;
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+        }
+        
+        .references-list li {
+            margin-bottom: var(--space-3);
+            word-break: break-all;
+            position: relative;
+            padding-left: var(--space-4);
+        }
+        
+        .references-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--border-dark);
+        }
+
+        /* --------------------------------------------------------------------------
+           4.5 Custom Video Warning Component
+           -------------------------------------------------------------------------- */
+        .video-container {
+            margin: var(--space-8) 0;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+        }
+
+        .content-warning {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8) var(--space-4);
+            text-align: center;
+            background-color: var(--warning-bg);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .warning-icon {
+            color: var(--warning-red);
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--space-4);
+        }
+
+        .warning-text {
+            color: var(--warning-red);
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-2);
+        }
+        
+        .warning-subtext {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-6);
+        }
+
+        .reveal-btn {
+            background-color: var(--warning-red);
+            color: var(--accent-white);
+            padding: var(--space-2) var(--space-6);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .reveal-btn:hover {
+            background-color: #b91c1c; /* Darker red */
+        }
+
+        .hidden-video {
+            display: none;
+            width: 100%;
+            background-color: var(--accent-black);
+        }
+
+        .hidden-video.revealed {
+            display: block;
+        }
+
+        .content-warning.hidden {
+            display: none;
+        }
+
+        /* ==========================================================================
+           5. MODALS, TOASTS & OVERLAYS
+           ========================================================================== */
+        
+        /* Modal Backdrop */
+        .modal-overlay {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-color: var(--modal-overlay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-normal), visibility var(--transition-normal);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal Box */
+        .modal-content {
+            background-color: var(--bg-primary);
+            padding: var(--space-8);
+            border-radius: var(--radius-lg);
+            max-width: 400px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transform: scale(0.95) translateY(20px);
+            transition: transform var(--transition-normal);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Close Button */
+        .modal-close {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            padding: var(--space-1);
+            color: var(--text-tertiary);
+            border-radius: var(--radius-sm);
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+        }
+
+        .modal-title {
+            margin-bottom: var(--space-6);
+            text-align: center;
+            font-size: var(--text-xl);
+            color: var(--text-primary);
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .modal-btn {
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            font-size: var(--text-base);
+            text-align: center;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .modal-btn:hover {
+            background-color: var(--accent-black);
+            color: var(--accent-white);
+            border-color: var(--accent-black);
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            bottom: var(--space-8);
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--accent-black);
+            color: var(--accent-white);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-lg);
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--text-sm);
+        }
+
+        .toast-container.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           6. RESPONSIVE MEDIA QUERIES (MOBILE-FIRST UPWARDS)
+           ========================================================================== */
+        
+        /* Tablet & Up */
+        @media (min-width: 640px) {
+            .article-title { font-size: var(--text-4xl); }
+            .article-body p { font-size: 1.125rem; }
+            .action-bar { gap: var(--space-6); }
+        }
+
+        /* Small Mobile Adjustments */
+        @media (max-width: 480px) {
+            :root {
+                --header-height: 60px;
+            }
+            .site-logo { height: 32px; }
+            .site-title { font-size: var(--text-base); }
+            
+            /* Hide the long text in toggle, just show icon/short version */
+            .header-right .btn-text-long { display: none; }
+            .lang-toggle-btn { padding: var(--space-2); }
+            
+            .article-title { font-size: var(--text-2xl); }
+        }
+
+        /* Very Small Screens */
+        @media (max-width: 360px) {
+            .site-title { display: none; /* Make room for toggle on tiny screens */ }
+        }
+
+        /* ==========================================================================
+           7. ADVANCED PRINT STYLES (STRICT BLACK & WHITE, NO UI)
+           ========================================================================== 
+           This block strictly forces a pure document aesthetic for printers.
+        */
+        @media print {
+            /* Reset root colors for pure B&W */
+            :root {
+                --bg-primary: #fff;
+                --text-primary: #000;
+                --text-secondary: #333;
+                --border-light: #000;
+                --border-medium: #000;
+                --accent-black: #000;
+            }
+
+            /* Absolute reset of body margins */
+            html, body {
+                background: #fff !important;
+                color: #000 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Hide ALL UI elements unequivocally */
+            .site-header, 
+            .action-bar, 
+            .modal-overlay, 
+            .toast-container,
+            .print-hidden,
+            .video-container {
+                display: none !important;
+            }
+
+            /* Main Layout Adjustments for Paper */
+            .main-content {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Typography adjustments specifically for printed paper readability */
+            .article-title {
+                font-size: 26pt !important;
+                margin-top: 0 !important;
+                page-break-after: avoid;
+                color: #000 !important;
+            }
+            
+            .article-meta {
+                font-size: 11pt !important;
+                color: #444 !important;
+                margin-bottom: 24pt !important;
+                page-break-after: avoid;
+                border-bottom: 1px solid #000;
+                padding-bottom: 5pt;
+            }
+
+            .article-body h2 {
+                font-size: 18pt !important;
+                border-bottom: 1.5pt solid #000 !important;
+                page-break-after: avoid;
+                page-break-before: auto;
+                margin-top: 24pt !important;
+            }
+
+            .article-body h3 {
+                font-size: 14pt !important;
+                page-break-after: avoid;
+                margin-top: 18pt !important;
+            }
+
+            .article-body p {
+                font-size: 12pt !important;
+                line-height: 1.6 !important;
+                orphans: 3;
+                widows: 3;
+                color: #000 !important;
+                text-align: left !important; /* Better for print than justify */
+            }
+
+            /* Image handling in Print - Ensures they fit and don't break pages badly */
+            img {
+                max-width: 100% !important;
+                max-height: 400px !important; /* Prevent massive images dominating pages */
+                object-fit: contain !important;
+                page-break-inside: avoid;
+                margin: 15pt 0 !important;
+                border: 1px solid #ccc !important;
+            }
+
+            /* Dual Print Container Logic */
+            #print-container {
+                display: block !important;
+                width: 100% !important;
+            }
+
+            .print-section-divider {
+                page-break-before: always;
+                border: none !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Links are rendered as text in JS, but ensure a tags just in case */
+            a {
+                text-decoration: none !important;
+                color: #000 !important;
+            }
+            
+            /* Remove dividers that look bad on print */
+            .divider {
+                border-top: 1px solid #000 !important;
+                height: 0 !important;
+                margin: 20pt 0 !important;
+                background: transparent !important;
+            }
+        }
+
+        /* Generic Utility classes */
+        .hidden-utility {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<!-- Body dynamically receives .lang-en or .lang-bn -->
+<body class="lang-en">
+
+    <!-- ==========================================================================
+         HEADER (FIXED TOP NAVIGATION)
+         ========================================================================== -->
+    <header class="site-header">
+        <div class="header-left">
+            <!-- B&W Logo as requested -->
+            <img src="/home.png" alt="" class="site-logo">
+            <!-- Newspaper Name -->
+            <div class="site-title" id="ui-newspaper-name">ISTIACK'S JULY CORNER</div>
+        </div>
+        
+        <div class="header-right">
+            <!-- Strict Bilingual Switcher -->
+            <button class="lang-toggle-btn" id="langToggleBtn" aria-label="Toggle Language">
+                <svg viewBox="0 0 24 24"><path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="btn-text btn-text-long" id="ui-lang-text">Read in Bangla/বাংলায় পড়ুন</span>
+            </button>
+            
+            <!-- Mobile Menu Trigger (SVG only, implemented per constraints) -->
+            <button class="mobile-menu-trigger" aria-label="Open Menu">
+                <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         MAIN ARTICLE CONTENT AREA
+         ========================================================================== -->
+    <main class="main-content" id="standard-view">
+        
+        <!-- Hero Image (Strictly ./t.png with no caption) -->
+        <div class="hero-section">
+            <img src="./t.png" alt="" class="hero-image">
+        </div>
+
+        <!-- Action / Share / Print Bar -->
+        <div class="action-bar">
+            <!-- Share Link Button -->
+            <button class="action-btn" id="shareBtn" aria-label="Share Article">
+                <svg viewBox="0 0 24 24"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="btn-text" id="ui-share-text">Share Link</span>
+            </button>
+            
+            <!-- Print/Download Button -->
+            <button class="action-btn" id="printTriggerBtn" aria-label="Print Document">
+                <svg viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="btn-text" id="ui-print-text">Download / Print</span>
+            </button>
+        </div>
+
+        <!-- Article Content Render Target (Populated by JS) -->
+        <article class="article-body" id="article-content">
+            <!-- Content Injected via JavaScript JSON Object -->
+        </article>
+        
+    </main>
+
+    <!-- ==========================================================================
+         TEMPORARY PRINT CONTAINER (For 'Print Both' Functionality)
+         ========================================================================== -->
+    <div id="print-container" class="hidden-utility"></div>
+
+    <!-- ==========================================================================
+         PRINT PREFERENCE MODAL
+         ========================================================================== -->
+    <div class="modal-overlay" id="printModal" role="dialog" aria-modal="true" aria-labelledby="ui-modal-title">
+        <div class="modal-content">
+            <!-- Close Button -->
+            <button class="modal-close" id="closePrintModalBtn" aria-label="Close Modal">
+                <svg viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            
+            <h3 class="modal-title" id="ui-modal-title">Select Print Language</h3>
+            
+            <div class="modal-actions">
+                <button class="modal-btn" data-print-lang="en">Print in English Only</button>
+                <button class="modal-btn" data-print-lang="bn">Print in Bangla Only (বাংলা)</button>
+                <button class="modal-btn" data-print-lang="both">Print Both Languages (উভয়)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         TOAST NOTIFICATION COMPONENT
+         ========================================================================== -->
+    <div class="toast-container" id="toast" role="alert" aria-live="assertive">
+        <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="toast-message">Message copied successfully!</span>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT APPLICATION LOGIC
+         ========================================================================== -->
+    <script>
+        /**
+         * ==========================================
+         * 1. BILINGUAL CONTENT DATA (JSON-like Object)
+         * ==========================================
+         * Contains identical structural data for English and Bangla.
+         * Enforces strict compliance: no inline links (converted to plain text arrays).
+         * Translations are high-quality, formal, and match the structural layout.
+         */
+        const contentData = {
+            en: {
+                ui: {
+                    newspaperName: "ISTIACK'S JULY CORNER",
+                    langToggleText: "বাংলায় পড়ুন (Bangla)",
+                    shareText: "Share Link",
+                    printText: "Download / Print",
+                    modalTitle: "Select Print Language",
+                    toastCopied: "Canonical URL copied to clipboard!",
+                    warningTitle: "Content Warning",
+                    warningSub: "This section contains raw, potentially graphic or bloody footage from the protests. Viewer discretion is advised.",
+                    showVideoBtn: "Acknowledge & Show Video"
+                },
+                article: {
+                    title: "The Red Wave of Defiance: Key Events of July 30, 2024",
+                    meta: "July 30, 2024 • Anti-Quota Movement Historical Archive",
+                    intro: "On July 30, 2024, the Bangladeshi Anti-Quota Movement witnessed a profound psychological battle of symbols. This day became known as the \"Red Wave of Defiance,\" where millions of citizens openly humiliated the ruling government by weaponizing social media and street performance to completely reject a state-mandated event. [1, 2, 3]",
+                    sections: [
+                        {
+                            title: "1. The Red Profile Picture Revolution",
+                            paragraphs: [
+                                "The Conflict: The Cabinet, chaired by Prime Minister Sheikh Hasina, had declared July 30 as an official, nationwide \"National Mourning Day\" to honor those killed during the unrest. Government leaders, Awami League politicians, and state ministers (like State Minister Zunaid Ahmed Palak) changed their social media profiles to traditional black badges to project an image of official grief. [4, 5, 6]",
+                                "The Counter-Strike: The Anti-Discrimination Student Movement forcefully rejected this official mourning, calling it a grotesque farce by the very administration responsible for the killings. [6, 7]",
+                                "The \"Red Card\": Starting at midnight and peaking throughout July 30, millions of Bangladeshi internet users—including prominent university professors, students, actors, directors (such as filmmaker Mostofa Sarwar Farooki), musicians, and citizens—flooded Facebook, Instagram, and X with solid crimson red profile pictures. Netizens declared this a symbolic \"Red Card\" shown to the authoritarian regime. Many users uploaded selfies with red cloth tied tightly over their eyes and mouths to symbolize how student voices were being choked and blinded by state force. [1, 6, 8, 9, 10]",
+                                "Source: https://thediplomat.com/2024/07/a-majority-of-bangladeshi-netizens-shows-red-card-to-governments-mourning-decision/",
+                                "Source: https://www.thedailystar.net/entertainment/tv-film/news/entertainment-world-adorned-red-against-injustice-3666166"
+                            ],
+                            // Custom object to inject the specific Facebook grid image
+                            media: {
+                                type: "image",
+                                src: "/july-corner/28-july/u.jpg"
+                            }
+                        },
+                        {
+                            title: "2. Civil Society and Cultural Activists Defy Curfews",
+                            paragraphs: [
+                                "The Song March: Despite strict, military-enforced curfews, protesters organized a \"Song March\" (Gaaner Michhil) in Dhaka to honor the deceased. [10, 11, 12]",
+                                "The Clashes: The gathering led to tensions with police. [10, 12]",
+                                "Academic Solidarity: University teachers, including those at Jahangirnagar University, participated in silent protests, wearing red as a sign of solidarity. [1]",
+                                "Source: https://www.asiapacific.ca/publication/explainer-whats-behind-bangladeshs-deadly-protests",
+                                "Source: Alamy photo of the march (https://www.alamy.com/...)"
+                            ]
+                        },
+                        {
+                            title: "3. Preparation for the \"March for Justice\"",
+                            paragraphs: [
+                                "The Strategy: Organizers utilized encrypted communication to plan a nation-wide \"March for Justice\" for July 31.",
+                                "The Directives: Plans focused on protesting at court premises and demanding the release of detained student leaders.",
+                                "Source: https://banglainstitute.com/2024/08/18/2024-bangladesh-non-cooperation-movement/ [3, 4, 7, 13]"
+                            ]
+                        },
+                        {
+                            title: "4. Official State Death Toll Claims",
+                            paragraphs: [
+                                "The Official Narrative: The government reported a death toll of approximately 147-150.",
+                                "The Discrepancy: Independent observers and human rights groups challenged these figures, suggesting a significantly higher number of fatalities.",
+                                "Source: https://today.thefinancialexpress.com.bd/first-page/mourning-day-today-1722274194",
+                                "Source: https://newsonair.gov.in/bangladesh-to-observe-countrywide-mourning-tuesday-over-quota-protest-deaths/ [6, 11, 14, 15, 16]"
+                            ]
+                        }
+                    ],
+                    visualContext: {
+                        title: "Suggested Visual Context & Media References",
+                        desc: "Key imagery from July 30, 2024, includes the massive digital and physical resistance.",
+                        points: [
+                            "The Red Facebook Feed Grids: Visuals of massive social media solidarity.",
+                            "Viral Protestors killing by police (Video archive provided below)."
+                        ],
+                        // Injecting the video securely behind a warning layer
+                        videoMedia: {
+                            src: "./v.mp4"
+                        },
+                        closingQ: "Would you like to review the dramatic details of July 31, 2024, when the \"March for Justice\" effectively turned court premises into major protest battlefields? [4, 7]"
+                    },
+                    references: [
+                        "[1] https://thediplomat.com/2024/07/a-majority-of-bangladeshi-netizens-shows-red-card-to-governments-mourning-decision/",
+                        "[2] https://www.thedailystar.net/the-july-rocked-bangladesh",
+                        "[3] https://www.bbc.com/bengali/extra/aimee860o7/36-days-of-july-revolution-in-bangladesh",
+                        "[4] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "[5] https://www.bssnews.net/news-flash/201716",
+                        "[6] https://en.somoynews.tv/news/2024-07-30/MQuYFMQL",
+                        "[7] https://banglainstitute.com/2024/08/18/2024-bangladesh-non-cooperation-movement/",
+                        "[8] https://www.thedailystar.net/entertainment/tv-film/news/entertainment-world-adorned-red-against-injustice-3666166",
+                        "[9] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "[10] https://www.alamy.com/... (Image ID: 615280393)",
+                        "[11] https://www.amnesty.org/en/latest/news/2024/07/what-is-happening-at-the-quota-reform-protests-in-bangladesh/",
+                        "[12] https://www.asiapacific.ca/publication/explainer-whats-behind-bangladeshs-deadly-protests",
+                        "[13] https://journals.sagepub.com/doi/10.1177/13582291261424344",
+                        "[14] https://today.thefinancialexpress.com.bd/first-page/mourning-day-today-1722274194",
+                        "[15] https://newsonair.gov.in/bangladesh-to-observe-countrywide-mourning-tuesday-over-quota-protest-deaths/",
+                        "[16] https://reliefweb.int/report/bangladesh/what-happening-quota-reform-protests-bangladesh"
+                    ]
+                }
+            },
+            bn: {
+                ui: {
+                    newspaperName: "ISTIACK'S JULY CORNER",
+                    langToggleText: "Read in English (ইংরেজি)",
+                    shareText: "লিংক শেয়ার করুন",
+                    printText: "ডাউনলোড / প্রিন্ট",
+                    modalTitle: "প্রিন্টের ভাষা নির্বাচন করুন",
+                    toastCopied: "আসল ইউআরএল ক্লিপবোর্ডে কপি করা হয়েছে!",
+                    warningTitle: "সতর্কতা: সংবেদনশীল দৃশ্য",
+                    warningSub: "এই অংশে আন্দোলনের বাস্তব, সম্ভাব্য ভীতিকর বা রক্তাক্ত ভিডিও ফুটেজ রয়েছে। নিজ দায়িত্বে দেখার অনুরোধ করা হলো।",
+                    showVideoBtn: "সতর্কতা বুঝেছি, ভিডিও দেখুন"
+                },
+                article: {
+                    title: "প্রতিবাদের লাল ঢেউ: ৩০ জুলাই, ২০২৪ এর মূল ঘটনাবলী",
+                    meta: "৩০ জুলাই, ২০২৪ • কোটা সংস্কার আন্দোলন আর্কাইভ",
+                    intro: "৩০ জুলাই, ২০২৪ তারিখে, বাংলাদেশী কোটা সংস্কার আন্দোলনে প্রতীকের এক গভীর মনস্তাত্ত্বিক লড়াই দেখা যায়। এই দিনটি \"প্রতিবাদের লাল ঢেউ\" হিসেবে পরিচিতি লাভ করে, যখন লক্ষ লক্ষ নাগরিক সোশ্যাল মিডিয়া এবং রাজপথের পারফরম্যান্সকে হাতিয়ার করে সরকার-ঘোষিত একটি ইভেন্টকে সম্পূর্ণ প্রত্যাখ্যান করে শাসকগোষ্ঠীকে চরম অপদস্থ করে। [১, ২, ৩]",
+                    sections: [
+                        {
+                            title: "১. লাল প্রোফাইল পিকচার বিপ্লব",
+                            paragraphs: [
+                                "সংঘাত: প্রধানমন্ত্রী শেখ হাসিনার সভাপতিত্বে মন্ত্রিসভা, অস্থিরতায় নিহতদের স্মরণে ৩০ জুলাইকে সরকারিভাবে দেশব্যাপী \"জাতীয় শোক দিবস\" ঘোষণা করে। সরকারি নেতা, আওয়ামী লীগের রাজনীতিবিদ এবং প্রতিমন্ত্রীরা (যেমন প্রতিমন্ত্রী জুনাইদ আহমেদ পলক) সরকারি শোকের ভাবমূর্তি তুলে ধরতে তাদের সোশ্যাল মিডিয়া প্রোফাইলে ঐতিহ্যবাহী কালো ব্যাজ ধারণ করেন। [৪, ৫, ৬]",
+                                "পাল্টা আঘাত: বৈষম্যবিরোধী ছাত্র আন্দোলন এই সরকারি শোককে দৃঢ়ভাবে প্রত্যাখ্যান করে, একে হত্যাকাণ্ডের জন্য দায়ী প্রশাসনের দ্বারা একটি বিকট প্রহসন বলে অভিহিত করে। [৬, ৭]",
+                                "\"লাল কার্ড\": মধ্যরাত থেকে শুরু হয়ে ৩০ জুলাই সারাদিন জুড়ে লক্ষ লক্ষ বাংলাদেশী ইন্টারনেট ব্যবহারকারী—যাদের মধ্যে ছিলেন বিশিষ্ট বিশ্ববিদ্যালয়ের অধ্যাপক, শিক্ষার্থী, অভিনেতা, পরিচালক (যেমন নির্মাতা মোস্তফা সরয়ার ফারুকী), সুরকার এবং সাধারণ নাগরিক—ফেসবুক, ইনস্টাগ্রাম এবং এক্সে (সাবেক টুইটার) সম্পূর্ণ লাল প্রোফাইল পিকচারে সয়লাব করে দেন। নেটিজেনরা একে স্বৈরাচারী শাসকগোষ্ঠীর প্রতি প্রদর্শিত একটি প্রতীকী \"লাল কার্ড\" বলে ঘোষণা করেন। অনেক ব্যবহারকারী চোখ ও মুখে শক্ত করে লাল কাপড় বাঁধা সেলফি আপলোড করেন, যা রাষ্ট্রীয় বাহিনী দ্বারা কীভাবে শিক্ষার্থীদের কণ্ঠস্বর রোধ করা এবং তাদের অন্ধ করে দেওয়ার চেষ্টা করা হচ্ছে তার প্রতীক। [১, ৬, ৮, ৯, ১০]",
+                                "সূত্র: https://thediplomat.com/2024/07/a-majority-of-bangladeshi-netizens-shows-red-card-to-governments-mourning-decision/",
+                                "সূত্র: https://www.thedailystar.net/entertainment/tv-film/news/entertainment-world-adorned-red-against-injustice-3666166"
+                            ],
+                            media: {
+                                type: "image",
+                                src: "/july-corner/28-july/u.jpg"
+                            }
+                        },
+                        {
+                            title: "২. সুশীল সমাজ ও সাংস্কৃতিক কর্মীদের কারফিউ উপেক্ষা",
+                            paragraphs: [
+                                "গানের মিছিল: কঠোর, সামরিক বাহিনী-নিয়ন্ত্রিত কারফিউ সত্ত্বেও, নিহতদের প্রতি শ্রদ্ধা জানাতে বিক্ষোভকারীরা ঢাকায় একটি \"গানের মিছিল\" (Song March) আয়োজন করে। [১০, ১১, ১২]",
+                                "সংঘর্ষ: এই সমাবেশ পুলিশের সাথে উত্তেজনার সৃষ্টি করে। [১০, ১২]",
+                                "একাডেমিক সংহতি: জাহাঙ্গীরনগর বিশ্ববিদ্যালয় সহ অন্যান্য বিশ্ববিদ্যালয়ের শিক্ষকরা সংহতির চিহ্ন হিসেবে লাল পোশাক পরে নীরব প্রতিবাদে অংশ নেন। [১]",
+                                "সূত্র: https://www.asiapacific.ca/publication/explainer-whats-behind-bangladeshs-deadly-protests",
+                                "সূত্র: অ্যালামি ফটো (https://www.alamy.com/...)"
+                            ]
+                        },
+                        {
+                            title: "৩. \"মার্চ ফর জাস্টিস\" বা \"ন্যায়বিচারের জন্য পদযাত্রা\"-এর প্রস্তুতি",
+                            paragraphs: [
+                                "কৌশল: সংগঠকরা ৩১ জুলাই দেশব্যাপী \"মার্চ ফর জাস্টিস\" পরিকল্পনার জন্য এনক্রিপ্ট করা যোগাযোগ মাধ্যম ব্যবহার করেন।",
+                                "নির্দেশনা: আদালত প্রাঙ্গণে প্রতিবাদ করা এবং আটক ছাত্রনেতাদের মুক্তির দাবির ওপর পরিকল্পনাগুলোর মূল লক্ষ্য নিবদ্ধ ছিল।",
+                                "সূত্র: https://banglainstitute.com/2024/08/18/2024-bangladesh-non-cooperation-movement/ [৩, ৪, ৭, ১৩]"
+                            ]
+                        },
+                        {
+                            title: "৪. সরকারিভাবে নিহতের সংখ্যার দাবি",
+                            paragraphs: [
+                                "সরকারি ভাষ্য: সরকার প্রায় ১৪৭-১৫০ জনের মৃত্যুর সংখ্যা রিপোর্ট করে।",
+                                "অসঙ্গতি: স্বাধীন পর্যবেক্ষক এবং মানবাধিকার গোষ্ঠীগুলো এই পরিসংখ্যানকে চ্যালেঞ্জ করে, নিহতের সংখ্যা উল্লেখযোগ্যভাবে বেশি বলে ইঙ্গিত দেয়।",
+                                "সূত্র: https://today.thefinancialexpress.com.bd/first-page/mourning-day-today-1722274194",
+                                "সূত্র: https://newsonair.gov.in/bangladesh-to-observe-countrywide-mourning-tuesday-over-quota-protest-deaths/ [৬, ১১, ১৪, ১৫, ১৬]"
+                            ]
+                        }
+                    ],
+                    visualContext: {
+                        title: "প্রস্তাবিত ভিজ্যুয়াল প্রেক্ষাপট ও মিডিয়া রেফারেন্স",
+                        desc: "৩০ জুলাই, ২০২৪-এর মূল চিত্রগুলোতে ব্যাপক ডিজিটাল এবং শারীরিক প্রতিরোধের দৃশ্য অন্তর্ভুক্ত রয়েছে:",
+                        points: [
+                            "লাল ফেসবুক ফিড গ্রিড: ব্যাপক সামাজিক মিডিয়া সংহতির ভিজ্যুয়াল।",
+                            "পুলিশ কর্তৃক ভাইরাল আন্দোলনকারীদের হত্যার দৃশ্য (ভিডিও আর্কাইভ নিচে দেওয়া হলো)।"
+                        ],
+                        videoMedia: {
+                            src: "./v.mp4"
+                        },
+                        closingQ: "আপনি কি ৩১ জুলাই, ২০২৪-এর নাটকীয় বিবরণ পর্যালোচনা করতে চান, যখন \"মার্চ ফর জাস্টিস\" কার্যকরভাবে আদালত প্রাঙ্গণগুলোকে বিশাল প্রতিবাদের যুদ্ধক্ষেত্রে পরিণত করেছিল? [৪, ৭]"
+                    },
+                    references: [
+                        "[১] https://thediplomat.com/2024/07/a-majority-of-bangladeshi-netizens-shows-red-card-to-governments-mourning-decision/",
+                        "[২] https://www.thedailystar.net/the-july-rocked-bangladesh",
+                        "[৩] https://www.bbc.com/bengali/extra/aimee860o7/36-days-of-july-revolution-in-bangladesh",
+                        "[৪] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "[৫] https://www.bssnews.net/news-flash/201716",
+                        "[৬] https://en.somoynews.tv/news/2024-07-30/MQuYFMQL",
+                        "[৭] https://banglainstitute.com/2024/08/18/2024-bangladesh-non-cooperation-movement/",
+                        "[৮] https://www.thedailystar.net/entertainment/tv-film/news/entertainment-world-adorned-red-against-injustice-3666166",
+                        "[৯] https://en.wikipedia.org/wiki/2024_Bangladesh_quota_reform_movement",
+                        "[১০] https://www.alamy.com/... (ইমেজ আইডি: 615280393)",
+                        "[১১] https://www.amnesty.org/en/latest/news/2024/07/what-is-happening-at-the-quota-reform-protests-in-bangladesh/",
+                        "[১২] https://www.asiapacific.ca/publication/explainer-whats-behind-bangladeshs-deadly-protests",
+                        "[১৩] https://journals.sagepub.com/doi/10.1177/13582291261424344",
+                        "[১৪] https://today.thefinancialexpress.com.bd/first-page/mourning-day-today-1722274194",
+                        "[১৫] https://newsonair.gov.in/bangladesh-to-observe-countrywide-mourning-tuesday-over-quota-protest-deaths/",
+                        "[১৬] https://reliefweb.int/report/bangladesh/what-happening-quota-reform-protests-bangladesh"
+                    ]
+                }
+            }
+        };
+
+        /**
+         * ==========================================
+         * 2. STATE MANAGEMENT & DOM SELECTION
+         * ==========================================
+         */
+        let currentLang = 'en'; 
+        const bodyEl = document.body;
+        const canonicalURL = "https://istiack.ami.bd/july-corner/30-july/"; // Hardcoded constraint
+        
+        // UI Nodes
+        const nodes = {
+            newspaperName: document.getElementById('ui-newspaper-name'),
+            langText: document.getElementById('ui-lang-text'),
+            shareText: document.getElementById('ui-share-text'),
+            printText: document.getElementById('ui-print-text'),
+            modalTitle: document.getElementById('ui-modal-title'),
+            articleContainer: document.getElementById('article-content'),
+            toast: document.getElementById('toast'),
+            toastMsg: document.getElementById('toast-message'),
+            printModal: document.getElementById('printModal'),
+            printContainer: document.getElementById('print-container'),
+            mainContent: document.getElementById('standard-view')
+        };
+
+        /**
+         * ==========================================
+         * 3. RENDER ENGINE & DATA PARSING
+         * ==========================================
+         */
+
+        /**
+         * Parses raw text strings to format URLs explicitly as text.
+         * Ensures no actual `<a>` tags are generated as per strict requirement.
+         * @param {string} text - Raw text containing markdown-like URLs.
+         * @returns {string} - Formatted HTML string with URLs as span text.
+         */
+        function parseUrlsToPlainText(text) {
+            // Find http/https links and wrap them in a styled span, never an anchor tag.
+            // Also handles Markdown syntax [Text](Url) -> Text (Url)
+            let parsed = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '$1 (<span class="link-text">$2</span>)');
+            // Catch raw loose URLs not in markdown format
+            parsed = parsed.replace(/(?<!\()https?:\/\/[^\s<]+(?!\))/g, match => {
+                return `<span class="link-text">${match}</span>`;
+            });
+            return parsed;
+        }
+
+        /**
+         * Generates the entire Article HTML structure dynamically based on JSON state.
+         * Includes bespoke handling for print-hidden videos and images without captions.
+         * @param {Object} dataObj - The article node from the language JSON.
+         * @param {Object} uiData - The ui node from the language JSON (for warnings).
+         * @returns {string} - Complete HTML string for insertion.
+         */
+        function buildArticleHTML(dataObj, uiData) {
+            let html = `
+                <h1 class="article-title">${dataObj.title}</h1>
+                <div class="article-meta">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>${dataObj.meta}</span>
+                </div>
+                <p><strong>${dataObj.intro}</strong></p>
+                <div class="divider"></div>
+            `;
+
+            // Process main sections
+            dataObj.sections.forEach(sec => {
+                html += `<h2>${sec.title}</h2>`;
+                
+                sec.paragraphs.forEach(p => {
+                    html += `<p>${parseUrlsToPlainText(p)}</p>`;
+                });
+
+                // Strict handling: image injection without any caption wrapper
+                if (sec.media && sec.media.type === 'image') {
+                    html += `<img src="${sec.media.src}" alt="" class="article-image">`;
+                }
+            });
+
+            html += `<div class="divider"></div>`;
+            
+            // Process Context & Visual section
+            html += `<h3>${dataObj.visualContext.title}</h3>`;
+            html += `<p>${dataObj.visualContext.desc}</p>`;
+            html += `<ul>`;
+            dataObj.visualContext.points.forEach(pt => {
+                html += `<li>${parseUrlsToPlainText(pt)}</li>`;
+            });
+            html += `</ul>`;
+
+            // Specific Video Warning Component (Print Hidden)
+            if (dataObj.visualContext.videoMedia) {
+                html += `
+                <div class="video-container print-hidden">
+                    <div class="content-warning js-warning-box">
+                        <svg class="warning-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        <h4 class="warning-text">${uiData.warningTitle}</h4>
+                        <p class="warning-subtext">${uiData.warningSub}</p>
+                        <button class="reveal-btn js-reveal-btn">${uiData.showVideoBtn}</button>
+                    </div>
+                    <video class="hidden-video js-hidden-video" controls preload="none">
+                        <source src="${dataObj.visualContext.videoMedia.src}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                `;
+            }
+
+            if(dataObj.visualContext.closingQ) {
+                html += `<p><strong>${dataObj.visualContext.closingQ}</strong></p>`;
+            }
+
+            html += `<div class="divider"></div>`;
+            
+            // Process References List
+            html += `<ul class="references-list">`;
+            dataObj.references.forEach(ref => {
+                // Ensure references are sanitized as plain text
+                const safeRef = ref.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                html += `<li>${parseUrlsToPlainText(safeRef)}</li>`;
+            });
+            html += `</ul>`;
+
+            return html;
+        }
+
+        /**
+         * Main execution function to update the DOM based on active language.
+         */
+        function renderView() {
+            const data = contentData[currentLang];
+            
+            // 1. Strict Font Control: Swap body class to immediately enforce global @font-face change
+            bodyEl.className = currentLang === 'en' ? 'lang-en' : 'lang-bn';
+
+            // 2. Update Static UI Texts
+            nodes.newspaperName.textContent = data.ui.newspaperName;
+            nodes.langText.textContent = data.ui.langToggleText;
+            nodes.shareText.textContent = data.ui.shareText;
+            nodes.printText.textContent = data.ui.printText;
+            nodes.modalTitle.textContent = data.ui.modalTitle;
+
+            // 3. Render HTML Content
+            nodes.articleContainer.innerHTML = buildArticleHTML(data.article, data.ui);
+
+            // 4. Re-attach dynamic event listeners (like the video reveal button)
+            attachDynamicListeners();
+        }
+
+        /**
+         * Attaches event listeners to elements generated dynamically inside the article.
+         */
+        function attachDynamicListeners() {
+            const warningBox = document.querySelector('.js-warning-box');
+            const revealBtn = document.querySelector('.js-reveal-btn');
+            const hiddenVideo = document.querySelector('.js-hidden-video');
+
+            if (revealBtn && warningBox && hiddenVideo) {
+                revealBtn.addEventListener('click', () => {
+                    warningBox.classList.add('hidden');
+                    hiddenVideo.classList.add('revealed');
+                    hiddenVideo.play().catch(e => console.log("Autoplay prevented:", e));
+                });
+            }
+        }
+
+        // Boot the application on load
+        renderView();
+
+        /**
+         * ==========================================
+         * 4. INTERACTION & EVENT LISTENERS
+         * ==========================================
+         */
+
+        // --- 4.1 Language Toggle ---
+        document.getElementById('langToggleBtn').addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'bn' : 'en';
+            renderView();
+        });
+
+        // --- 4.2 Toast Notification Logic ---
+        function triggerToast(message) {
+            nodes.toastMsg.textContent = message;
+            nodes.toast.classList.add('show');
+            setTimeout(() => {
+                nodes.toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // --- 4.3 Share Functionality & Clipboard Restriction ---
+        
+        // Trigger manual share copy
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            const successMsg = contentData[currentLang].ui.toastCopied;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(canonicalURL).then(() => {
+                    triggerToast(successMsg);
+                });
+            } else {
+                // Legacy fallback for non-HTTPS or older browsers
+                const tempInput = document.createElement("textarea");
+                tempInput.value = canonicalURL;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand("copy");
+                    triggerToast(successMsg);
+                } catch (err) {
+                    console.error("Fallback copy failed");
+                }
+                document.body.removeChild(tempInput);
+            }
+        });
+
+        // STRICT MANDATE: Intercept global copy events.
+        // User MUST only copy the exact canonical URL, regardless of what they highlight.
+        document.addEventListener('copy', (e) => {
+            e.preventDefault(); // Stop standard copy
+            
+            if (e.clipboardData) {
+                e.clipboardData.setData('text/plain', canonicalURL);
+            } else if (window.clipboardData) {
+                window.clipboardData.setData('Text', canonicalURL);
+            }
+            
+            triggerToast(contentData[currentLang].ui.toastCopied);
+        });
+
+        // --- 4.4 Advanced Print Logic (Bilingual Support) ---
+        
+        // Open Modal
+        document.getElementById('printTriggerBtn').addEventListener('click', () => {
+            nodes.printModal.classList.add('active');
+        });
+
+        // Close Modal
+        document.getElementById('closePrintModalBtn').addEventListener('click', () => {
+            nodes.printModal.classList.remove('active');
+        });
+
+        // Handle Print Selection
+        document.querySelectorAll('.modal-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const mode = e.target.getAttribute('data-print-lang');
+                nodes.printModal.classList.remove('active');
+                processPrintRequest(mode);
+            });
+        });
+
+        /**
+         * Processes the complex logic for printing in one or both languages.
+         * For 'both', it builds a temporary invisible DOM, triggers print, then restores.
+         * @param {string} mode - 'en', 'bn', or 'both'
+         */
+        function processPrintRequest(mode) {
+            const originalLang = currentLang;
+
+            if (mode === 'en' || mode === 'bn') {
+                // Single language print setup
+                currentLang = mode;
+                renderView();
+                
+                // Timeout allows browser paint to finish before thread lock
+                setTimeout(() => {
+                    window.print();
+                    // Restore state immediately after print dialog closes
+                    currentLang = originalLang;
+                    renderView();
+                }, 200);
+            } 
+            else if (mode === 'both') {
+                // Dual language print setup
+                
+                // 1. Hide Standard View
+                nodes.mainContent.classList.add('hidden-utility');
+                
+                // 2. Build Dual View Structure strictly binding fonts inline to bypass body class
+                let dualHTML = `
+                    <div class="print-block lang-en" style="font-family: 'EnglishMain', sans-serif;">
+                        ${buildArticleHTML(contentData.en.article, contentData.en.ui)}
+                    </div>
+                `;
+                
+                // Page Break between languages
+                dualHTML += `<hr class="print-section-divider">`;
+                
+                dualHTML += `
+                    <div class="print-block lang-bn" style="font-family: 'BanglaMain', sans-serif;">
+                        ${buildArticleHTML(contentData.bn.article, contentData.bn.ui)}
+                    </div>
+                `;
+
+                nodes.printContainer.innerHTML = dualHTML;
+                nodes.printContainer.classList.remove('hidden-utility');
+
+                // 3. Trigger Print
+                setTimeout(() => {
+                    window.print();
+                    
+                    // 4. Cleanup and Restore View
+                    nodes.printContainer.innerHTML = '';
+                    nodes.printContainer.classList.add('hidden-utility');
+                    nodes.mainContent.classList.remove('hidden-utility');
+                }, 200);
+            }
+        }
+    </script>
+</body>
+</html>
