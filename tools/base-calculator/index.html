@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BaseCalc</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #020205;
+            --bg-glass: rgba(15, 15, 20, 0.45);
+            --bg-glass-hover: rgba(25, 25, 35, 0.6);
+            --border-glass: rgba(255, 255, 255, 0.05);
+            --border-highlight: rgba(138, 43, 226, 0.5);
+            --accent-primary: #8a2be2; 
+            --accent-glow: rgba(138, 43, 226, 0.6);
+            --accent-secondary: #00e5ff;
+            --accent-secondary-glow: rgba(0, 229, 255, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #80808e;
+            --warning-color: #f59e0b;
+            --error-color: #ff3366;
+            --success-color: #00e5ff;
+            --font-en: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --radius-card: 32px;
+            --radius-btn: 16px;
+            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        body {
+            font-family: var(--font-en);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -3; }
+        
+        .ambient-light {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -2;
+            opacity: 0.4;
+            animation: pulseLight 15s infinite alternate ease-in-out;
+        }
+        .light-1 { top: -20%; left: -10%; width: 60vw; height: 60vw; background: var(--accent-primary); }
+        .light-2 { bottom: -20%; right: -10%; width: 50vw; height: 50vw; background: var(--accent-secondary); animation-delay: -5s; }
+        
+        @keyframes pulseLight {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+            100% { transform: scale(1.2) translate(5%, 5%); opacity: 0.6; }
+        }
+
+        .calculator-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 360px; /* Reduced from 440px */
+            padding: 24px; /* Reduced from 28px */
+            background: var(--bg-glass);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-card);
+            box-shadow: 
+                0 40px 80px rgba(0,0,0,0.8),
+                inset 0 2px 3px rgba(255,255,255,0.1),
+                inset 0 -5px 15px rgba(0,0,0,0.5),
+                0 0 40px rgba(138, 43, 226, 0.15);
+            z-index: 10;
+            transform-style: preserve-3d;
+            animation: floatIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(40px) scale(0.95) rotateX(10deg); }
+            100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
+        }
+
+        .calc-screen {
+            background: rgba(5, 5, 8, 0.7);
+            border-radius: 20px;
+            padding: 20px; /* Reduced from 24px */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 10px 30px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+        
+        .calc-screen.has-error {
+            box-shadow: inset 0 0 40px rgba(255, 51, 102, 0.15), inset 0 10px 30px rgba(0,0,0,0.8);
+            border-color: rgba(255, 51, 102, 0.3);
+        }
+
+        .screen-glare {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .screen-expr { 
+            font-family: var(--font-mono); 
+            font-size: 24px; /* Reduced from 28px */
+            color: #ececf1; 
+            height: 40px; /* Reduced from 48px */
+            line-height: 40px;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            letter-spacing: 1.2px;
+            display: block;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .screen-res-multi {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 12px;
+        }
+        .res-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .res-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 700;
+            width: 36px;
+            flex-shrink: 0;
+        }
+        .res-val {
+            font-family: var(--font-mono);
+            font-size: 15px; /* Reduced from 18px */
+            font-weight: 700;
+            color: #fff;
+            text-align: right;
+            text-shadow: 0 0 8px rgba(255,255,255,0.2);
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex: 1;
+            margin-left: 8px;
+            padding-bottom: 2px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .res-row.dec .res-val {
+            font-size: 22px; /* Reduced from 26px */
+            color: var(--accent-secondary);
+            text-shadow: 0 0 12px var(--accent-secondary-glow);
+        }
+
+        .copy-res-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            border-radius: 6px;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        .copy-res-btn.show {
+            opacity: 1;
+            pointer-events: auto;
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .copy-res-btn.show:hover { 
+            color: var(--success-color); 
+            background: rgba(0, 229, 255, 0.1); 
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 229, 255, 0.2);
+        }
+        .copy-res-btn:active { transform: scale(0.9); }
+        .copy-res-btn svg { width: 12px; height: 12px; }
+
+        .screen-expr::-webkit-scrollbar, .res-val::-webkit-scrollbar { display: none; }
+        .screen-expr, .res-val { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .cursor { 
+            display: inline-block; 
+            width: 2px; 
+            height: 1.25em; 
+            background: var(--accent-secondary); 
+            vertical-align: middle; 
+            margin: 0 2px;
+            border-radius: 4px;
+            box-shadow: 0 0 8px var(--accent-secondary), 0 0 15px var(--accent-secondary);
+            animation: pulse-cursor 0.8s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform-origin: bottom;
+        }
+        @keyframes pulse-cursor { 
+            0% { opacity: 1; transform: scaleY(1); box-shadow: 0 0 8px var(--accent-secondary), 0 0 15px var(--accent-secondary); } 
+            100% { opacity: 0.3; transform: scaleY(0.7); box-shadow: 0 0 2px var(--accent-secondary); } 
+        }
+
+        .base-label { 
+            color: var(--accent-secondary); 
+            font-size: 0.5em; 
+            margin-left: 1px; 
+            margin-right: 3px;
+            vertical-align: super;
+            font-weight: 700;
+            text-shadow: 0 0 8px var(--accent-secondary-glow);
+            transition: var(--transition-bounce);
+            display: inline-block;
+        }
+        .base-label.changing { transform: scale(1.8) translateY(-5px); opacity: 0; color: var(--warning-color); }
+
+        .calc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; position: relative; }
+        .calc-key {
+            height: 50px; /* Reduced from 62px */
+            background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(0,0,0,0.2));
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-btn);
+            color: #fff;
+            font-size: 1.15rem; /* Reduced from 1.35rem */
+            font-weight: 600;
+            font-family: var(--font-mono);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+        
+        .calc-key::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        
+        .calc-key:hover::before { opacity: 1; }
+        .calc-key:active { transform: scale(0.92) translateY(2px); box-shadow: 0 1px 2px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.15); }
+        
+        .key-nav {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+        }
+        .key-nav svg { width: 18px; height: 18px; }
+        .key-nav:hover { color: var(--accent-secondary); border-color: rgba(0, 229, 255, 0.3); }
+
+        .key-op { color: var(--accent-secondary); text-shadow: 0 0 10px var(--accent-secondary-glow); font-size: 1.4rem; }
+        .key-del { color: var(--error-color); text-shadow: 0 0 10px rgba(255, 51, 102, 0.4); }
+        .key-del svg { width: 22px; height: 22px; }
+        
+        .key-exe { 
+            background: linear-gradient(135deg, var(--accent-primary), #6000c0); 
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 16px var(--accent-glow), inset 0 2px 4px rgba(255,255,255,0.3);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .key-exe:active { box-shadow: 0 4px 8px var(--accent-glow); }
+
+        .key-base { 
+            grid-column: span 2; 
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color); 
+            border-color: rgba(245, 158, 11, 0.2);
+            font-weight: 700; 
+            font-family: var(--font-en);
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+            border-radius: 12px;
+            touch-action: none; 
+        }
+        
+        .calc-key.base-locked {
+            pointer-events: none;
+            opacity: 0.6;
+            color: var(--text-muted);
+            border-color: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.02);
+            text-shadow: none;
+            filter: grayscale(0.5);
+        }
+
+        .key-hex-hint {
+            position: absolute; top: 4px; left: 6px; 
+            font-size: 0.6rem; color: var(--warning-color); 
+            font-family: var(--font-mono); opacity: 0.7;
+        }
+
+        .bubble-container {
+            position: absolute;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            pointer-events: none;
+            z-index: 100;
+            touch-action: none;
+        }
+        
+        .base-bubble {
+            width: 42px; /* Reduced from 48px */
+            height: 42px; /* Reduced from 48px */
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95), rgba(30, 30, 45, 0.95));
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--accent-secondary);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            opacity: 0;
+            transform: scale(0.5) translateY(20px);
+            transition: var(--transition-bounce);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.2), 0 0 12px var(--accent-secondary-glow);
+            pointer-events: auto;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .base-bubble::after {
+            content: ''; position: absolute; top: 2px; left: 10%; right: 10%; height: 35%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2), transparent);
+            border-radius: 50%;
+        }
+
+        .base-bubble.disabled {
+            filter: grayscale(1);
+            opacity: 0.15 !important;
+            pointer-events: none;
+            border-color: #444;
+            box-shadow: none;
+        }
+
+        .base-bubble span { font-size: 0.5rem; opacity: 0.7; margin-top: -2px; font-family: var(--font-en); letter-spacing: 0.5px;}
+        .base-bubble.show:not(.disabled) { opacity: 1; transform: scale(1) translateY(0); }
+        
+        .base-bubble.hovered:not(.disabled) { 
+            background: var(--accent-secondary); 
+            color: var(--bg-base);
+            transform: scale(1.15) translateY(-6px); 
+            border-color: #fff;
+            box-shadow: 0 15px 30px rgba(0, 229, 255, 0.6), inset 0 -4px 10px rgba(0,0,0,0.2);
+        }
+        .base-bubble.hovered:not(.disabled) span { color: var(--bg-base); opacity: 0.9; font-weight: 700; }
+
+        @keyframes flyToBase {
+            0% { transform: scale(1.15) translateY(-6px); opacity: 1; filter: brightness(1.5); }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; filter: brightness(2); }
+        }
+        .flying { animation: flyToBase 0.5s cubic-bezier(0.5, 0, 0.2, 1) forwards; z-index: 200; }
+
+        .disabled { opacity: 0.15; pointer-events: none; filter: grayscale(1); }
+        
+        .shift-active {
+            background: rgba(245, 158, 11, 0.2) !important;
+            border-color: var(--warning-color) !important;
+            box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.3) !important;
+        }
+        .shift-active svg { stroke: #fff !important; filter: drop-shadow(0 0 5px var(--warning-color)); }
+
+        .toast {
+            position: absolute;
+            top: 15px; left: 15px; right: 15px;
+            background: rgba(20, 5, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 4px solid var(--error-color);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 15px rgba(255, 51, 102, 0.2);
+            transform: translateY(-150%);
+            opacity: 0;
+            transition: var(--transition-bounce);
+            z-index: 500;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            pointer-events: none;
+        }
+        .toast.active { transform: translateY(0); opacity: 1; }
+        
+        .toast.success {
+            border-left-color: var(--success-color);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 15px var(--accent-secondary-glow);
+        }
+
+        .toast-icon {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--error-color);
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            flex-shrink: 0;
+        }
+        .toast.success .toast-icon {
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--success-color);
+        }
+
+        .toast-icon svg { width: 16px; height: 16px; }
+        .toast-content h4 { font-size: 0.9rem; color: #fff; margin-bottom: 2px; font-family: var(--font-en); font-weight: 700; }
+        .toast-content p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; font-family: var(--font-mono); }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+
+    <div class="calculator-wrapper">
+        
+        <div class="toast" id="toast">
+            <div class="toast-icon" id="toast-icon"></div>
+            <div class="toast-content">
+                <h4 id="toast-title">Live Error Detected</h4>
+                <p id="toast-text">Syntax details...</p>
+            </div>
+        </div>
+
+        <div class="calc-screen" id="main-screen">
+            <div class="screen-glare"></div>
+            <div class="screen-expr" id="expr"><span class="cursor"></span></div>
+            
+            <div class="screen-res-multi" id="res-multi">
+                <div class="res-row dec">
+                    <span class="res-label">DEC</span><span class="res-val" id="res-dec">-</span>
+                    <button class="copy-res-btn" data-target="res-dec" title="Copy DEC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                </div>
+                <div class="res-row">
+                    <span class="res-label">HEX</span><span class="res-val" id="res-hex">-</span>
+                    <button class="copy-res-btn" data-target="res-hex" title="Copy HEX"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                </div>
+                <div class="res-row">
+                    <span class="res-label">OCT</span><span class="res-val" id="res-oct">-</span>
+                    <button class="copy-res-btn" data-target="res-oct" title="Copy OCT"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                </div>
+                <div class="res-row">
+                    <span class="res-label">BIN</span><span class="res-val" id="res-bin">-</span>
+                    <button class="copy-res-btn" data-target="res-bin" title="Copy BIN"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="calc-grid" id="main-grid">
+            
+            <button class="calc-key key-nav" data-action="left" title="Move Cursor Left">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="calc-key key-nav" data-action="right" title="Move Cursor Right">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            <button class="calc-key key-nav" data-action="copy" title="Copy All Results">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+            <button class="calc-key key-base" id="base-trigger">SELECT BASE</button>
+
+            <div class="bubble-container" id="bubble-box">
+                <div class="base-bubble" data-base="2">2<span>BIN</span></div>
+                <div class="base-bubble" data-base="8">8<span>OCT</span></div>
+                <div class="base-bubble" data-base="10">10<span>DEC</span></div>
+                <div class="base-bubble" data-base="16">16<span>HEX</span></div>
+            </div>
+
+            <button class="calc-key" data-val="7">7</button>
+            <button class="calc-key" data-val="8">8</button>
+            <button class="calc-key" data-val="9">9</button>
+            <button class="calc-key key-op" data-val="÷">÷</button>
+            <button class="calc-key key-del" id="del-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                <span style="font-size: 7px; opacity: 0.6; margin-top: 2px; font-family: var(--font-en);">AC (Hold)</span>
+            </button>
+
+            <button class="calc-key" data-val="4" data-hex="A">4<span class="key-hex-hint">A</span></button>
+            <button class="calc-key" data-val="5" data-hex="B">5<span class="key-hex-hint">B</span></button>
+            <button class="calc-key" data-val="6" data-hex="C">6<span class="key-hex-hint">C</span></button>
+            <button class="calc-key key-op" data-val="×">×</button>
+            <button class="calc-key key-op" data-val="(">(</button>
+
+            <button class="calc-key" data-val="1" data-hex="D">1<span class="key-hex-hint">D</span></button>
+            <button class="calc-key" data-val="2" data-hex="E">2<span class="key-hex-hint">E</span></button>
+            <button class="calc-key" data-val="3" data-hex="F">3<span class="key-hex-hint">F</span></button>
+            <button class="calc-key key-op" data-val="-">-</button>
+            <button class="calc-key key-op" data-val=")">)</button>
+
+            <button class="calc-key" data-val="0">0</button>
+            <button class="calc-key" data-val=".">.</button>
+            <button class="calc-key key-op" id="shift-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--warning-color)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+            </button>
+            <button class="calc-key key-op" data-val="+">+</button>
+            <button class="calc-key key-exe" data-action="exe">EXE</button>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        const state = {
+            tokens: [],
+            globalCursor: 0,
+            tIdx: 0,
+            cIdx: 0,
+            shift: false,
+            activeBaseIdx: -1,
+            bubblesOpen: false,
+            errorTimeout: null
+        };
+
+        const DOM = {
+            expr: document.getElementById('expr'),
+            screen: document.getElementById('main-screen'),
+            resDec: document.getElementById('res-dec'),
+            resHex: document.getElementById('res-hex'),
+            resOct: document.getElementById('res-oct'),
+            resBin: document.getElementById('res-bin'),
+            baseTrigger: document.getElementById('base-trigger'),
+            bubbles: document.querySelectorAll('.base-bubble'),
+            bubbleBox: document.getElementById('bubble-box'),
+            keys: document.querySelectorAll('.calc-key'),
+            delBtn: document.getElementById('del-btn'),
+            toast: document.getElementById('toast'),
+            toastTitle: document.getElementById('toast-title'),
+            toastText: document.getElementById('toast-text'),
+            toastIcon: document.getElementById('toast-icon'),
+            shiftBtn: document.getElementById('shift-btn'),
+            copyBtns: document.querySelectorAll('.copy-res-btn')
+        };
+
+        // Background Animation
+        function initBg() {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, stars = [];
+            
+            const resize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; };
+            class Star {
+                constructor() {
+                    this.x = Math.random() * w; this.y = Math.random() * h;
+                    this.z = Math.random() * w; this.size = Math.random() * 1.5;
+                }
+                update() {
+                    this.z -= 0.5;
+                    if (this.z <= 0) { this.z = w; this.x = Math.random() * w; this.y = Math.random() * h; }
+                }
+                draw() {
+                    let x = (this.x - w / 2) * (w / this.z) + w / 2;
+                    let y = (this.y - h / 2) * (w / this.z) + h / 2;
+                    let s = this.size * (w / this.z);
+                    ctx.beginPath();
+                    ctx.fillStyle = `rgba(255, 255, 255, ${1 - this.z / w})`;
+                    ctx.arc(x, y, s, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+            resize(); 
+            for(let i=0; i<150; i++) stars.push(new Star());
+            const anim = () => { 
+                ctx.fillStyle = 'rgba(2, 2, 5, 0.4)'; ctx.fillRect(0, 0, w, h); 
+                stars.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(anim); 
+            };
+            window.addEventListener('resize', resize);
+            anim();
+        }
+
+        // Logic Helpers
+        function getTotalLength() {
+            return state.tokens.reduce((acc, t) => acc + t.val.length, 0);
+        }
+
+        function syncCursorToToken() {
+            let passed = 0;
+            state.tIdx = 0;
+            state.cIdx = 0;
+
+            for (let i = 0; i < state.tokens.length; i++) {
+                const len = state.tokens[i].val.length;
+                if (state.globalCursor <= passed + len) {
+                    state.tIdx = i;
+                    state.cIdx = state.globalCursor - passed;
+                    if (state.cIdx === len && i < state.tokens.length - 1) {
+                        state.tIdx = i + 1;
+                        state.cIdx = 0;
+                    }
+                    return;
+                }
+                passed += len;
+            }
+            state.tIdx = state.tokens.length;
+            state.cIdx = 0;
+        }
+
+        function getMinBase(val) {
+            if (/[A-Fa-f]/.test(val)) return 16;
+            if (/[8-9]/.test(val)) return 10;
+            if (/[2-7]/.test(val)) return 8;
+            return 2;
+        }
+
+        function updateTokenBase(t) {
+            const min = getMinBase(t.val);
+            if (!t.base || t.base < min) t.base = min;
+        }
+
+        function mergeNumbersIfNeeded() {
+            for (let i = 0; i < state.tokens.length - 1; i++) {
+                if (state.tokens[i].type === 'num' && state.tokens[i+1].type === 'num') {
+                    state.tokens[i].val += state.tokens[i+1].val;
+                    state.tokens[i].base = Math.max(state.tokens[i].base, state.tokens[i+1].base);
+                    updateTokenBase(state.tokens[i]);
+                    state.tokens.splice(i + 1, 1);
+                    i--; 
+                }
+            }
+        }
+
+        function parseBaseFloat(str, base) {
+            // Fix: Clean handling for pure dots or missing parts
+            if (str === '.' || str === '') return 0;
+            if (str.split('.').length > 2) throw new Error("Multiple decimals in number.");
+            
+            let parts = str.split('.');
+            let intPart = parts[0] ? parseInt(parts[0], base) : 0;
+            let fracPart = 0;
+            
+            if (parts[1]) {
+                for (let i = 0; i < parts[1].length; i++) {
+                    let digit = parseInt(parts[1][i], base);
+                    if (isNaN(digit)) throw new Error(`Invalid fractional digit in Base ${base}.`);
+                    fracPart += digit / Math.pow(base, i + 1);
+                }
+            }
+            return intPart + fracPart;
+        }
+
+        function insertVal(val, isOp) {
+            if (state.tokens.length === 0) {
+                state.tokens.push(isOp ? {type:'op', val} : {type:'num', val, base: getMinBase(val)});
+                state.globalCursor = val.length;
+                syncCursorToToken();
+                clearResults();
+                return;
+            }
+
+            if (state.globalCursor === getTotalLength()) {
+                const lastToken = state.tokens[state.tokens.length - 1];
+                if (!isOp && lastToken.type === 'num') {
+                    lastToken.val += val;
+                    updateTokenBase(lastToken);
+                } else {
+                    state.tokens.push(isOp ? {type:'op', val} : {type:'num', val, base: getMinBase(val)});
+                }
+                state.globalCursor += val.length;
+                syncCursorToToken();
+                clearResults();
+                return;
+            }
+
+            let t = state.tokens[state.tIdx];
+
+            if (isOp) {
+                if (t.type === 'num') {
+                    if (state.cIdx === 0) {
+                        state.tokens.splice(state.tIdx, 0, {type:'op', val});
+                    } else {
+                        const left = t.val.slice(0, state.cIdx);
+                        const right = t.val.slice(state.cIdx);
+                        t.val = left;
+                        updateTokenBase(t);
+                        state.tokens.splice(state.tIdx + 1, 0, {type:'op', val}, {type:'num', val:right, base: getMinBase(right)});
+                    }
+                } else {
+                    state.tokens.splice(state.tIdx, 0, {type:'op', val});
+                }
+            } else {
+                if (t.type === 'num') {
+                    t.val = t.val.slice(0, state.cIdx) + val + t.val.slice(state.cIdx);
+                    updateTokenBase(t);
+                } else {
+                    if (state.tIdx > 0 && state.tokens[state.tIdx - 1].type === 'num') {
+                        const prev = state.tokens[state.tIdx - 1];
+                        prev.val += val;
+                        updateTokenBase(prev);
+                    } else {
+                        state.tokens.splice(state.tIdx, 0, {type:'num', val, base: getMinBase(val)});
+                    }
+                }
+            }
+            state.globalCursor += val.length;
+            syncCursorToToken();
+            clearResults();
+        }
+
+        function deleteVal() {
+            if (state.globalCursor === 0) return;
+            state.globalCursor--;
+            syncCursorToToken(); 
+
+            let t = state.tokens[state.tIdx];
+            t.val = t.val.slice(0, state.cIdx) + t.val.slice(state.cIdx + 1);
+
+            if (t.type === 'num') updateTokenBase(t);
+
+            if (t.val === '') {
+                state.tokens.splice(state.tIdx, 1);
+                mergeNumbersIfNeeded();
+            }
+            syncCursorToToken();
+            clearResults();
+        }
+
+        function scrollToCursor() {
+            setTimeout(() => {
+                const cursorEl = DOM.expr.querySelector('.cursor');
+                if (cursorEl) {
+                    const scrollLeft = cursorEl.offsetLeft - (DOM.expr.clientWidth / 2);
+                    DOM.expr.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                }
+            }, 30);
+        }
+
+        function render() {
+            let html = '';
+            
+            for (let i = 0; i < state.tokens.length; i++) {
+                const t = state.tokens[i];
+                let tokenHtml = '';
+                
+                for(let c = 0; c <= t.val.length; c++) {
+                    if (state.tIdx === i && state.cIdx === c) {
+                        tokenHtml += '<span class="cursor"></span>';
+                    }
+                    if (c < t.val.length) {
+                        tokenHtml += t.val[c];
+                    }
+                }
+                
+                if (t.type === 'num') {
+                    const baseClass = (state.bubblesOpen && state.activeBaseIdx === i) ? 'base-label changing' : 'base-label';
+                    html += `<span>${tokenHtml}</span><sub class="${baseClass}" id="base-ref-${i}">${t.base || '?'}</sub>`;
+                } else {
+                    html += `<span style="color:var(--accent-secondary); margin:0 6px">${tokenHtml}</span>`;
+                }
+            }
+            
+            if (state.tIdx === state.tokens.length) {
+                html += '<span class="cursor"></span>';
+            }
+            
+            DOM.expr.innerHTML = html || '<span class="cursor"></span>';
+            updateKeypad();
+            positionBubbleContainer();
+            scrollToCursor();
+        }
+
+        // Copy All Text Logic
+        function copyResults() {
+            let eq = state.tokens.map(t => t.val).join('');
+            if (!eq) eq = "0";
+
+            let text = `Expression: ${eq}\nDEC: ${DOM.resDec.textContent}\nHEX: ${DOM.resHex.textContent}\nOCT: ${DOM.resOct.textContent}\nBIN: ${DOM.resBin.textContent}`;
+            
+            writeToClipboard(text, "Equation and all results saved.");
+        }
+
+        // Copy Single Result Logic
+        DOM.copyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const val = document.getElementById(targetId).textContent;
+                const baseName = targetId.split('-')[1].toUpperCase();
+                
+                if(val && val !== '-' && val !== 'ERR') {
+                    writeToClipboard(val, `${baseName} value copied!`);
+                }
+            });
+        });
+
+        // Universal Clipboard Helper
+        function writeToClipboard(text, successMsg) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast("Copied to Clipboard!", successMsg, true);
+                }).catch(() => fallbackCopy(text, successMsg));
+            } else {
+                fallbackCopy(text, successMsg);
+            }
+        }
+
+        function fallbackCopy(text, successMsg) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Copied to Clipboard!", successMsg, true);
+            } catch (err) {
+                showToast("Copy Failed", "Your device prevented copying.", false);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function updateKeypad() {
+            let targetToken = null;
+            if (state.tIdx < state.tokens.length && state.tokens[state.tIdx].type === 'num') {
+                targetToken = state.tokens[state.tIdx];
+            } else if (state.tIdx > 0 && state.tokens[state.tIdx-1].type === 'num') {
+                targetToken = state.tokens[state.tIdx-1];
+            }
+
+            if (targetToken && targetToken.type === 'num' && targetToken.base) {
+                let b = parseInt(targetToken.base);
+                if (state.shift) b = 16; 
+
+                const valid = "0123456789ABCDEF".substring(0, b) + ".";
+                DOM.keys.forEach(k => {
+                    if (k.dataset.val) {
+                        let v = state.shift && k.dataset.hex ? k.dataset.hex : k.dataset.val;
+                        if (['+','-','×','÷','(',')'].includes(v)) {
+                            k.classList.remove('disabled');
+                        } else {
+                            k.classList.toggle('disabled', !valid.includes(v));
+                        }
+                    }
+                });
+                
+                const minB = getMinBase(targetToken.val);
+                if (minB === 16) {
+                    DOM.baseTrigger.classList.add('base-locked');
+                    DOM.baseTrigger.textContent = 'HEX LOCKED';
+                } else {
+                    DOM.baseTrigger.classList.remove('base-locked');
+                    DOM.baseTrigger.textContent = 'SELECT BASE';
+                }
+            } else {
+                DOM.keys.forEach(k => k.classList.remove('disabled'));
+                DOM.baseTrigger.classList.remove('base-locked');
+                DOM.baseTrigger.textContent = 'SELECT BASE';
+            }
+            DOM.shiftBtn.classList.remove('disabled');
+        }
+
+        function clearResults() {
+            DOM.resDec.textContent = "-";
+            DOM.resHex.textContent = "-";
+            DOM.resOct.textContent = "-";
+            DOM.resBin.textContent = "-";
+            DOM.copyBtns.forEach(b => b.classList.remove('show'));
+        }
+
+        function calculateResults() {
+            if (state.tokens.length === 0) {
+                updateResults(0);
+                return;
+            }
+
+            try {
+                let evalString = "";
+                let openParens = 0;
+
+                for (let i = 0; i < state.tokens.length; i++) {
+                    const t = state.tokens[i];
+                    const nextT = state.tokens[i+1];
+
+                    if (t.type === 'num') {
+                        let decValue = parseBaseFloat(t.val, t.base);
+                        if (isNaN(decValue)) throw new Error(`Invalid characters in Base ${t.base}.`);
+                        evalString += decValue;
+                        if (nextT && nextT.val === '(') evalString += '*';
+                    } else if (t.type === 'op') {
+                        if (t.val === '(') {
+                            openParens++;
+                            evalString += '(';
+                        } else if (t.val === ')') {
+                            openParens--;
+                            if (openParens < 0) throw new Error("Unmatched closing parenthesis.");
+                            evalString += ')';
+                            // Fix: Proper implicit multiplication for `)(` 
+                            if (nextT && (nextT.type === 'num' || nextT.val === '(')) evalString += '*';
+                        } else {
+                            const op = t.val === '×' ? '*' : (t.val === '÷' ? '/' : t.val);
+                            evalString += op;
+                        }
+                    }
+                }
+
+                if (openParens > 0) throw new Error(`Missing ${openParens} closing parenthesis.`);
+                
+                const lastToken = state.tokens[state.tokens.length-1];
+                if (lastToken && lastToken.type === 'op' && !['(', ')'].includes(lastToken.val)) {
+                    evalString = evalString.slice(0, -1);
+                }
+
+                if (evalString.includes('/0') && !evalString.includes('/0.')) {
+                    throw new Error("Division by zero is undefined.");
+                }
+
+                let result = 0;
+                if(evalString.trim() !== "") {
+                    result = eval(evalString);
+                }
+                
+                if (!isFinite(result)) throw new Error("Calculation exceeds logical limits.");
+
+                updateResults(result);
+
+            } catch (err) {
+                // Determine clean message format for eval-caught syntax issues vs manual errors
+                const msg = err instanceof SyntaxError ? "Invalid mathematical expression." : err.message;
+                showToast("Syntax Error", msg, false);
+                updateResults(null);
+            }
+        }
+
+        function updateResults(decResult) {
+            if (decResult === null) {
+                DOM.resDec.textContent = "ERR"; 
+                DOM.resHex.textContent = "ERR";
+                DOM.resOct.textContent = "ERR"; 
+                DOM.resBin.textContent = "ERR";
+                DOM.copyBtns.forEach(b => b.classList.remove('show'));
+                return;
+            }
+
+            const isInt = Number.isInteger(decResult);
+            const rDec = isInt ? decResult : parseFloat(decResult.toFixed(10));
+
+            DOM.resDec.textContent = rDec;
+            
+            let isNeg = rDec < 0;
+            let absRes = Math.abs(rDec);
+            
+            DOM.resHex.textContent = (isNeg ? "-" : "") + absRes.toString(16).toUpperCase();
+            DOM.resOct.textContent = (isNeg ? "-" : "") + absRes.toString(8);
+            DOM.resBin.textContent = (isNeg ? "-" : "") + absRes.toString(2);
+            
+            DOM.copyBtns.forEach(b => b.classList.add('show'));
+        }
+
+        function showToast(title, message, isSuccess = false) {
+            clearTimeout(state.errorTimeout);
+            DOM.toastTitle.textContent = title;
+            DOM.toastText.textContent = message;
+            
+            if (isSuccess) {
+                DOM.toast.classList.add('success');
+                DOM.toast.classList.remove('error');
+                DOM.toastIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>`;
+                DOM.screen.classList.remove('has-error');
+            } else {
+                DOM.toast.classList.add('error');
+                DOM.toast.classList.remove('success');
+                DOM.toastIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+                DOM.screen.classList.add('has-error');
+            }
+            
+            DOM.toast.classList.add('active');
+            state.errorTimeout = setTimeout(hideToast, 3500);
+        }
+
+        function hideToast() {
+            DOM.toast.classList.remove('active');
+            DOM.screen.classList.remove('has-error');
+        }
+
+        function positionBubbleContainer() {
+            DOM.bubbleBox.style.width = `${DOM.baseTrigger.offsetWidth + 20}px`;
+            DOM.bubbleBox.style.height = `${DOM.baseTrigger.offsetHeight + 30}px`;
+            DOM.bubbleBox.style.top = `${DOM.baseTrigger.offsetTop - 20}px`;
+            DOM.bubbleBox.style.left = `${DOM.baseTrigger.offsetLeft - 10}px`;
+        }
+        window.addEventListener('resize', positionBubbleContainer);
+
+        function toggleBubbles(show) {
+            state.bubblesOpen = show;
+            DOM.bubbleBox.style.pointerEvents = show ? 'auto' : 'none';
+            positionBubbleContainer();
+            DOM.bubbles.forEach((b, i) => {
+                b.classList.remove('hovered');
+                if(show && !b.classList.contains('disabled')) {
+                    setTimeout(() => b.classList.add('show'), i * 30);
+                } else {
+                    b.classList.remove('show');
+                }
+            });
+        }
+
+        function selectBase(baseValue, bubbleEl) {
+            if (state.activeBaseIdx === -1) return;
+            const target = document.getElementById(`base-ref-${state.activeBaseIdx}`);
+            if (target && bubbleEl) {
+                const bRect = bubbleEl.getBoundingClientRect();
+                const tRect = target.getBoundingClientRect();
+                const tx = tRect.left - bRect.left;
+                const ty = tRect.top - bRect.top;
+                
+                bubbleEl.style.setProperty('--tx', `${tx}px`);
+                bubbleEl.style.setProperty('--ty', `${ty}px`);
+                bubbleEl.classList.add('flying');
+                
+                setTimeout(() => {
+                    bubbleEl.classList.remove('flying');
+                    state.tokens[state.activeBaseIdx].base = baseValue;
+                    state.activeBaseIdx = -1;
+                    toggleBubbles(false);
+                    render();
+                }, 500);
+            } else {
+                state.tokens[state.activeBaseIdx].base = baseValue;
+                state.activeBaseIdx = -1;
+                toggleBubbles(false);
+                render();
+            }
+        }
+
+        function getTargetTokenIdx() {
+            let targetIdx = state.tIdx;
+            if (state.tIdx === state.tokens.length) targetIdx--;
+            else if (state.cIdx === 0 && targetIdx > 0) targetIdx--;
+
+            let t = state.tokens[targetIdx];
+            if (!t || t.type !== 'num') return -1;
+            return targetIdx;
+        }
+
+        let baseTriggerClicked = false;
+        
+        DOM.baseTrigger.addEventListener('pointerdown', (e) => {
+            e.preventDefault(); 
+            if(DOM.baseTrigger.classList.contains('base-locked')) return;
+            
+            DOM.baseTrigger.setPointerCapture(e.pointerId);
+            baseTriggerClicked = true;
+
+            if (state.bubblesOpen) {
+                toggleBubbles(false);
+            } else {
+                let targetIdx = getTargetTokenIdx();
+                if (targetIdx === -1) {
+                    showToast("No Target", "Place cursor on/after a number.", false);
+                    return;
+                }
+                state.activeBaseIdx = targetIdx;
+                const minB = getMinBase(state.tokens[targetIdx].val);
+                DOM.bubbles.forEach(b => b.classList.toggle('disabled', parseInt(b.dataset.base) < minB));
+                toggleBubbles(true);
+                render(); 
+            }
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!state.bubblesOpen) return;
+            DOM.bubbles.forEach(b => {
+                if(b.classList.contains('disabled')) return;
+                const r = b.getBoundingClientRect();
+                const isOver = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+                b.classList.toggle('hovered', isOver);
+            });
+        });
+
+        window.addEventListener('pointerup', (e) => {
+            if (!state.bubblesOpen) return;
+            let selected = null;
+            DOM.bubbles.forEach(b => {
+                if(b.classList.contains('hovered') && !b.classList.contains('disabled')) selected = b;
+            });
+
+            if (selected) {
+                selectBase(selected.dataset.base, selected);
+            } else if (!baseTriggerClicked) {
+                toggleBubbles(false);
+                render();
+            }
+            baseTriggerClicked = false;
+        });
+
+        // Dual-Action Delete Key
+        let delTimer;
+        let delLongPressed = false;
+        
+        DOM.delBtn.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
+            delLongPressed = false;
+            DOM.delBtn.setPointerCapture(e.pointerId);
+            delTimer = setTimeout(() => {
+                delLongPressed = true;
+                state.tokens = [];
+                state.globalCursor = 0;
+                syncCursorToToken();
+                clearResults();
+                render();
+                showToast("All Cleared", "Calculator reset successfully.", true);
+                
+                DOM.delBtn.style.transform = 'scale(0.85)';
+                DOM.delBtn.style.boxShadow = '0 0 20px rgba(255, 51, 102, 0.8)';
+                setTimeout(() => {
+                    DOM.delBtn.style.transform = '';
+                    DOM.delBtn.style.boxShadow = '';
+                }, 200);
+
+            }, 600);
+        });
+
+        DOM.delBtn.addEventListener('pointerup', (e) => {
+            clearTimeout(delTimer);
+            if (!delLongPressed) {
+                deleteVal();
+                render();
+            }
+        });
+
+        DOM.delBtn.addEventListener('pointerleave', (e) => {
+            clearTimeout(delTimer);
+        });
+
+        // Keypad Inputs
+        DOM.keys.forEach(k => {
+            k.addEventListener('click', () => {
+                if(k.classList.contains('disabled') || k.classList.contains('base-locked') || k.id === 'base-trigger' || k.id === 'del-btn') return;
+                
+                const val = k.dataset.val;
+                const hex = k.dataset.hex;
+                const action = k.dataset.action;
+
+                if (action === 'left') {
+                    if (state.globalCursor > 0) { state.globalCursor--; syncCursorToToken(); render(); }
+                } else if (action === 'right') {
+                    if (state.globalCursor < getTotalLength()) { state.globalCursor++; syncCursorToToken(); render(); }
+                } else if (action === 'copy') {
+                    copyResults();
+                } else if (action === 'exe') {
+                    if(state.tokens.length > 0) {
+                        DOM.screen.style.transform = 'scale(0.98)';
+                        setTimeout(() => DOM.screen.style.transform = 'scale(1)', 150);
+                        calculateResults(); 
+                    }
+                } else if (val || (state.shift && hex)) {
+                    const finalVal = (state.shift && hex) ? hex : val;
+                    const isOp = ['+','-','×','÷','(',')'].includes(finalVal);
+                    insertVal(finalVal, isOp);
+                    
+                    if(state.shift) { 
+                        state.shift = false; 
+                        DOM.shiftBtn.classList.remove('shift-active'); 
+                    }
+                }
+                render();
+            });
+        });
+
+        DOM.shiftBtn.onclick = function() {
+            state.shift = !state.shift;
+            this.classList.toggle('shift-active', state.shift);
+            updateKeypad();
+        };
+
+        initBg();
+        positionBubbleContainer();
+        render(); 
+    </script>
+</body>
+</html>
