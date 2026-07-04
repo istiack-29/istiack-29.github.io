@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Slide Maker</title>
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Discord, Telegram, etc.) -->
+    <meta property="og:title" content="Slide Maker">
+    <meta property="og:description" content="Create beautiful question slides and export them as PNG, PDF, or PPTX.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./t.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Slide Maker">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Slide Maker">
+    <meta name="twitter:description" content="Create beautiful question slides and export them as PNG, PDF, or PPTX.">
+    <meta name="twitter:image" content="./t.png">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Export Libraries (Including PPTXGenJS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/libs/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
+
+    <style>
+        /* ==========================================================================
+           1. ULTIMATE CSS VARIABLES & DESIGN TOKENS
+           ========================================================================== */
+
+        /* Only three fonts are used anywhere in this document:
+           E1  -> Headers / Titles
+           E2  -> All English body / UI text
+           B2  -> Strictly for auto-detected Bangla characters */
+        @font-face {
+            font-family: 'E1';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'E2';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'B2';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        :root {
+            --bg-base: #050508;
+            --bg-surface: rgba(18, 18, 25, 0.65);
+            --bg-surface-hover: rgba(28, 28, 40, 0.85);
+            --bg-panel: rgba(12, 12, 18, 0.85);
+            --bg-input: rgba(0, 0, 0, 0.4);
+            
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-border-strong: rgba(255, 255, 255, 0.15);
+            --glass-border-focus: rgba(138, 43, 226, 0.5);
+            
+            --accent-primary: #8a2be2; 
+            --accent-primary-hover: #9d4edd;
+            --accent-glow: rgba(138, 43, 226, 0.4);
+            --accent-secondary: #4169e1; 
+            --accent-warning: #ffb74d;
+            --accent-warning-bg: rgba(255, 183, 77, 0.1);
+            --accent-danger: #ff4d4d;
+            --accent-danger-bg: rgba(255, 77, 77, 0.1);
+            
+            --text-main: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #8b8b9e;
+            
+            --font-header: 'E1', sans-serif;
+            --font-en: 'E2', sans-serif;
+            --font-bn: 'B2', sans-serif;
+            
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            
+            --panel-width: 380px;
+            --nav-height: 70px;
+            
+            --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            --shadow-float: 0 20px 40px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 20px var(--accent-glow);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: var(--font-en); background-color: var(--bg-base); color: var(--text-main); 
+            overflow: hidden; width: 100vw; height: 100vh; height: 100dvh; position: fixed;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Headers / Titles use E1 exclusively */
+        h1, h2, h3, h4,
+        .panel-header,
+        .dash-title h1,
+        .modal-header h3,
+        .stage-intro .i-inst,
+        .stage-header .h-inst,
+        .p-card h3,
+        .stage-blank .b-text {
+            font-family: var(--font-header);
+        }
+
+        /* Strictly for auto-detected Bangla character runs */
+        .bn-text { font-family: var(--font-bn) !important; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; transition: var(--transition-fast); }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+        #ambient-bg { position: absolute; inset: 0; z-index: -2; background: radial-gradient(circle at 50% 0%, #0d091a 0%, var(--bg-base) 80%); }
+        .orb { position: absolute; border-radius: 50%; filter: blur(140px); z-index: -1; opacity: 0.2; animation: drift 25s infinite alternate ease-in-out; pointer-events: none; will-change: transform; }
+        .orb-1 { top: -10%; left: -10%; width: 55vw; height: 55vw; background: var(--accent-primary); }
+        .orb-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: var(--accent-secondary); animation-delay: -7s; }
+        @keyframes drift { 0% { transform: translate(0, 0) scale(1) rotate(0deg); } 100% { transform: translate(10%, 10%) scale(1.1) rotate(5deg); } }
+
+        /* ==========================================================================
+           CORE UI COMPONENTS
+           ========================================================================== */
+        .btn-primary {
+            width: 100%; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: #fff; border: none; padding: 16px 24px; border-radius: var(--radius-md); font-weight: 700; font-family: inherit; font-size: 1rem; letter-spacing: 0.5px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: var(--transition-smooth); position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: var(--transition-smooth); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+        .btn-primary:hover::before { left: 100%; transition: 0.7s; }
+        .btn-primary:active { transform: translateY(1px); }
+
+        .btn-outline { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border-strong); color: #fff; padding: 14px 20px; border-radius: var(--radius-md); font-weight: 600; font-family: inherit; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition-smooth); backdrop-filter: blur(10px); }
+        .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+
+        .btn-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-input); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-main); transition: var(--transition-bounce); }
+        .btn-icon:hover { background: rgba(255,255,255,0.1); transform: scale(1.1) rotate(5deg); border-color: var(--glass-border-strong); }
+
+        .form-group { margin-bottom: 24px; position: relative; }
+        .form-label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+        .form-control { width: 100%; background: var(--bg-input); border: 1px solid var(--glass-border); color: #fff; padding: 14px 16px; border-radius: var(--radius-md); font-family: inherit; font-size: 0.95rem; transition: var(--transition-smooth); backdrop-filter: blur(5px); }
+        .form-control::placeholder { color: rgba(255,255,255,0.2); }
+        .form-control:focus { outline: none; border-color: var(--accent-primary); background: rgba(0,0,0,0.6); box-shadow: 0 0 0 4px var(--accent-glow); }
+        textarea.form-control { resize: vertical; min-height: 90px; line-height: 1.5; }
+
+        .segmented-control { display: flex; background: var(--bg-input); border-radius: var(--radius-md); padding: 4px; border: 1px solid var(--glass-border); gap: 4px; position: relative; }
+        .seg-btn { flex: 1; text-align: center; padding: 12px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition-smooth); z-index: 1; }
+        .seg-btn.active { color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); background: var(--accent-primary); box-shadow: 0 4px 15px var(--accent-glow); }
+
+        .image-upload { border: 2px dashed var(--glass-border-strong); border-radius: var(--radius-md); padding: 25px 20px; text-align: center; cursor: pointer; transition: var(--transition-smooth); position: relative; overflow: hidden; background: rgba(255,255,255,0.01); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .image-upload i { color: var(--text-muted); transition: var(--transition-smooth); }
+        .image-upload:hover { border-color: var(--accent-primary); background: rgba(138,43,226,0.05); }
+        .image-upload:hover i { color: var(--accent-primary); transform: translateY(-5px); }
+        .image-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; z-index: 2; width: 100%; height: 100%; }
+        
+        .img-preview-box { display: flex; gap: 10px; justify-content: center; margin-top: 10px; flex-wrap: wrap; z-index: 3; position: relative; }
+        .img-preview-box img { max-height: 80px; border-radius: var(--radius-sm); border: 1px solid var(--glass-border-strong); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        /* ==========================================================================
+           DASHBOARD VIEW
+           ========================================================================== */
+        #view-dashboard { position: absolute; inset: 0; z-index: 50; display: flex; flex-direction: column; backdrop-filter: blur(25px); background: rgba(5,5,8,0.7); }
+        .dash-container { flex: 1; overflow-y: auto; padding: 60px 5%; padding-bottom: 120px; }
+        .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; flex-wrap: wrap; gap: 20px; }
+        .dash-title h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -1px; text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .p-card { background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); padding: 30px; cursor: pointer; transition: var(--transition-bounce); display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .p-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(138,43,226,0.1), transparent 70%); opacity: 0; transition: var(--transition-smooth); }
+        .p-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--glass-border-strong); box-shadow: var(--shadow-float); }
+        .p-card:hover::before { opacity: 1; }
+        
+        .p-card-new { border: 2px dashed var(--glass-border-strong); background: rgba(255,255,255,0.01); align-items: center; justify-content: center; text-align: center; color: var(--text-muted); }
+        .p-card-new:hover { border-color: var(--accent-primary); color: #fff; background: rgba(138,43,226,0.05); }
+        .p-card-new i { transition: var(--transition-bounce); }
+        .p-card-new:hover i { transform: scale(1.2) translateY(-5px); color: var(--accent-primary); }
+        
+        .p-del { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.4); border-radius: 50%; padding: 10px; color: var(--text-muted); transition: var(--transition-bounce); backdrop-filter: blur(5px); z-index: 10; }
+        .p-del:hover { color: var(--accent-danger); background: var(--accent-danger-bg); transform: scale(1.15) rotate(10deg); }
+
+        /* ==========================================================================
+           IDE EDITOR LAYOUT
+           ========================================================================== */
+        #view-editor { display: none; width: 100vw; height: 100dvh; position: relative; overflow: hidden; }
+        #mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 90; opacity: 0; pointer-events: none; transition: opacity var(--transition-smooth); }
+        #mobile-overlay.active { opacity: 1; pointer-events: all; }
+
+        .mobile-nav { display: none; position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(12, 12, 18, 0.9); backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); z-index: 80; padding: 12px 20px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); justify-content: space-between; align-items: center; gap: 10px; }
+
+        .panel { position: absolute; top: 0; height: 100%; width: var(--panel-width); background: var(--bg-panel); backdrop-filter: blur(30px); display: flex; flex-direction: column; z-index: 100; transition: transform var(--transition-smooth); }
+        .panel-header { padding: 24px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent); }
+        .panel-body { flex: 1; overflow-y: auto; padding: 24px; box-shadow: inset 0 10px 20px -10px rgba(0,0,0,0.5), inset 0 -10px 20px -10px rgba(0,0,0,0.5); }
+        .panel-footer { padding: 24px; padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); flex-shrink: 0; display: flex; gap: 15px; }
+
+        #panel-left { left: 0; border-right: 1px solid var(--glass-border); }
+        #panel-right { right: 0; border-left: 1px solid var(--glass-border); }
+
+        .s-list { display: flex; flex-direction: column; gap: 12px; }
+        .s-item { background: var(--bg-input); border: 1px solid var(--glass-border); padding: 16px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 16px; cursor: pointer; transition: var(--transition-smooth); position: relative; overflow: hidden; }
+        .s-item:hover { border-color: var(--glass-border-strong); background: rgba(255,255,255,0.05); transform: translateX(4px); }
+        .s-item.active { border-color: var(--accent-primary); background: rgba(138,43,226,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .s-item.active::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--accent-primary); }
+        .s-num { font-size: 1.1rem; font-weight: 700; color: var(--text-muted); width: 30px; text-align: center; display: flex; justify-content: center; align-items: center; }
+        .s-item.active .s-num { color: var(--accent-primary); }
+
+        /* Animated Workspace Background */
+        #workspace-center {
+            position: absolute; top: 0; bottom: 0; left: var(--panel-width); right: var(--panel-width); 
+            display: flex; justify-content: center; align-items: center; overflow: hidden; 
+            background: linear-gradient(-45deg, #050508, #160a29, #0a1129, #050508);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            transition: left var(--transition-smooth), right var(--transition-smooth), bottom var(--transition-smooth);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (max-width: 1100px) { :root { --panel-width: 320px; } }
+        @media (max-width: 900px) {
+            .mobile-nav { display: flex; }
+            #workspace-center { left: 0; right: 0; bottom: var(--nav-height); }
+            .panel { box-shadow: 0 0 50px rgba(0,0,0,0.9); }
+            #panel-left { transform: translateX(-100%); width: 85vw; max-width: 400px; }
+            #panel-left.open { transform: translateX(0); }
+            #panel-right { transform: translateX(100%); width: 85vw; max-width: 400px; }
+            #panel-right.open { transform: translateX(0); }
+            .mobile-close { display: block !important; cursor: pointer; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+        }
+
+        /* ==========================================================================
+           THE SLIDE RENDER STAGE (CORE ENGINE)
+           ========================================================================== */
+        #stage-scale-wrapper { 
+            transform-origin: center center; transition: transform 0.1s ease-out; 
+            box-shadow: 0 0 60px rgba(138, 43, 226, 0.35), 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); 
+            border-radius: 4px; 
+            position: relative;
+        }
+        
+        #slide-stage {
+            width: 1920px; height: 1080px; position: relative; overflow: hidden; background-color: #000;
+            color: #fff; font-family: var(--font-en); z-index: 1;
+        }
+        
+        #slide-stage::before {
+            content: ''; position: absolute; inset: 0; z-index: -1;
+            background-image: url('https://i.ibb.co.com/pBHNc0Bg/20260419-201500.jpg');
+            background-size: cover; background-position: center;
+        }
+
+        .watermark { position: absolute; top: 40px; right: 50px; display: flex; align-items: center; gap: 15px; font-family: var(--font-en); font-size: 24px; font-weight: 500; color: rgba(255,255,255,0.6); z-index: 10; }
+        .watermark img { width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .source-tag { position: absolute; bottom: 50px; left: 100px; font-size: 30px; color: var(--accent-warning); font-family: var(--font-en); font-weight: 600; letter-spacing: 1px; z-index: 10; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+
+        .stage-intro { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 100px; position: relative; z-index: 5; }
+        .stage-intro .i-inst { font-size: 100px; font-weight: 700; text-shadow: 0 10px 40px rgba(0,0,0,0.8); line-height: 1.1; margin-bottom: 20px; background: linear-gradient(to bottom, #ffffff, #b3b3b3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stage-intro .i-topic { font-size: 50px; color: var(--accent-warning); font-weight: 500; letter-spacing: 2px; font-family: var(--font-en); }
+        .stage-intro img { max-height: 320px; margin-bottom: 60px; filter: drop-shadow(0 0 40px rgba(255,255,255,0.6)); animation: floatImg 6s ease-in-out infinite; }
+        @keyframes floatImg { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .stage-header { padding: 60px 100px 40px 100px; display: flex; align-items: center; gap: 40px; border-bottom: 2px solid rgba(255,255,255,0.08); background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent); }
+        .stage-header img { max-height: 100px; filter: drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
+        .stage-header .h-inst { font-size: 50px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .stage-header .h-topic { font-size: 28px; color: var(--accent-warning); margin-top: 5px; font-family: var(--font-en); }
+
+        /* Unified Content Stage for CQ & SQ */
+        .stage-content { padding: 50px 100px; height: calc(1080px - 200px); display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* 2-Column Layout System */
+        .content-wrapper { display: flex; gap: 60px; height: 100%; width: 100%; align-items: stretch; }
+        .text-col { flex: 1; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+        .text-col.center-content { justify-content: center; }
+        
+        /* Fixed 1:1 Image Area on the Right */
+        .image-col { flex-shrink: 0; width: 750px; display: flex; align-items: center; justify-content: center; }
+        .image-box-1x1 { width: 750px; height: 750px; background: rgba(0,0,0,0.3); border-radius: 24px; border: 2px dashed rgba(255,255,255,0.15); padding: 20px; display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        .image-box-1x1 img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .image-box-1x1.multi-img { flex-direction: column; }
+        .image-box-1x1.multi-img img { max-height: calc(50% - 10px); }
+
+        /* CQ Typography & Elements */
+        .passage { font-size: 34px; line-height: 1.6; color: #f0f0f0; margin-bottom: 30px; background: rgba(0,0,0,0.5); padding: 30px 40px; border-radius: 20px; border-left: 6px solid var(--accent-primary); flex-shrink: 0; backdrop-filter: blur(10px); font-family: var(--font-en); }
+        .q-grid { display: flex; flex-direction: column; gap: 20px; flex-grow: 1; justify-content: flex-end; }
+        .q-row { display: flex; justify-content: space-between; font-size: 32px; align-items: center; padding: 12px 20px; background: rgba(0,0,0,0.4); border-radius: 12px; backdrop-filter: blur(5px); font-family: var(--font-en); }
+        .q-row span:last-child { color: var(--accent-primary); font-weight: 700; font-family: var(--font-en); background: rgba(138,43,226,0.15); padding: 5px 25px; border-radius: 30px; border: 1px solid rgba(138,43,226,0.3); }
+
+        /* SQ Typography & Elements */
+        .sq-q-box { font-size: 44px; font-weight: 600; line-height: 1.5; color: #fff; background: rgba(0,0,0,0.6); padding: 50px 60px; border-left: 8px solid var(--accent-secondary); border-radius: 20px; backdrop-filter: blur(10px); font-family: var(--font-en); }
+
+        .stage-blank { flex: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; opacity: 0.25; }
+        .stage-blank i { width: 150px; height: 150px; margin-bottom: 30px; }
+        .stage-blank .b-text { font-size: 40px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; }
+
+        /* ==========================================================================
+           MODALS & LOADERS
+           ========================================================================== */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 9999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity var(--transition-smooth); padding: 20px; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-card { background: var(--bg-surface); border: 1px solid var(--glass-border-strong); border-radius: var(--radius-xl); width: 100%; max-width: 480px; padding: 35px; box-shadow: 0 40px 100px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.1); transform: translateY(30px) scale(0.95); transition: transform var(--transition-bounce); }
+        .modal-overlay.active .modal-card { transform: translateY(0) scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .modal-header h3 { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .modal-header i.close-icon { cursor: pointer; color: var(--text-muted); transition: var(--transition-fast); background: rgba(255,255,255,0.05); padding: 8px; border-radius: 50%; }
+        .modal-header i.close-icon:hover { color: var(--accent-danger); background: rgba(255,77,77,0.1); transform: rotate(90deg); }
+
+        .res-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+        .res-item { background: rgba(0,0,0,0.3); border: 2px solid var(--glass-border); padding: 18px 20px; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: var(--transition-smooth); }
+        .res-item:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
+        .res-item.active { border-color: var(--accent-primary); background: rgba(138,43,226,0.1); box-shadow: 0 4px 20px rgba(138,43,226,0.2); }
+        .res-item strong { font-size: 1.1rem; display: block; margin-bottom: 4px; }
+        
+        #export-loader { display: none; text-align: center; margin-top: 20px; padding: 20px 0; }
+        .loader-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; margin-bottom: 15px; position: relative; border: 1px solid var(--glass-border); }
+        .loader-fill { width: 0%; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); transition: width 0.3s ease; box-shadow: 0 0 15px var(--accent-primary); }
+        .loader-text { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; color: #fff; }
+        
+        .info-banner { background: var(--accent-warning-bg); border: 1px solid rgba(255,183,77,0.3); padding: 16px; border-radius: var(--radius-md); margin-top: 24px; display: flex; gap: 15px; align-items: flex-start; }
+        .info-banner i { color: var(--accent-warning); flex-shrink: 0; }
+        .info-banner p { font-size: 0.85rem; color: #fff; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <div id="ambient-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- 1. DASHBOARD VIEW -->
+    <div id="view-dashboard">
+        <div class="dash-container">
+            <div class="dash-header">
+                <div class="dash-title">
+                    <h1>Workspace</h1>
+                    <p style="color:var(--text-muted); font-size: 1.1rem; margin-top: 8px;">Manage your ultimate masterpiece projects.</p>
+                </div>
+                <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                    <button class="btn-primary" style="width:auto; padding: 16px 28px; box-shadow: var(--shadow-glow);" onclick="createProject()">
+                        <i data-lucide="plus"></i> Create New Project
+                    </button>
+                </div>
+            </div>
+            <div class="project-grid" id="project-grid"></div>
+        </div>
+    </div>
+
+    <!-- 2. EDITOR VIEW -->
+    <div id="view-editor">
+        <div id="mobile-overlay" onclick="closePanels()"></div>
+
+        <div id="workspace-center">
+            <div id="stage-scale-wrapper">
+                <div id="slide-stage"></div>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-left">
+            <div class="panel-header">
+                <div style="display:flex; align-items:center; gap:12px; cursor:pointer; color:var(--text-secondary); transition:color 0.2s;" onclick="exitEditor()" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-secondary)'">
+                    <i data-lucide="arrow-left" size="22"></i> <span>Dashboard</span>
+                </div>
+                <i data-lucide="x" class="mobile-close" style="display:none;" onclick="togglePanel('left')"></i>
+            </div>
+            <div class="panel-body">
+                <h4 style="margin-bottom: 20px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Document Structure</h4>
+                <div class="s-list" id="slide-list-ui"></div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn-outline" style="flex:1;" onclick="addSlide('cq')" title="Add Question"><i data-lucide="plus-circle" size="18"></i> Question</button>
+                <button class="btn-outline" style="flex:1;" onclick="openBlankModal()" title="Add Blank Solve Pages"><i data-lucide="file-plus" size="18"></i> Blank</button>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-right">
+            <div class="panel-header">
+                <div style="display:flex; align-items:center; gap:10px;"><span>Properties</span> <i data-lucide="sliders" size="18" style="color:var(--accent-primary);"></i></div>
+                <i data-lucide="x" class="mobile-close" style="display:none;" onclick="togglePanel('right')"></i>
+            </div>
+            
+            <div class="panel-body" id="inspector-body">
+                
+                <div id="prop-intro" style="display:none; animation: fadeIn 0.3s;">
+                    <div class="form-group">
+                        <label class="form-label">Institution Name</label>
+                        <input type="text" id="inp-inst" class="form-control" placeholder="e.g. Dhaka College" oninput="updateProj()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subject / Topic</label>
+                        <input type="text" id="inp-topic" class="form-control" placeholder="e.g. Higher Math 1st Paper" oninput="updateProj()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Institution Logo</label>
+                        <div class="image-upload">
+                            <i data-lucide="upload-cloud" size="32"></i> 
+                            <p style="font-size:0.85rem; margin-top:5px; color:var(--text-muted); font-weight:500;">Click or tap to upload</p>
+                            <input type="file" accept="image/*" onchange="handleLogo(this)">
+                            <div class="img-preview-box"><img id="logo-prev" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="prop-slide" style="display:none; animation: fadeIn 0.3s;">
+                    <div class="form-group">
+                        <label class="form-label">Slide Layout Mode</label>
+                        <div class="segmented-control">
+                            <div class="seg-btn active" id="btn-mode-cq" onclick="setSlideMode('cq')">CQ Mode</div>
+                            <div class="seg-btn" id="btn-mode-sq" onclick="setSlideMode('sq')">Single (1/10)</div>
+                        </div>
+                    </div>
+
+                    <div id="fields-cq">
+                        <div class="form-group" style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <label class="form-label">CQ Marks Format</label>
+                            <div class="segmented-control">
+                                <div class="seg-btn" id="btn-cq-fmt-4" onclick="setCqFormat('4-parts')">4-Part (1-2-3-4)</div>
+                                <div class="seg-btn" id="btn-cq-fmt-3" onclick="setCqFormat('3-parts')">3-Part (2-4-4)</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Passage / Stem</label>
+                            <textarea id="inp-passage" class="form-control" placeholder="Write the main question stem here..." oninput="updateProj()"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Attach Images to CQ (Max 2)</label>
+                            <div class="image-upload">
+                                <i data-lucide="image" size="32"></i>
+                                <p style="font-size:0.85rem; margin-top:5px; color:var(--text-muted); font-weight:500;">Select up to 2 images</p>
+                                <input type="file" accept="image/*" multiple onchange="handleImages(this)">
+                                <div class="img-preview-box" id="cq-img-prev"></div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="form-label" id="lbl-q1">Q: (a) - 1 Mark</label><input type="text" id="inp-q1" class="form-control" oninput="updateProj()"></div>
+                        <div class="form-group"><label class="form-label" id="lbl-q2">Q: (b) - 2 Marks</label><input type="text" id="inp-q2" class="form-control" oninput="updateProj()"></div>
+                        <div class="form-group"><label class="form-label" id="lbl-q3">Q: (c) - 3 Marks</label><input type="text" id="inp-q3" class="form-control" oninput="updateProj()"></div>
+                        <div class="form-group" id="wrap-q4"><label class="form-label" id="lbl-q4">Q: (d) - 4 Marks</label><input type="text" id="inp-q4" class="form-control" oninput="updateProj()"></div>
+                    </div>
+
+                    <div id="fields-sq" style="display:none;">
+                        <div class="form-group">
+                            <label class="form-label">Question Text</label>
+                            <textarea id="inp-sqtext" class="form-control" placeholder="e.g. Solve the equation shown below." oninput="updateProj()"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Attach Images (Max 2)</label>
+                            <div class="image-upload">
+                                <i data-lucide="image" size="32"></i>
+                                <p style="font-size:0.85rem; margin-top:5px; color:var(--text-muted); font-weight:500;">Select up to 2 images</p>
+                                <input type="file" accept="image/*" multiple onchange="handleImages(this)">
+                                <div class="img-preview-box" id="sq-img-prev"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:30px;">
+                        <label class="form-label">Source / Board Tag</label>
+                        <input type="text" id="inp-source" class="form-control" placeholder="e.g. Dhaka Board 2024" oninput="updateProj()">
+                    </div>
+                </div>
+
+                <div id="prop-blank" style="display:none; text-align:center; padding-top:60px; animation: fadeIn 0.3s;">
+                    <div style="width:80px; height:80px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto 20px auto; border:1px solid var(--glass-border);">
+                        <i data-lucide="file-edit" size="40" style="color:var(--text-muted);"></i>
+                    </div>
+                    <h3 style="margin-bottom:12px; font-size:1.3rem;">Blank Solve Page</h3>
+                    <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.5;">This page is intentionally left empty for manual solving. Retains global header branding.</p>
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <button class="btn-primary" onclick="openExportModal()"><i data-lucide="download-cloud"></i> Export Render</button>
+            </div>
+        </div>
+
+        <div class="mobile-nav">
+            <button class="btn-icon" onclick="exitEditor()"><i data-lucide="home"></i></button>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-primary" style="width:auto; padding:12px 24px;" onclick="togglePanel('left')"><i data-lucide="layers" size="18"></i> Slides</button>
+                <button class="btn-outline" style="width:auto; padding:12px 24px; border-color:var(--glass-border-strong);" onclick="togglePanel('right')"><i data-lucide="sliders" size="18"></i> Setup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="modal-blank">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i data-lucide="file-plus" size="24" style="color:var(--accent-primary);"></i> Add Solve Pages</h3> 
+                <i data-lucide="x" class="close-icon" onclick="closeModals()"></i>
+            </div>
+            <div class="form-group">
+                <label class="form-label" style="text-align:center;">How many pages do you need?</label>
+                <input type="number" id="blank-count" class="form-control" value="1" min="1" max="20" style="font-size:2rem; text-align:center; padding:20px; font-weight:700; background:rgba(0,0,0,0.5);">
+            </div>
+            <button class="btn-primary" style="margin-top:10px;" onclick="confirmBlankPages()">Generate Pages</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-export">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i data-lucide="cpu" size="24" style="color:var(--accent-primary);"></i> High-Res Export Engine</h3> 
+                <i data-lucide="x" class="close-icon" onclick="closeModals()"></i>
+            </div>
+            <div class="res-list" id="res-selector">
+                <div class="res-item active" onclick="selRes(this, 1920)">
+                    <div><strong>1920 x 1080 (FHD)</strong><span style="font-size:0.85rem; color:var(--text-muted);">Standard Quality &bull; Fast Render</span></div>
+                    <i data-lucide="check-circle" size="24" style="color:var(--accent-primary);"></i>
+                </div>
+                <div class="res-item" onclick="selRes(this, 3840)">
+                    <div><strong>3840 x 2160 (4K UHD)</strong><span style="font-size:0.85rem; color:var(--text-muted);">Crystal Clear &bull; Recommended</span></div>
+                </div>
+                <div class="res-item" onclick="selRes(this, 19200)" style="border-color:rgba(255,77,77,0.3);">
+                    <div><strong style="color:var(--accent-danger);">19200 x 10800 (19K)</strong><span style="font-size:0.85rem; color:var(--text-muted);">Extreme Print &bull; Heavy CPU Load</span></div>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:12px; margin-top:20px; flex-wrap: wrap;" id="export-btns">
+                <button class="btn-outline" style="flex:1; min-width:100px; font-size:0.9rem;" onclick="promptExportName('png')">PNG (ZIP)</button>
+                <button class="btn-primary" style="flex:1; min-width:100px; font-size:0.9rem;" onclick="promptExportName('pdf')">PDF</button>
+                <button class="btn-primary" style="flex:1; min-width:100px; font-size:0.9rem; background: linear-gradient(135deg, #d84b2a, #e67e22);" onclick="promptExportName('pptx')">PPTX</button>
+            </div>
+            
+            <div id="export-loader">
+                <div class="loader-text" id="el-text">Initializing Engine...</div>
+                <div class="loader-bar"><div class="loader-fill" id="el-fill"></div></div>
+                <p style="font-size:0.85rem; color:var(--accent-warning); margin-top:10px;"><i data-lucide="alert-triangle" size="14"></i> Engine running. Please do not switch tabs.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM POPUPS -->
+    <div class="modal-overlay" id="modal-alert" style="z-index: 10000;">
+        <div class="modal-card" style="max-width: 400px; text-align: center;">
+            <div class="modal-header" style="justify-content: center; margin-bottom: 15px;">
+                <h3 id="alert-title" style="font-size: 1.3rem;">Notice</h3>
+            </div>
+            <p id="alert-msg" style="margin-bottom: 25px; color: var(--text-secondary);"></p>
+            <button class="btn-primary" onclick="closeCustomModal('modal-alert')">OK</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-confirm" style="z-index: 10000;">
+        <div class="modal-card" style="max-width: 400px; text-align: center;">
+            <div class="modal-header" style="justify-content: center; margin-bottom: 15px;">
+                <h3 id="confirm-title" style="font-size: 1.3rem; color: var(--accent-danger);">Confirm</h3>
+            </div>
+            <p id="confirm-msg" style="margin-bottom: 25px; color: var(--text-secondary);"></p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-outline" style="flex:1;" onclick="closeCustomModal('modal-confirm')">Cancel</button>
+                <button class="btn-primary" style="flex:1; background: var(--accent-danger);" id="confirm-btn">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-prompt" style="z-index: 10000;">
+        <div class="modal-card" style="max-width: 450px;">
+            <div class="modal-header">
+                <h3><i data-lucide="file-text" size="24" style="color:var(--accent-primary);"></i> Export File Name</h3>
+                <i data-lucide="x" class="close-icon" onclick="closeCustomModal('modal-prompt')"></i>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Save As</label>
+                <input type="text" id="prompt-input" class="form-control" placeholder="My Masterpiece">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-outline" style="flex:1;" onclick="closeCustomModal('modal-prompt')">Cancel</button>
+                <button class="btn-primary" style="flex:1;" id="prompt-btn">Start Render</button>
+            </div>
+        </div>
+    </div>
+
+    <style> @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } </style>
+
+    <script>
+        lucide.createIcons();
+
+        /* ==========================================================================
+           UTILITY FUNCTIONS FOR CUSTOM POPUPS, IMAGE LOADING & LANGUAGE DETECTION
+           ========================================================================== */
+        
+        // Cache the external background image before anything starts
+        const globalBg = new Image();
+        globalBg.src = 'https://i.ibb.co.com/pBHNc0Bg/20260419-201500.jpg';
+
+        function closeCustomModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function customAlert(title, msg) {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-msg').innerText = msg;
+            document.getElementById('modal-alert').classList.add('active');
+        }
+
+        let confirmCallback = null;
+        function customConfirm(title, msg, callback) {
+            document.getElementById('confirm-title').innerText = title;
+            document.getElementById('confirm-msg').innerText = msg;
+            document.getElementById('modal-confirm').classList.add('active');
+            confirmCallback = callback;
+        }
+        document.getElementById('confirm-btn').addEventListener('click', () => {
+            closeCustomModal('modal-confirm');
+            if(confirmCallback) confirmCallback();
+        });
+
+        let pendingExportFmt = '';
+        function promptExportName(fmt) {
+            pendingExportFmt = fmt;
+            const p = getP();
+            const defaultName = `${p.topic ? p.topic.trim() : 'Subject'}-${p.inst ? p.inst.trim() : 'Institution'}`.replace(/[/\\?%*:|"<>]/g, '-');
+            document.getElementById('prompt-input').value = defaultName;
+            document.getElementById('modal-prompt').classList.add('active');
+        }
+        document.getElementById('prompt-btn').addEventListener('click', () => {
+            let val = document.getElementById('prompt-input').value.trim();
+            if(!val) val = "Exported_Project";
+            closeCustomModal('modal-prompt');
+            startExport(pendingExportFmt, val);
+        });
+
+        // Ensure no missing images before rendering starts
+        function waitForImages(element) {
+            const images = Array.from(element.querySelectorAll('img'));
+            const promises = images.map(img => {
+                if (img.complete && img.naturalHeight !== 0) return Promise.resolve();
+                return new Promise((resolve) => {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                });
+            });
+            return Promise.all(promises);
+        }
+
+        /* --- Strict language detection ---
+           Any run of Bangla Unicode characters (U+0980–U+09FF) is wrapped in a
+           span forced to the B2 font. Everything else stays in the default
+           E2 font. This is the ONLY place font-family is ever mixed at the
+           character level, and it applies identically on screen and in every
+           exported PNG / PDF / PPTX. */
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+        function langSpan(str) {
+            if (!str) return '';
+            const esc = escapeHtml(str);
+            return esc.replace(/([\u0980-\u09FF]+)/g, '<span class="bn-text">$1</span>');
+        }
+        function langSpanMultiline(str) {
+            if (!str) return '';
+            const esc = escapeHtml(str).replace(/\n/g, '<br>');
+            return esc.replace(/([\u0980-\u09FF]+)/g, '<span class="bn-text">$1</span>');
+        }
+
+        /* ==========================================================================
+           STATE & LOCAL DATABASE ENGINE
+           ========================================================================== */
+        const DB_KEY = 'istiack_boss_db_v5'; 
+        let projects = [];
+        let curPid = null;
+        let curSidx = 0;
+        let expRes = 1920;
+
+        window.onload = () => {
+            try { projects = JSON.parse(localStorage.getItem(DB_KEY)) || []; } 
+            catch(e) { projects = []; }
+            renderDashboard();
+            window.addEventListener('resize', scaleStage);
+        };
+
+        function saveDB() {
+            try { localStorage.setItem(DB_KEY, JSON.stringify(projects)); } 
+            catch(e) { customAlert("Storage Error", "Storage limit exceeded. Please delete old projects."); }
+        }
+
+        function getP() { return projects.find(p => p.id === curPid); }
+        function getS() { return getP().slides[curSidx]; }
+
+        /* ==========================================================================
+           DASHBOARD ROUTING
+           ========================================================================== */
+        function renderDashboard() {
+            const grid = document.getElementById('project-grid');
+            grid.innerHTML = `
+                <div class="p-card p-card-new" onclick="createProject()">
+                    <i data-lucide="layers" size="48" style="margin-bottom:15px; color:var(--text-muted);"></i>
+                    <h3 style="font-size: 1.4rem;">Blank Canvas</h3>
+                    <p style="color:var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Start a new masterpiece</p>
+                </div>
+            `;
+            projects.forEach(p => {
+                grid.innerHTML += `
+                    <div class="p-card" onclick="openEditor('${p.id}')">
+                        <div class="p-del" onclick="event.stopPropagation(); deleteProject('${p.id}')" title="Delete Project"><i data-lucide="trash-2" size="18"></i></div>
+                        <div>
+                            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                                <div style="width:30px; height:30px; border-radius:5px; background:var(--bg-input); display:flex; justify-content:center; align-items:center; border:1px solid var(--glass-border);"><i data-lucide="monitor-play" size="14" style="color:var(--accent-primary);"></i></div>
+                                <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--accent-primary); font-weight:700;">Active</span>
+                            </div>
+                            <h3 style="font-size:1.4rem; margin-bottom:8px; line-height:1.2;">${escapeHtml(p.topic || 'Untitled Project')}</h3>
+                            <p style="color:var(--text-muted); font-size:0.95rem;">${escapeHtml(p.inst || 'No Institution')}</p>
+                        </div>
+                        <div style="margin-top:35px; display:flex; align-items:center; justify-content:space-between;">
+                            <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#fff; background:var(--bg-input); padding:8px 14px; border-radius:20px; border:1px solid var(--glass-border);"><i data-lucide="copy" size="14"></i> ${p.slides.length} Slides</div>
+                            <i data-lucide="arrow-right" size="20" style="color:var(--text-muted);"></i>
+                        </div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        function createProject() {
+            const p = { 
+                id: 'p_'+Date.now(), inst: "Institution Name", topic: "Subject Name", logo: "", 
+                slides: [
+                    {type:'intro'}, 
+                    {type:'cq', format: '4-parts', passage:'', q1:'', q2:'', q3:'', q4:'', source:'', sqText:'', images:[]}
+                ] 
+            };
+            projects.unshift(p); saveDB(); openEditor(p.id);
+        }
+
+        function deleteProject(id) {
+            customConfirm("Delete Project", "Are you sure you want to delete this project? This cannot be undone.", () => {
+                projects = projects.filter(p => p.id !== id); saveDB(); renderDashboard();
+            });
+        }
+
+        function openEditor(id) {
+            curPid = id; curSidx = 0;
+            document.getElementById('view-dashboard').style.display = 'none';
+            document.getElementById('view-editor').style.display = 'block';
+            syncUI(); renderCanvas(); 
+            setTimeout(scaleStage, 50); setTimeout(scaleStage, 200);
+        }
+
+        function exitEditor() {
+            document.getElementById('view-editor').style.display = 'none';
+            document.getElementById('view-dashboard').style.display = 'flex';
+            renderDashboard(); closePanels();
+        }
+
+        function togglePanel(side) {
+            const p = document.getElementById(`panel-${side}`);
+            const overlay = document.getElementById('mobile-overlay');
+            if(p.classList.contains('open')) {
+                p.classList.remove('open'); overlay.classList.remove('active');
+            } else {
+                document.getElementById('panel-left').classList.remove('open');
+                document.getElementById('panel-right').classList.remove('open');
+                p.classList.add('open');
+                if(window.innerWidth <= 900) overlay.classList.add('active');
+            }
+        }
+        
+        function closePanels() {
+            document.getElementById('panel-left').classList.remove('open');
+            document.getElementById('panel-right').classList.remove('open');
+            document.getElementById('mobile-overlay').classList.remove('active');
+        }
+
+        function openBlankModal() { document.getElementById('modal-blank').classList.add('active'); closePanels(); }
+        function openExportModal() { document.getElementById('modal-export').classList.add('active'); closePanels(); }
+        function closeModals() { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active')); }
+
+        /* ==========================================================================
+           SLIDE MANAGEMENT & UI SYNC
+           ========================================================================== */
+        function syncUI() {
+            const list = document.getElementById('slide-list-ui');
+            list.innerHTML = '';
+            getP().slides.forEach((s, i) => {
+                let icon = i === 0 ? 'monitor' : (s.type === 'blank' ? 'file-edit' : 'layout-template');
+                let name = i === 0 ? 'Cover Slide' : (s.type === 'blank' ? 'Solve Canvas' : `Question ${i}`);
+                let typeLabel = s.type === 'cq' ? 'Creative' : (s.type === 'sq' ? 'Single (1/10)' : 'System');
+                list.innerHTML += `
+                    <div class="s-item ${i === curSidx ? 'active' : ''}" onclick="curSidx=${i}; syncUI(); renderCanvas();">
+                        <div class="s-num"><i data-lucide="${icon}" size="20"></i></div>
+                        <div style="flex:1;"><strong style="font-size:0.95rem;">${name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">${typeLabel}</span></div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+
+            const s = getS();
+            document.getElementById('prop-intro').style.display = s.type === 'intro' ? 'block' : 'none';
+            document.getElementById('prop-slide').style.display = (s.type === 'cq' || s.type === 'sq') ? 'block' : 'none';
+            document.getElementById('prop-blank').style.display = s.type === 'blank' ? 'block' : 'none';
+
+            if(s.type === 'intro') {
+                document.getElementById('inp-inst').value = getP().inst || '';
+                document.getElementById('inp-topic').value = getP().topic || '';
+                const pLogo = document.getElementById('logo-prev');
+                if(getP().logo) { pLogo.src = getP().logo; pLogo.style.display = 'block'; } else pLogo.style.display = 'none';
+            } 
+            else if(s.type === 'cq' || s.type === 'sq') {
+                setSlideMode(s.type, true);
+                document.getElementById('inp-passage').value = s.passage || '';
+                document.getElementById('inp-q1').value = s.q1 || '';
+                document.getElementById('inp-q2').value = s.q2 || '';
+                document.getElementById('inp-q3').value = s.q3 || '';
+                document.getElementById('inp-q4').value = s.q4 || '';
+                document.getElementById('inp-sqtext').value = s.sqText || '';
+                document.getElementById('inp-source').value = s.source || '';
+                
+                if(s.type === 'cq') {
+                    const fmt = s.format || '4-parts';
+                    document.getElementById('btn-cq-fmt-4').classList.toggle('active', fmt === '4-parts');
+                    document.getElementById('btn-cq-fmt-3').classList.toggle('active', fmt === '3-parts');
+                    document.getElementById('wrap-q4').style.display = fmt === '4-parts' ? 'block' : 'none';
+                    document.getElementById('lbl-q1').innerText = fmt === '4-parts' ? 'Q: (a) - 1 Mark' : 'Q: (a) - 2 Marks';
+                    document.getElementById('lbl-q2').innerText = fmt === '4-parts' ? 'Q: (b) - 2 Marks' : 'Q: (b) - 4 Marks';
+                    document.getElementById('lbl-q3').innerText = fmt === '4-parts' ? 'Q: (c) - 3 Marks' : 'Q: (c) - 4 Marks';
+                    
+                    const cqBox = document.getElementById('cq-img-prev');
+                    cqBox.innerHTML = '';
+                    if(s.images && s.images.length > 0) s.images.forEach(img => cqBox.innerHTML += `<img src="${img}">`);
+                }
+                
+                if(s.type === 'sq') {
+                    const sqBox = document.getElementById('sq-img-prev');
+                    sqBox.innerHTML = '';
+                    if(s.images && s.images.length > 0) s.images.forEach(img => sqBox.innerHTML += `<img src="${img}">`);
+                }
+            }
+        }
+
+        function setSlideMode(mode, bypassSync = false) {
+            if(!bypassSync) { getS().type = mode; saveDB(); renderCanvas(); syncUI(); }
+            document.getElementById('btn-mode-cq').classList.toggle('active', mode === 'cq');
+            document.getElementById('btn-mode-sq').classList.toggle('active', mode === 'sq');
+            document.getElementById('fields-cq').style.display = mode === 'cq' ? 'block' : 'none';
+            document.getElementById('fields-sq').style.display = mode === 'sq' ? 'block' : 'none';
+        }
+
+        function setCqFormat(fmt) { getS().format = fmt; saveDB(); syncUI(); renderCanvas(); }
+
+        function updateProj() {
+            const s = getS(), p = getP();
+            if(s.type === 'intro') { 
+                p.inst = document.getElementById('inp-inst').value; 
+                p.topic = document.getElementById('inp-topic').value; 
+            } else if(s.type !== 'blank') {
+                s.passage = document.getElementById('inp-passage').value;
+                s.q1 = document.getElementById('inp-q1').value; s.q2 = document.getElementById('inp-q2').value;
+                s.q3 = document.getElementById('inp-q3').value; s.q4 = document.getElementById('inp-q4').value;
+                s.sqText = document.getElementById('inp-sqtext').value; s.source = document.getElementById('inp-source').value;
+            }
+            saveDB(); renderCanvas();
+        }
+
+        function addSlide(type) {
+            getP().slides.push({ type, format:'4-parts', passage:'', q1:'', q2:'', q3:'', q4:'', source:'', sqText:'', images:[] });
+            curSidx = getP().slides.length - 1; saveDB(); syncUI(); renderCanvas();
+        }
+
+        function confirmBlankPages() {
+            let count = parseInt(document.getElementById('blank-count').value) || 1;
+            for(let i=0; i<count; i++) getP().slides.push({type: 'blank'});
+            curSidx = getP().slides.length - 1; saveDB(); syncUI(); renderCanvas(); closeModals();
+        }
+
+        function handleLogo(inp) {
+            if(inp.files && inp.files[0]) {
+                const r = new FileReader(); r.onload = e => { getP().logo = e.target.result; saveDB(); syncUI(); renderCanvas(); }; 
+                r.readAsDataURL(inp.files[0]);
+            }
+        }
+        function handleImages(inp) {
+            const s = getS(); s.images = [];
+            Array.from(inp.files).slice(0,2).forEach(f => {
+                const r = new FileReader(); 
+                r.onload = e => { s.images.push(e.target.result); saveDB(); syncUI(); renderCanvas(); }; 
+                r.readAsDataURL(f);
+            });
+        }
+
+        /* ==========================================================================
+           STAGE RENDERER & SCALING ENGINE
+           ========================================================================== */
+        function renderCanvas() {
+            const st = document.getElementById('slide-stage');
+            const p = getP(), s = getS();
+            let html = `<div class="watermark">Engineered by ISTIACK <img src="/home.png"></div>`;
+
+            if(s.type === 'intro') {
+                html += `<div class="stage-intro">${p.logo ? `<img src="${p.logo}">` : ''}<div class="i-inst">${langSpan(p.inst || 'Institution Name')}</div><div class="i-topic">${langSpan(p.topic || 'Subject Name')}</div></div>`;
+            } else {
+                html += `<div class="stage-header">${p.logo ? `<img src="${p.logo}">` : ''}<div><div class="h-inst">${langSpan(p.inst || 'Institution Name')}</div><div class="h-topic">${langSpan(p.topic || 'Subject Name')}</div></div></div>`;
+                
+                if(s.type === 'cq') {
+                    let qHtml = '';
+                    const fmt = s.format || '4-parts';
+                    if (fmt === '4-parts') {
+                        if(s.q1) qHtml += `<div class="q-row"><span>(a) ${langSpan(s.q1)}</span><span>1</span></div>`;
+                        if(s.q2) qHtml += `<div class="q-row"><span>(b) ${langSpan(s.q2)}</span><span>2</span></div>`;
+                        if(s.q3) qHtml += `<div class="q-row"><span>(c) ${langSpan(s.q3)}</span><span>3</span></div>`;
+                        if(s.q4) qHtml += `<div class="q-row"><span>(d) ${langSpan(s.q4)}</span><span>4</span></div>`;
+                    } else {
+                        if(s.q1) qHtml += `<div class="q-row"><span>(a) ${langSpan(s.q1)}</span><span>2</span></div>`;
+                        if(s.q2) qHtml += `<div class="q-row"><span>(b) ${langSpan(s.q2)}</span><span>4</span></div>`;
+                        if(s.q3) qHtml += `<div class="q-row"><span>(c) ${langSpan(s.q3)}</span><span>4</span></div>`;
+                    }
+
+                    let imgHtml = '';
+                    const hasImages = s.images && s.images.length > 0;
+                    if (hasImages) {
+                        const multiClass = s.images.length > 1 ? 'multi-img' : '';
+                        imgHtml = `
+                            <div class="image-col">
+                                <div class="image-box-1x1 ${multiClass}">
+                                    ${s.images.map(img => `<img src="${img}">`).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    html += `
+                        <div class="stage-content">
+                            <div class="content-wrapper">
+                                <div class="text-col">
+                                    ${s.passage ? `<div class="passage">${langSpanMultiline(s.passage)}</div>` : ''}
+                                    <div class="q-grid">${qHtml}</div>
+                                </div>
+                                ${imgHtml}
+                            </div>
+                        </div>
+                        ${s.source ? `<div class="source-tag">[ ${langSpan(s.source)} ]</div>` : ''}`;
+                } 
+                else if(s.type === 'sq') {
+                    let imgHtml = '';
+                    const hasImages = s.images && s.images.length > 0;
+                    if (hasImages) {
+                        const multiClass = s.images.length > 1 ? 'multi-img' : '';
+                        imgHtml = `
+                            <div class="image-col">
+                                <div class="image-box-1x1 ${multiClass}">
+                                    ${s.images.map(img => `<img src="${img}">`).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    html += `
+                        <div class="stage-content">
+                            <div class="content-wrapper">
+                                <div class="text-col center-content">
+                                    <div class="sq-q-box">Question ${curSidx}: ${langSpan(s.sqText || 'Type question text...')}</div>
+                                </div>
+                                ${imgHtml}
+                            </div>
+                        </div>
+                        ${s.source ? `<div class="source-tag">[ ${langSpan(s.source)} ]</div>` : ''}`;
+                } 
+                else if(s.type === 'blank') {
+                    html += `<div class="stage-blank"><i data-lucide="pen-tool" size="100" style="color:rgba(255,255,255,0.4);"></i><div class="b-text">Solve Space</div></div>`;
+                }
+            }
+            st.innerHTML = html; lucide.createIcons();
+        }
+
+        function scaleStage() {
+            const wc = document.getElementById('workspace-center'), wr = document.getElementById('stage-scale-wrapper');
+            if(!wc || wc.clientWidth === 0) return;
+            const availableWidth = wc.clientWidth - (window.innerWidth < 900 ? 20 : 80);
+            const availableHeight = wc.clientHeight - (window.innerWidth < 900 ? 20 : 80);
+            const scale = Math.min(availableWidth / 1920, availableHeight / 1080);
+            wr.style.transform = `scale(${scale})`;
+        }
+
+        /* ==========================================================================
+           ULTRA EXPORT ENGINE (MULTI-FORMAT)
+           ========================================================================== */
+        function selRes(el, val) {
+            document.querySelectorAll('#res-selector .res-item').forEach(i => {
+                i.classList.remove('active'); const icon = i.querySelector('i'); if(icon) icon.remove();
+            });
+            el.classList.add('active'); expRes = val;
+            const icn = document.createElement('i'); icn.setAttribute('data-lucide', 'check-circle'); icn.setAttribute('size', '24'); icn.style.color = 'var(--accent-primary)';
+            el.appendChild(icn); lucide.createIcons();
+        }
+
+        async function startExport(fmt, fileName) {
+            document.getElementById('export-btns').style.display = 'none';
+            document.getElementById('export-loader').style.display = 'block';
+            
+            const txt = document.getElementById('el-text'), fill = document.getElementById('el-fill');
+            const p = getP(), st = document.getElementById('slide-stage'), origIdx = curSidx;
+            let imgs = [];
+
+            try {
+                // Make sure E1 / E2 / B2 are fully loaded before any capture,
+                // so downloads never fall back to a substitute font.
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready;
+                }
+
+                for(let i=0; i<p.slides.length; i++) {
+                    txt.innerText = `Rendering Slide ${i+1} of ${p.slides.length}...`;
+                    fill.style.width = `${((i)/p.slides.length)*100}%`;
+                    curSidx = i; renderCanvas();
+                    
+                    await waitForImages(st);
+                    
+                    await new Promise(r => setTimeout(r, 600)); 
+                    
+                    const cvs = await html2canvas(st, { 
+                        scale: expRes / 1920, 
+                        useCORS: true,
+                        allowTaint: true,
+                        width: 1920,
+                        height: 1080,
+                        backgroundColor: '#000000',
+                        logging: false,
+                        onclone: (clonedDoc) => {
+                            const clonedWrapper = clonedDoc.getElementById('stage-scale-wrapper');
+                            if (clonedWrapper) {
+                                clonedWrapper.style.transform = 'none'; 
+                            }
+                        }
+                    });
+                    
+                    imgs.push(cvs.toDataURL('image/png'));
+                }
+                
+                fill.style.width = '100%'; txt.innerText = 'Packaging Final Document...'; 
+                await new Promise(r => setTimeout(r, 300));
+
+                const finalOutputName = fileName || 'Exported_Project';
+
+                if(fmt === 'png') {
+                    const zip = new JSZip(); 
+                    imgs.forEach((data, i) => zip.file(`Slide_${i+1}.png`, data.replace(/^data:image\/png;base64,/, ""), {base64: true}));
+                    const blob = await zip.generateAsync({type:"blob"});
+                    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${finalOutputName}.zip`; a.click();
+                } else if(fmt === 'pdf') {
+                    const { jsPDF } = window.jspdf; 
+                    const pdf = new jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [1920, 1080]
+                    });
+                    
+                    imgs.forEach((data, i) => { 
+                        if(i > 0) pdf.addPage([1920, 1080], 'landscape'); 
+                        pdf.addImage(data, 'PNG', 0, 0, 1920, 1080); 
+                    });
+                    pdf.save(`${finalOutputName}.pdf`);
+                } else if(fmt === 'pptx') {
+                    let pptx = new PptxGenJS();
+                    pptx.layout = 'LAYOUT_16x9';
+                    
+                    imgs.forEach((data) => {
+                        let slide = pptx.addSlide();
+                        slide.background = { data: data };
+                    });
+                    
+                    await pptx.writeFile({ fileName: `${finalOutputName}.pptx` });
+                }
+            } catch(e) { 
+                console.error(e); 
+                customAlert("Export Error", "Export Engine Error. Out of memory or scale too large."); 
+            }
+
+            curSidx = origIdx; renderCanvas(); 
+            closeModals();
+            setTimeout(() => { document.getElementById('export-btns').style.display = 'flex'; document.getElementById('export-loader').style.display = 'none'; fill.style.width = '0%'; }, 800);
+        }
+    </script>
+</body>
+</html>

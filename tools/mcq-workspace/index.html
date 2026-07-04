@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Discord, Telegram, etc.) -->
+<meta property="og:image" content="./t.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Crypto Media Vault">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="./t.png">
+    <title>Quiz Slide Generator</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/libs/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
+
+    <style>
+        /* =========================================
+           FONTS
+           - E1: headers/titles (English)
+           - E2: general English body text
+           - B2: strictly for auto-detected Bangla characters
+           No other font is used anywhere in this page.
+           ========================================= */
+        @font-face {
+            font-family: 'E1';
+            src: url('/E1.ttf') format('truetype');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'E2';
+            src: url('/E2.ttf') format('truetype');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'B2';
+            src: url('/B2.ttf') format('truetype');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+
+        :root {
+            --bg-base: #0a0a0c;
+            --bg-surface: #1a1a24;
+            --bg-glass: rgba(26, 26, 36, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.1);
+
+            --text-main: #ffffff;
+            --text-muted: #a0a0ab;
+
+            --accent-primary: #D4AF37; /* Golden */
+            --accent-secondary: #a67c00;
+            --accent-danger: #ef4444;
+
+            --font-header: 'E1', sans-serif;
+            --font-body: 'E2', sans-serif;
+            --font-bangla: 'B2', sans-serif;
+
+            --transition-smooth: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body, html {
+            width: 100%; height: 100%; overflow: hidden;
+            font-family: var(--font-body); background-color: var(--bg-base);
+            color: var(--text-main); position: fixed; overscroll-behavior: none;
+        }
+
+        /* Headers use E1 exclusively (unless overridden by a Bangla run) */
+        h1, h2, h3, h4,
+        .drawer-title, .app-title,
+        .intro-inst, .intro-topic,
+        .slide-titles h1, .slide-titles h2 {
+            font-family: var(--font-header);
+        }
+
+        /* Any auto-detected Bangla text run is forced to B2, overriding parent font */
+        .bn-font { font-family: var(--font-bangla) !important; }
+
+        /* =========================================
+           SINGLE-PAGE EDITOR LAYOUT
+           ========================================= */
+        #editor-view {
+            display: flex; flex-direction: column; height: 100dvh; width: 100vw;
+            position: absolute; top: 0; left: 0;
+        }
+
+        .app-bar {
+            height: 60px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; background: var(--bg-glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass); z-index: 10; flex-shrink: 0;
+        }
+        .app-title { font-size: 1.1rem; font-weight: 700; color: var(--accent-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .icon-btn {
+            background: transparent; border: none; color: var(--text-main);
+            width: 40px; height: 40px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;
+        }
+        .icon-btn:active { background: rgba(255,255,255,0.1); }
+
+        /* Main Preview Area */
+        .main-preview-area {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; position: relative; padding: 10px; background: radial-gradient(circle at center, #1a1a24 0%, #000 100%);
+        }
+
+        /* The 1920x1080 Container that gets scaled */
+        .preview-scaler {
+            width: 1920px; height: 1080px; transform-origin: center center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8); border-radius: 12px; overflow: hidden;
+            position: absolute; border: 1px solid rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        .preview-scaler:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+        }
+
+        /* Bottom Controls (Thumbnails & Action) */
+        .bottom-controls {
+            height: 140px; background: var(--bg-surface); border-top: 1px solid var(--border-glass);
+            display: flex; flex-direction: column; z-index: 10; flex-shrink: 0;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .slide-carousel {
+            display: flex; gap: 12px; padding: 15px 20px; overflow-x: auto;
+            scroll-behavior: smooth; flex: 1; align-items: center;
+        }
+        .slide-carousel::-webkit-scrollbar { display: none; }
+
+        .thumb-card {
+            min-width: 80px; height: 60px; border-radius: 8px; background: #000;
+            border: 2px solid var(--border-glass); display: flex; align-items: center;
+            justify-content: center; font-weight: bold; color: var(--text-muted);
+            cursor: pointer; position: relative; overflow: hidden; transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .thumb-card.active { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(212, 175, 55, 0.1); transform: scale(1.05);}
+
+        .bottom-actions {
+            display: flex; justify-content: space-between; padding: 10px 20px 20px; gap: 15px;
+        }
+
+        .btn-app {
+            flex: 1; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 600;
+            border: none; display: flex; align-items: center; justify-content: center; gap: 8px;
+            cursor: pointer; font-family: inherit; transition: 0.2s;
+        }
+        .btn-app:active { transform: scale(0.96); }
+        .btn-primary { background: var(--accent-primary); color: #000; }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border-glass); }
+
+        /* =========================================
+           DRAWERS (Settings & Editor)
+           ========================================= */
+        .drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+            z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+        .drawer {
+            position: fixed; background: var(--bg-surface); z-index: 1000;
+            display: flex; flex-direction: column; transition: var(--transition-smooth);
+            border: 1px solid var(--border-glass);
+        }
+
+        .drawer-header {
+            padding: 20px; border-bottom: 1px solid var(--border-glass);
+            display: flex; justify-content: space-between; align-items: center;
+            flex-shrink: 0;
+        }
+        .drawer-title { font-size: 1.2rem; font-weight: bold; color: var(--accent-primary); }
+
+        .drawer-body { padding: 20px; overflow-y: auto; flex: 1; padding-bottom: 100px; }
+
+        /* Mobile Drawer (Bottom Sheet) */
+        @media (max-width: 767px) {
+            .drawer {
+                bottom: 0; left: 0; width: 100%; height: 85vh;
+                border-radius: 24px 24px 0 0; transform: translateY(100%);
+            }
+            .drawer.open { transform: translateY(0); }
+            .drawer-body { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
+        }
+
+        /* Desktop Drawer (Side Panel) */
+        @media (min-width: 768px) {
+            .drawer {
+                top: 0; right: 0; width: 450px; height: 100vh;
+                border-radius: 24px 0 0 24px; transform: translateX(100%);
+            }
+            .drawer.open { transform: translateX(0); }
+            .main-preview-area { padding-right: 20px; }
+        }
+
+        /* =========================================
+           FORM CONTROLS IN DRAWER
+           ========================================= */
+        .input-group { margin-bottom: 20px; width: 100%; }
+        .input-group label { display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+        .input-control {
+            width: 100%; background: #000; border: 1px solid var(--border-glass);
+            color: white; padding: 14px; border-radius: 12px; font-family: inherit; font-size: 1rem;
+        }
+        .input-control:focus { outline: none; border-color: var(--accent-primary); }
+        textarea.input-control { min-height: 80px; resize: vertical; }
+
+        .type-selector { display: flex; gap: 10px; margin-bottom: 20px; background: #000; padding: 5px; border-radius: 12px;}
+        .type-btn { flex: 1; padding: 10px; text-align: center; border-radius: 8px; cursor: pointer; color: var(--text-muted); font-size: 0.9rem; font-weight: bold; transition: 0.3s;}
+        .type-btn.active { background: var(--accent-primary); color: #000; }
+
+        .option-grid { display: flex; flex-direction: column; gap: 15px; }
+        .option-item { display: flex; gap: 10px; align-items: center; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 12px; border: 1px solid transparent;}
+        .option-radio { width: 22px; height: 22px; accent-color: var(--accent-primary); flex-shrink: 0;}
+        .opt-label { font-weight: bold; color: var(--accent-primary); width: 25px; }
+
+        .stmt-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding: 15px; background: rgba(212, 175, 55, 0.05); border-radius: 12px; border: 1px dashed var(--accent-primary);}
+
+        .file-upload-box {
+            border: 2px dashed var(--border-glass); border-radius: 12px; padding: 20px;
+            text-align: center; cursor: pointer; background: rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+        }
+        .file-input-hidden { display: none; }
+        .file-upload-box img { max-height: 100px; border-radius: 8px; object-fit: contain; }
+
+        /* Toggles */
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border-radius: 34px; transition: .4s; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; border-radius: 50%; transition: .4s; }
+        input:checked + .slider { background-color: var(--accent-primary); }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        /* =========================================
+           GOLDEN THEME RENDER ENGINE
+           ========================================= */
+        #render-zone { position: fixed; top: -20000px; left: -20000px; z-index: -999; }
+        .slide-template {
+            width: 1920px; height: 1080px;
+            background: url('https://i.ibb.co.com/pBHNc0Bg/20260419-201500.jpg') no-repeat center center;
+            background-size: cover; color: #ffffff; font-family: var(--font-body);
+            display: flex; flex-direction: column; position: relative; box-sizing: border-box; overflow: hidden;
+        }
+        .slide-content-wrapper { position: relative; z-index: 1; display: flex; flex-direction: column; width: 100%; height: 100%; padding: 60px 80px; }
+
+        /* Intro Slide */
+        .layout-intro { justify-content: center; align-items: center; text-align: center; }
+        .intro-logo { max-height: 250px; max-width: 400px; object-fit: contain; margin-bottom: 50px; }
+        .intro-inst { font-size: 72px; font-weight: 800; color: #D4AF37; margin: 0; text-transform: uppercase; letter-spacing: 4px; }
+        .intro-divider { width: 200px; height: 4px; background: linear-gradient(90deg, transparent, #D4AF37, transparent); margin: 35px auto; }
+        .intro-topic { font-size: 46px; font-weight: 400; color: #f0f0f0; margin: 0; }
+
+        /* Content Slide Header */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(212, 175, 55, 0.4); padding-bottom: 30px; margin-bottom: 30px; }
+        .slide-inst-group { display: flex; align-items: center; gap: 30px; }
+        .slide-logo { max-height: 80px; max-width: 200px; object-fit: contain; }
+        .slide-titles h1 { font-size: 42px; font-weight: 700; color: #D4AF37; margin: 0; }
+        .slide-titles h2 { font-size: 28px; color: #cccccc; margin: 8px 0 0 0; }
+        .slide-watermark { display: flex; align-items: center; gap: 15px; background: rgba(20,20,20,0.8); padding: 12px 24px; border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .slide-watermark span { font-size: 18px; font-weight: 500; color: #f0f0f0; font-family: var(--font-header); }
+
+        /* Content Area Layout */
+        .slide-content-area { flex: 1; display: flex; flex-direction: column; height: 100%; overflow: hidden;}
+        .slide-main-grid { display: grid; grid-template-columns: 1fr; gap: 30px; height: 100%; }
+        .layout-image .slide-main-grid { grid-template-columns: 1.5fr 1fr; }
+
+        .slide-left { display: flex; flex-direction: column; justify-content: flex-start; }
+        .slide-right { display: flex; justify-content: center; align-items: center; }
+
+        .slide-q-meta { display: flex; gap: 20px; font-size: 26px; font-weight: 600; color: #a67c00; margin-bottom: 20px; align-items: center; font-family: var(--font-header);}
+        .slide-qnum { color: #D4AF37; font-size: 32px; font-weight: 700; }
+        .slide-mark-box { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); padding: 5px 15px; border-radius: 8px; color: #D4AF37; margin-left: auto;}
+
+        .slide-q-text { font-size: 40px; font-weight: 500; color: #ffffff; line-height: 1.4; margin-bottom: 30px; white-space: pre-wrap; word-wrap: break-word;}
+
+        /* Multi-Statements Section */
+        .slide-statements {
+            display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px;
+            background: rgba(0,0,0,0.3); border-left: 5px solid #D4AF37; padding: 25px 30px;
+            border-radius: 0 16px 16px 0;
+        }
+        .stmt-item { display: flex; gap: 15px; font-size: 34px; color: #e0e0e0; align-items: flex-start;}
+        .stmt-num { color: #D4AF37; font-weight: bold; min-width: 40px; }
+
+        /* Options Grid */
+        .slide-options { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; font-size: 34px; margin-top: auto;}
+        .slide-opt-item { display: flex; gap: 20px; align-items: flex-start; padding: 20px; background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 16px; transition: all 0.3s;}
+        .slide-opt-label { font-weight: 700; color: #D4AF37; flex-shrink: 0;}
+        .slide-opt-content { flex: 1; color: #e0e0e0; }
+
+        .is-answer-slide .slide-opt-item.correct { background: rgba(212, 175, 55, 0.15); border: 2px solid #D4AF37; box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); transform: scale(1.02); }
+        .is-answer-slide .slide-opt-item.correct .slide-opt-label, .is-answer-slide .slide-opt-item.correct .slide-opt-content { color: #ffffff; text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);}
+
+        .slide-img-container { width: 100%; height: 100%; max-height: 600px; border: 2px dashed rgba(212, 175, 55, 0.4); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; background: rgba(0,0,0,0.5); }
+        .slide-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .slide-img-container.two-imgs img { max-height: 48%; }
+        .slide-smartboard-space { width: 100%; min-height: 250px; margin-top: 30px; border-top: 1px dashed rgba(255,255,255,0.2); }
+
+        /* Loaders & Toasts */
+        #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none;}
+        .toast { background: rgba(0, 0, 0, 0.9); border: 1px solid var(--accent-primary); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 500; opacity: 0; transform: translateY(-20px); transition: 0.3s; white-space: nowrap; box-shadow: 0 5px 15px rgba(0,0,0,0.5);}
+        .toast.show { opacity: 1; transform: translateY(0); }
+
+        #fullscreen-loader {
+            position: fixed; top:0; left:0; width: 100vw; height: 100vh; background: var(--bg-base);
+            z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s;
+        }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(212,175,55,0.3); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- Global Loader -->
+    <div id="fullscreen-loader">
+        <div class="spinner"></div>
+        <div id="loader-text" style="margin-top: 20px; color: var(--accent-primary); font-weight: bold; letter-spacing: 1px;">Loading App...</div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- =========================================
+         SINGLE-PAGE EDITOR (no navigation/back button)
+         ========================================= -->
+    <div id="editor-view">
+
+        <!-- Top App Bar -->
+        <header class="app-bar">
+            <div class="app-title" onclick="openDrawer('settings-drawer')" style="cursor:pointer; display:flex; align-items:center; gap:5px;">
+                Quiz Slide Generator <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </div>
+            <button class="icon-btn" onclick="openDrawer('export-drawer')">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </button>
+        </header>
+
+        <!-- Main Preview Area -->
+        <main class="main-preview-area" id="preview-area">
+            <div class="preview-scaler" id="preview-scaler" onclick="openDrawer('editor-drawer')" title="Click to Edit Slide">
+                <!-- Live Preview DOM injects here based on slide-master -->
+            </div>
+        </main>
+
+        <!-- Bottom Controls -->
+        <footer class="bottom-controls">
+            <div class="slide-carousel" id="slide-carousel">
+                <!-- Thumbs populated by JS -->
+            </div>
+            <div class="bottom-actions">
+                <button class="btn-app btn-secondary" onclick="addQuestion()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    New Slide
+                </button>
+                <button class="btn-app btn-primary" onclick="openDrawer('editor-drawer')">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Edit Q<span id="edit-btn-num">1</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- OVERLAYS & DRAWERS -->
+    <div class="drawer-overlay" id="drawer-overlay" onclick="closeAllDrawers()"></div>
+
+    <!-- 1. Settings Drawer -->
+    <div class="drawer" id="settings-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title">Slide Settings</div>
+            <button class="icon-btn" onclick="closeAllDrawers()">✖</button>
+        </div>
+        <div class="drawer-body">
+            <div class="input-group">
+                <label>Institution Name</label>
+                <input type="text" id="g-inst" class="input-control" placeholder="e.g. Springfield College" oninput="saveConfig()">
+            </div>
+            <div class="input-group">
+                <label>Topic / Subject</label>
+                <input type="text" id="g-topic" class="input-control" placeholder="e.g. Higher Math 1st Paper" oninput="saveConfig()">
+            </div>
+            <div class="input-group">
+                <label>Institution Logo</label>
+                <div class="file-upload-box" onclick="document.getElementById('g-logo').click()">
+                    <input type="file" id="g-logo" class="file-input-hidden" accept="image/*" onchange="handleLogoUpload(event)">
+                    <span style="color: var(--text-muted);" id="g-logo-text">+ Tap to Upload</span>
+                    <img id="g-logo-preview" style="display:none;">
+                </div>
+            </div>
+
+            <h4 style="margin: 25px 0 15px; color: var(--accent-primary);">Slide Rules</h4>
+            <div class="flex-between" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px;">
+                <span>Show Q. Numbers (Q1, Q2)</span>
+                <label class="toggle-switch"><input type="checkbox" id="g-num" checked onchange="saveConfig()"><span class="slider"></span></label>
+            </div>
+            <div class="flex-between" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px;">
+                <span>Export Answer Slides</span>
+                <label class="toggle-switch"><input type="checkbox" id="g-ans" checked onchange="saveConfig()"><span class="slider"></span></label>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Editor Drawer -->
+    <div class="drawer" id="editor-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title">Edit Slide <span id="drawer-q-label">1</span></div>
+            <div style="display:flex; gap:10px;">
+                <button class="icon-btn" style="color: var(--accent-danger);" onclick="deleteCurrentQuestion()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                </button>
+                <button class="icon-btn" onclick="closeAllDrawers()">✖</button>
+            </div>
+        </div>
+        <div class="drawer-body">
+
+            <!-- MCQ Type Toggle -->
+            <div class="type-selector">
+                <div class="type-btn active" id="type-standard" onclick="setQuestionType('standard')">Standard MCQ</div>
+                <div class="type-btn" id="type-multi" onclick="setQuestionType('multi')">Multi-Statement</div>
+            </div>
+
+            <div class="input-group">
+                <label>Question Text</label>
+                <textarea id="e-qtext" class="input-control" placeholder="Write question here..." oninput="saveCurrentQuestion()"></textarea>
+            </div>
+
+            <!-- MULTI: Statements Form -->
+            <div id="multi-statements-wrapper" style="display:none;">
+                <label style="font-size: 0.9rem; color: var(--text-muted); display:block; margin-bottom:8px;">Statements</label>
+                <div class="stmt-grid">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <span style="color:var(--accent-primary); font-weight:bold;">i.</span>
+                        <input type="text" id="e-stmt0" class="input-control" style="padding:10px;" placeholder="Statement 1" oninput="saveCurrentQuestion()">
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <span style="color:var(--accent-primary); font-weight:bold;">ii.</span>
+                        <input type="text" id="e-stmt1" class="input-control" style="padding:10px;" placeholder="Statement 2" oninput="saveCurrentQuestion()">
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <span style="color:var(--accent-primary); font-weight:bold;">iii.</span>
+                        <input type="text" id="e-stmt2" class="input-control" style="padding:10px;" placeholder="Statement 3" oninput="saveCurrentQuestion()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Options Form -->
+            <label style="font-size: 0.9rem; color: var(--text-muted); display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span>Options & Correct Answer</span>
+                <span id="auto-fill-btn" style="color:var(--accent-primary); cursor:pointer; font-size:0.8rem; display:none;" onclick="autoFillOptions()">Auto-Fill (A,B,C)</span>
+            </label>
+            <div class="option-grid" style="margin-bottom: 25px;">
+                <div class="option-item">
+                    <input type="radio" name="correctOpt" value="0" class="option-radio" onchange="saveCurrentQuestion()">
+                    <span class="opt-label">A)</span>
+                    <input type="text" id="e-opt0" class="input-control" style="padding:10px;" oninput="saveCurrentQuestion()">
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="correctOpt" value="1" class="option-radio" onchange="saveCurrentQuestion()">
+                    <span class="opt-label">B)</span>
+                    <input type="text" id="e-opt1" class="input-control" style="padding:10px;" oninput="saveCurrentQuestion()">
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="correctOpt" value="2" class="option-radio" onchange="saveCurrentQuestion()">
+                    <span class="opt-label">C)</span>
+                    <input type="text" id="e-opt2" class="input-control" style="padding:10px;" oninput="saveCurrentQuestion()">
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="correctOpt" value="3" class="option-radio" onchange="saveCurrentQuestion()">
+                    <span class="opt-label">D)</span>
+                    <input type="text" id="e-opt3" class="input-control" style="padding:10px;" oninput="saveCurrentQuestion()">
+                </div>
+            </div>
+
+            <div style="display:flex; gap:15px; margin-bottom: 20px;">
+                <div class="input-group" style="margin:0;">
+                    <label>Marks</label>
+                    <input type="number" step="0.5" id="e-mark" class="input-control" style="padding:10px;" oninput="saveCurrentQuestion()">
+                </div>
+                <div class="input-group" style="margin:0;">
+                    <label>Negative</label>
+                    <input type="number" step="0.05" id="e-neg" class="input-control" style="padding:10px;" oninput="saveCurrentQuestion()">
+                </div>
+            </div>
+
+            <h4 style="margin: 25px 0 15px; color: var(--accent-primary); border-top: 1px solid var(--border-glass); padding-top: 20px;">Media</h4>
+
+            <div class="flex-between" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 10px;">
+                <span>Include Image / Math Eq.</span>
+                <label class="toggle-switch"><input type="checkbox" id="e-hasImg" onchange="toggleImgSection(); saveCurrentQuestion();"><span class="slider"></span></label>
+            </div>
+
+            <div id="img-upload-section" style="display:none; display:flex; gap:15px; margin-bottom: 20px;">
+                <div class="file-upload-box" style="flex:1;" onclick="document.getElementById('e-img1').click()">
+                    <input type="file" id="e-img1" class="file-input-hidden" accept="image/*" onchange="handleQImageUpload(event, 0)">
+                    <span id="e-img1-text" style="font-size:0.8rem; color:var(--text-muted);">Img 1</span>
+                    <img id="e-img1-preview" style="display:none;">
+                </div>
+                <div class="file-upload-box" style="flex:1;" onclick="document.getElementById('e-img2').click()">
+                    <input type="file" id="e-img2" class="file-input-hidden" accept="image/*" onchange="handleQImageUpload(event, 1)">
+                    <span id="e-img2-text" style="font-size:0.8rem; color:var(--text-muted);">Img 2</span>
+                    <img id="e-img2-preview" style="display:none;">
+                </div>
+            </div>
+
+            <div class="flex-between" style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px;">
+                <span>Smartboard Space (Blank Area)</span>
+                <label class="toggle-switch"><input type="checkbox" id="e-smartboard" onchange="saveCurrentQuestion()"><span class="slider"></span></label>
+            </div>
+
+            <button class="btn-app btn-primary" style="margin-top: 30px; width: 100%;" onclick="closeAllDrawers()">Done</button>
+        </div>
+    </div>
+
+    <!-- 3. Export Drawer -->
+    <div class="drawer" id="export-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title">Premium Export</div>
+            <button class="icon-btn" onclick="closeAllDrawers()">✖</button>
+        </div>
+        <div class="drawer-body" style="text-align: center;">
+            <svg viewBox="0 0 24 24" width="60" height="60" stroke="var(--accent-primary)" fill="none" stroke-width="1.5" style="margin: 20px 0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Generate high-quality slides with Golden Theme.</p>
+
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <button class="btn-app btn-primary" onclick="processExport('pptx')">Export to PowerPoint (PPTX)</button>
+                <button class="btn-app btn-secondary" onclick="processExport('pdf')">Export to PDF</button>
+                <div style="display:flex; gap:15px;">
+                    <button class="btn-app btn-secondary" style="font-size:0.9rem;" onclick="processExport('zip-png')">PNG ZIP</button>
+                    <button class="btn-app btn-secondary" style="font-size:0.9rem;" onclick="processExport('zip-jpg')">JPG ZIP</button>
+                </div>
+            </div>
+
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:30px;">Note: App logic runs locally. Rendering depends on device processing power.</p>
+        </div>
+    </div>
+
+    <!-- HIDDEN RENDER TEMPLATES -->
+    <div id="render-zone">
+        <div id="slide-master" class="slide-template">
+            <div class="slide-content-wrapper">
+                <div class="slide-header">
+                    <div class="slide-inst-group">
+                        <img id="sr-logo" class="slide-logo" src="" style="display:none;">
+                        <div class="slide-titles">
+                            <h1 id="sr-inst">Institution</h1>
+                            <h2 id="sr-topic">Topic</h2>
+                        </div>
+                    </div>
+                    <div class="slide-watermark">
+                        <span>Golden Edition</span>
+                    </div>
+                </div>
+
+                <div class="slide-content-area">
+                    <div class="slide-main-grid" id="sr-grid">
+                        <div class="slide-left">
+                            <div class="slide-q-meta">
+                                <span id="sr-qnum" class="slide-qnum">Q1.</span>
+                                <div class="slide-mark-box">Marks: <span id="sr-mark">1</span> <span style="font-size:20px;opacity:0.8;" id="sr-neg">(-0.25)</span></div>
+                            </div>
+                            <div id="sr-qtext" class="slide-q-text"></div>
+
+                            <!-- Multi-Statements -->
+                            <div id="sr-statements-box" class="slide-statements" style="display:none;">
+                                <div class="stmt-item"><span class="stmt-num">i.</span> <span id="sr-stmt0"></span></div>
+                                <div class="stmt-item"><span class="stmt-num">ii.</span> <span id="sr-stmt1"></span></div>
+                                <div class="stmt-item"><span class="stmt-num">iii.</span> <span id="sr-stmt2"></span></div>
+                            </div>
+
+                            <div class="slide-options">
+                                <div class="slide-opt-item" id="sr-opt0-container"><span class="slide-opt-label">A)</span> <div id="sr-opt0" class="slide-opt-content"></div></div>
+                                <div class="slide-opt-item" id="sr-opt1-container"><span class="slide-opt-label">B)</span> <div id="sr-opt1" class="slide-opt-content"></div></div>
+                                <div class="slide-opt-item" id="sr-opt2-container"><span class="slide-opt-label">C)</span> <div id="sr-opt2" class="slide-opt-content"></div></div>
+                                <div class="slide-opt-item" id="sr-opt3-container"><span class="slide-opt-label">D)</span> <div id="sr-opt3" class="slide-opt-content"></div></div>
+                            </div>
+
+                            <div class="slide-smartboard-space" id="sr-smartboard" style="display:none;"></div>
+                        </div>
+
+                        <div class="slide-right" id="sr-img-wrapper" style="display:none;">
+                            <div class="slide-img-container" id="sr-img-container">
+                                <img id="sr-img1" style="display:none;">
+                                <img id="sr-img2" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-intro" class="slide-template layout-intro">
+            <div class="slide-content-wrapper" style="justify-content:center; align-items:center;">
+                <img id="intro-logo" class="intro-logo" style="display:none;">
+                <h1 id="intro-inst" class="intro-inst">Institution</h1>
+                <div class="intro-divider"></div>
+                <h2 id="intro-topic" class="intro-topic">Topic</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // FONT HANDLING: auto-detect Bangla runs
+        // Bangla Unicode block: U+0980–U+09FF
+        // Any character in this range is forced to B2 (.bn-font).
+        // Everything else keeps the inherited E1 (headers) / E2 (body) font.
+        // ==========================================
+        function escapeHTML(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function wrapBanglaRuns(text) {
+            if (text === null || text === undefined || text === '') return '';
+            const escaped = escapeHTML(text);
+            const parts = escaped.split(/([\u0980-\u09FF]+)/g);
+            return parts.map(part => {
+                if (!part) return '';
+                if (/[\u0980-\u09FF]/.test(part)) {
+                    return `<span class="bn-font">${part}</span>`;
+                }
+                return part;
+            }).join('');
+        }
+
+        async function ensureFontsLoaded() {
+            try {
+                if (document.fonts) {
+                    await Promise.all([
+                        document.fonts.load("42px E1"),
+                        document.fonts.load("42px E2"),
+                        document.fonts.load("42px B2"),
+                        document.fonts.ready
+                    ]);
+                }
+            } catch (e) { /* fonts may fail to load if files are missing; ignore */ }
+        }
+
+        // ==========================================
+        // STATE MANAGEMENT (single standalone page, no workspace)
+        // ==========================================
+        const STORAGE_KEY = 'golden_quiz_single_project_v1';
+
+        function createQuestion(id) {
+            return {
+                id: id, mcqType: 'standard', // 'standard' or 'multi'
+                text: '', statements: ['', '', ''],
+                options: ['', '', '', ''], correct: null,
+                mark: 1, neg: -0.25, hasImg: false, imgs: [null, null], smartboard: false
+            };
+        }
+
+        let State = {
+            config: { inst: '', topic: '', logoData: null, numToggle: true, ansToggle: true },
+            questions: [createQuestion(Date.now())],
+            activeQIndex: 0
+        };
+
+        function autoSave() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(State));
+            } catch (e) {
+                console.error("Storage Error", e);
+                showToast("Storage Limit Exceeded! Avoid large images or clear old data.");
+            }
+        }
+
+        function loadSavedState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && parsed.questions && parsed.questions.length) {
+                        State = parsed;
+                        return;
+                    }
+                } catch (e) { /* fall through to default */ }
+            }
+            State = {
+                config: { inst: '', topic: '', logoData: null, numToggle: true, ansToggle: true },
+                questions: [createQuestion(Date.now())],
+                activeQIndex: 0
+            };
+        }
+
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+        window.onload = async () => {
+            loadSavedState();
+            initEditorUI();
+
+            const ro = new ResizeObserver(resizePreview);
+            ro.observe(document.getElementById('preview-area'));
+
+            await ensureFontsLoaded();
+            updateLivePreview();
+
+            setTimeout(() => {
+                document.getElementById('fullscreen-loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('fullscreen-loader').style.display = 'none', 500);
+            }, 500);
+        };
+
+        function initEditorUI() {
+            document.getElementById('g-inst').value = State.config.inst;
+            document.getElementById('g-topic').value = State.config.topic;
+            document.getElementById('g-num').checked = State.config.numToggle;
+            document.getElementById('g-ans').checked = State.config.ansToggle;
+
+            if (State.config.logoData) {
+                document.getElementById('g-logo-preview').src = State.config.logoData;
+                document.getElementById('g-logo-preview').style.display = 'block';
+                document.getElementById('g-logo-text').style.display = 'none';
+            } else {
+                document.getElementById('g-logo-preview').style.display = 'none';
+                document.getElementById('g-logo-text').style.display = 'block';
+            }
+
+            renderCarousel();
+            loadQuestion(State.activeQIndex || 0);
+        }
+
+        function resizePreview() {
+            const container = document.getElementById('preview-area');
+            const scaler = document.getElementById('preview-scaler');
+            if (!container || !scaler || container.clientWidth === 0) return;
+
+            const scaleX = container.clientWidth / 1920;
+            const scaleY = container.clientHeight / 1080;
+            const scale = Math.min(scaleX, scaleY) * 0.98;
+
+            scaler.style.transform = `scale(${scale})`;
+        }
+
+        // ==========================================
+        // TOASTS & DRAWERS
+        // ==========================================
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        function openDrawer(id) {
+            document.getElementById('drawer-overlay').classList.add('open');
+            document.getElementById(id).classList.add('open');
+        }
+
+        function closeAllDrawers() {
+            document.getElementById('drawer-overlay').classList.remove('open');
+            document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
+        }
+
+        // ==========================================
+        // CONFIG & THUMBNAILS
+        // ==========================================
+        function saveConfig() {
+            State.config.inst = document.getElementById('g-inst').value || 'Institution Name';
+            State.config.topic = document.getElementById('g-topic').value || 'Topic Name';
+            State.config.numToggle = document.getElementById('g-num').checked;
+            State.config.ansToggle = document.getElementById('g-ans').checked;
+            updateLivePreview();
+            autoSave();
+        }
+
+        function handleLogoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    State.config.logoData = event.target.result;
+                    document.getElementById('g-logo-preview').src = event.target.result;
+                    document.getElementById('g-logo-preview').style.display = 'block';
+                    document.getElementById('g-logo-text').style.display = 'none';
+                    updateLivePreview();
+                    autoSave();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function renderCarousel() {
+            const carousel = document.getElementById('slide-carousel');
+            carousel.innerHTML = '';
+
+            State.questions.forEach((q, idx) => {
+                const thumb = document.createElement('div');
+                thumb.className = `thumb-card ${idx === State.activeQIndex ? 'active' : ''}`;
+                thumb.innerText = `Q${idx + 1}`;
+                thumb.onclick = () => loadQuestion(idx);
+                carousel.appendChild(thumb);
+            });
+
+            document.getElementById('edit-btn-num').innerText = State.activeQIndex + 1;
+            document.getElementById('drawer-q-label').innerText = State.activeQIndex + 1;
+        }
+
+        function addQuestion() {
+            State.questions.push(createQuestion(Date.now()));
+            loadQuestion(State.questions.length - 1);
+            showToast("New Slide Added");
+
+            setTimeout(() => {
+                const carousel = document.getElementById('slide-carousel');
+                carousel.scrollLeft = carousel.scrollWidth;
+            }, 100);
+            autoSave();
+        }
+
+        function deleteCurrentQuestion() {
+            if (State.questions.length <= 1) { showToast("Cannot delete last slide!"); return; }
+            State.questions.splice(State.activeQIndex, 1);
+            loadQuestion(Math.max(0, State.activeQIndex - 1));
+            showToast("Slide Deleted");
+            closeAllDrawers();
+            autoSave();
+        }
+
+        // ==========================================
+        // EDITOR LOGIC
+        // ==========================================
+        function loadQuestion(index) {
+            State.activeQIndex = index;
+            const q = State.questions[index];
+
+            setQuestionType(q.mcqType, false);
+
+            document.getElementById('e-qtext').value = q.text;
+
+            document.getElementById('e-stmt0').value = q.statements[0];
+            document.getElementById('e-stmt1').value = q.statements[1];
+            document.getElementById('e-stmt2').value = q.statements[2];
+
+            document.getElementById('e-opt0').value = q.options[0];
+            document.getElementById('e-opt1').value = q.options[1];
+            document.getElementById('e-opt2').value = q.options[2];
+            document.getElementById('e-opt3').value = q.options[3];
+
+            document.querySelectorAll('.option-radio').forEach(r => r.checked = false);
+            if (q.correct !== null && q.correct !== undefined) {
+                document.querySelectorAll('.option-radio')[q.correct].checked = true;
+            }
+
+            document.getElementById('e-mark').value = q.mark;
+            document.getElementById('e-neg').value = q.neg;
+
+            document.getElementById('e-hasImg').checked = q.hasImg;
+            document.getElementById('e-smartboard').checked = q.smartboard;
+            toggleImgSection();
+
+            [0, 1].forEach(i => {
+                const img = document.getElementById(`e-img${i+1}-preview`);
+                const txt = document.getElementById(`e-img${i+1}-text`);
+                if (q.imgs[i]) {
+                    img.src = q.imgs[i]; img.style.display = 'block'; txt.style.display = 'none';
+                } else {
+                    img.src = ''; img.style.display = 'none'; txt.style.display = 'block';
+                }
+            });
+
+            renderCarousel();
+            updateLivePreview();
+            autoSave();
+        }
+
+        function setQuestionType(type, modifyData = true) {
+            document.getElementById('type-standard').classList.remove('active');
+            document.getElementById('type-multi').classList.remove('active');
+            document.getElementById(`type-${type}`).classList.add('active');
+
+            const q = State.questions[State.activeQIndex];
+
+            if (type === 'multi') {
+                document.getElementById('multi-statements-wrapper').style.display = 'block';
+                document.getElementById('auto-fill-btn').style.display = 'inline';
+                if (modifyData) {
+                    q.mcqType = 'multi';
+                    if (!q.options.join('').trim()) autoFillOptions();
+                }
+            } else {
+                document.getElementById('multi-statements-wrapper').style.display = 'none';
+                document.getElementById('auto-fill-btn').style.display = 'none';
+                if (modifyData) q.mcqType = 'standard';
+            }
+
+            if (modifyData) saveCurrentQuestion();
+        }
+
+        function autoFillOptions() {
+            document.getElementById('e-opt0').value = "i and ii";
+            document.getElementById('e-opt1').value = "i and iii";
+            document.getElementById('e-opt2').value = "ii and iii";
+            document.getElementById('e-opt3').value = "i, ii and iii";
+            saveCurrentQuestion();
+            showToast("Options Auto-Filled");
+        }
+
+        function toggleImgSection() {
+            const hasImg = document.getElementById('e-hasImg').checked;
+            document.getElementById('img-upload-section').style.display = hasImg ? 'flex' : 'none';
+        }
+
+        function handleQImageUpload(e, idx) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    State.questions[State.activeQIndex].imgs[idx] = event.target.result;
+                    loadQuestion(State.activeQIndex);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveCurrentQuestion() {
+            const q = State.questions[State.activeQIndex];
+
+            q.text = document.getElementById('e-qtext').value;
+
+            q.statements[0] = document.getElementById('e-stmt0').value;
+            q.statements[1] = document.getElementById('e-stmt1').value;
+            q.statements[2] = document.getElementById('e-stmt2').value;
+
+            q.options[0] = document.getElementById('e-opt0').value;
+            q.options[1] = document.getElementById('e-opt1').value;
+            q.options[2] = document.getElementById('e-opt2').value;
+            q.options[3] = document.getElementById('e-opt3').value;
+
+            const selectedOpt = document.querySelector('input[name="correctOpt"]:checked');
+            q.correct = selectedOpt ? parseInt(selectedOpt.value) : null;
+
+            q.mark = document.getElementById('e-mark').value || 1;
+            q.neg = document.getElementById('e-neg').value || -0.25;
+
+            q.hasImg = document.getElementById('e-hasImg').checked;
+            q.smartboard = document.getElementById('e-smartboard').checked;
+
+            updateLivePreview();
+            autoSave();
+        }
+
+        // ==========================================
+        // LIVE PREVIEW RENDERER
+        // ==========================================
+        function updateLivePreview() {
+            const q = State.questions[State.activeQIndex];
+            if (!q) return;
+
+            const master = document.getElementById('slide-master');
+
+            master.className = 'slide-template';
+            document.querySelectorAll('#slide-master .slide-opt-item').forEach(el => el.classList.remove('correct'));
+            document.getElementById('sr-grid').parentElement.className = 'slide-content-area';
+
+            document.getElementById('sr-inst').innerHTML = wrapBanglaRuns(State.config.inst || 'Institution Name');
+            document.getElementById('sr-topic').innerHTML = wrapBanglaRuns(State.config.topic || 'Topic Name');
+            const logo = document.getElementById('sr-logo');
+            if (State.config.logoData) { logo.src = State.config.logoData; logo.style.display = 'block'; }
+            else { logo.style.display = 'none'; }
+
+            const qnum = document.getElementById('sr-qnum');
+            if (State.config.numToggle) { qnum.innerText = `Q${State.activeQIndex + 1}.`; qnum.style.display = 'inline'; }
+            else { qnum.style.display = 'none'; }
+            document.getElementById('sr-mark').innerText = q.mark;
+            document.getElementById('sr-neg').innerText = `(${q.neg})`;
+
+            document.getElementById('sr-qtext').innerHTML = wrapBanglaRuns(q.text || 'Question text...');
+
+            const stmtBox = document.getElementById('sr-statements-box');
+            if (q.mcqType === 'multi') {
+                stmtBox.style.display = 'flex';
+                document.getElementById('sr-stmt0').innerHTML = wrapBanglaRuns(q.statements[0] || 'Statement 1');
+                document.getElementById('sr-stmt1').innerHTML = wrapBanglaRuns(q.statements[1] || 'Statement 2');
+                document.getElementById('sr-stmt2').innerHTML = wrapBanglaRuns(q.statements[2] || 'Statement 3');
+            } else {
+                stmtBox.style.display = 'none';
+            }
+
+            document.getElementById('sr-opt0').innerHTML = wrapBanglaRuns(q.options[0] || 'Option A');
+            document.getElementById('sr-opt1').innerHTML = wrapBanglaRuns(q.options[1] || 'Option B');
+            document.getElementById('sr-opt2').innerHTML = wrapBanglaRuns(q.options[2] || 'Option C');
+            document.getElementById('sr-opt3').innerHTML = wrapBanglaRuns(q.options[3] || 'Option D');
+
+            if (q.correct !== null) {
+                document.getElementById(`sr-opt${q.correct}-container`).classList.add('correct');
+                master.classList.add('is-answer-slide');
+            }
+
+            const imgWrapper = document.getElementById('sr-img-wrapper');
+            const imgContainer = document.getElementById('sr-img-container');
+            const smartboard = document.getElementById('sr-smartboard');
+            const img1 = document.getElementById('sr-img1');
+            const img2 = document.getElementById('sr-img2');
+
+            imgWrapper.style.display = 'none'; smartboard.style.display = 'none';
+            imgContainer.classList.remove('two-imgs'); img1.style.display = 'none'; img2.style.display = 'none';
+
+            if (q.hasImg) {
+                master.classList.add('layout-image');
+                imgWrapper.style.display = 'flex';
+                let c = 0;
+                if (q.imgs[0]) { img1.src = q.imgs[0]; img1.style.display = 'block'; c++; }
+                if (q.imgs[1]) { img2.src = q.imgs[1]; img2.style.display = 'block'; c++; }
+                if (c > 1) imgContainer.classList.add('two-imgs');
+            }
+            if (q.smartboard) { smartboard.style.display = 'block'; }
+
+            const scaler = document.getElementById('preview-scaler');
+            scaler.innerHTML = '';
+
+            const clone = master.cloneNode(true);
+            clone.removeAttribute('id');
+            const elementsWithId = clone.querySelectorAll('[id]');
+            for (let i = 0; i < elementsWithId.length; i++) {
+                elementsWithId[i].removeAttribute('id');
+            }
+            scaler.appendChild(clone);
+        }
+
+        // ==========================================
+        // EXPORT PIPELINE
+        // ==========================================
+        async function captureDOM(elementId, isAnswerSlide = false, qIndex = null) {
+            if (elementId === 'slide-master' && qIndex !== null) {
+                const originalIndex = State.activeQIndex;
+                State.activeQIndex = qIndex;
+                const q = State.questions[qIndex];
+                const tempCorrect = q.correct;
+                if (!isAnswerSlide) q.correct = null;
+
+                updateLivePreview();
+                if (!isAnswerSlide) q.correct = tempCorrect;
+
+                State.activeQIndex = originalIndex;
+            }
+
+            const target = document.getElementById(elementId);
+            await ensureFontsLoaded();
+            await new Promise(r => setTimeout(r, 100));
+
+            const canvas = await html2canvas(target, {
+                scale: 1, useCORS: true, backgroundColor: '#000000',
+                logging: false, width: 1920, height: 1080
+            });
+            return canvas.toDataURL('image/jpeg', 0.9);
+        }
+
+        async function processExport(format) {
+            closeAllDrawers();
+            const loader = document.getElementById('fullscreen-loader');
+            const loaderText = document.getElementById('loader-text');
+            loader.style.display = 'flex';
+            setTimeout(() => loader.style.opacity = '1', 10);
+
+            try {
+                const slides = [];
+
+                loaderText.innerText = "Rendering Title Slide...";
+                document.getElementById('intro-inst').innerHTML = wrapBanglaRuns(State.config.inst || 'Institution');
+                document.getElementById('intro-topic').innerHTML = wrapBanglaRuns(State.config.topic || 'Topic');
+                const introLogo = document.getElementById('intro-logo');
+                if (State.config.logoData) { introLogo.src = State.config.logoData; introLogo.style.display = 'block'; }
+                const introImg = await captureDOM('slide-intro');
+                slides.push({ name: `00_Title`, data: introImg });
+
+                for (let i = 0; i < State.questions.length; i++) {
+                    loaderText.innerText = `Rendering Q${i+1}...`;
+                    const qImg = await captureDOM('slide-master', false, i);
+                    slides.push({ name: `Q${String(i+1).padStart(2, '0')}_Question`, data: qImg });
+
+                    if (State.config.ansToggle) {
+                        loaderText.innerText = `Rendering A${i+1}...`;
+                        const aImg = await captureDOM('slide-master', true, i);
+                        slides.push({ name: `Q${String(i+1).padStart(2, '0')}_Answer`, data: aImg });
+                    }
+                }
+
+                loaderText.innerText = "Packaging Output...";
+
+                const exportName = (State.config.inst || 'Quiz_Slides').replace(/[^a-zA-Z0-9\u0980-\u09FF_-]+/g, '_');
+
+                if (format.startsWith('zip')) {
+                    const zip = new JSZip();
+                    slides.forEach((slide) => {
+                        const base64Data = slide.data.replace(/^data:image\/(png|jpeg);base64,/, "");
+                        const ext = format === 'zip-png' ? 'png' : 'jpg';
+                        zip.file(`${slide.name}.${ext}`, base64Data, { base64: true });
+                    });
+                    const content = await zip.generateAsync({ type: "blob" });
+                    const url = window.URL.createObjectURL(content);
+                    const a = document.createElement('a'); a.href = url; a.download = `${exportName}_${Date.now()}.zip`; a.click();
+                } else if (format === 'pdf') {
+                    const doc = new jspdf.jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
+                    slides.forEach((slide, idx) => {
+                        if (idx > 0) doc.addPage([1920, 1080], "landscape");
+                        doc.addImage(slide.data, 'JPEG', 0, 0, 1920, 1080);
+                    });
+                    doc.save(`${exportName}_${Date.now()}.pdf`);
+                } else if (format === 'pptx') {
+                    const pres = new PptxGenJS();
+                    pres.layout = 'LAYOUT_16x9';
+                    slides.forEach(slide => {
+                        const pptSlide = pres.addSlide();
+                        pptSlide.addImage({ data: slide.data, x: 0, y: 0, w: '100%', h: '100%' });
+                    });
+                    pres.writeFile({ fileName: `${exportName}_${Date.now()}.pptx` });
+                }
+
+                showToast("Export Successful!");
+            } catch (err) {
+                console.error(err);
+                showToast("Export Error. Device might be out of memory.");
+            }
+
+            updateLivePreview();
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 500);
+        }
+    </script>
+</body>
+</html>

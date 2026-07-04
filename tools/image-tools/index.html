@@ -1,10 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Media Vault • Offline Suite</title>
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Discord, Telegram, etc.) -->
+<meta property="og:image" content="./t.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Crypto Media Vault">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="./t.png">
+    <title>IMAGE TOOLS</title>
     
     <!-- External Offline-Capable Libraries -->
     <!-- jsPDF for PDF generation -->
@@ -21,15 +30,15 @@
            1. FONTS & CSS VARIABLES
            ========================================================================== */
 @font-face {
-    font-family: 'B1';
-    src: url('/B1.ttf') format('truetype');
+    font-family: 'E1';
+    src: url('/E1.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'B2';
-    src: url('/B2.ttf') format('truetype');
+    font-family: 'E2';
+    src: url('/E2.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -47,8 +56,8 @@
             --accent-secondary: #4169e1;
             --accent-success: #00c853;
             --accent-danger: #ff3d00;
-            --font-en: 'Space Grotesk', sans-serif;
-            --font-bn: 'iOS Bangla', sans-serif;
+            --font-en: 'E2', sans-serif;
+            --font-bn: 'E1', sans-serif;
             --radius-card: 24px;
             --radius-panel: 16px;
             --radius-btn: 10px;
@@ -70,6 +79,12 @@
         }
 
         .bangla-text { font-family: var(--font-bn) !important; font-weight: 600; }
+
+        h1, h2, h3, h4, h5, h6,
+        .hero-title, .card-title, .modal-title,
+        .sidebar-logo, .nav-section-title, .result-title {
+            font-family: var(--font-bn);
+        }
 
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
@@ -562,7 +577,7 @@
                 <div class="hero-icon-container">
                     <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </div>
-                <h1 class="hero-title bangla-text">ক্রিপ্টো মিডিয়া ভল্ট</h1>
+                <h1 class="hero-title bangla-text">IMAGE TOOLS</h1>
                 <p class="hero-subtitle">Military-grade offline image encryption. Secure your private images into text sequences and restore them flawlessly without internet access.</p>
             </section>
 
