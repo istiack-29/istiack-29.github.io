@@ -6,21 +6,18 @@
     <link rel="icon" type="image/png" href="/profile.png">
     <link rel="shortcut icon" href="/profile.png">
 
-    <!-- সোশ্যাল মিডিয়া শেয়ারিং (Open Graph/Facebook/WhatsApp) -->
     <meta property="og:title" content="ADMIN PANEL">
     <meta property="og:description" content="ADMIN PANEL">
     <meta property="og:image" content="https://istiack.ami.bd/admin/thumbnail.png">
     <meta property="og:url" content="https://istiack.ami.bd/">
     <meta property="og:type" content="website">
 
-    <!-- টুইটার শেয়ারিং (Twitter Card) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ADMIN PANEL">
     <meta name="twitter:description" content="ADMIN PANEL">
     <meta name="twitter:image" content="https://istiack.ami.bd/admin/thumbnail.png">
     <title>ADMIN PANEL</title>
 
-    <!-- PRE-FLIGHT SESSION CHECK: Prevents login screen from flashing on refresh -->
     <script>
         if (sessionStorage.getItem('auth_session') === 'active' || sessionStorage.getItem('auth_session') === 'read_only') {
             document.documentElement.classList.add('session-active');
@@ -30,32 +27,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- SUPABASE JS CLIENT -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        /* Custom Local Font Implementation (Universal) */
-        @font-face {
-            font-family: 'E1';
-            src: url('/E1.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'E2';
-            src: url('/E2.ttf') format('truetype');
-            font-weight: bold;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'B2';
-            src: url('/B2.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
+        @font-face { font-family: 'E1'; src: url('/E1.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'E2'; src: url('/E2.ttf') format('truetype'); font-weight: bold; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'B2'; src: url('/B2.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
     </style>
 
     <script>
@@ -69,23 +46,12 @@
                         code: ['"E1"', '"B2"', 'monospace'],
                     },
                     colors: {
-                        brand: {
-                            50: '#f0fdfa', 100: '#ccfbf1', 400: '#2dd4bf',
-                            500: '#14b8a6', 600: '#0d9488', 900: '#134e4a', 950: '#042f2e',
-                        },
-                        dark: {
-                            bg: '#050505', surface: 'rgba(20, 20, 20, 0.7)',
-                            panel: 'rgba(30, 30, 30, 0.6)', border: 'rgba(255, 255, 255, 0.08)'
-                        },
-                        light: {
-                            bg: '#f8fafc', surface: 'rgba(255, 255, 255, 0.8)',
-                            panel: 'rgba(255, 255, 255, 0.9)', border: 'rgba(0, 0, 0, 0.05)'
-                        }
+                        brand: { 50: '#f0fdfa', 100: '#ccfbf1', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 900: '#134e4a', 950: '#042f2e' },
+                        dark: { bg: '#050505', surface: 'rgba(20, 20, 20, 0.7)', panel: 'rgba(30, 30, 30, 0.6)', border: 'rgba(255, 255, 255, 0.08)' },
+                        light: { bg: '#f8fafc', surface: 'rgba(255, 255, 255, 0.8)', panel: 'rgba(255, 255, 255, 0.9)', border: 'rgba(0, 0, 0, 0.05)' },
+                        pika: { yellow: '#FFD53E', deep: '#F6C523', cheek: '#F45C5C', tip: '#2B2B2B', tail: '#8B5A2B' }
                     },
-                    animation: {
-                        'blob': 'blob 10s infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
+                    animation: { 'blob': 'blob 10s infinite', 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' },
                     keyframes: {
                         blob: {
                             '0%': { transform: 'translate(0px, 0px) scale(1)' },
@@ -100,92 +66,36 @@
     </script>
 
     <style>
-        :root {
-            --glass-blur: blur(16px);
-            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        :root { --glass-blur: blur(16px); --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1); }
         html { font-size: 16px; scroll-behavior: smooth; }
         @media (max-width: 640px) { html { font-size: 15px; } }
-
-        /* Universal Font Rule Enforcement */
-        * {
-            font-family: 'E1', 'B2', sans-serif;
-        }
-
-        body { 
-            -webkit-font-smoothing: antialiased; 
-            -moz-osx-font-smoothing: grayscale; 
-            overflow: hidden; 
-            font-family: 'E1', 'B2', sans-serif !important;
-        }
-        
-        h1, h2, h3, h4, h5, h6, .heading-text, .heading-text * {
-            font-family: 'E2', 'B2', serif !important;
-        }
-
-        input, textarea, select, button {
-            font-family: 'E1', 'B2', sans-serif !important;
-        }
-
+        * { font-family: 'E1', 'B2', sans-serif; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow: hidden; font-family: 'E1', 'B2', sans-serif !important; }
+        h1, h2, h3, h4, h5, h6, .heading-text, .heading-text * { font-family: 'E2', 'B2', serif !important; }
+        input, textarea, select, button { font-family: 'E1', 'B2', sans-serif !important; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
         .dark ::-webkit-scrollbar-thumb { background: rgba(71, 85, 105, 0.4); }
-
-        /* SESSION PERSISTENCE RULES */
         html.session-active #login-gateway { display: none !important; }
         html.session-active #app-wrapper { opacity: 1 !important; pointer-events: auto !important; }
-
-        .glass-panel {
-            background: var(--tw-colors-light-surface);
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--tw-colors-light-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-        }
-        .dark .glass-panel {
-            background: var(--tw-colors-dark-surface); border: 1px solid var(--tw-colors-dark-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        .glass-card {
-            background: var(--tw-colors-light-panel); backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s var(--transition-bounce);
-        }
-        .dark .glass-card {
-            background: var(--tw-colors-dark-panel); border: 1px solid rgba(255,255,255,0.03);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-        .glass-card:hover {
-            transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 40px -10px rgba(20, 184, 166, 0.15);
-            border-color: rgba(20, 184, 166, 0.3);
-        }
-
+        .glass-panel { background: var(--tw-colors-light-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--tw-colors-light-border); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05); }
+        .dark .glass-panel { background: var(--tw-colors-dark-surface); border: 1px solid var(--tw-colors-dark-border); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); }
+        .glass-card { background: var(--tw-colors-light-panel); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.4); transition: all 0.4s var(--transition-bounce); }
+        .dark .glass-card { background: var(--tw-colors-dark-panel); border: 1px solid rgba(255,255,255,0.03); box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); }
+        .glass-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 40px -10px rgba(20, 184, 166, 0.15); border-color: rgba(20, 184, 166, 0.3); }
         .login-input-group { position: relative; width: 100%; margin-bottom: 1.5rem; }
-        .login-input-field {
-            width: 100%; padding: 1rem 1.25rem; border-radius: 0.75rem;
-            background: rgba(255, 255, 255, 0.6); border: 2px solid transparent;
-            font-family: inherit; font-size: 1rem; color: #0f172a; outline: none; transition: all 0.3s var(--transition-smooth);
-        }
+        .login-input-field { width: 100%; padding: 1rem 1.25rem; border-radius: 0.75rem; background: rgba(255, 255, 255, 0.6); border: 2px solid transparent; font-family: inherit; font-size: 1rem; color: #0f172a; outline: none; transition: all 0.3s var(--transition-smooth); }
         .dark .login-input-field { background: rgba(0, 0, 0, 0.4); color: #f1f5f9; }
         .login-input-field:focus { background: #ffffff; border-color: #14b8a6; box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1); }
         .dark .login-input-field:focus { background: rgba(20,20,20,0.8); box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2); }
-
-        .login-input-label {
-            position: absolute; left: 1.25rem; top: 1rem; color: #64748b; font-size: 1rem; pointer-events: none;
-            transition: all 0.3s var(--transition-bounce); background: transparent; padding: 0 0.25rem;
-        }
-        .login-input-field:focus ~ .login-input-label, .login-input-field:not(:placeholder-shown) ~ .login-input-label {
-            transform: translateY(-1.6rem) scale(0.85); color: #14b8a6; font-weight: 600;
-        }
+        .login-input-label { position: absolute; left: 1.25rem; top: 1rem; color: #64748b; font-size: 1rem; pointer-events: none; transition: all 0.3s var(--transition-bounce); background: transparent; padding: 0 0.25rem; }
+        .login-input-field:focus ~ .login-input-label, .login-input-field:not(:placeholder-shown) ~ .login-input-label { transform: translateY(-1.6rem) scale(0.85); color: #14b8a6; font-weight: 600; }
         .dark .login-input-field:focus ~ .login-input-label, .dark .login-input-field:not(:placeholder-shown) ~ .login-input-label { color: #2dd4bf; }
-
         .ambient-orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.5; animation: blob 15s infinite alternate; }
         .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(20, 184, 166, 0.3); animation-delay: 0s; }
         .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: rgba(56, 189, 248, 0.2); animation-delay: 2s; }
         .orb-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: rgba(139, 92, 246, 0.2); animation-delay: 4s; }
-
         .modal-enter { animation: modalEnter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         .list-item-enter { opacity: 0; animation: fadeInUp 0.6s var(--transition-bounce) forwards; }
@@ -194,100 +104,236 @@
         @keyframes modalEnter { 0% { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(10px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
         @keyframes slideInRight { 0% { transform: translateX(120%) scale(0.9); opacity: 0; } 100% { transform: translateX(0) scale(1); opacity: 1; } }
         @keyframes slideOutRight { 0% { transform: translateX(0) scale(1); opacity: 1; } 100% { transform: translateX(120%) scale(0.9); opacity: 0; } }
-
         .hidden-safely { display: none !important; }
-        
-        /* Updated adaptive spinner */
         .spinner { width: 20px; height: 20px; border: 3px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
         .glitch-text { background: linear-gradient(to right, #2dd4bf, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
         input[type="date"]::-webkit-calendar-picker-indicator, input[type="datetime-local"]::-webkit-calendar-picker-indicator { background-color: #14b8a6; padding: 5px; cursor: pointer; border-radius: 6px; }
-
         #export-studio { position: fixed; left: -9999px; top: -9999px; width: 1080px; z-index: -9999; }
+        .editorial-export { width: 1080px; min-height: 1920px; background-color: #F4EFE9; display: flex; flex-direction: column; align-items: center; padding: 120px 80px; box-sizing: border-box; position: relative; }
+        .editorial-export::before { content: ''; position: absolute; inset: 0; background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.12"/></svg>'); pointer-events: none; mix-blend-mode: multiply; }
+        .editorial-header { font-family: 'E2', 'B2', serif; font-size: 38px; font-weight: 700; color: #111; letter-spacing: 12px; margin-bottom: 90px; position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .editorial-header-line { margin-top: 15px; width: 65px; height: 2px; background-color: #8B312A; }
+        .editorial-cards-container { width: 100%; display: flex; flex-direction: column; gap: 25px; z-index: 10; }
+        .editorial-card { background-color: #FFFFFF; border-radius: 20px; padding: 45px 50px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 25px; }
+        .editorial-q { font-size: 36px; font-weight: 700; color: #8B312A; font-family: 'E1', 'B2', sans-serif; line-height: 1.5; word-break: break-word; }
+        .editorial-a { font-size: 32px; font-weight: 500; color: #222; font-family: 'E1', 'B2', sans-serif; line-height: 1.5; word-break: break-word; }
+    </style>
 
-        .editorial-export {
-            width: 1080px;
-            min-height: 1920px;
-            background-color: #F4EFE9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 120px 80px;
-            box-sizing: border-box;
-            position: relative;
+    <!-- =================================================================== -->
+    <!-- PIKACHU AI ASSISTANT — visual system                                -->
+    <!-- An original, CSS-drawn chibi electric-mouse character (not an       -->
+    <!-- image asset) used as the site's guide/mascot.                      -->
+    <!-- =================================================================== -->
+    <style>
+        .pika, .pika * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        .pika { position: relative; width: 100%; height: 100%; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.28)); }
+
+        /* ---- body ---- */
+        .pika-body {
+            position: absolute; inset: 14% 6% 4% 6%;
+            border-radius: 48% 48% 46% 46% / 55% 55% 45% 45%;
+            background: radial-gradient(circle at 32% 28%, #FFE873 0%, #FFD53E 45%, #F6C523 100%);
+            box-shadow: inset 0 -10px 14px rgba(180,120,0,0.25), inset 0 6px 10px rgba(255,255,255,0.5);
+            overflow: visible;
+        }
+        .pika-belly {
+            position: absolute; left: 22%; right: 22%; bottom: 6%; height: 34%;
+            background: linear-gradient(180deg, #FFF6D2, #FFEFA8);
+            border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+            opacity: 0.85;
         }
 
-        .editorial-export::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.12"/></svg>');
-            pointer-events: none;
-            mix-blend-mode: multiply;
+        /* ---- ears ---- */
+        .pika-ear { position: absolute; top: -34%; width: 22%; height: 52%; z-index: 1; }
+        .pika-ear-l { left: 6%; transform: rotate(-18deg); }
+        .pika-ear-r { right: 6%; transform: rotate(18deg); }
+        .pika-ear-base {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, #FFD53E 0%, #FFD53E 62%, #24211D 63%, #1a1815 100%);
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            border-radius: 6px;
+        }
+        .pika-ear-inner {
+            position: absolute; left: 30%; right: 30%; bottom: 4%; top: 8%;
+            background: #3a3530; clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            opacity: 0.5;
         }
 
-        .editorial-header {
-            font-family: 'E2', 'B2', serif;
-            font-size: 38px;
-            font-weight: 700;
-            color: #111;
-            letter-spacing: 12px;
-            margin-bottom: 90px;
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        /* ---- face ---- */
+        .pika-face { position: absolute; inset: 0; z-index: 2; }
+        .pika-eye {
+            position: absolute; top: 40%; width: 15%; height: 19%;
+            background: #17140f; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform .12s ease, height .18s ease, border-radius .18s ease;
+        }
+        .pika-eye-l { left: 26%; } .pika-eye-r { right: 26%; }
+        .pika-eye-shine { position: absolute; top: 18%; left: 22%; width: 32%; height: 32%; border-radius: 50%; background: #fff; opacity: 0.9; }
+        .pika-pupil-hide { display: none; }
+
+        .pika-cheek {
+            position: absolute; top: 56%; width: 19%; height: 15%;
+            background: radial-gradient(circle, #FF6B57 0%, #F4433B 70%, rgba(244,67,59,0) 100%);
+            border-radius: 50%; transition: box-shadow .25s ease, transform .25s ease;
+        }
+        .pika-cheek-l { left: 2%; } .pika-cheek-r { right: 2%; }
+
+        .pika-nose { position: absolute; top: 52%; left: 50%; width: 5%; height: 4%; background: #2b241c; border-radius: 50%; transform: translateX(-50%); }
+
+        .pika-mouth {
+            position: absolute; top: 63%; left: 50%; width: 18%; height: 8%;
+            border-bottom: 3px solid #3a2f22; border-radius: 0 0 60% 60%;
+            transform: translateX(-50%); transition: all .25s var(--transition-bounce);
         }
 
-        .editorial-header-line {
-            margin-top: 15px;
-            width: 65px;
-            height: 2px;
-            background-color: #8B312A;
+        .pika-brow { position: absolute; top: 30%; width: 13%; height: 3px; background: #3a2f22; border-radius: 3px; opacity: 0; transition: all .2s ease; }
+        .pika-brow-l { left: 24%; transform: rotate(8deg); } .pika-brow-r { right: 24%; transform: rotate(-8deg); }
+
+        /* ---- paws (cover eyes when typing password) ---- */
+        .pika-paw {
+            position: absolute; bottom: -6%; width: 24%; height: 24%;
+            background: radial-gradient(circle at 35% 30%, #FFE873, #FFC738);
+            border-radius: 50%; border: 2px solid rgba(150,100,0,0.15);
+            transition: transform .35s var(--transition-bounce);
+            z-index: 3;
+        }
+        .pika-paw-l { left: 2%; transform: translateY(58px) rotate(-10deg); }
+        .pika-paw-r { right: 2%; transform: translateY(58px) rotate(10deg); }
+        .pika-covering .pika-paw-l { transform: translateY(-4px) rotate(-14deg); }
+        .pika-covering .pika-paw-r { transform: translateY(-4px) rotate(14deg); }
+        .pika-covering .pika-eye { opacity: 0; }
+
+        /* ---- tail ---- */
+        .pika-tail-wrap { position: absolute; right: -30%; bottom: 8%; width: 46%; height: 62%; transform-origin: 12% 88%; animation: pikaTailSway 3.6s ease-in-out infinite; z-index: -1; }
+        .pika-tail-base { position: absolute; left: 0; bottom: 0; width: 46%; height: 46%; background: #8B5A2B; clip-path: polygon(0% 100%, 100% 60%, 46% 0%); border-radius: 4px; }
+        .pika-tail-bolt {
+            position: absolute; right: 0; top: 0; width: 78%; height: 92%;
+            background: linear-gradient(160deg, #FFE873, #FFC738);
+            clip-path: polygon(62% 0%, 100% 0%, 40% 46%, 66% 46%, 8% 100%, 30% 42%, 4% 42%);
         }
 
-        .editorial-cards-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            z-index: 10;
+        /* ---- idle motion ---- */
+        .pika-blinker { animation: pikaIdleBob 3.2s ease-in-out infinite; }
+        @keyframes pikaIdleBob { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-3px) rotate(-1deg); } }
+        @keyframes pikaTailSway { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(10deg); } }
+        @keyframes pikaEarTwitchL { 0%,88%,100% { transform: rotate(-18deg); } 92% { transform: rotate(-28deg); } 96% { transform: rotate(-12deg); } }
+        @keyframes pikaEarTwitchR { 0%,90%,100% { transform: rotate(18deg); } 94% { transform: rotate(28deg); } 98% { transform: rotate(10deg); } }
+        .pika-ear-l { animation: pikaEarTwitchL 7s ease-in-out infinite; }
+        .pika-ear-r { animation: pikaEarTwitchR 7s ease-in-out infinite 0.6s; }
+        @keyframes pikaBlink { 0%, 92%, 100% { height: 19%; border-radius: 50%; } 95% { height: 3%; border-radius: 2px; } }
+        .pika-blink-loop .pika-eye { animation: pikaBlink 5.5s ease-in-out infinite; }
+        @keyframes pikaCheekSpark { 0%, 82%, 100% { box-shadow: 0 0 0 rgba(255,213,62,0); } 88% { box-shadow: 0 0 14px 4px rgba(255,213,62,0.9); } 92% { box-shadow: 0 0 2px 0 rgba(255,213,62,0); } }
+        .pika-cheek-idle-spark .pika-cheek { animation: pikaCheekSpark 9s ease-in-out infinite; }
+
+        /* ---- mood: happy ---- */
+        .pika-happy .pika-mouth { width: 30%; height: 14%; border: none; background: transparent; border-bottom: 4px solid #3a2f22; border-radius: 0 0 50% 50%/0 0 100% 100%; }
+        .pika-happy .pika-eye { height: 6%; border-radius: 50% 50% 0 0 / 100% 100% 0 0; transform: none; }
+        .pika-happy .pika-eye-shine { display: none; }
+        .pika-happy .pika-cheek { box-shadow: 0 0 20px 6px rgba(255,213,62,0.85); transform: scale(1.12); }
+        .pika-happy .pika-body { animation: pikaHappyBounce .7s var(--transition-bounce); }
+        @keyframes pikaHappyBounce { 0% { transform: scale(1); } 35% { transform: scale(1.08, 0.92) translateY(-14px); } 60% { transform: scale(0.96,1.05) translateY(4px); } 100% { transform: scale(1); } }
+
+        /* ---- mood: angry / iron tail ---- */
+        .pika-angry .pika-brow { opacity: 1; }
+        .pika-angry .pika-brow-l { transform: rotate(22deg) translate(2px, 3px); }
+        .pika-angry .pika-brow-r { transform: rotate(-22deg) translate(-2px, 3px); }
+        .pika-angry .pika-mouth { width: 20%; height: 10%; border-bottom: none; border-top: 3px solid #3a2f22; border-radius: 50% 50% 0 0; margin-top: 6px; }
+        .pika-angry .pika-body { filter: saturate(1.4) hue-rotate(-6deg); }
+        .pika-angry .pika-cheek { box-shadow: 0 0 14px 3px rgba(255,90,60,0.7); }
+        .pika-attack .pika-body { animation: pikaShake .55s ease-in-out; }
+        @keyframes pikaShake { 0%,100% { transform: translateX(0) rotate(0); } 15% { transform: translateX(-9px) rotate(-4deg); } 30% { transform: translateX(8px) rotate(4deg); } 45% { transform: translateX(-7px) rotate(-3deg); } 60% { transform: translateX(6px) rotate(3deg); } 75% { transform: translateX(-4px) rotate(-1deg); } 90% { transform: translateX(2px); } }
+        .pika-attack .pika-tail-wrap { animation: pikaIronTailSwipe .55s cubic-bezier(0.2,0.9,0.3,1); }
+        @keyframes pikaIronTailSwipe {
+            0% { transform: rotate(-6deg); filter: none; }
+            30% { transform: rotate(-140deg) scale(1.15); filter: brightness(1.6) saturate(0) drop-shadow(0 0 10px #d7dee3); }
+            55% { transform: rotate(60deg) scale(1.2); filter: brightness(2) saturate(0) drop-shadow(0 0 16px #eef3f6); }
+            75% { transform: rotate(-20deg); filter: brightness(1.2); }
+            100% { transform: rotate(-6deg); filter: none; }
+        }
+        .pika-attack .pika-tail-bolt { transition: background .1s; }
+        .pika-attack.pika-attack .pika-tail-bolt { background: linear-gradient(160deg,#eef3f6,#c7d0d6); }
+
+        /* ---- screen impact flash ---- */
+        #pika-impact-flash { position: fixed; inset: 0; z-index: 150; pointer-events: none; background: radial-gradient(circle, rgba(255,60,60,0.0) 0%, rgba(200,20,20,0.0) 100%); opacity: 0; }
+        #pika-impact-flash.flash { animation: pikaImpactFlash .5s ease-out; }
+        @keyframes pikaImpactFlash { 0% { opacity: 0; } 15% { opacity: 1; background: radial-gradient(circle, rgba(255,80,80,0.05) 0%, rgba(200,10,10,0.35) 100%); } 100% { opacity: 0; } }
+
+        /* ---- spark burst particles (thunderbolt success) ---- */
+        .pika-spark-field { position: absolute; inset: -40%; pointer-events: none; z-index: 5; }
+        .pika-spark {
+            position: absolute; top: 50%; left: 50%; width: 10px; height: 10px;
+            background: #FFE873; clip-path: polygon(50% 0%, 65% 35%, 100% 35%, 70% 60%, 85% 100%, 50% 72%, 15% 100%, 30% 60%, 0% 35%, 35% 35%);
+            opacity: 0; transform: translate(-50%,-50%) scale(0.4);
+            animation: pikaSparkFly 0.9s ease-out forwards;
+        }
+        @keyframes pikaSparkFly {
+            0% { opacity: 0; transform: translate(-50%,-50%) scale(0.2) rotate(0deg); }
+            15% { opacity: 1; }
+            100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15) rotate(140deg); }
         }
 
-        .editorial-card {
-            background-color: #FFFFFF;
-            border-radius: 20px;
-            padding: 45px 50px;
-            width: 100%;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+        /* ---- login stage wrapper ---- */
+        #pika-login-stage { position: relative; width: 168px; height: 168px; margin: 0 auto 2.75rem; }
+        #pika-login-speech {
+            position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(8px) scale(0.85);
+            width: max-content; max-width: 240px; background: #fff; color: #1e293b; font-weight: 800; font-size: 0.95rem;
+            padding: 10px 16px; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+            opacity: 0; pointer-events: none; transition: all .35s var(--transition-bounce); text-align: center;
+            margin-bottom: 22px; z-index: 20;
         }
+        .dark #pika-login-speech { background: #1c1c1c; color: #f1f5f9; }
+        #pika-login-speech::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 8px solid transparent; border-top-color: #fff; }
+        .dark #pika-login-speech::after { border-top-color: #1c1c1c; }
+        #pika-login-speech.show { opacity: 1; transform: translateX(-50%) translateY(-4px) scale(1); }
+        #pika-login-speech.err { background: #FEE2E2; color: #B91C1C; }
+        .dark #pika-login-speech.err { background: #3a1414; color: #fca5a5; }
+        #pika-login-speech.err::after { border-top-color: #FEE2E2; }
+        .dark #pika-login-speech.err::after { border-top-color: #3a1414; }
+        #pika-login-speech.win { background: linear-gradient(135deg,#FFE873,#FFC738); color: #6b4a05; }
+        #pika-login-speech.win::after { border-top-color: #FFC738; }
 
-        .editorial-q {
-            font-size: 36px;
-            font-weight: 700;
-            color: #8B312A;
-            font-family: 'E1', 'B2', sans-serif;
-            line-height: 1.5;
-            word-break: break-word;
+        /* ---- floating dashboard assistant ---- */
+        #dashboard-guide { display: none; }
+        html.session-active #dashboard-guide { display: flex; }
+        #pika-assistant-wrap { position: fixed; z-index: 90; touch-action: none; cursor: grab; user-select: none; }
+        #pika-assistant-wrap.dragging { cursor: grabbing; }
+        #pika-assistant-wrap.dragging #pika-avatar-btn { transform: scale(1.06); }
+        #pika-avatar-btn {
+            width: 84px; height: 84px; border-radius: 9999px; padding: 6px;
+            background: rgba(255,255,255,0.65); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 16px 34px rgba(0,0,0,0.22);
+            transition: transform .25s var(--transition-bounce);
         }
+        .dark #pika-avatar-btn { background: rgba(15,15,15,0.55); border-color: rgba(255,255,255,0.08); }
+        #pika-avatar-btn:active { transform: scale(0.94); }
+        #pika-avatar-ring { position: absolute; inset: -6px; border-radius: 9999px; border: 2px dashed rgba(255,213,62,0.55); opacity: 0; transition: opacity .3s ease; pointer-events: none; }
+        #pika-assistant-wrap.dragging #pika-avatar-ring { opacity: 1; animation: spin 6s linear infinite; }
 
-        .editorial-a {
-            font-size: 32px;
-            font-weight: 500;
-            color: #222;
-            font-family: 'E1', 'B2', sans-serif;
-            line-height: 1.5;
-            word-break: break-word;
+        #pika-bubble {
+            position: absolute; max-width: 260px; min-width: 190px;
+            background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.7); border-radius: 22px; border-bottom-right-radius: 6px;
+            padding: 14px 16px 14px 16px; box-shadow: 0 20px 45px rgba(0,0,0,0.22);
+            opacity: 0; transform: translateY(10px) scale(0.9); transition: all .35s var(--transition-bounce); pointer-events: none;
+            z-index: 95;
         }
+        .dark #pika-bubble { background: rgba(20,20,20,0.9); border-color: rgba(255,255,255,0.08); }
+        #pika-bubble.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        #pika-bubble .pika-bubble-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #b8860b; background: rgba(255,213,62,0.18); padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; }
+        #pika-bubble p { font-size: 13.5px; line-height: 1.5; font-weight: 600; color: #334155; }
+        .dark #pika-bubble p { color: #e2e8f0; }
+        #pika-bubble-close { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 999px; background: #f1f5f9; color: #64748b; font-size: 11px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 2; }
+        .dark #pika-bubble-close { background: #27272a; color: #a1a1aa; }
+        #pika-mute-btn { position: absolute; bottom: -6px; left: -6px; width: 24px; height: 24px; border-radius: 999px; background: #fef9c3; color: #a16207; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); font-size: 12px; z-index: 2; }
+        .dark #pika-mute-btn { background: #3f3413; color: #fde047; }
+        #pika-mute-btn.muted { background: #e2e8f0; color: #64748b; }
+        .dark #pika-mute-btn.muted { background: #27272a; color: #71717a; }
     </style>
 </head>
 <body class="bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-100 h-screen w-screen flex relative selection:bg-brand-500 selection:text-white transition-colors duration-500">
+
+    <div id="pika-impact-flash"></div>
 
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div class="ambient-orb orb-1"></div>
@@ -297,7 +343,7 @@
 
     <!-- Ultra Premium Login Gateway -->
     <div id="login-gateway" class="fixed inset-0 z-[100] flex items-center justify-center transition-all duration-700 bg-white/40 dark:bg-[#030303]/60 backdrop-blur-[40px]">
-        
+
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] bg-brand-400/20 dark:bg-brand-500/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-blob"></div>
             <div class="absolute top-[30%] -right-[10%] w-[60vw] h-[60vw] bg-blue-400/20 dark:bg-blue-500/10 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-blob" style="animation-delay: 2s;"></div>
@@ -308,18 +354,37 @@
             Return to Portfolio
         </a>
 
-        <!-- Premium Login Card -->
         <div class="relative w-[90%] max-w-[440px] p-10 sm:p-12 rounded-[2.5rem] bg-white/70 dark:bg-[#0a0a0a]/80 backdrop-blur-3xl border border-white/60 dark:border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] modal-enter before:absolute before:inset-0 before:rounded-[2.5rem] before:border before:border-white/80 dark:before:border-white/5 before:pointer-events-none after:absolute after:inset-0 after:rounded-[2.5rem] after:shadow-[inset_0_1px_2px_rgba(255,255,255,0.6)] dark:after:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] after:pointer-events-none">
 
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-brand-500 to-transparent opacity-80"></div>
 
-            <div class="text-center mb-10 relative z-10">
-                <div class="w-20 h-20 bg-gradient-to-tr from-brand-500 via-teal-400 to-blue-500 rounded-[1.8rem] mx-auto flex items-center justify-center mb-6 shadow-[0_20px_40px_-10px_rgba(20,184,166,0.6)] transform rotate-3 hover:rotate-12 transition-all duration-500 relative group cursor-pointer">
-                    <div class="absolute inset-0 bg-white/20 rounded-[1.8rem] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i data-lucide="shield-check" class="w-10 h-10 text-white drop-shadow-md"></i>
+            <div class="text-center mb-6 relative z-10">
+                <div id="pika-login-stage">
+                    <div id="pika-login-speech"></div>
+                    <div id="login-guy" class="pika pika-neutral pika-blink-loop pika-cheek-idle-spark pika-blinker select-none" aria-hidden="true">
+                        <div class="pika-tail-wrap"><div class="pika-tail-base"></div><div class="pika-tail-bolt"></div></div>
+                        <div class="pika-ear pika-ear-l"><div class="pika-ear-base"></div><div class="pika-ear-inner"></div></div>
+                        <div class="pika-ear pika-ear-r"><div class="pika-ear-base"></div><div class="pika-ear-inner"></div></div>
+                        <div class="pika-body">
+                            <div class="pika-belly"></div>
+                            <div class="pika-face">
+                                <div class="pika-brow pika-brow-l"></div>
+                                <div class="pika-brow pika-brow-r"></div>
+                                <div class="pika-eye pika-eye-l"><div class="pika-pupil pika-eye-shine"></div></div>
+                                <div class="pika-eye pika-eye-r"><div class="pika-pupil pika-eye-shine"></div></div>
+                                <div class="pika-cheek pika-cheek-l"></div>
+                                <div class="pika-cheek pika-cheek-r"></div>
+                                <div class="pika-nose"></div>
+                                <div class="pika-mouth"></div>
+                            </div>
+                            <div class="pika-paw pika-paw-l"></div>
+                            <div class="pika-paw pika-paw-r"></div>
+                        </div>
+                        <div class="pika-spark-field" id="pika-login-sparks"></div>
+                    </div>
                 </div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-800 dark:text-white mb-2 tracking-tight heading-text">Admin Panel</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Secure System Login</p>
+                <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Secure System Login — guarded by Pikachu ⚡</p>
             </div>
 
             <form id="login-form" onsubmit="handleLogin(event)" class="relative z-10">
@@ -333,7 +398,7 @@
                 </div>
                 <div id="login-error" class="hidden-safely mb-6 p-4 rounded-2xl bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400 text-sm flex items-center gap-3 backdrop-blur-md">
                     <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i>
-                    <span class="font-medium">Invalid Email or Password!</span>
+                    <span class="font-medium">Invalid Email or Password! Pikachu used Iron Tail!</span>
                 </div>
                 <button type="submit" id="login-btn" class="w-full py-4 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-lg shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)] dark:shadow-[0_10px_30px_-10px_rgba(255,255,255,0.3)] transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] dark:hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.5)] active:scale-95 flex items-center justify-center gap-2 relative overflow-hidden group heading-text">
                     <span id="login-btn-text">Authenticate</span>
@@ -361,35 +426,33 @@
             <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2 relative scroll-smooth" id="nav-links"></nav>
         </aside>
 
-        <!-- Deep black overlay fade -->
         <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/70 dark:bg-black/80 z-30 hidden-safely md:hidden backdrop-blur-sm transition-opacity duration-300 opacity-0"></div>
 
         <main class="flex-1 flex flex-col h-full min-w-0 relative">
             <header class="h-20 glass-panel border-b border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between px-4 sm:px-6 z-20 flex-shrink-0">
-                <div class="flex items-center gap-3 sm:gap-4">
+                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
                     <button onclick="toggleSidebar()" class="md:hidden p-2.5 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 active:scale-95">
                         <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
-                    <div>
-                        <h2 id="current-category-title" class="text-lg sm:text-2xl font-bold text-slate-800 dark:text-white leading-tight heading-text">Overview</h2>
-                        <p id="current-category-desc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">Your complete portfolio management</p>
+                    <div class="min-w-0">
+                        <h2 id="current-category-title" class="text-lg sm:text-2xl font-bold text-slate-800 dark:text-white leading-tight heading-text truncate">Overview</h2>
+                        <p id="current-category-desc" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5 truncate">Your complete portfolio management</p>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 sm:gap-3" id="top-action-buttons">
-                    <!-- Discord Link Button -->
+                <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0" id="top-action-buttons">
                     <button onclick="window.open(atob('aHR0cHM6Ly9kaXNjb3JkLmdnL0dISzd1a01xOE4='), '_blank')" class="w-10 h-10 sm:w-11 sm:h-11 flex flex-shrink-0 items-center justify-center rounded-xl bg-[#5865F2]/10 border border-[#5865F2]/20 hover:bg-[#5865F2]/20 text-[#5865F2] transition-all shadow-sm active:scale-95 group" title="Join Discord">
                         <i data-lucide="message-square-plus" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
                     </button>
 
-                    <button onclick="switchCategory('ngl')" class="flex-shrink-0 relative flex items-center justify-center w-10 h-10 sm:w-auto sm:h-auto sm:px-5 sm:py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-pink-400 dark:hover:border-pink-500 text-slate-700 dark:text-slate-200 font-semibold transition-all shadow-sm group">
+                    <button onclick="switchCategory('ngl')" class="flex-shrink-0 relative flex items-center justify-center w-10 h-10 sm:w-auto sm:h-auto sm:px-5 sm:py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-pink-400 dark:hover:border-pink-500 text-slate-700 dark:text-slate-200 font-semibold transition-all shadow-sm group overflow-visible">
                         <i data-lucide="mail" class="w-5 h-5 sm:mr-2 flex-shrink-0 group-hover:-translate-y-1 transition-transform text-slate-500 dark:text-slate-400 group-hover:text-pink-500"></i>
                         <span class="hidden sm:inline">NGL Messages</span>
-                        <span id="global-unread-badge" class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-md hidden">0</span>
+                        <span id="global-unread-badge" class="absolute -top-1.5 -right-1.5 z-10 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-md hidden ring-2 ring-white dark:ring-[#0a0a0a]">0</span>
                     </button>
-                    
+
                     <div class="w-px h-8 bg-slate-200 dark:bg-slate-700 mx-1 hidden sm:block"></div>
-                    
+
                     <button onclick="toggleDarkMode()" class="w-10 h-10 sm:w-11 sm:h-11 flex flex-shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 text-slate-600 dark:text-slate-300 transition-all shadow-sm active:scale-95">
                         <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
                         <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
@@ -403,7 +466,6 @@
             <div class="flex-1 overflow-hidden relative z-10">
                 <div class="h-full overflow-y-auto p-4 sm:p-8 scroll-smooth" id="scroll-container">
 
-                    <!-- Home & Vitals -->
                     <div id="overview-section" class="hidden-safely mb-10"><div id="overview-stats"></div></div>
                     <div id="vitals-section" class="hidden-safely mb-8 glass-card p-6 sm:p-8 rounded-3xl">
                         <div class="flex items-center justify-between gap-3 mb-6">
@@ -415,7 +477,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                             <div class="login-input-group !mb-0">
                                 <input type="number" step="0.1" id="vital_hl" class="login-input-field" placeholder=" " onchange="updateVitals()">
@@ -429,15 +491,14 @@
                                 <input type="number" id="vital_td" class="login-input-field" placeholder=" " onchange="updateVitals()">
                                 <label class="login-input-label">Total Donations</label>
                             </div>
-                            <div class="login-input-group !mb-0 relative">
-                                <button onclick="clearCS()" class="absolute -top-6 right-0 text-[11px] font-bold text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-500/10 px-2 py-0.5 rounded cursor-pointer z-10 transition-colors">Clear</button>
+                            <div class="login-input-group !mb-0 relative pt-5">
+                                <button onclick="clearCS()" class="absolute top-0 right-0 text-[11px] font-bold text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-500/10 px-2 py-0.5 rounded cursor-pointer z-10 transition-colors">Clear</button>
                                 <input type="text" id="vital_cs" class="login-input-field" placeholder=" " onchange="updateVitals()">
                                 <label class="login-input-label">Current Study / Work</label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Portfolio Items List -->
                     <div id="list-section" class="hidden-safely">
                         <div id="list-header" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                             <div class="inline-flex items-center px-4 py-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-md">
@@ -461,10 +522,9 @@
                         <div id="data-list" class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 pb-24"></div>
                     </div>
 
-                    <!-- NGL Section -->
                     <div id="ngl-section" class="hidden-safely pb-24">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-3 flex-wrap">
                                 <div class="inline-flex items-center px-4 py-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-md shadow-sm">
                                     <div class="w-2 h-2 rounded-full bg-pink-500 mr-2 animate-pulse"></div>
                                     <span class="text-sm font-bold text-slate-600 dark:text-slate-300 tracking-wide" id="ngl-unread-count">Unread: 0</span>
@@ -490,16 +550,13 @@
         </main>
     </div>
 
-    <!-- Custom Universal Confirm Modal -->
     <div id="custom-confirm-overlay" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md z-[250] hidden-safely flex items-center justify-center p-4 transition-opacity duration-300 opacity-0">
         <div id="custom-confirm-modal" class="glass-panel w-full max-w-sm rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-300 p-6">
             <div class="flex items-center gap-4 mb-4">
                 <div id="custom-confirm-icon-bg" class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-colors">
                     <i id="custom-confirm-icon" data-lucide="alert-triangle" class="w-6 h-6"></i>
                 </div>
-                <div>
-                    <h3 id="custom-confirm-title" class="text-xl font-bold text-slate-800 dark:text-white heading-text">Confirm Action</h3>
-                </div>
+                <div><h3 id="custom-confirm-title" class="text-xl font-bold text-slate-800 dark:text-white heading-text">Confirm Action</h3></div>
             </div>
             <p id="custom-confirm-message" class="text-slate-600 dark:text-slate-300 font-medium mb-6 leading-relaxed font-sans"></p>
             <div class="flex items-center justify-end gap-3">
@@ -509,7 +566,6 @@
         </div>
     </div>
 
-    <!-- Modals (Data Form) -->
     <div id="form-modal-overlay" class="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-md z-[60] hidden-safely flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
         <div id="form-modal" class="glass-panel w-full max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-500 var(--transition-bounce)">
             <div class="flex items-center justify-between px-8 py-6 border-b border-slate-200/50 dark:border-white/10">
@@ -524,7 +580,6 @@
         </div>
     </div>
 
-    <!-- FULL DATA MODAL (NGL) -->
     <div id="ngl-data-modal-overlay" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-xl z-[80] hidden-safely flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0" onclick="closeNGLDataModal()">
         <div id="ngl-data-modal" class="glass-panel w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col transform scale-95 transition-all duration-500 overflow-hidden relative" onclick="event.stopPropagation()">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
@@ -554,7 +609,6 @@
         </div>
     </div>
 
-    <!-- REACTION SELECTOR MODAL -->
     <div id="reaction-modal-overlay" class="fixed inset-0 z-[100] hidden-safely flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeReactionModal()">
         <div id="reaction-modal" class="bg-white dark:bg-slate-800 rounded-[2rem] p-6 shadow-[0_30px_60px_rgba(0,0,0,0.3)] transform scale-95 transition-all duration-300 border border-slate-200 dark:border-slate-700" onclick="event.stopPropagation()">
             <h3 class="text-center font-bold text-slate-400 text-sm uppercase tracking-widest mb-5">Select Reaction</h3>
@@ -563,6 +617,39 @@
     </div>
 
     <div id="toast-container" class="fixed bottom-6 sm:bottom-auto sm:top-6 right-6 z-[200] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- DASHBOARD PIKACHU ASSISTANT (draggable anywhere) -->
+    <div id="dashboard-guide">
+        <div id="pika-assistant-wrap" style="right: 24px; bottom: 24px;">
+            <div id="pika-bubble">
+                <button id="pika-bubble-close" onclick="pikaCloseBubble(event)">✕</button>
+                <button id="pika-mute-btn" onclick="pikaToggleMute(event)" title="Toggle tips">🔔</button>
+                <span class="pika-bubble-tag">⚡ Pika tip</span>
+                <p id="pika-bubble-text"></p>
+            </div>
+            <button id="pika-avatar-btn" aria-label="Pikachu assistant" title="Drag me anywhere! Click for a tip.">
+                <div id="pika-avatar-ring"></div>
+                <div id="guide-guy" class="pika pika-happy pika-blink-loop pika-cheek-idle-spark select-none" aria-hidden="true">
+                    <div class="pika-tail-wrap"><div class="pika-tail-base"></div><div class="pika-tail-bolt"></div></div>
+                    <div class="pika-ear pika-ear-l"><div class="pika-ear-base"></div><div class="pika-ear-inner"></div></div>
+                    <div class="pika-ear pika-ear-r"><div class="pika-ear-base"></div><div class="pika-ear-inner"></div></div>
+                    <div class="pika-body">
+                        <div class="pika-belly"></div>
+                        <div class="pika-face">
+                            <div class="pika-brow pika-brow-l"></div>
+                            <div class="pika-brow pika-brow-r"></div>
+                            <div class="pika-eye pika-eye-l"></div>
+                            <div class="pika-eye pika-eye-r"></div>
+                            <div class="pika-cheek pika-cheek-l"></div>
+                            <div class="pika-cheek pika-cheek-r"></div>
+                            <div class="pika-nose"></div>
+                            <div class="pika-mouth"></div>
+                        </div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
 
     <div id="export-studio"></div>
 
@@ -580,15 +667,14 @@
             const actionBtn = document.getElementById('custom-confirm-action');
             const iconBg = document.getElementById('custom-confirm-icon-bg');
             const icon = document.getElementById('custom-confirm-icon');
-            
+
             titleEl.innerHTML = wrapText(title, true);
             messageEl.innerHTML = wrapText(message, false);
             actionBtn.innerText = actionText;
-            
-            // Reset dynamic classes
+
             actionBtn.className = "px-5 py-2.5 rounded-xl text-white font-bold transition-all shadow-md active:scale-95 ";
             iconBg.className = "w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ";
-            
+
             if (type === 'danger') {
                 actionBtn.classList.add('bg-red-500', 'hover:bg-red-600', 'shadow-red-500/20');
                 iconBg.classList.add('bg-red-100', 'dark:bg-red-500/20', 'text-red-500');
@@ -602,10 +688,10 @@
                 iconBg.classList.add('bg-brand-100', 'dark:bg-brand-500/20', 'text-brand-500');
                 icon.setAttribute('data-lucide', 'info');
             }
-            
+
             lucide.createIcons();
             confirmActionCallback = onConfirm;
-            
+
             overlay.classList.remove('hidden-safely');
             requestAnimationFrame(() => {
                 overlay.classList.remove('opacity-0');
@@ -624,10 +710,7 @@
             const modal = document.getElementById('custom-confirm-modal');
             overlay.classList.add('opacity-0');
             modal.classList.add('scale-95');
-            setTimeout(() => {
-                overlay.classList.add('hidden-safely');
-                confirmActionCallback = null;
-            }, 300);
+            setTimeout(() => { overlay.classList.add('hidden-safely'); confirmActionCallback = null; }, 300);
         }
 
         /* -------------------------------------------------------------------------- */
@@ -640,14 +723,10 @@
         let SYSTEM_DATA = {
             projects: [], notices: [],
             debate: { experience: [], achievements: [] },
-            politics: [],
-            academic: [],
+            politics: [], academic: [],
             hl: '', ld: '', cs: '', td: 8
         };
 
-        /* -------------------------------------------------------------------------- */
-        /* LANGUAGE DETECTOR & DYNAMIC FONT WRAPPER                                  */
-        /* -------------------------------------------------------------------------- */
         function wrapText(text, isHeading = false) {
             if (text === undefined || text === null) return '';
             const str = String(text);
@@ -656,12 +735,303 @@
             return `<span style="font-family: '${font}', sans-serif !important;">${escapeHtml(str)}</span>`;
         }
 
+        /* ============================================================================ */
+        /* PIKACHU ENGINE — expressions, audio chirps, attacks, drag & drop, tips       */
+        /* ============================================================================ */
+        const PikaAudio = (() => {
+            let ctx = null;
+            function getCtx() { if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { ctx = null; } } return ctx; }
+            function tone(freq, dur, type='sine', delay=0, vol=0.06) {
+                const c = getCtx(); if (!c) return;
+                const t0 = c.currentTime + delay;
+                const osc = c.createOscillator(); const gain = c.createGain();
+                osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+                gain.gain.setValueAtTime(0.0001, t0);
+                gain.gain.exponentialRampToValueAtTime(vol, t0 + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+                osc.connect(gain); gain.connect(c.destination);
+                osc.start(t0); osc.stop(t0 + dur + 0.02);
+            }
+            return {
+                chirpHappy() { tone(880, 0.12, 'triangle', 0, 0.08); tone(1174, 0.16, 'triangle', 0.1, 0.07); tone(1568, 0.2, 'triangle', 0.22, 0.06); },
+                buzzAngry() { tone(140, 0.18, 'sawtooth', 0, 0.05); tone(90, 0.28, 'sawtooth', 0.05, 0.05); },
+                click() { tone(660, 0.05, 'sine', 0, 0.03); }
+            };
+        })();
+
+        function pikaSetMood(root, mood) {
+            if (!root) return;
+            root.classList.remove('pika-happy', 'pika-angry', 'pika-neutral');
+            root.classList.add('pika-' + mood);
+        }
+        function pikaTrackEyes(root, value, maxLen = 24) {
+            if (!root) return;
+            const percent = Math.min(value.length / maxLen, 1);
+            const shift = (percent - 0.5) * 10;
+            root.querySelectorAll('.pika-eye').forEach(e => { e.style.transform = `translateX(${shift}px)`; });
+        }
+        function pikaCoverEyes(root) { if (root) root.classList.add('pika-covering'); }
+        function pikaUncoverEyes(root) { if (root) root.classList.remove('pika-covering'); }
+
+        function pikaSpawnSparks(container, count = 14) {
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const s = document.createElement('div');
+                s.className = 'pika-spark';
+                const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+                const dist = 70 + Math.random() * 70;
+                s.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
+                s.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
+                s.style.animationDelay = `${Math.random() * 0.15}s`;
+                container.appendChild(s);
+            }
+            setTimeout(() => { container.innerHTML = ''; }, 1100);
+        }
+
+        function triggerPikaIronTail(root) {
+            if (!root) return;
+            pikaSetMood(root, 'angry');
+            root.classList.add('pika-attack');
+            PikaAudio.buzzAngry();
+            const flash = document.getElementById('pika-impact-flash');
+            flash.classList.remove('flash'); void flash.offsetWidth; flash.classList.add('flash');
+            setTimeout(() => { root.classList.remove('pika-attack'); pikaSetMood(root, 'neutral'); }, 1800);
+        }
+
+        function triggerPikaThunderbolt(root, sparkFieldId) {
+            if (!root) return;
+            pikaSetMood(root, 'happy');
+            PikaAudio.chirpHappy();
+            const field = document.getElementById(sparkFieldId);
+            pikaSpawnSparks(field, 16);
+        }
+
+        function pikaShowLoginSpeech(text, kind) {
+            const el = document.getElementById('pika-login-speech');
+            el.textContent = text;
+            el.className = 'show' + (kind ? ' ' + kind : '');
+            clearTimeout(window._pikaLoginSpeechTimer);
+            window._pikaLoginSpeechTimer = setTimeout(() => { el.classList.remove('show'); }, kind === 'win' ? 3200 : 2600);
+        }
+
+        function initLoginGuyEvents() {
+            const loginGuy = document.getElementById('login-guy');
+            const userInput = document.getElementById('auth-user');
+            const passInput = document.getElementById('auth-pass');
+            if (!loginGuy || !userInput || !passInput) return;
+
+            userInput.addEventListener('focus', () => pikaShowLoginSpeech("What's your email? 👀", null));
+            userInput.addEventListener('input', (e) => {
+                pikaSetMood(loginGuy, 'neutral');
+                pikaTrackEyes(loginGuy, e.target.value);
+            });
+
+            passInput.addEventListener('focus', () => { pikaCoverEyes(loginGuy); pikaShowLoginSpeech("No peeking, I promise! 🙈", null); });
+            passInput.addEventListener('blur', () => pikaUncoverEyes(loginGuy));
+            passInput.addEventListener('input', () => pikaSetMood(loginGuy, 'neutral'));
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* PIKA DASHBOARD TIPS — richer, contextual, and rotating                     */
+        /* -------------------------------------------------------------------------- */
+        const PIKA_TIPS = {
+            home: [
+                "Welcome back! This is your overview — tap any glowing card to jump straight into that section.",
+                "Everything you manage lives here: projects, notices, records and messages, all in one glance.",
+                "Pro tip: the numbers on each card update live from your database, so this page is always fresh."
+            ],
+            ngl: [
+                "These are your anonymous NGL messages. Tap the heart-shaped button to react, or the pencil to reply.",
+                "Red dot = unread, blue dot = already replied. Sync pulls in anything new from the server.",
+                "Select up to 6 messages and hit Batch Export to turn them into a shareable editorial-style image."
+            ],
+            notices: [
+                "Manage the popup notices shown on your public site from here — set a start and close time for each.",
+                "Toggle 'Permanent' to keep a notice visible forever, or 'Yearly Repeating' for anniversary-style banners."
+            ],
+            projects: [
+                "Showcase your work — add a project with a name, description, dates and a cover image URL.",
+                "Leave the end date on 'Present' for anything you're still actively building."
+            ],
+            debate_exp: ["List the roles and positions you've held in debate organizations, with a clean timeline."],
+            debate_ach: ["Log your tournament wins and achievements here — they'll show up in your stats too."],
+            pol_pos: ["Track your political positions and organizational roles, past and current."],
+            academic: [
+                "Keep your academic records — results, institutions and years — up to date here.",
+                "Tick 'Currently Studying' instead of an end year if you haven't graduated yet."
+            ],
+            vitals: [
+                "Update your health & personal vitals like hemoglobin level and blood donation history.",
+                "This section is only editable by you — visitors see a read-only view."
+            ]
+        };
+        const PIKA_MOTIVATION = [
+            "Small updates add up — even one saved record today is real progress! ⚡",
+            "You're doing great keeping this dashboard tidy. Keep going!",
+            "Pika pika! Remember to take a short break every once in a while.",
+            "Every project you log here is proof of how far you've come.",
+            "I've got your back — ping me anytime you need a reminder of what a section does.",
+            "Consistency beats intensity. A little bit today is better than a lot never."
+        ];
+
+        // Cycling, non-repeating tip picker: each click on Pikachu (for the SAME
+        // category/page) always surfaces a tip you haven't just seen. Once every
+        // tip for that category has been shown, the deck is reshuffled.
+        const pikaTipDecks = {};
+        function pikaPickMessage(catId) {
+            const list = PIKA_TIPS[catId] || ["Let me know if you need help getting around!"];
+            if (!pikaTipDecks[catId] || pikaTipDecks[catId].length === 0) {
+                const deck = list.map((_, i) => i);
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
+                pikaTipDecks[catId] = deck;
+            }
+            const nextIndex = pikaTipDecks[catId].shift();
+            return list[nextIndex];
+        }
+
+        function pikaShowBubble(text, tag) {
+            const bubble = document.getElementById('pika-bubble');
+            const textEl = document.getElementById('pika-bubble-text');
+            const tagEl = bubble.querySelector('.pika-bubble-tag');
+            textEl.innerHTML = wrapText(text, false);
+            if (tag) tagEl.innerHTML = tag;
+            pikaPositionBubble();
+            bubble.classList.add('show');
+            clearTimeout(window._pikaBubbleTimer);
+            window._pikaBubbleTimer = setTimeout(() => bubble.classList.remove('show'), 7000);
+        }
+
+        function updateGuide(catId) {
+            if (localStorage.getItem('pikaMuted') === '1') return;
+            pikaShowBubble(pikaPickMessage(catId), '⚡ Pika tip');
+        }
+
+        function pikaCloseBubble(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('pika-bubble').classList.remove('show');
+        }
+
+        function pikaToggleMute(e) {
+            if (e) e.stopPropagation();
+            const btn = document.getElementById('pika-mute-btn');
+            const muted = localStorage.getItem('pikaMuted') === '1';
+            if (muted) { localStorage.removeItem('pikaMuted'); btn.classList.remove('muted'); btn.innerText = '🔔'; showToast('Pikachu tips turned on', 'success'); }
+            else { localStorage.setItem('pikaMuted', '1'); btn.classList.add('muted'); btn.innerText = '🔕'; showToast('Pikachu tips muted', 'info'); }
+        }
+
+        function toggleGuideBubble() {
+            const bubble = document.getElementById('pika-bubble');
+            if (bubble.classList.contains('show')) { pikaCloseBubble(); return; }
+            pikaShowBubble(pikaPickMessage(currentCategory), '⚡ Pika tip');
+            PikaAudio.click();
+        }
+
+        /* ---- draggable positioning, clamped to viewport, persisted ---- */
+        function pikaPositionBubble() {
+            const wrap = document.getElementById('pika-assistant-wrap');
+            const bubble = document.getElementById('pika-bubble');
+            if (!wrap || !bubble) return;
+            const rect = wrap.getBoundingClientRect();
+            const onLeftHalf = rect.left < window.innerWidth / 2;
+            const onTopHalf = rect.top < window.innerHeight / 2;
+            bubble.style.left = onLeftHalf ? '0' : 'auto';
+            bubble.style.right = onLeftHalf ? 'auto' : '0';
+            bubble.style.bottom = onTopHalf ? 'auto' : '100%';
+            bubble.style.top = onTopHalf ? '100%' : 'auto';
+            bubble.style.marginTop = onTopHalf ? '12px' : '0';
+            bubble.style.marginBottom = onTopHalf ? '0' : '12px';
+        }
+
+        function initPikaDrag() {
+            const wrap = document.getElementById('pika-assistant-wrap');
+            const btn = document.getElementById('pika-avatar-btn');
+            if (!wrap || !btn) return;
+
+            const saved = JSON.parse(localStorage.getItem('pikaAssistantPos') || 'null');
+            if (saved) {
+                wrap.style.left = saved.left; wrap.style.top = saved.top;
+                wrap.style.right = 'auto'; wrap.style.bottom = 'auto';
+            }
+            pikaClampToViewport();
+
+            let dragging = false, moved = false, startX = 0, startY = 0, originLeft = 0, originTop = 0;
+
+            function pointerDown(e) {
+                dragging = true; moved = false;
+                const p = e.touches ? e.touches[0] : e;
+                startX = p.clientX; startY = p.clientY;
+                const rect = wrap.getBoundingClientRect();
+                originLeft = rect.left; originTop = rect.top;
+                wrap.classList.add('dragging');
+                document.addEventListener('mousemove', pointerMove);
+                document.addEventListener('mouseup', pointerUp);
+                document.addEventListener('touchmove', pointerMove, { passive: false });
+                document.addEventListener('touchend', pointerUp);
+            }
+            function pointerMove(e) {
+                if (!dragging) return;
+                if (e.cancelable) e.preventDefault();
+                const p = e.touches ? e.touches[0] : e;
+                const dx = p.clientX - startX; const dy = p.clientY - startY;
+                if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+                let newLeft = originLeft + dx; let newTop = originTop + dy;
+                wrap.style.right = 'auto'; wrap.style.bottom = 'auto';
+                wrap.style.left = newLeft + 'px'; wrap.style.top = newTop + 'px';
+            }
+            function pointerUp() {
+                dragging = false;
+                wrap.classList.remove('dragging');
+                document.removeEventListener('mousemove', pointerMove);
+                document.removeEventListener('mouseup', pointerUp);
+                document.removeEventListener('touchmove', pointerMove);
+                document.removeEventListener('touchend', pointerUp);
+                pikaClampToViewport();
+                localStorage.setItem('pikaAssistantPos', JSON.stringify({ left: wrap.style.left, top: wrap.style.top }));
+                if (!moved) toggleGuideBubble();
+                else pikaPositionBubble();
+            }
+
+            btn.addEventListener('mousedown', pointerDown);
+            btn.addEventListener('touchstart', pointerDown, { passive: true });
+            window.addEventListener('resize', pikaClampToViewport);
+
+            if (localStorage.getItem('pikaMuted') === '1') {
+                document.getElementById('pika-mute-btn').classList.add('muted');
+                document.getElementById('pika-mute-btn').innerText = '🔕';
+            }
+        }
+
+        function pikaClampToViewport() {
+            const wrap = document.getElementById('pika-assistant-wrap');
+            if (!wrap) return;
+            const rect = wrap.getBoundingClientRect();
+            const margin = 8;
+            let left = rect.left, top = rect.top;
+            left = Math.min(Math.max(left, margin), window.innerWidth - rect.width - margin);
+            top = Math.min(Math.max(top, margin), window.innerHeight - rect.height - margin);
+            if (wrap.style.left) { wrap.style.left = left + 'px'; wrap.style.top = top + 'px'; }
+        }
+
+        function pikaStartMotivationLoop() {
+            clearInterval(window._pikaMotivationTimer);
+            window._pikaMotivationTimer = setInterval(() => {
+                if (localStorage.getItem('pikaMuted') === '1') return;
+                if (document.getElementById('pika-bubble').classList.contains('show')) return;
+                if (document.hidden) return;
+                const msg = PIKA_MOTIVATION[Math.floor(Math.random() * PIKA_MOTIVATION.length)];
+                pikaShowBubble(msg, '⚡ Pika says');
+            }, 90000);
+        }
+
         document.addEventListener('input', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
                 const val = e.target.value;
-                if (/[\u0980-\u09FF]/.test(val)) {
-                    e.target.style.setProperty('font-family', "'B2', sans-serif", 'important');
-                } else {
+                if (/[\u0980-\u09FF]/.test(val)) e.target.style.setProperty('font-family', "'B2', sans-serif", 'important');
+                else {
                     const isHeading = e.target.classList.contains('heading-text') || e.target.id === 'input_work';
                     e.target.style.setProperty('font-family', isHeading ? "'E2', 'B2', sans-serif" : "'E1', 'B2', sans-serif", 'important');
                 }
@@ -679,33 +1049,18 @@
                     sbClient.from('notice').select('*').order('id', { ascending: false })
                 ]);
 
-                if (vitals.data) {
-                    SYSTEM_DATA.hl = vitals.data.hl;
-                    SYSTEM_DATA.ld = vitals.data.ld;
-                    SYSTEM_DATA.cs = vitals.data.cs;
-                    SYSTEM_DATA.td = vitals.data.td;
-                }
+                if (vitals.data) { SYSTEM_DATA.hl = vitals.data.hl; SYSTEM_DATA.ld = vitals.data.ld; SYSTEM_DATA.cs = vitals.data.cs; SYSTEM_DATA.td = vitals.data.td; }
 
-                SYSTEM_DATA.projects = (projects.data || []).map(row => ({
-                    id: row.id, work: row.work, desc: row.description, st: row.st, en: row.en,
-                    pc: row.pc, link: row.link
-                }));
-
+                SYSTEM_DATA.projects = (projects.data || []).map(row => ({ id: row.id, work: row.work, desc: row.description, st: row.st, en: row.en, pc: row.pc, link: row.link }));
                 SYSTEM_DATA.notices = noticesFetch.data || [];
 
                 SYSTEM_DATA.debate = { experience: [], achievements: [] };
                 (debate.data || []).forEach(row => {
-                    if (row.category === 'experience') {
-                        SYSTEM_DATA.debate.experience.push({ id: row.id, post: row.title, cl: row.org, st: row.st, en: row.en });
-                    } else {
-                        SYSTEM_DATA.debate.achievements.push({ id: row.id, ach: row.title, tn: row.org, date: row.st });
-                    }
+                    if (row.category === 'experience') SYSTEM_DATA.debate.experience.push({ id: row.id, post: row.title, cl: row.org, st: row.st, en: row.en });
+                    else SYSTEM_DATA.debate.achievements.push({ id: row.id, ach: row.title, tn: row.org, date: row.st });
                 });
 
-                SYSTEM_DATA.politics = (politics.data || []).map(row => ({
-                    id: row.id, post: row.post, org: row.org, st: row.st, en: row.en
-                }));
-
+                SYSTEM_DATA.politics = (politics.data || []).map(row => ({ id: row.id, post: row.post, org: row.org, st: row.st, en: row.en }));
                 SYSTEM_DATA.academic = (academic.data || []).map(row => ({
                     id: row.id, level: row.level, institution_name: row.institution_name, department: row.department,
                     board: row.board, exam_year: row.exam_year, result_type: row.result_type, result_value: row.result_value,
@@ -722,11 +1077,9 @@
                     }
                     else if (currentCategory !== 'ngl') renderDataList();
                 }
-            } catch (err) {
-                console.error("Supabase fetch error:", err);
-            }
+            } catch (err) { console.error("Supabase fetch error:", err); }
         }
-        
+
         fetchAllData();
 
         /* -------------------------------------------------------------------------- */
@@ -738,6 +1091,7 @@
             const btnIcon = document.getElementById('login-btn-icon');
             const loader = document.getElementById('login-btn-loader');
             const errorBox = document.getElementById('login-error');
+            const loginGuy = document.getElementById('login-guy');
 
             const user = document.getElementById('auth-user').value;
             const pass = document.getElementById('auth-pass').value;
@@ -746,6 +1100,9 @@
             btnIcon.classList.add('hidden-safely');
             loader.classList.remove('hidden-safely');
             errorBox.classList.add('hidden-safely');
+            pikaUncoverEyes(loginGuy);
+            pikaSetMood(loginGuy, 'neutral');
+            pikaShowLoginSpeech("Checking... ⚡", null);
 
             let success = false;
             if ((user === "Istiack" || user === "istiack") && pass === "istiack29") {
@@ -756,11 +1113,14 @@
             }
 
             if (success) {
+                triggerPikaThunderbolt(loginGuy, 'pika-login-sparks');
+                pikaShowLoginSpeech("Welcome Pika Pika!!! ⚡🎉", 'win');
                 sessionStorage.setItem('auth_session', 'active');
                 document.documentElement.classList.add('session-active');
-                launchDashboard();
-                showToast('Logged in successfully! Welcome.', 'success');
+                setTimeout(() => { launchDashboard(); showToast('Logged in successfully! Welcome.', 'success'); }, 950);
             } else {
+                triggerPikaIronTail(loginGuy);
+                pikaShowLoginSpeech("Nope! Iron Tail says try again!", 'err');
                 btnText.classList.remove('hidden-safely');
                 btnIcon.classList.remove('hidden-safely');
                 loader.classList.add('hidden-safely');
@@ -786,15 +1146,12 @@
             loginScreen.classList.remove('modal-enter');
             loginScreen.classList.add('opacity-0', 'scale-105');
             loginScreen.style.pointerEvents = 'none';
-            setTimeout(() => {
-                loginScreen.classList.add('hidden-safely');
-                appWrapper.classList.remove('opacity-0', 'pointer-events-none');
-                initializeApp();
-            }, 500);
+            setTimeout(() => { loginScreen.classList.add('hidden-safely'); appWrapper.classList.remove('opacity-0', 'pointer-events-none'); initializeApp(); }, 500);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            initLoginGuyEvents();
             if (sessionStorage.getItem('auth_session') === 'active' || sessionStorage.getItem('auth_session') === 'read_only') initializeApp();
         });
 
@@ -807,10 +1164,7 @@
             toast.innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i><span class="font-bold text-sm">${wrapText(msg)}</span>`;
             container.appendChild(toast);
             lucide.createIcons();
-            setTimeout(() => {
-                toast.classList.replace('toast-enter', 'toast-leave');
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
+            setTimeout(() => { toast.classList.replace('toast-enter', 'toast-leave'); setTimeout(() => toast.remove(), 400); }, 3000);
         }
 
         function toggleSidebar() {
@@ -828,22 +1182,17 @@
         }
 
         function checkDarkMode() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
         }
-
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
             localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
         }
-
         function escapeHtml(str) {
             if (!str) return '';
             if (typeof str !== 'string') return String(str);
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&quot;').replace(/'/g, '&#039;');
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#039;');
         }
 
         /* -------------------------------------------------------------------------- */
@@ -860,10 +1209,10 @@
             { id: 'academic', icon: 'graduation-cap', title: 'Academic Records', desc: 'Educational qualifications' },
             { id: 'vitals', icon: 'activity', title: 'Health & Vitals', desc: 'Hemoglobin, studies, and personal info' }
         ];
-        
+
         let currentCategory = 'home';
         let editingIndex = -1;
-        
+
         const SCHEMAS = {
             notices: [
                 { key: 'img', label: 'Image URL / Content', type: 'text', icon: 'image' },
@@ -872,11 +1221,11 @@
                 { key: 'ip', label: 'Permanent (Always Show)', type: 'checkbox', icon: 'pin' },
                 { key: 'iey', label: 'Yearly Repeating', type: 'checkbox', icon: 'repeat' }
             ],
-            projects: [ 
-                { key: 'work', label: 'Project Name', type: 'text', icon: 'heading' }, 
-                { key: 'desc', label: 'Description', type: 'textarea', icon: 'align-left' }, 
-                { key: 'st', label: 'Start Date', type: 'date', icon: 'calendar' }, 
-                { key: 'en', label: 'End Date', type: 'date-present', icon: 'calendar-check' }, 
+            projects: [
+                { key: 'work', label: 'Project Name', type: 'text', icon: 'heading' },
+                { key: 'desc', label: 'Description', type: 'textarea', icon: 'align-left' },
+                { key: 'st', label: 'Start Date', type: 'date', icon: 'calendar' },
+                { key: 'en', label: 'End Date', type: 'date-present', icon: 'calendar-check' },
                 { key: 'pc', label: 'Image URL', type: 'text', icon: 'image' },
                 { key: 'link', label: 'Project URL (Optional)', type: 'text', icon: 'link' }
             ],
@@ -902,7 +1251,9 @@
             renderSidebar();
             checkDarkMode();
             switchCategory('home');
-            
+            initPikaDrag();
+            pikaStartMotivationLoop();
+
             const isAdmin = sessionStorage.getItem('auth_session') === 'active';
             if (!isAdmin) {
                 document.getElementById('vital_hl').disabled = true;
@@ -919,10 +1270,10 @@
 
         function renderSidebar() {
             document.getElementById('nav-links').innerHTML = CATEGORIES.map((cat, idx) => `
-                <button onclick="switchCategory('${cat.id}')" 
+                <button onclick="switchCategory('${cat.id}')"
                         class="w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all font-bold text-left group
-                        ${currentCategory === cat.id 
-                            ? 'bg-gradient-to-r from-brand-500/10 to-transparent text-brand-600 dark:text-brand-400 border border-brand-500/20' 
+                        ${currentCategory === cat.id
+                            ? 'bg-gradient-to-r from-brand-500/10 to-transparent text-brand-600 dark:text-brand-400 border border-brand-500/20'
                             : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-white/5 border border-transparent'}
                         " style="animation: fadeInUp 0.4s ease-out ${idx * 0.05}s both;">
                     <div class="p-2 rounded-xl ${currentCategory === cat.id ? 'bg-brand-500 text-white shadow-md shadow-brand-500/30' : 'bg-slate-200/50 dark:bg-slate-800 text-slate-500 group-hover:text-slate-700 dark:group-hover:text-white transition-colors'}">
@@ -941,15 +1292,13 @@
             document.getElementById('current-category-title').innerHTML = wrapText(catInfo.title, true);
             document.getElementById('current-category-desc').innerHTML = wrapText(catInfo.desc, false);
 
-            ['vitals-section', 'overview-section', 'list-section', 'ngl-section'].forEach(id => {
-                document.getElementById(id).classList.add('hidden-safely');
-            });
+            ['vitals-section', 'overview-section', 'list-section', 'ngl-section'].forEach(id => document.getElementById(id).classList.add('hidden-safely'));
 
             if (catId === 'home') { document.getElementById('overview-section').classList.remove('hidden-safely'); renderDashboardHome(); }
-            else if (catId === 'vitals') { 
-                document.getElementById('vitals-section').classList.remove('hidden-safely'); 
-                document.getElementById('vital_hl').value = SYSTEM_DATA.hl || ''; 
-                document.getElementById('vital_ld').value = SYSTEM_DATA.ld || ''; 
+            else if (catId === 'vitals') {
+                document.getElementById('vitals-section').classList.remove('hidden-safely');
+                document.getElementById('vital_hl').value = SYSTEM_DATA.hl || '';
+                document.getElementById('vital_ld').value = SYSTEM_DATA.ld || '';
                 document.getElementById('vital_cs').value = SYSTEM_DATA.cs || '';
                 document.getElementById('vital_td').value = SYSTEM_DATA.td || 8;
             }
@@ -958,15 +1307,16 @@
 
             if(window.innerWidth < 1024 && !document.getElementById('sidebar').classList.contains('-translate-x-full')) toggleSidebar();
             document.getElementById('scroll-container').scrollTo({top: 0, behavior: 'smooth'});
+            updateGuide(catId);
         }
 
         function renderDashboardHome() {
-            const p = SYSTEM_DATA.projects || []; const ntc = SYSTEM_DATA.notices || []; 
-            const de = SYSTEM_DATA.debate?.experience || []; const da = SYSTEM_DATA.debate?.achievements || []; 
+            const p = SYSTEM_DATA.projects || []; const ntc = SYSTEM_DATA.notices || [];
+            const de = SYSTEM_DATA.debate?.experience || []; const da = SYSTEM_DATA.debate?.achievements || [];
             const pp = SYSTEM_DATA.politics || []; const nglCount = NGL_DB.data.length;
-            const ac = SYSTEM_DATA.academic || []; 
+            const ac = SYSTEM_DATA.academic || [];
             const hl = SYSTEM_DATA.hl || 'Not set'; const ld = SYSTEM_DATA.ld || 'Not set';
-            const cs = SYSTEM_DATA.cs || 'Not set'; 
+            const cs = SYSTEM_DATA.cs || 'Not set';
 
             let html = `
             <div onclick="switchCategory('vitals')" class="glass-card p-5 rounded-2xl mb-6 cursor-pointer hover:border-brand-500 transition-colors">
@@ -1009,88 +1359,41 @@
         }
 
         /* -------------------------------------------------------------------------- */
-        /* UPGRADED NGL SYSTEM & ENGINE (Discord Webhook + Batch Export)              */
+        /* NGL SYSTEM & ENGINE (Discord Webhook + Batch Export)                       */
         /* -------------------------------------------------------------------------- */
-        const NGL_CFG = {
-            API: "https://aqkeowuypcnavpuhyiuu.supabase.co/rest/v1/messages",
-            KEY: "sb_publishable_jyD9-9Mxi5kpfC6Ssibf2w_pclXZ04g",
-            MAX_EXPORT: 6 
-        };
-
+        const NGL_CFG = { API: "https://aqkeowuypcnavpuhyiuu.supabase.co/rest/v1/messages", KEY: "sb_publishable_jyD9-9Mxi5kpfC6Ssibf2w_pclXZ04g", MAX_EXPORT: 6 };
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1517539386043138252/o7mQ30AIKEcZCLzsqqenJAeV42sobDBqhUt7X0yRUg_tu80hxAvUUUY_fUlayaU-pXix";
-
         const NGL_DB = { data: [], selected: new Set() };
         const REACTIONS = { 1:'❤️', 2:'😕', 3:'🤨', 4:'😭', 5:'😡', 6:'😊', 7:'🔥', 8:'💀', 9:'😍', 10:'😎', 11:'🤯', 12:'😴' };
 
         const NGL_API = {
             headers: { "apikey": NGL_CFG.KEY, "Authorization": `Bearer ${NGL_CFG.KEY}`, "Content-Type": "application/json" },
-            get: async () => {
-                try { const res = await fetch(`${NGL_CFG.API}?select=*&order=created_at.desc`, { headers: NGL_API.headers }); return await res.json(); } catch(e) { return null; }
-            },
-            patch: async (id, data) => {
-                try { const res = await fetch(`${NGL_CFG.API}?id=eq.${id}`, { method: "PATCH", headers: NGL_API.headers, body: JSON.stringify(data) }); return res.ok; } catch(e) { return false; }
-            },
-            delete: async (id) => {
-                try { const res = await fetch(`${NGL_CFG.API}?id=eq.${id}`, { method: "DELETE", headers: NGL_API.headers }); return res.ok; } catch(e) { return false; }
-            }
+            get: async () => { try { const res = await fetch(`${NGL_CFG.API}?select=*&order=created_at.desc`, { headers: NGL_API.headers }); return await res.json(); } catch(e) { return null; } },
+            patch: async (id, data) => { try { const res = await fetch(`${NGL_CFG.API}?id=eq.${id}`, { method: "PATCH", headers: NGL_API.headers, body: JSON.stringify(data) }); return res.ok; } catch(e) { return false; } },
+            delete: async (id) => { try { const res = await fetch(`${NGL_CFG.API}?id=eq.${id}`, { method: "DELETE", headers: NGL_API.headers }); return res.ok; } catch(e) { return false; } }
         };
 
-        // DISCORD WEBHOOK LOGIC
         async function syncDiscordMessage(m, updatedReply) {
-            const embedColor = (updatedReply && updatedReply.trim() !== '') ? 4437377 : 7506394; // 43b581 (green), 7289da (purple)
+            const embedColor = (updatedReply && updatedReply.trim() !== '') ? 4437377 : 7506394;
             const replyText = (updatedReply && updatedReply.trim() !== '') ? updatedReply : "Not replied";
-
-            const payload = {
-                content: String(m.id),
-                embeds: [{
-                    title: "📩 New Message",
-                    description: `**মেসেজ-** ${m.message}\n**রিপ্লায়-** ${replyText}`,
-                    color: embedColor,
-                    footer: { text: String(m.id) }
-                }]
-            };
-
+            const payload = { content: String(m.id), embeds: [{ title: "📩 New Message", description: `**মেসেজ-** ${m.message}\n**রিপ্লায়-** ${replyText}`, color: embedColor, footer: { text: String(m.id) } }] };
             let msgId = m.discord_msg_id;
-            
             if (msgId) {
                 try {
-                    const res = await fetch(`${DISCORD_WEBHOOK_URL}/messages/${msgId}`, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (res.ok) return msgId; // Successfully updated
-                    // Fallback to CREATE if Discord returned 404 (message deleted in discord manually)
-                    if (res.status !== 404) return msgId; 
-                } catch (e) {
-                    console.error("Discord update error", e);
-                }
+                    const res = await fetch(`${DISCORD_WEBHOOK_URL}/messages/${msgId}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (res.ok) return msgId;
+                    if (res.status !== 404) return msgId;
+                } catch (e) { console.error("Discord update error", e); }
             }
-            
-            // Create a NEW Discord Message
             try {
-                const res = await fetch(`${DISCORD_WEBHOOK_URL}?wait=true`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    return data.id; // Return NEW ID generated by Discord
-                }
-            } catch (e) {
-                console.error("Discord create error", e);
-            }
-            return msgId; // Return whatever ID we had on failure
+                const res = await fetch(`${DISCORD_WEBHOOK_URL}?wait=true`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (res.ok) { const data = await res.json(); return data.id; }
+            } catch (e) { console.error("Discord create error", e); }
+            return msgId;
         }
-
         async function removeDiscordMessage(msgId) {
             if (!msgId) return;
-            try {
-                await fetch(`${DISCORD_WEBHOOK_URL}/messages/${msgId}`, { method: 'DELETE' });
-            } catch (e) {
-                console.error("Discord delete failed", e);
-            }
+            try { await fetch(`${DISCORD_WEBHOOK_URL}/messages/${msgId}`, { method: 'DELETE' }); } catch (e) { console.error("Discord delete failed", e); }
         }
 
         async function fetchNGLData(silent = false) {
@@ -1099,12 +1402,10 @@
                 NGL_DB.data = data;
                 const ids = NGL_DB.data.map(m=>m.id);
                 for(let id of NGL_DB.selected) if(!ids.includes(id)) NGL_DB.selected.delete(id);
-
                 let unread = NGL_DB.data.filter(m => !m.rep || m.rep.trim() === '').length;
                 const badge = document.getElementById('global-unread-badge');
                 if (unread > 0) { badge.innerText = unread; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
-
-                if(!silent && currentCategory === 'ngl') { renderNGLList(); showToast('NGL Sync Successful', 'success'); } 
+                if(!silent && currentCategory === 'ngl') { renderNGLList(); showToast('NGL Sync Successful', 'success'); }
                 else if(currentCategory === 'ngl') renderNGLList();
                 if(currentCategory === 'home') renderDashboardHome();
             } else if(!silent) showToast("NGL Sync failed.", "error");
@@ -1114,19 +1415,16 @@
             if (!isoString) return 'Unknown Date';
             if (!isoString.includes('Z') && !isoString.includes('+')) isoString += 'Z';
             const date = new Date(isoString);
-
             const gmtH = date.getUTCHours().toString().padStart(2,'0');
             const gmtM = date.getUTCMinutes().toString().padStart(2,'0');
             const gmtDate = date.toLocaleDateString('en-GB', {timeZone: 'UTC', day:'2-digit', month:'short'});
             const gmtStr = `${gmtDate} ${gmtH}:${gmtM} GMT+0`;
-
             const lh = date.getHours().toString().padStart(2,'0');
             const lm = date.getMinutes().toString().padStart(2,'0');
             const lDate = date.toLocaleDateString('en-GB', {day:'2-digit', month:'short'});
             const offset = -(date.getTimezoneOffset() / 60);
             const offsetStr = offset > 0 ? '+' + offset : (offset === 0 ? '' : offset);
             const localStr = `${lDate} ${lh}:${lm} GMT${offsetStr}`;
-
             return `
                 <div class="flex flex-col gap-1 mt-1">
                     <span class="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded inline-block w-max" title="Original Time">🌐 ${gmtStr}</span>
@@ -1137,43 +1435,27 @@
 
         function toggleNGLSelect(e, id) {
             e.stopPropagation();
-            if(NGL_DB.selected.has(id)) { NGL_DB.selected.delete(id); } 
-            else {
-                if(NGL_DB.selected.size >= NGL_CFG.MAX_EXPORT) return showToast(`Maximum ${NGL_CFG.MAX_EXPORT} exports allowed at once.`, "error");
-                NGL_DB.selected.add(id);
-            }
+            if(NGL_DB.selected.has(id)) NGL_DB.selected.delete(id);
+            else { if(NGL_DB.selected.size >= NGL_CFG.MAX_EXPORT) return showToast(`Maximum ${NGL_CFG.MAX_EXPORT} exports allowed at once.`, "error"); NGL_DB.selected.add(id); }
             renderNGLList();
         }
 
         function deleteNGLMessage(id) {
             if(sessionStorage.getItem('auth_session') !== 'active') return showToast('Read-Only Mode', 'error');
-            
             customConfirm({
-                title: "Delete Message",
-                message: "Are you sure you want to PERMANENTLY delete this message?",
-                type: "danger",
-                actionText: "Delete",
+                title: "Delete Message", message: "Are you sure you want to PERMANENTLY delete this message?", type: "danger", actionText: "Delete",
                 onConfirm: async () => {
                     const m = NGL_DB.data.find(x => x.id === id);
-                    if (m && m.discord_msg_id) {
-                        await removeDiscordMessage(m.discord_msg_id);
-                    }
+                    if (m && m.discord_msg_id) await removeDiscordMessage(m.discord_msg_id);
                     const ok = await NGL_API.delete(id);
-                    if(ok) {
-                        showToast("Message deleted", "success");
-                        NGL_DB.selected.delete(id);
-                        fetchNGLData(true);
-                    } else showToast("Failed to delete", "error");
+                    if(ok) { showToast("Message deleted", "success"); NGL_DB.selected.delete(id); fetchNGLData(true); } else showToast("Failed to delete", "error");
                 }
             });
         }
 
         function toggleInlineReply(id) {
             const box = document.getElementById(`reply-container-${id}`);
-            if(box.classList.contains('hidden')) {
-                box.classList.remove('hidden');
-                document.getElementById(`reply-input-${id}`).focus();
-            } else { box.classList.add('hidden'); }
+            if(box.classList.contains('hidden')) { box.classList.remove('hidden'); document.getElementById(`reply-input-${id}`).focus(); } else box.classList.add('hidden');
         }
 
         async function saveInlineReply(id) {
@@ -1181,27 +1463,13 @@
             const btn = document.getElementById(`btn-save-${id}`);
             btn.innerHTML = `<div class="spinner w-4 h-4 border-2 mr-1"></div>`;
             const val = document.getElementById(`reply-input-${id}`).value;
-            
             const m = NGL_DB.data.find(x => x.id === id);
-            
-            // Sync with Discord Webhook
             const newDiscordId = await syncDiscordMessage(m, val);
-            
             const patchData = { rep: val };
-            if (newDiscordId && newDiscordId !== m.discord_msg_id) {
-                patchData.discord_msg_id = newDiscordId;
-            }
-
+            if (newDiscordId && newDiscordId !== m.discord_msg_id) patchData.discord_msg_id = newDiscordId;
             const ok = await NGL_API.patch(id, patchData);
-            
-            if(ok) {
-                showToast("Reply Updated", "success");
-                await fetchNGLData(true);
-            } else {
-                showToast("Update Failed", "error");
-                btn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i> Save`;
-                lucide.createIcons();
-            }
+            if(ok) { showToast("Reply Updated", "success"); await fetchNGLData(true); }
+            else { showToast("Update Failed", "error"); btn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i> Save`; lucide.createIcons(); }
         }
 
         let activeReactionId = null;
@@ -1210,18 +1478,12 @@
             activeReactionId = id;
             const grid = document.getElementById('reaction-grid');
             grid.innerHTML = Object.entries(REACTIONS).map(([code, emoji]) => `
-                <button onclick="selectReaction(${code})" class="text-3xl sm:text-4xl hover:scale-125 transition-transform bg-slate-50 dark:bg-slate-900 p-2 sm:p-3 rounded-2xl border border-transparent hover:border-brand-500 hover:shadow-lg focus:outline-none font-sans">
-                    ${emoji}
-                </button>
+                <button onclick="selectReaction(${code})" class="text-3xl sm:text-4xl hover:scale-125 transition-transform bg-slate-50 dark:bg-slate-900 p-2 sm:p-3 rounded-2xl border border-transparent hover:border-brand-500 hover:shadow-lg focus:outline-none font-sans">${emoji}</button>
             `).join('');
-
             const overlay = document.getElementById('reaction-modal-overlay');
             const modal = document.getElementById('reaction-modal');
             overlay.classList.remove('hidden-safely');
-            requestAnimationFrame(() => {
-                overlay.classList.remove('opacity-0');
-                modal.classList.remove('scale-95');
-            });
+            requestAnimationFrame(() => { overlay.classList.remove('opacity-0'); modal.classList.remove('scale-95'); });
         }
         function closeReactionModal() {
             const overlay = document.getElementById('reaction-modal-overlay');
@@ -1232,15 +1494,13 @@
         async function selectReaction(code) {
             closeReactionModal();
             const ok = await NGL_API.patch(activeReactionId, { roq: code });
-            if(ok) { showToast("Reaction saved", "success"); fetchNGLData(true); } 
-            else showToast("Error saving reaction", "error");
+            if(ok) { showToast("Reaction saved", "success"); fetchNGLData(true); } else showToast("Error saving reaction", "error");
         }
 
         let rawJsonCache = "";
         function openNGLDataModal(id) {
             const m = NGL_DB.data.find(x => x.id === id);
             if(!m) return;
-
             rawJsonCache = JSON.stringify(m, null, 4);
             const grid = document.getElementById('ngl-data-grid');
             grid.innerHTML = Object.entries(m).map(([key, val]) => `
@@ -1249,40 +1509,22 @@
                     <span class="text-sm font-code text-slate-700 dark:text-slate-200 break-words">${val !== null && val !== "" ? wrapText(val) : '<span class="text-slate-400 italic">null</span>'}</span>
                 </div>
             `).join('');
-
-            document.getElementById('copy-ngl-data-btn').onclick = () => {
-                navigator.clipboard.writeText(rawJsonCache).then(() => showToast("Copied Data to Clipboard", "success"));
-            };
-
+            document.getElementById('copy-ngl-data-btn').onclick = () => navigator.clipboard.writeText(rawJsonCache).then(() => showToast("Copied Data to Clipboard", "success"));
             document.getElementById('copy-link-btn').onclick = () => {
                 const link = `${window.location.origin}/ngl/index.html?reply=${m.id}`;
                 navigator.clipboard.writeText(link).then(() => showToast("Copied Link to Clipboard", "success")).catch(() => {
-                    const tempInput = document.createElement("input");
-                    tempInput.value = link;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand("copy");
-                    document.body.removeChild(tempInput);
+                    const tempInput = document.createElement("input"); tempInput.value = link; document.body.appendChild(tempInput);
+                    tempInput.select(); document.execCommand("copy"); document.body.removeChild(tempInput);
                     showToast("Copied Link to Clipboard", "success");
                 });
             };
-
             const ipBtn = document.getElementById('view-ip-btn');
-            if (m.ip) {
-                ipBtn.classList.remove('hidden');
-                ipBtn.classList.add('flex');
-                ipBtn.onclick = () => window.open(`https://iplocation.io/ip/${m.ip}`, '_blank');
-            } else {
-                ipBtn.classList.add('hidden');
-                ipBtn.classList.remove('flex');
-            }
-
+            if (m.ip) { ipBtn.classList.remove('hidden'); ipBtn.classList.add('flex'); ipBtn.onclick = () => window.open(`https://iplocation.io/ip/${m.ip}`, '_blank'); }
+            else { ipBtn.classList.add('hidden'); ipBtn.classList.remove('flex'); }
             const overlay = document.getElementById('ngl-data-modal-overlay');
             const modal = document.getElementById('ngl-data-modal');
             overlay.classList.remove('hidden-safely');
-            requestAnimationFrame(() => {
-                overlay.classList.remove('opacity-0'); modal.classList.remove('scale-95');
-            });
+            requestAnimationFrame(() => { overlay.classList.remove('opacity-0'); modal.classList.remove('scale-95'); });
         }
         function closeNGLDataModal() {
             const overlay = document.getElementById('ngl-data-modal-overlay');
@@ -1301,55 +1543,35 @@
                 const isSel = NGL_DB.selected.has(m.id);
                 const isUnread = !m.rep || m.rep.trim() === '';
                 if(isUnread) unreadCount++;
-
                 const dtHtml = formatDualTime(m.created_at);
-                const statusIndicator = isUnread 
-                    ? `<div class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)] animate-pulse" title="Unread"></div>` 
+                const statusIndicator = isUnread
+                    ? `<div class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)] animate-pulse" title="Unread"></div>`
                     : `<div class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-blue-500/80 shadow-[0_0_5px_rgba(59,130,246,0.4)]" title="Replied"></div>`;
-
                 const adminActions = isAdmin ? `
                     <div class="flex sm:flex-col items-center gap-2 flex-shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200/50 dark:border-white/10 pt-3 sm:pt-0 sm:pl-4 justify-center sm:justify-start">
-                        <button onclick="deleteNGLMessage('${m.id}')" class="p-2.5 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500 dark:hover:text-white transition-all shadow-sm group" title="Delete">
-                            <i data-lucide="trash-2" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
-                        </button>
-                        <button onclick="toggleInlineReply('${m.id}')" class="p-2.5 rounded-xl bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500 dark:hover:text-white transition-all shadow-sm group" title="Reply/Edit">
-                            <i data-lucide="edit-3" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
-                        </button>
-                        <button onclick="openNGLDataModal('${m.id}')" class="p-2.5 rounded-xl bg-indigo-50 text-indigo-500 hover:bg-indigo-500 hover:text-white dark:bg-indigo-500/10 dark:text-indigo-400 dark:hover:bg-indigo-500 dark:hover:text-white transition-all shadow-sm group" title="Raw Data Info">
-                            <i data-lucide="info" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
-                        </button>
-                        <button onclick="NGLExport.singleNGLStory('${m.id}')" class="p-2.5 rounded-xl bg-pink-50 text-pink-500 hover:bg-pink-500 hover:text-white dark:bg-pink-500/10 dark:text-pink-400 dark:hover:bg-pink-500 dark:hover:text-white transition-all shadow-sm group" title="Export Single Story">
-                            <i data-lucide="camera" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i>
-                        </button>
+                        <button onclick="deleteNGLMessage('${m.id}')" class="p-2.5 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500 dark:hover:text-white transition-all shadow-sm group" title="Delete"><i data-lucide="trash-2" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i></button>
+                        <button onclick="toggleInlineReply('${m.id}')" class="p-2.5 rounded-xl bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500 dark:hover:text-white transition-all shadow-sm group" title="Reply/Edit"><i data-lucide="edit-3" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i></button>
+                        <button onclick="openNGLDataModal('${m.id}')" class="p-2.5 rounded-xl bg-indigo-50 text-indigo-500 hover:bg-indigo-500 hover:text-white dark:bg-indigo-500/10 dark:text-indigo-400 dark:hover:bg-indigo-500 dark:hover:text-white transition-all shadow-sm group" title="Raw Data Info"><i data-lucide="info" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i></button>
+                        <button onclick="NGLExport.singleNGLStory('${m.id}')" class="p-2.5 rounded-xl bg-pink-50 text-pink-500 hover:bg-pink-500 hover:text-white dark:bg-pink-500/10 dark:text-pink-400 dark:hover:bg-pink-500 dark:hover:text-white transition-all shadow-sm group" title="Export Single Story"><i data-lucide="camera" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"></i></button>
                     </div>
                 ` : '';
-
                 const div = document.createElement('div');
                 div.className = `glass-card p-4 rounded-xl transition-all duration-300 border ${isSel ? 'border-pink-500 ring-1 ring-pink-500/30 bg-pink-50/30 dark:bg-pink-900/10' : 'border-slate-200/60 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/10'} group relative`;
-
                 div.innerHTML = `
                     <div class="flex flex-col sm:flex-row gap-4 w-full">
                         <div class="flex flex-col sm:w-[180px] flex-shrink-0 border-b sm:border-b-0 sm:border-r border-slate-200/50 dark:border-white/10 pb-3 sm:pb-0 sm:pr-4">
                             <div class="flex items-center gap-3 mb-2">
-                                ${isAdmin ? `<div class="flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors cursor-pointer ${isSel ? 'bg-pink-500 border-pink-500' : 'border-slate-300 dark:border-slate-600 hover:border-pink-400'}" onclick="toggleNGLSelect(event, '${m.id}')">
-                                    <i data-lucide="check" class="w-3.5 h-3.5 text-white ${isSel ? 'block' : 'hidden'}"></i>
-                                </div>` : ''}
+                                ${isAdmin ? `<div class="flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors cursor-pointer ${isSel ? 'bg-pink-500 border-pink-500' : 'border-slate-300 dark:border-slate-600 hover:border-pink-400'}" onclick="toggleNGLSelect(event, '${m.id}')"><i data-lucide="check" class="w-3.5 h-3.5 text-white ${isSel ? 'block' : 'hidden'}"></i></div>` : ''}
                                 ${statusIndicator}
                                 <span class="text-xs font-bold text-slate-500 uppercase font-code">#${m.id.split('-')[0]}</span>
                             </div>
                             ${dtHtml}
                         </div>
-
                         <div class="flex-1 min-w-0 flex flex-col justify-center">
                             <div class="flex items-start gap-3">
-                                <button onclick="openReactionSelector('${m.id}')" class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-xl hover:scale-110 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm font-sans" title="Add Reaction">
-                                    ${m.roq ? REACTIONS[m.roq] : '🤍'}
-                                </button>
-                                <p class="text-slate-800 dark:text-slate-200 font-medium text-base sm:text-lg leading-relaxed break-words w-full">
-                                    ${wrapText(m.message)}
-                                </p>
+                                <button onclick="openReactionSelector('${m.id}')" class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-xl hover:scale-110 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm font-sans" title="Add Reaction">${m.roq ? REACTIONS[m.roq] : '🤍'}</button>
+                                <p class="text-slate-800 dark:text-slate-200 font-medium text-base sm:text-lg leading-relaxed break-words w-full">${wrapText(m.message)}</p>
                             </div>
-                            
                             <div id="reply-container-${m.id}" class="hidden w-full mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10 transition-all">
                                 <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 block flex items-center gap-1"><i data-lucide="edit-2" class="w-3 h-3"></i> Inline Reply Editor</label>
                                 <textarea id="reply-input-${m.id}" class="w-full bg-white dark:bg-black/20 rounded-xl p-3 text-sm sm:text-base border border-slate-200 dark:border-slate-700 focus:border-brand-500 outline-none resize-y min-h-[80px]" placeholder="Type your reply here...">${escapeHtml(m.rep || '')}</textarea>
@@ -1359,7 +1581,6 @@
                                 </div>
                             </div>
                         </div>
-
                         ${adminActions}
                     </div>
                 `;
@@ -1382,24 +1603,14 @@
                         <div class="editorial-a">${wrapText(m.rep) || ''}</div>
                     </div>
                 `).join('');
-
                 return `
                     <div class="editorial-export" id="export-target">
-                        <div class="editorial-header">
-                            E D I T O R I A L &nbsp;&nbsp;Q & A
-                            <div class="editorial-header-line"></div>
-                        </div>
-                        <div class="editorial-cards-container">
-                            ${cardsHtml}
-                        </div>
+                        <div class="editorial-header">E D I T O R I A L &nbsp;&nbsp;Q & A<div class="editorial-header-line"></div></div>
+                        <div class="editorial-cards-container">${cardsHtml}</div>
                     </div>
                 `;
             },
-            singleNGLStory: async (id) => {
-                const m = NGL_DB.data.find(x => x.id === id);
-                if(!m) return;
-                await NGLExport.processExport([m], `NGL_Export_${m.id.substring(0,6)}.jpg`);
-            },
+            singleNGLStory: async (id) => { const m = NGL_DB.data.find(x => x.id === id); if(!m) return; await NGLExport.processExport([m], `NGL_Export_${m.id.substring(0,6)}.jpg`); },
             bulk: async () => {
                 const items = NGL_DB.data.filter(m => NGL_DB.selected.has(m.id));
                 if(items.length === 0) return showToast("Select messages to export.", "error");
@@ -1429,15 +1640,14 @@
         function getCategoryDataArray() {
             switch(currentCategory) {
                 case 'notices': return SYSTEM_DATA.notices;
-                case 'projects': return SYSTEM_DATA.projects; 
-                case 'debate_exp': return SYSTEM_DATA.debate.experience; 
+                case 'projects': return SYSTEM_DATA.projects;
+                case 'debate_exp': return SYSTEM_DATA.debate.experience;
                 case 'debate_ach': return SYSTEM_DATA.debate.achievements;
-                case 'pol_pos': return SYSTEM_DATA.politics; 
+                case 'pol_pos': return SYSTEM_DATA.politics;
                 case 'academic': return SYSTEM_DATA.academic;
                 default: return [];
             }
         }
-
         function getTableName(cat) {
             if(cat === 'notices') return 'notice';
             if(cat === 'projects') return 'projects';
@@ -1446,7 +1656,6 @@
             if(cat === 'academic') return 'academic_records';
             return '';
         }
-
         function preparePayload(cat, data) {
             let p = {};
             if(cat === 'notices') p = { img: data.img || null, st: data.st ? data.st : null, ct: data.ct ? data.ct : null, ip: !!data.ip, iey: !!data.iey };
@@ -1454,24 +1663,18 @@
             if(cat === 'debate_exp') p = { category: 'experience', title: data.post, org: data.cl, st: data.st, en: data.en };
             if(cat === 'debate_ach') p = { category: 'achievement', title: data.ach, org: data.tn, st: data.date };
             if(cat === 'pol_pos') p = { post: data.post, org: data.org, st: data.st, en: data.en };
-            
             if(cat === 'academic') p = {
-                level: data.level,
-                institution_name: data.institution_name,
-                department: data.department,
-                board: data.board || 'Jessore Board',
-                exam_year: data.exam_year ? parseInt(data.exam_year) : null,
-                result_type: data.result_type,
-                result_value: data.result_value ? parseFloat(data.result_value) : null,
-                performance: data.performance,
-                is_current: data.is_current
+                level: data.level, institution_name: data.institution_name, department: data.department,
+                board: data.board || 'Jessore Board', exam_year: data.exam_year ? parseInt(data.exam_year) : null,
+                result_type: data.result_type, result_value: data.result_value ? parseFloat(data.result_value) : null,
+                performance: data.performance, is_current: data.is_current
             };
             return p;
         }
 
         function renderDataList() {
             const dataArr = getCategoryDataArray(); const container = document.getElementById('data-list'); const emptyState = document.getElementById('empty-state');
-            const safeDataArr = Array.isArray(dataArr) ? dataArr : []; 
+            const safeDataArr = Array.isArray(dataArr) ? dataArr : [];
             document.getElementById('item-count').innerHTML = wrapText(`Total ${safeDataArr.length} Records`, true);
             if (safeDataArr.length === 0) { container.innerHTML = ''; emptyState.classList.remove('hidden-safely'); return; }
             emptyState.classList.add('hidden-safely');
@@ -1480,17 +1683,11 @@
             container.innerHTML = safeDataArr.map((item, index) => {
                 let title = item.title || item.work || item.post || item.ach || item.institution_name || 'Untitled Record';
                 if(title.length > 50) title = title.substring(0, 50) + '...';
-                
                 let st = item.st || item.date || item.exam_year || '';
-                let en = item.en || item.ct || ''; 
-                
-                if(currentCategory === 'academic' && item.is_current) {
-                    en = 'Present';
-                }
-
+                let en = item.en || item.ct || '';
+                if(currentCategory === 'academic' && item.is_current) en = 'Present';
                 let dateHtml = '';
                 const presentBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-bold border border-brand-500/20"><span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span> ${wrapText('Present', false)}</span>`;
-                
                 if(currentCategory === 'notices') {
                     let tags = [];
                     if(item.ip) tags.push('Permanent');
@@ -1498,24 +1695,19 @@
                     let tagStr = tags.length ? `<span class="text-[10px] bg-brand-500/20 text-brand-600 dark:text-brand-400 font-bold px-2 py-0.5 rounded ml-2 uppercase tracking-wider">${wrapText(tags.join(', '), false)}</span>` : '';
                     dateHtml = (st ? wrapText(st.replace('T', ' ')) : 'N/A') + ' <i data-lucide="arrow-right" class="w-3 h-3 inline mx-1"></i> ' + (en ? wrapText(en.replace('T', ' ')) : 'N/A') + tagStr;
                 }
-                else if(st && en) {
-                    dateHtml = `${wrapText(st)} &nbsp;<i data-lucide="arrow-right" class="w-3 h-3 inline"></i>&nbsp; ${en === 'Present' || en === 'বর্তমান' ? presentBadge : wrapText(en)}`;
-                }
-                else if (st) dateHtml = wrapText(st); 
-                else if (en) dateHtml = en === 'Present' || en === 'বর্তমান' ? presentBadge : wrapText(en); 
+                else if(st && en) dateHtml = `${wrapText(st)} &nbsp;<i data-lucide="arrow-right" class="w-3 h-3 inline"></i>&nbsp; ${en === 'Present' || en === 'বর্তমান' ? presentBadge : wrapText(en)}`;
+                else if (st) dateHtml = wrapText(st);
+                else if (en) dateHtml = en === 'Present' || en === 'বর্তমান' ? presentBadge : wrapText(en);
                 else dateHtml = 'Date not specified';
-                
                 if (currentCategory === 'academic') {
                     const extra = [item.level, item.department].filter(Boolean).join(' • ');
                     if (extra) dateHtml = `<span class="text-brand-500 font-bold">${wrapText(extra)}</span> <br/> ` + dateHtml;
                 }
-
                 const actionsHtml = isAdmin ? `
                     <div class="mt-6 pt-5 border-t border-slate-200/50 dark:border-white/5 flex gap-3 relative z-10">
                         <button onclick="editItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-brand-500/20 dark:hover:text-brand-400 text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all"><i data-lucide="edit-3" class="w-4 h-4"></i> Edit</button>
                         <button onclick="deleteItem(${index})" class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/20 dark:hover:text-red-400 text-slate-700 dark:text-slate-300 font-bold text-sm flex items-center justify-center gap-2 transition-all"><i data-lucide="trash-2" class="w-4 h-4"></i> Delete</button>
                     </div>` : '';
-
                 return `
                     <div class="glass-card p-6 rounded-3xl flex flex-col justify-between group list-item-enter relative overflow-hidden" style="animation-delay: ${index * 0.05}s">
                         <div>
@@ -1531,7 +1723,7 @@
             lucide.createIcons();
         }
 
-        function togglePresent(key) { const cb = document.getElementById(`checkbox_${key}_present`); const input = document.getElementById(`input_${key}`); if(cb && input) { if(cb.checked) { input.value = ""; input.disabled = true; } else { input.disabled = false; } } }
+        function togglePresent(key) { const cb = document.getElementById(`checkbox_${key}_present`); const input = document.getElementById(`input_${key}`); if(cb && input) { if(cb.checked) { input.value = ""; input.disabled = true; } else input.disabled = false; } }
 
         function openFormModal(index = -1) {
             editingIndex = index; const schema = SCHEMAS[currentCategory]; const dataArr = getCategoryDataArray();
@@ -1541,50 +1733,31 @@
             document.getElementById('dynamic-form').innerHTML = schema.map(field => {
                 let val = existingData[field.key];
                 if (val === undefined || val === null) val = '';
-                
                 let escapedVal = escapeHtml(val); let inputHtml = '';
                 if (field.type === 'textarea') inputHtml = `<textarea id="input_${field.key}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all min-h-[120px] text-slate-800 dark:text-slate-100 font-medium" placeholder="Enter details...">${escapedVal}</textarea>`;
                 else if (field.type === 'date' || field.type === 'datetime-local') inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold">`;
                 else if (field.type === 'date-present') { const isPresent = val === 'Present' || val === 'বর্তমান'; inputHtml = `<div class="flex flex-col sm:flex-row gap-3 items-center w-full"><input type="date" id="input_${field.key}" value="${!isPresent ? escapedVal : ''}" class="w-full sm:flex-1 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-code font-bold disabled:opacity-50 disabled:cursor-not-allowed" ${isPresent ? 'disabled' : ''}><label class="w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-6 py-4 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors select-none"><input type="checkbox" id="checkbox_${field.key}_present" class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600" ${isPresent ? 'checked' : ''} onchange="togglePresent('${field.key}')"><span class="font-bold text-slate-700 dark:text-slate-200">${wrapText('Present')}</span></label></div>`; }
-                else if (field.type === 'checkbox') { inputHtml = `<div class="flex items-center gap-3 mt-2"><input type="checkbox" id="input_${field.key}" ${escapedVal === 'true' || escapedVal === '1' || val === true ? 'checked' : ''} class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 cursor-pointer"><label class="font-bold text-slate-700 dark:text-slate-300 cursor-pointer" for="input_${field.key}">${wrapText('Yes')}</label></div>`; }
+                else if (field.type === 'checkbox') inputHtml = `<div class="flex items-center gap-3 mt-2"><input type="checkbox" id="input_${field.key}" ${escapedVal === 'true' || escapedVal === '1' || val === true ? 'checked' : ''} class="w-5 h-5 rounded text-brand-500 focus:ring-brand-500 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 cursor-pointer"><label class="font-bold text-slate-700 dark:text-slate-300 cursor-pointer" for="input_${field.key}">${wrapText('Yes')}</label></div>`;
                 else inputHtml = `<input type="${field.type}" id="input_${field.key}" value="${escapedVal}" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400" placeholder="Type here...">`;
                 return `<div class="mb-2"><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2 heading-text"><i data-lucide="${field.icon}" class="w-4 h-4 text-brand-500"></i> ${wrapText(field.label, true)}</label>${inputHtml}</div>`;
             }).join('');
 
             lucide.createIcons(); const overlay = document.getElementById('form-modal-overlay'); const modal = document.getElementById('form-modal'); overlay.classList.remove('hidden-safely'); requestAnimationFrame(() => { overlay.classList.remove('opacity-0'); modal.classList.remove('scale-95'); });
         }
+        function closeFormModal() { const overlay = document.getElementById('form-modal-overlay'); const modal = document.getElementById('form-modal'); overlay.classList.add('opacity-0'); modal.classList.add('scale-95'); setTimeout(() => overlay.classList.add('hidden-safely'), 300); }
 
-        function closeFormModal() { const overlay = document.getElementById('form-modal-overlay'); const modal = document.getElementById('form-modal'); overlay.classList.add('opacity-0'); modal.classList.add('scale-95'); setTimeout(() => { overlay.classList.add('hidden-safely'); }, 300); }
-        
         async function saveFormData() {
             const schema = SCHEMAS[currentCategory]; const dataArr = getCategoryDataArray(); const newData = editingIndex >= 0 ? { ...dataArr[editingIndex] } : {};
-            
-            schema.forEach(field => { 
-                let val = ''; 
-                if(field.type === 'date-present') { 
-                    const cb = document.getElementById(`checkbox_${field.key}_present`); 
-                    if(cb && cb.checked) val = "Present"; else val = document.getElementById(`input_${field.key}`).value.trim(); 
-                } 
-                else if (field.type === 'checkbox') {
-                    val = document.getElementById(`input_${field.key}`).checked;
-                }
-                else {
-                    val = document.getElementById(`input_${field.key}`).value.trim(); 
-                }
-                
-                newData[field.key] = val; 
+            schema.forEach(field => {
+                let val = '';
+                if(field.type === 'date-present') { const cb = document.getElementById(`checkbox_${field.key}_present`); if(cb && cb.checked) val = "Present"; else val = document.getElementById(`input_${field.key}`).value.trim(); }
+                else if (field.type === 'checkbox') val = document.getElementById(`input_${field.key}`).checked;
+                else val = document.getElementById(`input_${field.key}`).value.trim();
+                newData[field.key] = val;
             });
-            
             const payload = preparePayload(currentCategory, newData);
             const table = getTableName(currentCategory);
-
-            if (currentCategory === 'projects') {
-                if (!payload.work || payload.work.trim() === '') {
-                    showToast('Project Name (work) is required!', 'error');
-                    return;
-                }
-            }
-
+            if (currentCategory === 'projects') { if (!payload.work || payload.work.trim() === '') { showToast('Project Name (work) is required!', 'error'); return; } }
             try {
                 if (editingIndex >= 0) {
                     const id = dataArr[editingIndex].id;
@@ -1594,97 +1767,48 @@
                 } else {
                     if (currentCategory === 'academic') {
                         const { data: authData } = await sbClient.auth.getSession();
-                        if (authData?.session?.user?.id) {
-                            payload.user_id = authData.session.user.id;
-                        }
+                        if (authData?.session?.user?.id) payload.user_id = authData.session.user.id;
                     }
-
                     const { error } = await sbClient.from(table).insert([payload]);
                     if (error) throw error;
                     showToast('New record added successfully!', 'success');
                 }
                 closeFormModal();
                 await fetchAllData();
-            } catch(e) {
-                showToast('Error saving to database', 'error');
-                console.error(e);
-            }
+            } catch(e) { showToast('Error saving to database', 'error'); console.error(e); }
         }
 
         function editItem(index) { openFormModal(index); }
-        
-        function deleteItem(index) { 
+        function deleteItem(index) {
             customConfirm({
-                title: "Delete Record",
-                message: "Warning: Are you sure you want to permanently delete this record?",
-                type: "danger",
-                actionText: "Delete",
+                title: "Delete Record", message: "Warning: Are you sure you want to permanently delete this record?", type: "danger", actionText: "Delete",
                 onConfirm: async () => {
                     const id = getCategoryDataArray()[index].id;
                     const table = getTableName(currentCategory);
-                    try {
-                        const { error } = await sbClient.from(table).delete().eq('id', id);
-                        if (error) throw error;
-                        showToast('Record deleted permanently.', 'success');
-                        await fetchAllData();
-                    } catch(e) {
-                        showToast('Error deleting data', 'error');
-                        console.error(e);
-                    }
+                    try { const { error } = await sbClient.from(table).delete().eq('id', id); if (error) throw error; showToast('Record deleted permanently.', 'success'); await fetchAllData(); }
+                    catch(e) { showToast('Error deleting data', 'error'); console.error(e); }
                 }
             });
         }
 
-        async function updateVitals(clearCSFlag = false) { 
+        async function updateVitals(clearCSFlag = false) {
             if(sessionStorage.getItem('auth_session') !== 'active') return showToast('Read-Only mode', 'error');
-            
             const hl = document.getElementById('vital_hl').value;
             const ld = document.getElementById('vital_ld').value;
             const td = document.getElementById('vital_td').value;
             let cs = document.getElementById('vital_cs').value;
-
-            if (clearCSFlag) {
-                cs = null;
-                document.getElementById('vital_cs').value = '';
-            }
-
+            if (clearCSFlag) { cs = null; document.getElementById('vital_cs').value = ''; }
             try {
-                const { error } = await sbClient
-                    .from('user_vitals')
-                    .update({ 
-                        hl: hl ? parseFloat(hl) : null, 
-                        ld: ld || null, 
-                        cs: cs || null, 
-                        td: td ? parseInt(td) : 8,
-                        updated_at: new Date() 
-                    })
-                    .eq('id', 1);
-
+                const { error } = await sbClient.from('user_vitals').update({ hl: hl ? parseFloat(hl) : null, ld: ld || null, cs: cs || null, td: td ? parseInt(td) : 8, updated_at: new Date() }).eq('id', 1);
                 if (error) throw error;
-
-                SYSTEM_DATA.hl = hl;
-                SYSTEM_DATA.ld = ld;
-                SYSTEM_DATA.cs = cs;
-                SYSTEM_DATA.td = td;
+                SYSTEM_DATA.hl = hl; SYSTEM_DATA.ld = ld; SYSTEM_DATA.cs = cs; SYSTEM_DATA.td = td;
                 showToast('Health & Vitals updated successfully!', 'success');
-            } catch(e) {
-                console.error('Update Error:', e);
-                showToast('Error: ' + (e.message || 'Could not update data'), 'error');
-            }
+            } catch(e) { console.error('Update Error:', e); showToast('Error: ' + (e.message || 'Could not update data'), 'error'); }
         }
 
         function clearCS() {
-            customConfirm({
-                title: "Clear Current Study",
-                message: "Are you sure you want to clear your current study/work record?",
-                type: "warning",
-                actionText: "Clear",
-                onConfirm: () => {
-                    updateVitals(true);
-                }
-            });
+            customConfirm({ title: "Clear Current Study", message: "Are you sure you want to clear your current study/work record?", type: "warning", actionText: "Clear", onConfirm: () => updateVitals(true) });
         }
-
     </script>
 </body>
 </html>
